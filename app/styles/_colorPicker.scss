@@ -1,0 +1,20 @@
+.color-picker {
+  border: 1px solid #efefef;
+  display: none;
+  height: 350px;
+  left: 50%;
+  margin-left: -140px;
+  overflow: scroll;
+  position: absolute;
+  top: 25%;
+  width: 280px;
+  z-index: 60;
+  &.active {
+    display: block;
+  }
+  > div {
+    float: left;
+    padding-bottom: 25%;
+    width: 25%;
+  }
+}

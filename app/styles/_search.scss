@@ -1,0 +1,81 @@
+.youtube,
+.soundcloud {
+  .spinner {
+    height: 20px;
+    margin: 9px 10px;
+    opacity: 0;
+    position: absolute;
+    right: 20px;
+    transition: opacity .5 ease;
+    width: 20px;
+    &.active {
+      opacity: 1;
+    }
+  }
+}
+
+.kakapo-item,
+.youtube-item,
+.soundcloud-item {
+  align-items: center;
+  display: flex;
+  margin-bottom: 10px;
+  .thumbnail {
+    height: 80px;
+    margin-right: 1em;
+    max-width: 110px;
+    position: relative;
+    img {
+      height: 80px;
+      max-width: 100%;
+    }
+    .user-avatar img {
+      border-radius: 50%;
+      bottom: -2px;
+      height: 36px;
+      left: -6px;
+      max-width: 100%;
+      position: absolute;
+    }
+    .duration {
+      background: #000;
+      bottom: 0;
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: .15px;
+      padding: 3px 4px;
+      position: absolute;
+      right: 0;
+    }
+  }
+  .title {
+    flex: 1;
+  }
+  .view-count {
+    display: block;
+    font-size: 11px;
+  }
+}
+
+.kakapo-item {
+  cursor: pointer;
+  height: 40px;
+  margin-bottom: 35px;
+  @media (min-width: 550px) {
+    float: left;
+    width: 50%;
+  }
+  &.disabled,
+  &.disabled img {
+    color: #bbb;
+    cursor: default;
+    opacity: .5;
+  }
+  .thumbnail {
+    height: 40px;
+    img {
+      height: 40px;
+      max-width: 100%;
+    }
+  }
+}

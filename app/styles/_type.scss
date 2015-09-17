@@ -1,0 +1,60 @@
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700|Open+Sans:400,800,700);
+body {
+  font-family: 'PT Sans', sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Open Sans', sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+  &:hover,
+  &:active {
+    color: inherit;
+  }
+}
+hr {
+  clear: both;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+.input-add-on {
+  display: flex;
+  .input-add-on-field {
+    flex: 1;
+  }
+}
+
+
+$icons: add, download, file, pencil, quit, settings, sound, share, tick, trash;
+$icons-color: github, kakapo, soundcloud, youtube;
+
+i {
+  background-image: url("/icons/download.png");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+}
+
+@for $i from 1 through length($icons) {
+  .icon-#{nth($icons, $i)} {
+    background-image: url("/icons/light/#{nth($icons, $i)}.png");
+    &.dark {
+      background-image: url("/icons/dark/#{nth($icons, $i)}.png");
+    }
+  }
+}
+
+@for $i from 1 through length($icons-color) {
+  .icon-#{nth($icons-color, $i)} {
+    background-image: url("/icons/social/#{nth($icons-color, $i)}.png");
+  }
+}

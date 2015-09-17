@@ -1,0 +1,22 @@
+.toast-view {
+  background-color: #444;
+  border-radius: 3px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
+  color: #fff;
+  left: 16px;
+  line-height: 20px;
+  margin-right: 17px;
+  margin-top: 8px;
+  opacity: 0;
+  padding: 16px;
+  position: fixed;
+  top: 16px;
+  transform: translateY(20px);
+  transition: opacity 200ms, transform 300ms cubic-bezier(.165, .840, .440, 1);
+  will-change: transform;
+}
+.toast-view--visible {
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 100;
+}

@@ -1,0 +1,64 @@
+
+.media {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  .media-opts {
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+  }
+  .icon {
+    display: inline-block;
+    height: 42px;
+    margin-right: 8px;
+    position: relative;
+    top: -2px;
+    vertical-align: middle;
+    width: 42px;
+    svg {
+      fill: currentColor;
+    }
+    &.icon-youtube {
+      svg {
+        fill: #ff3019;
+      }
+    }
+  }
+  .option {
+    float: left;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 100%;
+    @media (min-width: 550px) {
+      width: 50%;
+    }
+    i {
+      margin-right: 5px;
+    }
+    &.options-soundcloud {
+      margin-bottom: 0;
+    }
+    @media (min-width: 550px) {
+      &.options-youtube {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .icon-tick {
+    height: 28px;
+    width: 28px;
+  }
+}
+
+.dropzone {
+  border: 2px dotted #ccc;
+  border-radius: 7px;
+  margin-bottom: 15px;
+  padding: 15px 10px;
+  text-align: center;
+  width: auto;
+  &.active {
+    border: 2px solid #333;
+  }
+}

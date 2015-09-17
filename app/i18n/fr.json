@@ -1,0 +1,83 @@
+{
+  "id": "fr",
+  "locales": ["fr"],
+  "messages": {
+    "nav": {
+      "app": "Desktop app coming soon",
+      "home": "Accueil",
+      "downloads": "Téléchargements",
+      "settings": "Paramètres"
+    },
+    "settings": {
+      "header": "Paramètres",
+      "theme": "Couleurs du thème",
+      "lang": "Langue"
+    },
+    "download": {
+      "header": "Desktop app coming soon",
+      "subheader": "Will be available for Mac, Windows & Linux"
+    },
+    "youtube": {
+      "views": "vues"
+    },
+    "soundcloud": {
+      "plays": "plays"
+    },
+    "list": {
+      "editing_name": "Name",
+      "editing_name_placeholder": "Choose a name for this sound",
+      "editing_tag": "Tag",
+      "editing_tag_placeholder": "Useful for searching",
+      "cancel": "Cancel",
+      "save": "Save"
+    },
+    "import": {
+      "error": {
+        "url": "Please enter a valid url",
+        "empty": "Please fill out all fields"
+      },
+      "options": {
+        "header": "Add a sound",
+        "kakapo": "Kakapo favourites",
+        "youtube": "YouTube",
+        "soundcloud": "SoundCloud",
+        "custom": "Custom link"
+      },
+      "kakapo": {
+        "header": "Add a sound from Kakapo.com",
+        "subheader": "Below are a collection of sounds curated by us."
+      },
+      "youtube": {
+        "header": "Add a video from YouTube",
+        "search_placeholder": "Search YouTube (or enter a YouTube Link)"
+      },
+      "soundcloud": {
+        "header": "Add a sound from SoundCloud",
+        "search_placeholder": "Search Soundcloud"
+      },
+      "custom": {
+        "header": "Add a custom stream",
+        "name_placeholder": "Choose a name for this sound",
+        "url_placeholder": "Enter a link to an audio file"
+      },
+      "save": "Save"
+    },
+    "modal": {
+      "close": "Close"
+    },
+    "sounds": {
+      "rain": "Rain",
+      "paris_cafe": "Paris Cafe",
+      "cat_purring": "Cat Purring",
+      "chimes": "Chimes",
+      "fan": "Fan",
+      "leaves": "Leaves",
+      "paris_street_corner": "Paris Street Corner",
+      "stream": "Stream",
+      "thunder": "Thunder",
+      "train": "Train",
+      "waves": "Waves",
+      "wind": "Wind"
+    }
+  }
+}

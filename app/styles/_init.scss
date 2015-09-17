@@ -1,0 +1,26 @@
+$site-width: 100%;
+
+body {
+  margin: 0 auto;
+  max-width: $site-width;
+  padding-top: 105px;
+  @media (min-width: 550px) {
+    padding-top: 136px;
+  }
+}
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.hint--top,
+.hint--bottom {
+  &,
+  &:hover,
+  &:focus {
+    &:after,
+    &:before {
+      margin-left: 0;
+      transform: translate(-50%, 8px);
+    }
+  }
+}

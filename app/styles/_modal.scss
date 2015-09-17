@@ -1,0 +1,39 @@
+
+.modal-bg {
+  background: #000;
+  cursor: default;
+  height: 100%;
+  left: 0;
+  opacity: .15;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 40;
+}
+.modal {
+  background-color: #fff;
+  box-shadow: rgba(0, 0, 0, .117647) 0 1px 6px, rgba(0, 0, 0, .239216) 0 1px 4px;
+  left: 50%;
+  margin-left: calc(-35% - 20px);
+  padding: 15px 20px 20px;
+  position: fixed;
+  top: 5%;
+  width: 70%;
+  z-index: 50;
+  .close {
+    float: right;
+  }
+  form,
+  button,
+  &.youtube input,
+  &.soundcloud input {
+    margin-bottom: 0;
+  }
+  .kakapofavs-items,
+  .soundcloud-items,
+  .youtube-items {
+    margin: 20px 0 0;
+    max-height: 400px;
+    overflow: scroll;
+  }
+}
