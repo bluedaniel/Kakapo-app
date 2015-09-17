@@ -9,8 +9,6 @@ gulp.task("build:production", function(cb) {
     "icons",
     "favicons",
     "sass:production",
-    "webpack:production",
-    ["s3-app", "s3-data"],
-    "s3-app-gzip",
+    "webpack:production"
     cb);
 });

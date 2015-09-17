@@ -1,11 +1,11 @@
 {
-  "name": "kakapo web",
+  "name": "kakapo app",
   "version": "1.0",
-  "homepage": "https://github.com/bluedaniel/Kakapo-web",
+  "homepage": "https://github.com/bluedaniel/Kakapo-app",
   "authors": [
     "Daniel Levitt <daniellevitt86@gmail.com>"
   ],
-  "description": "A background noise website",
+  "description": "A background noise app",
   "main": "main.js",
   "moduleType": [
     "amd"
