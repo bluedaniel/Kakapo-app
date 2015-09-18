@@ -15,10 +15,12 @@
     "concurrent-transform": "^1.0.0",
     "css-loader": "^0.18.0",
     "del": "^2.0.2",
+    "electron-prebuilt": "^0.33.0",
     "eslint": "^1.4.1",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.2.3",
     "file-loader": "^0.8.4",
+    "fs": "0.0.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.1",
     "gulp-imagemin": "^2.3.0",
@@ -67,7 +69,7 @@
   "scripts": {
     "profile": "webpack --config gulpfile.js/config/webpack-production.config.js --progress --colors --profile --json > stats.json",
     "build": "HOT=1 NODE_ENV=development gulp build:development",
-    "package": "gulp build:production"
+    "package": "gulp build:production && node pkg --name Kakapo --asar true"
   },
   "repository": {
     "type": "git",

@@ -20,7 +20,7 @@ export default new Radium(React.createClass({
             </Link>
             <Link className="logo" to="/">
               <h3 style={this.state.theme.header.h3}>
-                <img src="/icons/social/kakapo.png"/>
+                <img src="/Users/daniellevitt86/Sites/Kakapo/kakapo-app/app/icons/social/kakapo.png"/>
                 Kakapo
               </h3>
             </Link>

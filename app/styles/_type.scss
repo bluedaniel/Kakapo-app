@@ -34,7 +34,7 @@ $icons: add, download, file, pencil, quit, settings, sound, share, tick, trash;
 $icons-color: github, kakapo, soundcloud, youtube;
 
 i {
-  background-image: url("/icons/download.png");
+  background-image: url("/Users/daniellevitt86/Sites/Kakapo/kakapo-app/app/icons/download.png");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -46,15 +46,15 @@ i {
 
 @for $i from 1 through length($icons) {
   .icon-#{nth($icons, $i)} {
-    background-image: url("/icons/light/#{nth($icons, $i)}.png");
+    background-image: url("/Users/daniellevitt86/Sites/Kakapo/kakapo-app/app/icons/light/#{nth($icons, $i)}.png");
     &.dark {
-      background-image: url("/icons/dark/#{nth($icons, $i)}.png");
+      background-image: url("/Users/daniellevitt86/Sites/Kakapo/kakapo-app/app/icons/dark/#{nth($icons, $i)}.png");
     }
   }
 }
 
 @for $i from 1 through length($icons-color) {
   .icon-#{nth($icons-color, $i)} {
-    background-image: url("/icons/social/#{nth($icons-color, $i)}.png");
+    background-image: url("/Users/daniellevitt86/Sites/Kakapo/kakapo-app/app/icons/social/#{nth($icons-color, $i)}.png");
   }
 }

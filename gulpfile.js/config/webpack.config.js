@@ -21,6 +21,7 @@ module.exports = function(opts) {
   };
 
   var plugins = [
+    new webpack.IgnorePlugin(/vertx/),
     new webpack.PrefetchPlugin("react"),
     new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
   ];
@@ -68,7 +69,7 @@ module.exports = function(opts) {
       contentBase: path.resolve(__dirname, "../../dist")
     },
 
-    target: "web",
+    target: "atom",
 
     module: {
       loaders: [asyncLoader].concat(loadersByExtension(loaders))

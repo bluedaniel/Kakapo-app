@@ -9,6 +9,6 @@ gulp.task("build:production", function(cb) {
     "icons",
     "favicons",
     "sass:production",
-    "webpack:production"
+    "webpack:production",
     cb);
 });

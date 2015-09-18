@@ -1,24 +1,29 @@
+import ipc from "ipc";
+import fs from "fs";
+import path from "path";
 import Reflux from "reflux";
 import Immutable from "immutable";
 import axios from "axios";
 import throttle from "lodash/function/throttle";
+import findWhere from "lodash/collection/findWhere";
 import { createSoundObj } from "../api";
 import { soundActions } from "../actions";
-import { toasterInstance } from "../utils";
+import { dirname, toasterInstance } from "../utils";
 
 let sounds = new Immutable.OrderedMap(JSON.parse(localStorage.getItem("sounds")));
 let howls = new Immutable.Map();
 let mute = false;
 
+function updateIcon(s) {
+  let trayIcon = findWhere(s.toArray(), { playing: true }) ? "TrayActive" : "TrayIdle";
+  ipc.sendChannel("update-icon", trayIcon);
+}
+
 var SoundStore = Reflux.createStore({
   listenables: [soundActions],
   init() {
-    if (sounds.size) {
-      return new Promise(resolve => window.onYouTubeIframeAPIReady = resolve(true))
-        .then(() => this.setSounds(sounds));
-    }
-    return axios.get("http://data.kakapo.co/data/sounds.json")
-      .then(resp => this.setSounds(resp.data));
+    let sounds = JSON.parse(fs.readFileSync(path.join(dirname, "/data/sounds.json")));
+    this.setSounds(sounds);
   },
   getInitialState() {
     return sounds.toArray();
@@ -68,6 +73,9 @@ var SoundStore = Reflux.createStore({
     this.trigger(sounds.toArray());
   },
   onRemoveSound(sound) {
+    // if (sound.source !== "soundcloudStream") {
+    //   fs.unlinkSync(path.join(dirname, "/sounds/") + sound.file);
+    // }
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
     this.trigger(sounds.toArray());
@@ -105,10 +113,6 @@ var SoundStore = Reflux.createStore({
   }
 });
 
-SoundStore.listen(throttle(data => {
-  let obj = new Immutable.Map();
-  data.forEach(s => obj = obj.set(s.file, {...s}));
-  localStorage.setItem("sounds", JSON.stringify(obj));
-}, 1000));
+SoundStore.listen(throttle(data => fs.writeFile(path.join(dirname, "/data/sounds.json"), JSON.stringify(data)), 1000));
 
 export default SoundStore;
