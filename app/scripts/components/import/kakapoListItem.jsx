@@ -17,8 +17,11 @@ export default new Radium(React.createClass({
       soundActions.getCustomURL(name, this.props.file, "kakapoStream", this.props.img);
     }
   },
+  getFileName(file) {
+    return file.replace(/^.*[\\\/]/, '');
+  },
   alreadyAdded() {
-    return this.state.sounds.filter(s => this.props.file === s.file).length === 1;
+    return this.state.sounds.filter(s => (this.getFileName(this.props.file) === this.getFileName(s.file)).length === 1);
   },
   render() {
     return (

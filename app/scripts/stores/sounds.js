@@ -73,11 +73,11 @@ var SoundStore = Reflux.createStore({
     this.trigger(sounds.toArray());
   },
   onRemoveSound(sound) {
-    // if (sound.source !== "soundcloudStream") {
-    //   fs.unlinkSync(path.join(dirname, "/sounds/") + sound.file);
-    // }
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
+    if (sound.source !== "soundcloudStream") {
+      fs.unlinkSync(path.join(dirname, sound.file));
+    }
     this.trigger(sounds.toArray());
   },
   soundDownloaded(sound) {
