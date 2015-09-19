@@ -15,7 +15,7 @@ let howls = new Immutable.Map();
 let mute = false;
 
 function updateIcon(s) {
-  let trayIcon = findWhere(s.toArray(), { playing: true }) ? "TrayActive" : "TrayIdle";
+  let trayIcon = findWhere(s, { playing: true }) ? "TrayActive" : "TrayIdle";
   ipc.sendChannel("update-icon", trayIcon);
 }
 
@@ -112,6 +112,8 @@ var SoundStore = Reflux.createStore({
     toasterInstance().then(t => t.toast(error));
   }
 });
+
+SoundStore.listen(s => updateIcon(s));
 
 SoundStore.listen(throttle(data => fs.writeFile(path.join(dirname, "/data/sounds.json"), JSON.stringify(data)), 1000));
 
