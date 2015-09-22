@@ -1,18 +1,23 @@
+/* eslint no-shadow: 0, func-names: 0, no-unused-vars: 0, no-console: 0 */
+var os = require("os");
+var webpack = require("webpack");
+var cfg = require("./gulpfile.js/config/webpack-production.config.js");
 var packager = require("electron-packager");
 var assign = require("object-assign");
 var del = require("del");
-var latest = require("github-latest-release");
+var exec = require("child_process").exec;
 var argv = require("minimist")(process.argv.slice(2));
 var devDeps = Object.keys(require("./package.json").devDependencies);
 
-var appName = argv.name || argv.n || "ElectronReact";
+var appName = argv.name || argv.n || "Kakapo";
 var shouldUseAsar = argv.asar || argv.a || false;
+var shouldBuildAll = argv.all || false;
 
 var DEFAULT_OPTS = {
   dir: "./",
+  icon: "app/images/app.icns",
   name: appName,
   asar: shouldUseAsar,
-  prune: true,
   ignore: [
     "/bower.json",
     "/bower_components($|/)",
@@ -28,69 +33,68 @@ var DEFAULT_OPTS = {
   }))
 };
 
-var icon = argv.icon || argv.i;
-
-if (icon) {
-  DEFAULT_OPTS.icon = icon;
-}
-
-function pack(opts, cb) {
-  packager(opts, cb);
-}
-
-function thenPack(opts, cb) {
-  return function() {
-    packager(opts, cb);
-  };
-}
-
-function log(err) {
-  if (err) {
-    return console.error(err);
-  }
-  console.log("finished!");
-}
-
-var MacOPTS, LinuxOPTS, WindowsOPTS;
-
-function assignOpts() {
-  MacOPTS = assign({}, DEFAULT_OPTS, {
-    platform: "darwin",
-    arch: "x64",
-    out: "release/darwin"
-  });
-
-  LinuxOPTS = assign({}, DEFAULT_OPTS, {
-    platform: "linux",
-    arch: "x64",
-    out: "release/linux"
-  });
-
-  WindowsOPTS = assign({}, DEFAULT_OPTS, {
-    platform: "win32",
-    arch: "x64",
-    out: "release/win32"
-  });
-}
-
-function packForPlatforms() {
-  assignOpts();
-  del.sync("release");
-  pack(MacOPTS, thenPack(LinuxOPTS, thenPack(WindowsOPTS, log)));
-}
-
 var version = argv.version || argv.v;
 
 if (version) {
   DEFAULT_OPTS.version = version;
-  packForPlatforms();
+  startPack();
 } else {
-  latest("atom", "electron", function(err, res) {
+  // use the same version as the currently-installed electron-prebuilt
+  exec("npm list | grep electron-prebuilt", function(err, stdout, stderr) {
     if (err) {
-      DEFAULT_OPTS.version = "0.27.1";
+      DEFAULT_OPTS.version = "0.33.0";
     } else {
-      DEFAULT_OPTS.version = res.name.split("v")[1];
+      DEFAULT_OPTS.version = stdout.split("@")[1].replace(/\s/g, "");
     }
-    packForPlatforms();
+    startPack();
   });
+}
+
+
+function startPack() {
+  console.log("start pack...");
+  webpack(cfg, function runWebpackBuild(err, stats) {
+    if (err) return console.error(err);
+    del("release")
+      .then(function(paths) {
+        if (shouldBuildAll) {
+          // build for all platforms
+          var archs = ["ia32", "x64"];
+          var platforms = ["linux", "win32", "darwin"];
+
+          platforms.forEach(function(plat) {
+            archs.forEach(function(arch) {
+              pack(plat, arch, log(plat, arch));
+            });
+          });
+        } else {
+          // build for current platform only
+          pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
+        }
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+  });
+}
+
+function pack(plat, arch, cb) {
+  // there is no darwin ia32 electron
+  if (plat === "darwin" && arch === "ia32") return;
+
+  var opts = assign({}, DEFAULT_OPTS, {
+    platform: plat,
+    arch: arch,
+    out: "release/" + plat + "-" + arch
+  });
+
+  packager(opts, cb);
+}
+
+
+function log(plat, arch) {
+  return function(err, filepath) {
+    if (err) return console.error(err);
+    console.log(plat + "-" + arch + " finished!");
+  };
 }
