@@ -1,4 +1,8 @@
 import axios from "axios";
+import fs from "fs";
+import uuid from "uuid";
+import ytdl from "ytdl-core";
+import throttle from "lodash/function/throttle";
 import Sound from "../classes/newSound";
 
 const GAPI_URL = "https://www.googleapis.com/youtube/v3";
@@ -25,32 +29,44 @@ function getStatistics(resolve, reject, videos) {
     .catch(response => reject(response));
 }
 
-export function getYoutubeObj(video) {
-  return new Promise(resolve => new window.YT.Player(`video-${video.file}`, {
-    videoId: video.file,
-    height: 225,
-    width: 400,
-    playerVars: {
-      "iv_load_policy": 3,
-      autoplay: video.playing ? 1 : 0,
-      controls: 0,
-      loop: 1,
-      playlist: video.file,
-      showinfo: 0
-    },
-    events: {
-      onReady: (e) => resolve({
-        play: () => e.target.playVideo(),
-        pause: () => e.target.pauseVideo(),
-        volume: vol => e.target.setVolume(vol * 100),
-        mute: toggle => {
-          if (toggle) return e.target.mute();
-          e.target.unMute();
-        },
-        unload: () => e.target.destroy()
+function onData(progressed, sound, data) {
+  let progress = (this.dataRead += data.length) / this.fileSize;
+  progressed(sound, progress);
+}
+
+export function getYoutubeURL(url) {
+  this.fileSize = 1;
+  this.dataRead = 0;
+  let progressBuffer = throttle(this.progressed, 100);
+  return new Promise((resolve, reject) => {
+    ytdl.getInfo(url, {downloadURL: true}, (err, info) => {
+      if (err) {
+        return reject(err);
+      }
+      let audioFormats = info.formats.filter(format => format.container && format.type.startsWith("audio"));
+      if (!audioFormats.length) {
+        return reject(new Error(`${url} doesn"t contain an audio format`));
+      }
+      let audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
+      let newSound = {...Sound, ...{
+        file: `${uuid()}.${audioFormat.container}`,
+        img: info.thumbnail_url,
+        link: `https://www.youtube.com/watch?v=${info.video_id}`,
+        name: info.title,
+        progress: 0,
+        source: "youtubeStream",
+        tags: info.keywords ? info.keywords.join(" ") : ""
+      }};
+      ytdl.downloadFromInfo(info, {
+        format: audioFormat
       })
-    }
-  }));
+      .on("error", reject.bind(null, newSound))
+      .on("format", formatInfo => this.fileSize = formatInfo.size)
+      .on("data", onData.bind(this, progressBuffer, newSound))
+      .on("end", resolve.bind(null, newSound))
+      .pipe(fs.createWriteStream(`./app/sounds/${newSound.file}`));
+    });
+  });
 }
 
 export function getYoutubeSearch(q) {
@@ -60,16 +76,4 @@ export function getYoutubeSearch(q) {
       .then(response => getStatistics(resolve, reject, response.data.items))
       .catch(response => reject(response));
   });
-}
-
-export function getYoutubeURL(id, title, thumbnail, tags) {
-  return new Promise(resolve => resolve({...Sound, ...{
-    file: id,
-    img: thumbnail,
-    link: `https://www.youtube.com/watch?v=${id}`,
-    name: title,
-    progress: 0,
-    source: "youtubeStream",
-    tags: tags
-  }}));
 }

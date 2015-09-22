@@ -59,13 +59,6 @@ export default new Radium(React.createClass({
       </ul>
     );
   },
-  renderVideo() {
-    if (this.props.source === "youtubeStream") {
-      return (
-        <div className="youtube-video" id={`video-${this.props.file}`}></div>
-      );
-    }
-  },
   render() {
     // Image size is relative to the volume
     let itemClass = classNames({
@@ -97,7 +90,6 @@ export default new Radium(React.createClass({
             type="range"
           />
         </div>
-        {this.renderVideo()}
       </div>
     );
   }

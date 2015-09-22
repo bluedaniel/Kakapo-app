@@ -57,6 +57,7 @@
     "react-proxy-loader": "^0.3.4",
     "react-router": "^1.0.0-rc1",
     "reflux": "^0.2.12",
+    "request": "^2.62.0",
     "require-dir": "^0.3.0",
     "rx": "^3.1.2",
     "style-loader": "^0.12.3",
@@ -64,7 +65,8 @@
     "uuid": "^2.0.1",
     "validator": "^4.0.5",
     "webpack": "^1.11.0",
-    "webpack-dev-server": "^1.10.1"
+    "webpack-dev-server": "^1.10.1",
+    "ytdl-core": "^0.6.0"
   },
   "scripts": {
     "profile": "webpack --config gulpfile.js/config/webpack-production.config.js --progress --colors --profile --json > stats.json",

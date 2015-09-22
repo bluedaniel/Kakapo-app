@@ -10,7 +10,7 @@ export default new Radium(React.createClass({
   propTypes: YouTubeItemClass,
   mixins: [ History, IntlMixin ],
   handleClick() {
-    soundActions.getYoutubeURL(this.props.videoId, this.props.name, this.props.img, this.props.tags);
+    soundActions.getYoutubeURL(`https://www.youtube.com/watch?v=${this.props.videoId}`);
     this.history.pushState(null, "/downloads");
   },
   render() {

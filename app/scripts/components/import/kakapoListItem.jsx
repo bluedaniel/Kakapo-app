@@ -15,6 +15,7 @@ export default new Radium(React.createClass({
     if (!this.alreadyAdded()) {
       let name = this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase());
       soundActions.getCustomURL(name, this.props.file, "kakapoStream", this.props.img);
+      this.history.pushState(null, "/downloads");
     }
   },
   getFileName(file) {

@@ -75,9 +75,11 @@ var SoundStore = Reflux.createStore({
   onRemoveSound(sound) {
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
-    if (sound.source !== "soundcloudStream") {
-      fs.unlinkSync(path.join(dirname, sound.file));
-    }
+    fs.unlinkSync(path.join(dirname, "sounds", sound.file));
+    this.trigger(sounds.toArray());
+  },
+  soundProgressed(sound, progress) {
+    sounds = sounds.set(sound.file, {...sound, ...{ progress: progress }});
     this.trigger(sounds.toArray());
   },
   soundDownloaded(sound) {
@@ -89,6 +91,9 @@ var SoundStore = Reflux.createStore({
   },
 
   // SoundCloud Listeners
+  onGetSoundCloudURLProgressed(sound, progress) {
+    this.soundProgressed(sound, progress);
+  },
   onGetSoundCloudURLCompleted(sound) {
     this.soundDownloaded(sound);
   },
@@ -97,6 +102,9 @@ var SoundStore = Reflux.createStore({
   },
 
   // YouTube Listeners
+  onGetYoutubeURLProgressed(sound, progress) {
+    this.soundProgressed(sound, progress);
+  },
   onGetYoutubeURLCompleted(sound) {
     this.soundDownloaded(sound);
   },
@@ -104,7 +112,10 @@ var SoundStore = Reflux.createStore({
     toasterInstance().then(t => t.toast(error));
   },
 
-  // Custom url Listeners
+  // CustomUrl Listeners
+  onGetCustomURLProgressed(sound, progress) {
+    this.soundProgressed(sound, progress);
+  },
   onGetCustomURLCompleted(sound) {
     this.soundDownloaded(sound);
   },
