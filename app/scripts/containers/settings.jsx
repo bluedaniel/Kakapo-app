@@ -1,3 +1,4 @@
+import ipc from "ipc";
 import React from "react";
 import Radium from "radium";
 import Reflux from "reflux";
@@ -23,7 +24,6 @@ export default new Radium(React.createClass({
     windowActions.toggleDock(value);
   },
   render() {
-    console.log(this.state);
     return (
       <div>
         <div className="modal settings-pane">
@@ -57,6 +57,12 @@ export default new Radium(React.createClass({
               target="_blank"
             >
               <i className="icon-github"/>
+            </a>
+          </div>
+          <div className="opt quit">
+            <a onClick={() => ipc.sendChannel("app-quit")}>
+              <i className="icon-quit dark"/>
+              Quit Kakapo
             </a>
           </div>
         </div>
