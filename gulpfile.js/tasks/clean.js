@@ -5,6 +5,7 @@ var config = require("../config");
 gulp.task("clean", function (cb) {
   return del([
     config.tempDirectory,
-    config.distributionDirectory
+    config.distributionDirectory,
+    config.releaseDirectory
   ], cb);
 });
