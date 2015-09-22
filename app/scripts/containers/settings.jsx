@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import { IntlMixin, FormattedMessage } from "react-intl";
 import { Theme, Settings } from "../stores";
 import { themeActions, windowActions } from "../actions";
-import { ColorPicker } from "../components/ui";
+import { ColorPicker, Checkbox } from "../components/ui";
 
 export default new Radium(React.createClass({
   mixins: [Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings"), IntlMixin],
@@ -19,7 +19,11 @@ export default new Radium(React.createClass({
     this.setState({ colorPickerActive: false });
     themeActions.changePaletteColor(swatch, this.state.slotNo);
   },
+  toggleDockIcon(value) {
+    windowActions.toggleDock(value);
+  },
   render() {
+    console.log(this.state);
     return (
       <div>
         <div className="modal settings-pane">
@@ -35,6 +39,14 @@ export default new Radium(React.createClass({
               active={this.state.colorPickerActive}
               color={this.state.defaultColor}
               handleSwatch={this.handleSwatch}
+              />
+          </div>
+          <div className="opt">
+            <Checkbox
+              checked={this.state.settings.dockIcon}
+              handleChange={this.toggleDockIcon}
+              label="Show dock icon"
+              name="toggle-dock"
               />
           </div>
           <div className="opt">
