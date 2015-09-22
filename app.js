@@ -11,7 +11,7 @@ var BrowserWindow = require("browser-window");
 
 var settings = JSON.parse(fs.readFileSync(path.join(__dirname, "app", "data", "settings.json")));
 var file = path.join("file://", __dirname, "app", (process.env.HOT ? "index-dev" : "index") + ".html");
-var iconIdle = path.join(__dirname, "app", "images", "tray-idleTemplate.png");
+var iconIdle = path.join(__dirname, "app", "images", "tray-idle.png");
 var iconActive = path.join(__dirname, "app", "images", "tray-active.png");
 
 app.on("ready", function() {
