@@ -33,6 +33,7 @@ app.on("ready", function() {
     var defaults = {
       frame: false,
       height: 600,
+      resizable: false,
       width: 360
     };
 

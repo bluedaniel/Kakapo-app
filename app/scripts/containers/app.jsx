@@ -20,7 +20,7 @@ export default React.createClass({
   render() {
     return (
       <div className="wrapper">
-        <Topnav {...this.state.settings.intlData}/>
+        <Topnav/>
         <Header {...this.state.settings.intlData}/>
         <div className="container">
           <SoundList sounds={this.state.sounds} {...this.state.settings.intlData}/>

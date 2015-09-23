@@ -1,6 +1,7 @@
 .topbar {
   color: #fff;
   font-size: 13px;
+  height: 20px;
   left: 0;
   overflow: hidden;
   padding: 8px 0 7px;
@@ -9,6 +10,14 @@
   text-align: center;
   top: 0;
   z-index: 40;
+  .drag {
+    -webkit-app-region: drag;
+    height: 35px;
+    left: 33px;
+    position: absolute;
+    top: 0;
+    width: 220px;
+  }
   .download-app {
     display: block;
     opacity: 0;
