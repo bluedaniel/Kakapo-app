@@ -74,5 +74,6 @@ app.on("ready", function() {
     arg ? app.dock.show() : app.dock.hide();
   });
 
+  appIcon.window.setTitle("Kakapo");
   appIcon.setToolTip("Kakapo");
 });

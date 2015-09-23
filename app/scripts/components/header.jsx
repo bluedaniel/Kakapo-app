@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import { IntlMixin } from "react-intl";
 import { Theme } from "../stores";
+import { dirname } from "../utils";
 
 export default new Radium(React.createClass({
   mixins: [ IntlMixin, Reflux.connect(Theme, "theme") ],
@@ -20,7 +21,7 @@ export default new Radium(React.createClass({
             </Link>
             <Link className="logo" to="/">
               <h3 style={this.state.theme.header.h3}>
-                <img src="/Users/daniellevitt86/Sites/Kakapo/kakapo-app/app/icons/social/kakapo.png"/>
+                <img src={dirname + "/icons/social/kakapo.png"}/>
                 Kakapo
               </h3>
             </Link>
