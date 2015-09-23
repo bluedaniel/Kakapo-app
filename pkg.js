@@ -42,7 +42,7 @@ if (version) {
   // use the same version as the currently-installed electron-prebuilt
   exec("npm list | grep electron-prebuilt", function(err, stdout, stderr) {
     if (err) {
-      DEFAULT_OPTS.version = "0.33.0";
+      DEFAULT_OPTS.version = "0.33.1";
     } else {
       DEFAULT_OPTS.version = stdout.split("@")[1].replace(/\s/g, "");
     }

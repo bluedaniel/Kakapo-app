@@ -41,14 +41,15 @@ export default new Radium(React.createClass({
               handleSwatch={this.handleSwatch}
               />
           </div>
-          <div className="opt">
-            <Checkbox
-              checked={this.state.settings.dockIcon}
-              handleChange={this.toggleDockIcon}
-              label="Show dock icon"
-              name="toggle-dock"
-              />
-          </div>
+          {process.platform === "darwin" ? (
+            <div className="opt">
+              <Checkbox
+                checked={this.state.settings.dockIcon}
+                handleChange={this.toggleDockIcon}
+                label="Show dock icon"
+                name="toggle-dock"
+                />
+            </div>) : ""}
           <div className="opt">
             <a
               className="github hint--right"

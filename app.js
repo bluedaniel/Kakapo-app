@@ -17,7 +17,10 @@ var iconActive = path.join(__dirname, "app", "images", "tray-active.png");
 app.on("ready", function() {
   var appIcon = new Tray(iconIdle);
   initWindow();
-  applySettings();
+
+  if (process.platform === "darwin") {
+    applySettings();
+  }
 
   appIcon.on("clicked", function clicked(e, bounds) {
     if (appIcon.window && appIcon.window.isVisible()) {
@@ -69,10 +72,11 @@ app.on("ready", function() {
 
   function applySettings() {
     settings.dockIcon ? app.dock.show() : app.dock.hide();
+
+    ipc.on("toggle-dock", function(event, arg) {
+      arg ? app.dock.show() : app.dock.hide();
+    });
   }
-  ipc.on("toggle-dock", function(event, arg) {
-    arg ? app.dock.show() : app.dock.hide();
-  });
 
   appIcon.window.setTitle("Kakapo");
   appIcon.setToolTip("Kakapo");

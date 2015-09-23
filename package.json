@@ -17,7 +17,7 @@
     "css-loader": "^0.18.0",
     "del": "^2.0.2",
     "electron-packager": "^5.1.0",
-    "electron-prebuilt": "^0.33.0",
+    "electron-prebuilt": "^0.33.1",
     "eslint": "^1.4.1",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.2.3",
@@ -74,7 +74,7 @@
   "scripts": {
     "profile": "webpack --config gulpfile.js/config/webpack-production.config.js --progress --colors --profile --json > stats.json",
     "build": "HOT=1 NODE_ENV=development gulp build:development",
-    "package": "gulp build:production && node pkg --name Kakapo --asar true && ./node_modules/.bin/appdmg ./appdmg.json ./release/darwin-x64/Kakapo-darwin-x64/kakapo.dmg"
+    "package": "gulp build:production && node pkg --name Kakapo --asar true --all true && ./node_modules/.bin/appdmg ./appdmg.json ./release/darwin-x64/Kakapo-darwin-x64/kakapo.dmg"
   },
   "repository": {
     "type": "git",
