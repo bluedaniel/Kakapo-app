@@ -34,6 +34,7 @@ app.on("ready", function() {
 
   function initWindow() {
     var defaults = {
+      'standard-window': false,
       frame: false,
       height: 600,
       resizable: false,
