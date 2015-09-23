@@ -3,5 +3,5 @@ var electron = require("electron-prebuilt");
 var proc = require("child_process");
 
 gulp.task("electron", function() {
-  proc.spawn(electron, [process.env.PWD]);
+  proc.spawn(electron, ["."]);
 });
