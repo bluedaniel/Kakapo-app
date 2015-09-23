@@ -7,6 +7,7 @@ gulp.task("build:development", function(cb) {
     "html",
     "images",
     "icons",
+    "fonts",
     "sass:development",
     "webpack:development",
     ["electron", "watch"],
