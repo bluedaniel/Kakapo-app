@@ -7,13 +7,14 @@ var assign = require("object-assign");
 var del = require("del");
 var exec = require("child_process").exec;
 var argv = require("minimist")(process.argv.slice(2));
-var devDeps = Object.keys(require("./package.json").devDependencies);
+var packagejson = require('./package.json');
 
 var DEFAULT_OPTS = {
+  'app-version': packagejson.version,
+  asar: true,
   dir: "./",
   icon: "app/images/app.icns",
   name: "Kakapo",
-  asar: true,
   ignore: [
     "/bower.json",
     "/bower_components($|/)",
@@ -24,28 +25,21 @@ var DEFAULT_OPTS = {
     "/app/scripts($|/)",
     "/app/styles($|/)",
     "/app/index-dev.html"
-  ].concat(devDeps.map(function(name) {
+  ].concat(Object.keys(packagejson.devDependencies).map(function(name) {
     return "/node_modules/" + name + "($|/)";
   }))
 };
 
-var version = argv.version || argv.v;
 
-if (version) {
-  DEFAULT_OPTS.version = version;
+// use the same version as the currently-installed electron-prebuilt
+exec("npm list | grep electron-prebuilt", function(err, stdout, stderr) {
+  if (err) {
+    DEFAULT_OPTS.version = "0.33.1";
+  } else {
+    DEFAULT_OPTS.version = stdout.split("@")[1].replace(/\s/g, "");
+  }
   startPack();
-} else {
-  // use the same version as the currently-installed electron-prebuilt
-  exec("npm list | grep electron-prebuilt", function(err, stdout, stderr) {
-    if (err) {
-      DEFAULT_OPTS.version = "0.33.1";
-    } else {
-      DEFAULT_OPTS.version = stdout.split("@")[1].replace(/\s/g, "");
-    }
-    startPack();
-  });
-}
-
+});
 
 function startPack() {
   console.log("start pack...");
@@ -54,32 +48,17 @@ function startPack() {
     del("release")
       .then(function(paths) {
         ["linux", "win32", "darwin"].forEach(function(plat) {
-          pack(plat, "ia32", log(plat, "ia32"));
+          packager(assign({}, DEFAULT_OPTS, {
+            platform: plat,
+            arch: "x64",
+            out: "release/" + plat
+          }), function() {
+            console.log(plat + " finished!");
+          });
         });
       })
       .catch(function(err) {
         console.error(err);
       });
   });
-}
-
-function pack(plat, arch, cb) {
-  // there is no darwin ia32 electron
-  if (plat === "darwin" && arch === "ia32") return;
-
-  var opts = assign({}, DEFAULT_OPTS, {
-    platform: plat,
-    arch: arch,
-    out: "release/" + plat + "-" + arch
-  });
-
-  packager(opts, cb);
-}
-
-
-function log(plat, arch) {
-  return function(err, filepath) {
-    if (err) return console.error(err);
-    console.log(plat + "-" + arch + " finished!");
-  };
 }
