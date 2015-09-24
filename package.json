@@ -74,7 +74,8 @@
     "profile": "webpack --config gulpfile.js/config/webpack-production.config.js --progress --colors --profile --json > stats.json",
     "build": "set HOT=1 NODE_ENV=development && gulp build:development",
     "package": "gulp build:production && node pkg --name Kakapo --asar true --all true",
-    "installer-mac": "./node_modules/.bin/appdmg ./appdmg.json ./release/darwin-x64/Kakapo-darwin-x64/kakapo.dmg"
+    "installer-mac": "appdmg ./appdmg.json ./release/darwin-x64/Kakapo-darwin-x64/kakapo.dmg",
+    "installer-win32": "gulp windows-installer"
   },
   "repository": {
     "type": "git",
