@@ -17,6 +17,7 @@
     "del": "^2.0.2",
     "electron-packager": "^5.1.0",
     "electron-prebuilt": "^0.33.1",
+    "electron-windows-installer": "^1.1.0",
     "eslint": "^1.4.1",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.2.3",
