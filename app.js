@@ -34,7 +34,6 @@ app.on("ready", function() {
 
   function initWindow() {
     var defaults = {
-      'standard-window': false,
       frame: false,
       height: 600,
       resizable: false,
@@ -48,7 +47,7 @@ app.on("ready", function() {
   function showWindow(bounds) {
     var options = {
       x: bounds.x - 200 + (bounds.width / 2),
-      y: bounds.y,
+      y: process.platform === "darwin" ? bounds.y : bounds.y - 600,
       index: file
     };
     appIcon.window.setPosition(options.x, options.y);
