@@ -1,8 +1,8 @@
-var gutil = require("gulp-util");
-var prettifyTime = require("./prettifyTime");
-var handleErrors = require("./handleErrors");
+import gutil from "gulp-util";
+import prettifyTime from "./prettifyTime";
+import handleErrors from "./handleErrors";
 
-module.exports = function(err, stats) {
+export default function(err, stats) {
   if (err) {
     throw new gutil.PluginError("webpack", err);
   }

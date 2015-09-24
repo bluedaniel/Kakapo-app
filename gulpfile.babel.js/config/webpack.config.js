@@ -1,9 +1,9 @@
-var webpack = require("webpack");
-var path = require("path");
-var loadersByExtension = require("../../lib/loaders-by-extension");
-var AsyncRoutes = require("../../app/scripts/routes/async");
+import webpack from "webpack";
+import path from "path";
+import loadersByExtension from "../../lib/loaders-by-extension";
+import AsyncRoutes from "../../app/scripts/routes/async";
 
-module.exports = function(opts) {
+export default function(opts) {
 
   var entry = [ "./app/scripts/index" ];
 

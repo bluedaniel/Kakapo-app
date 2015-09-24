@@ -1,4 +1,4 @@
-module.exports = require("./webpack.config")({
+export default require("./webpack.config")({
   devServer: true,
   hotComponents: true,
   devtool: "eval",

@@ -1,5 +1,5 @@
 
-module.exports = {
+export default {
   bowerDirectory: "./bower_components",
   tempDirectory: "./.tmp",
   distributionDirectory: "./dist",

@@ -1,7 +1,7 @@
-var gulp = require("gulp");
-var gulpSequence = require("gulp-sequence");
+import gulp from "gulp";
+import gulpSequence from "gulp-sequence";
 
-gulp.task("build:development", function(cb) {
+gulp.task("build:development", (cb) =>
   gulpSequence(
     "clean",
     "html",
@@ -11,5 +11,5 @@ gulp.task("build:development", function(cb) {
     "sass:development",
     "webpack:development",
     ["electron", "watch"],
-    cb);
-});
+    cb)
+);

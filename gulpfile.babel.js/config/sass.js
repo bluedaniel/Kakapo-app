@@ -1,6 +1,6 @@
-var config = require("./");
+import config from "./";
 
-module.exports = {
+export default {
   autoprefixer: { browsers: ["last 2 version"] },
   src: config.sourceDirectory + "/styles/**/*.{sass,scss}",
   dest: config.distributionDirectory + "/styles",

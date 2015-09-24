@@ -1,4 +1,4 @@
-module.exports = require("./webpack.config")({
+export default require("./webpack.config")({
   longTermCaching: true,
   // separateStylesheet: true,
   minimize: true
