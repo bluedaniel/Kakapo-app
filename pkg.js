@@ -9,15 +9,11 @@ var exec = require("child_process").exec;
 var argv = require("minimist")(process.argv.slice(2));
 var devDeps = Object.keys(require("./package.json").devDependencies);
 
-var appName = argv.name || argv.n || "Kakapo";
-var shouldUseAsar = argv.asar || argv.a || false;
-var shouldBuildAll = argv.all || false;
-
 var DEFAULT_OPTS = {
   dir: "./",
   icon: "app/images/app.icns",
-  name: appName,
-  asar: shouldUseAsar,
+  name: "Kakapo",
+  asar: true,
   ignore: [
     "/bower.json",
     "/bower_components($|/)",
@@ -57,20 +53,9 @@ function startPack() {
     if (err) return console.error(err);
     del("release")
       .then(function(paths) {
-        if (shouldBuildAll) {
-          // build for all platforms
-          var archs = ["ia32", "x64"];
-          var platforms = ["linux", "win32", "darwin"];
-
-          platforms.forEach(function(plat) {
-            archs.forEach(function(arch) {
-              pack(plat, arch, log(plat, arch));
-            });
-          });
-        } else {
-          // build for current platform only
-          pack(os.platform(), os.arch(), log(os.platform(), os.arch()));
-        }
+        ["linux", "win32", "darwin"].forEach(function(plat) {
+          pack(plat, "ia32", log(plat, "ia32"));
+        });
       })
       .catch(function(err) {
         console.error(err);
