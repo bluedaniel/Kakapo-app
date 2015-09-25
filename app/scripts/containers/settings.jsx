@@ -1,4 +1,5 @@
 import ipc from "ipc";
+import remote from "remote";
 import React from "react";
 import Radium from "radium";
 import Reflux from "reflux";
@@ -7,6 +8,8 @@ import { IntlMixin, FormattedMessage } from "react-intl";
 import { Theme, Settings } from "../stores";
 import { themeActions, windowActions } from "../actions";
 import { ColorPicker, Checkbox } from "../components/ui";
+
+var app = remote.require('app');
 
 export default new Radium(React.createClass({
   mixins: [Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings"), IntlMixin],
@@ -66,6 +69,8 @@ export default new Radium(React.createClass({
               Quit Kakapo
             </a>
           </div>
+          <hr/>
+          <p className="version">v{app.getVersion()}</p>
         </div>
         <Link className="modal-bg" to="/"/>
       </div>

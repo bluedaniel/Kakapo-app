@@ -7,6 +7,9 @@
     &:last-child {
       padding-bottom: 0;
     }
+    &.quit {
+      padding-bottom: 0;
+    }
     span:first-child {
       flex: 1.75 0 0;
     }
@@ -30,5 +33,11 @@
       margin-right: 13px;
       width: 24px;
     }
+  }
+  p.version {
+    font-size: .8em;
+    font-style: italic;
+    margin: 0;
+    text-align: right;
   }
 }

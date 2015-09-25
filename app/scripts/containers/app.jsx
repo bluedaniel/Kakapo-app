@@ -1,15 +1,32 @@
+import ipc from 'ipc';
+import remote from 'remote';
 import React from "react";
 import Reflux from "reflux";
 import Rx from "rx";
 import { Settings, Sounds, Theme } from "../stores";
 import { Header, Topnav, SoundList } from "../components";
 
+var autoUpdater = remote.require('auto-updater');
+
 export default React.createClass({
   propTypes: {
     children: React.PropTypes.object
   },
   mixins: [ Reflux.connect(Sounds, "sounds"), Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings") ],
+  getInitialState: function () {
+    return {
+      updateAvailable: false
+    };
+  },
   componentDidMount() {
+    ipc.on('application:update-available', () => {
+      this.setState({
+        updateAvailable: true
+      });
+    });
+    autoUpdater.checkForUpdates();
+
+    // Konami!
     Rx.Observable.fromEvent(window, "keyup")
       .map(e => e.keyCode)
       .windowWithCount(10, 1)
@@ -17,9 +34,13 @@ export default React.createClass({
       .filter(seq => seq.toString() === [38, 38, 40, 40, 37, 39, 37, 39, 66, 65].toString())
       .subscribe(() => console.log("Konami!"));
   },
+  handleAutoUpdateClick() {
+    ipc.send('application:quit-install');
+  },
   render() {
     return (
       <div className="wrapper">
+        {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Click to restart and update</a> : null}
         <Topnav/>
         <Header {...this.state.settings.intlData}/>
         <div className="container">

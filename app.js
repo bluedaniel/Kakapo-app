@@ -1,13 +1,11 @@
 // Kakapo - A background noise generator
 var app = require("app");
-var path = require("path");
+var autoUpdater = require("auto-updater");
+var BrowserWindow = require("browser-window");
 var fs = require("fs");
 var ipc = require("ipc");
-
-require("crash-reporter").start();
-
+var path = require("path");
 var Tray = require("tray");
-var BrowserWindow = require("browser-window");
 
 var settings = JSON.parse(fs.readFileSync(path.join(__dirname, "app", "data", "settings.json")));
 var file = path.join("file://", __dirname, "app", (process.env.NODE_ENV === "development" ? "index-dev" : "index") + ".html");
@@ -22,16 +20,6 @@ app.on("ready", function() {
     applySettings();
   }
 
-  appIcon.on("clicked", function clicked(e, bounds) {
-    if (appIcon.window && appIcon.window.isVisible()) {
-      if (appIcon.window) {
-        appIcon.window.hide();
-      }
-    } else {
-      showWindow(bounds);
-    }
-  });
-
   function initWindow() {
     var defaults = {
       frame: false,
@@ -43,6 +31,16 @@ app.on("ready", function() {
     appIcon.window = new BrowserWindow(defaults);
     appIcon.window.loadUrl(file);
   }
+
+  appIcon.on("clicked", function clicked(e, bounds) {
+    if (appIcon.window && appIcon.window.isVisible()) {
+      if (appIcon.window) {
+        appIcon.window.hide();
+      }
+    } else {
+      showWindow(bounds);
+    }
+  });
 
   function showWindow(bounds) {
     var options = {
@@ -78,6 +76,39 @@ app.on("ready", function() {
     });
   }
 
-  appIcon.window.setTitle("Kakapo");
-  appIcon.setToolTip("Kakapo");
+  appIcon.window.webContents.on("did-finish-load", function() {
+    appIcon.window.setTitle("Kakapo");
+    appIcon.setToolTip("Kakapo");
+
+    if (process.env.NODE_ENV !== "development") {
+      autoUpdater.setFeedUrl("");
+    }
+  });
+
+  ipc.on("application:quit-install", function () {
+    autoUpdater.quitAndInstall();
+  });
+
+  autoUpdater.on("checking-for-update", function () {
+    console.log("Checking for update...");
+  });
+
+  autoUpdater.on("update-available", function () {
+    console.log("Update available.");
+  });
+
+  autoUpdater.on("update-not-available", function () {
+    console.log("Update not available.");
+  });
+
+  autoUpdater.on("update-downloaded", function (e, releaseNotes, releaseName, releaseDate, updateURL) {
+    console.log("Update downloaded.");
+    console.log(releaseNotes, releaseName, releaseDate, updateURL);
+    appIcon.window.webContents.send("application:update-available");
+  });
+
+  autoUpdater.on("error", function (e, error) {
+    console.log("An error occured while checking for updates.");
+    console.log(error);
+  });
 });
