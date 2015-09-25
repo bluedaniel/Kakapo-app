@@ -4,6 +4,7 @@ import packager from "electron-packager";
 import assign from "object-assign";
 import del from "del";
 import packagejson from "../../package.json";
+import config from "../config";
 
 var DEFAULT_OPTS = {
   "app-version": packagejson.version,
@@ -18,6 +19,7 @@ var DEFAULT_OPTS = {
     "/gulpfile.js($|/)",
     "/test($|/)",
     "/tools($|/)",
+    "/build($|/)",
     "/release($|/)",
     "/app/scripts($|/)",
     "/app/styles($|/)",
@@ -32,7 +34,7 @@ gulp.task("package", () =>
       packager(assign({}, DEFAULT_OPTS, {
         platform: plat,
         arch: "x64",
-        out: "release/" + plat
+        out: config.tempDirectory + "/" + plat
       }), () => console.log(plat + " finished!"));
     });
   })

@@ -32,6 +32,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.0.4",
     "gulp-sequence": "^0.4.1",
+    "gulp-shell": "^0.4.3",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-util": "^3.0.6",
     "gulp-watch": "^4.3.5",
@@ -75,8 +76,8 @@
     "profile": "webpack --config gulpfile.js/config/webpack-production.config.js --progress --colors --profile --json > stats.json",
     "build": "gulp build:development",
     "package": "gulp build:production",
-    "installer-mac": "appdmg ./appdmg.json ./release/darwin-x64/Kakapo-darwin-x64/kakapo.dmg",
-    "installer-win32": "gulp windows-installer"
+    "installer-mac": "gulp installer-mac",
+    "installer-win": "gulp installer-win"
   },
   "repository": {
     "type": "git",
