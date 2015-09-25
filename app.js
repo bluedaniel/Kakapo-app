@@ -81,7 +81,7 @@ app.on("ready", function() {
     appIcon.setToolTip("Kakapo");
 
     if (process.env.NODE_ENV !== "development") {
-      autoUpdater.setFeedUrl("");
+      autoUpdater.setFeedUrl("http://52.19.170.82:5000/update?version=" + app.getVersion() + "&platform=" + process.platform);
     }
   });
 

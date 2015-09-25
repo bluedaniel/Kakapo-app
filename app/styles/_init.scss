@@ -12,6 +12,18 @@ body {
   padding-left: 0;
   padding-right: 0;
 }
+.update-now,
+.update-now:hover {
+  background-color: #2ecc40;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  padding: .5em;
+  text-align: center;
+  &:hover {
+    background-color: darken(#2ecc40, 5%);
+  }
+}
 .hint--top,
 .hint--bottom {
   &,
