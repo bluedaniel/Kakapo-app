@@ -50,6 +50,7 @@
     "numeral": "^1.5.3",
     "object-assign": "^4.0.1",
     "radium": "^0.13.7",
+    "rcedit": "^0.3.0",
     "react": "^0.14.0-rc1",
     "react-addons-css-transition-group": "^0.14.0-rc1",
     "react-addons-pure-render-mixin": "^0.14.0-rc1",

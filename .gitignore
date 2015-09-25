@@ -56,3 +56,4 @@ app/scripts/sounds.json
 stats.json
 
 aws.json
+*.db

@@ -6,11 +6,35 @@ var fs = require("fs");
 var ipc = require("ipc");
 var path = require("path");
 var Tray = require("tray");
+var child_process = require("child_process");
 
 var settings = JSON.parse(fs.readFileSync(path.join(__dirname, "app", "data", "settings.json")));
 var file = path.join("file://", __dirname, "app", (process.env.NODE_ENV === "development" ? "index-dev" : "index") + ".html");
 var iconIdle = path.join(__dirname, "app", "images", "tray-idle.png");
 var iconActive = path.join(__dirname, "app", "images", "tray-active.png");
+
+var updateCmd = function(args, cb) {
+  var updateExe = path.resolve(path.dirname(process.execPath), "..", "Update.exe");
+  var child = child_process.spawn(updateExe, args, {detached: true});
+  child.on("close", cb);
+};
+
+if (process.platform === "win32") {
+  var squirrelCommand = process.argv[1];
+  var target = path.basename(process.execPath);
+  switch (squirrelCommand) {
+    case "--squirrel-install":
+    case "--squirrel-updated":
+      updateCmd(["--createShortcut", target], app.quit);
+      break;
+    case "--squirrel-uninstall":
+      updateCmd(["--removeShortcut", target], app.quit);
+      break;
+    case "--squirrel-obsolete":
+      app.quit();
+      break;
+  }
+}
 
 app.on("ready", function() {
   var appIcon = new Tray(iconIdle);
@@ -55,6 +79,12 @@ app.on("ready", function() {
   ipc.on("reopen-window", function() {
     appIcon.window.show();
   });
+
+  if (process.platform === "win32") {
+    app.on("window-all-closed", function() {
+      app.quit();
+    });
+  }
 
   ipc.on("update-icon", function(event, arg) {
     if (arg === "TrayActive") {
