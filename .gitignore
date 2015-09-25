@@ -2,6 +2,7 @@
 .*
 !.git*
 !.eslintrc
+!.jscsrc
 !.scss-lint.yml
 !.eslintignore
 
