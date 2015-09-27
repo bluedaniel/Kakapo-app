@@ -1,5 +1,6 @@
 import gulp from "gulp";
 import gulpSequence from "gulp-sequence";
+import zip from "gulp-zip";
 import os from "os";
 import winInstaller from "electron-windows-installer";
 import rcedit from "rcedit";
@@ -10,6 +11,7 @@ import config from "../config";
 gulp.task("installer-win", cb =>
   gulpSequence(
     "win-rcedit",
+    "win-zip",
     "win-setupexe",
     cb)
 );
@@ -30,11 +32,16 @@ var rceditOpts = {
 
 gulp.task("win-rcedit", cb => rcedit(config.tempDirectory + "/win32/Kakapo-win32-x64/Kakapo.exe", rceditOpts, cb));
 
+gulp.task("win-zip", () =>
+  gulp.src(config.tempDirectory + "/win32/Kakapo-win32-x64/**/*")
+  .pipe(zip("Kakapo-" + packagejson.version + "-Win.zip"))
+  .pipe(gulp.dest(config.releaseDirectory)));
+
 gulp.task("win-setupexe", function(done) {
   if (os.platform() === "win32") {
     winInstaller({
       appDirectory: config.tempDirectory + "/win32/Kakapo-win32-x64",
-      outputDirectory: config.releaseDirectory + "/win32",
+      outputDirectory: config.releaseDirectory,
       authors: "Daniel Levitt",
       loadingGif: config.sourceDirectory + "/images/loading.gif",
       setupIcon: config.sourceDirectory + "/images/app.ico",
@@ -42,7 +49,8 @@ gulp.task("win-setupexe", function(done) {
       description: "Kakapo",
       title: "Kakapo",
       exe: "Kakapo.exe",
-      version: packagejson.version
+      version: packagejson.version,
+      setupExe: "KakapoSetup-" + packagejson.version + "-Win.exe"
     }).then(done).catch(done);
   } else {
     throw new gutil.PluginError("installer-win", "Gulp task `installer-win` can only be run on a Windows machine!");
