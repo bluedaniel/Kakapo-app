@@ -10,7 +10,7 @@ A lot of the code is based on the Kakapo website ([Link](http://kakapo.co)) ([Gi
 - Downloads YouTube and SoundCloud files to play offline.
 - Auto-updates to the newest version.
 
-<img src="http://www.kakapo.co/images/kakapo-app-screenshot.png" width="728" height="533" />
+<img src="http://www.kakapo.co/images/kakapo-app-screenshot.png" width="728" height="600" />
 
 ## Bugs and Feature Requests
 
