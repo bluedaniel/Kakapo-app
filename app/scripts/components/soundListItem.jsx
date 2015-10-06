@@ -66,6 +66,11 @@ export default new Radium(React.createClass({
       "paused": !this.props.playing,
       "youtube-stream": this.props.source === "youtubeStream"
     });
+
+    let img = this.props.img;
+    if (this.props.source === "file") {
+      img = `../app/images/${this.props.playing ? "light-" : "dark-"}${this.props.img}`;
+    }
     return (
       <div
         className={classNames("item", "waves-effect", "waves-block", itemClass)}
@@ -74,7 +79,7 @@ export default new Radium(React.createClass({
         style={[this.state.theme.soundList.item, this.props.playing && this.state.theme.soundList.itemPlaying]}
       >
         <div className="inner">
-          <Image img={this.props.img}/>
+          <Image img={img}/>
           {this.renderActions()}
           <span className="title">
             {this.props.name}

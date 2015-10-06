@@ -22,7 +22,7 @@ export function getCustomURL(name, url, source="customStream", icon="") {
       return reject(new Error(`${url} doesn't contain an audio format`));
     }
     let newSound = {...Sound, ...{
-      file: source === "kakapoStream" ? url.replace(/^.*[\\\/]/, '') : `${uuid()}.${ext}`,
+      file: source === "file" ? url.replace(/^.*[\\\/]/, "") : `${uuid()}.${ext}`,
       img: icon,
       name: name,
       progress: 0,

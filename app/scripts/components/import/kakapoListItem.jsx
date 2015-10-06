@@ -14,12 +14,12 @@ export default new Radium(React.createClass({
   handleClick() {
     if (!this.alreadyAdded()) {
       let name = this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase());
-      soundActions.getCustomURL(name, this.props.file, "kakapoStream", this.props.img);
+      soundActions.getCustomURL(name, this.props.file, "file", this.props.img);
       this.history.pushState(null, "/downloads");
     }
   },
   getFileName(file) {
-    return file.replace(/^.*[\\\/]/, '');
+    return file.replace(/^.*[\\\/]/, "");
   },
   alreadyAdded() {
     return this.state.sounds.filter(s => this.getFileName(this.props.file) === this.getFileName(s.file)).length === 1;
@@ -28,7 +28,7 @@ export default new Radium(React.createClass({
     return (
       <div className={classNames("kakapo-item", {"disabled": this.alreadyAdded()})} onClick={this.handleClick}>
         <div className="thumbnail">
-          <Image img={this.props.img}/>
+          <Image img={`../app/images/dark-${this.props.img}`}/>
         </div>
         <span className="title">
           <FormattedMessage message={this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase())} />
