@@ -10,9 +10,29 @@ import { themeActions, windowActions } from "../actions";
 import { ColorPicker, Checkbox } from "../components/ui";
 
 var app = remote.require("app");
+var autoUpdater = remote.require("auto-updater");
 
 export default new Radium(React.createClass({
   mixins: [Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings"), IntlMixin],
+  getInitialState: function () {
+    return {
+      updateStatus: false
+    };
+  },
+  componentDidMount() {
+    autoUpdater
+      .on("checking-for-update", () => this.setUpdateStatus({updateStatus: "checking"}))
+      .on("update-available", () => this.setUpdateStatus({updateStatus: "downloading"}))
+      .on("update-not-available", () => this.setUpdateStatus({updateStatus: "latest"}))
+      .on("update-downloaded", () => this.setUpdateStatus({updateStatus: "downloaded"}));
+  },
+  setUpdateStatus(opts) {
+    this.setState(opts);
+  },
+  checkForUpdates() {
+    if (!this.state.updateStatus) autoUpdater.checkForUpdates();
+    if (this.state.updateStatus === "downloaded") ipc.send("application:quit-install");
+  },
   changePaletteSlot(slotNo) {
     this.setState({ colorPickerActive: true, slotNo: slotNo, defaultColor: this.state.theme.palette[slotNo] });
   },
@@ -68,7 +88,13 @@ export default new Radium(React.createClass({
             >
               <i className="icon-github"/>
             </a>
-            <p className="version">v{app.getVersion()}</p>
+            <p className="version" onClick={this.checkForUpdates}>
+              {!this.state.updateStatus && `Check for update - v${app.getVersion()}`}
+              {this.state.updateStatus === "checking" && "Checking for updates ..."}
+              {this.state.updateStatus === "downloading" && "Downloading update ..."}
+              {this.state.updateStatus === "latest" && "You have the latest version."}
+              {this.state.updateStatus === "downloaded" && "Click to restart and update."}
+            </p>
           </div>
         </div>
         <Link className="modal-bg" to="/"/>

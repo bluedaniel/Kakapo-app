@@ -119,26 +119,7 @@ app.on("ready", function() {
     autoUpdater.quitAndInstall();
   });
 
-  autoUpdater.on("checking-for-update", function () {
-    console.log("Checking for update...");
-  });
-
-  autoUpdater.on("update-available", function () {
-    console.log("Update available.");
-  });
-
-  autoUpdater.on("update-not-available", function () {
-    console.log("Update not available.");
-  });
-
   autoUpdater.on("update-downloaded", function (e, releaseNotes, releaseName, releaseDate, updateURL) {
-    console.log("Update downloaded.");
-    console.log(releaseNotes, releaseName, releaseDate, updateURL);
     appIcon.window.webContents.send("application:update-available");
-  });
-
-  autoUpdater.on("error", function (e, error) {
-    console.log("An error occured while checking for updates.");
-    console.log(error);
   });
 });
