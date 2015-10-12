@@ -84,7 +84,6 @@ export default function(opts) {
       modulesDirectories: ["node_modules"],
       extensions: ["", ".js", ".jsx", ".json", ".node"],
       alias: {
-        "howler": path.resolve(__dirname, "../../node_modules/howler/howler.min.js"),
         "rx-lite": path.resolve(__dirname, "../../node_modules/rx/dist/rx.lite.js"),
         rx: path.resolve(__dirname, "../../node_modules/rx/dist/rx.lite.extras.js")
       }
