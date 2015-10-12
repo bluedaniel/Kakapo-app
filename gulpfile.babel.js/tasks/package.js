@@ -12,7 +12,7 @@ var DEFAULT_OPTS = {
   dir: "./",
   icon: "app/images/app.icns",
   name: "Kakapo",
-  version: "0.33.6",
+  version: "0.33.7",
   ignore: [
     "/bower.json",
     "/bower_components($|/)",

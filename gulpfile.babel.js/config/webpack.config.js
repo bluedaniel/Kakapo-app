@@ -8,9 +8,8 @@ export default function(opts) {
   var entry = [ "./app/scripts/index" ];
 
   var loaders = {
-    "jsx": opts.hotComponents ? ["react-hot", "babel-loader?optional[]=runtime&stage=1"] : "babel-loader?optional[]=runtime&stage=1",
-    "js": {
-      loader: "babel-loader?optional[]=runtime&stage=1",
+    "jsx|js": {
+      loader: "babel-loader",
       exclude: /(node_modules|bower_components)/
     },
     "json": "json-loader",
@@ -21,6 +20,7 @@ export default function(opts) {
   };
 
   var plugins = [
+    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.IgnorePlugin(/vertx/),
     new webpack.PrefetchPlugin("react"),
     new webpack.PrefetchPlugin("react/lib/ReactComponentBrowserEnvironment")
@@ -54,19 +54,20 @@ export default function(opts) {
       new webpack.HotModuleReplacementPlugin()
     );
     entry.unshift(
-      "webpack-dev-server/client?http://0.0.0.0:2992",
-      "webpack/hot/only-dev-server"
+      "webpack-hot-middleware/client?path=http://localhost:" + (process.env.PORT || 3000) + "/__webpack_hmr"
     );
   }
+
+  var dist = path.resolve(__dirname, "../../dist/");
 
   return {
     entry: entry,
 
     output: {
-      path: path.resolve(__dirname, "../../dist/"),
+      path: dist,
       filename: "bundle.js",
-      publicPath: opts.devServer ? "http://localhost:2992/" : path.resolve(__dirname, "../../dist"),
-      contentBase: path.resolve(__dirname, "../../dist")
+      publicPath: opts.devServer ? "http://localhost:" + (process.env.PORT || 3000) + "/" : dist,
+      contentBase: dist
     },
 
     target: "atom",
@@ -89,17 +90,6 @@ export default function(opts) {
       }
     },
 
-    plugins: plugins,
-
-    devServer: {
-      hot: true,
-      port: 2992,
-      progress: true,
-      contentBase: path.resolve(__dirname, "../../dist"),
-      stats: {
-        cached: false,
-        exclude: [/node_modules[\\\/]react(-router)?[\\\/]/]
-      }
-    }
+    plugins: plugins
   };
 };

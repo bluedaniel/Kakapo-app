@@ -4,6 +4,7 @@
 !.eslintrc
 !.jscsrc
 !.scss-lint.yml
+!.babelrc
 !.eslintignore
 
 # Logs

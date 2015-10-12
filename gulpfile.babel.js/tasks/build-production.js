@@ -3,6 +3,7 @@ import gulpSequence from "gulp-sequence";
 
 gulp.task("build:production", (cb) =>
   gulpSequence(
+    "set-prod-node-env",
     "clean",
     "html",
     "images",
@@ -13,3 +14,7 @@ gulp.task("build:production", (cb) =>
     "package",
     cb)
 );
+
+gulp.task("set-prod-node-env", function() {
+  return process.env.NODE_ENV = "production";
+});

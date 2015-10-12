@@ -1,10 +1,9 @@
 import gulp from "gulp";
 import gulpSequence from "gulp-sequence";
 
-process.env.NODE_ENV = "development";
-
 gulp.task("build:development", (cb) =>
   gulpSequence(
+    "set-dev-node-env",
     "clean",
     "html",
     "images",
@@ -15,3 +14,7 @@ gulp.task("build:development", (cb) =>
     ["electron", "watch"],
     cb)
 );
+
+gulp.task("set-dev-node-env", function() {
+  return process.env.NODE_ENV = "development";
+});
