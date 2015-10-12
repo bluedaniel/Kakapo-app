@@ -19,9 +19,11 @@ export default React.createClass({
     return <ProgressBar key={this.props.file + "progress"} progress={this.props.progress}/>;
   },
   render() {
+    let img = this.props.img;
+    if (this.props.source === "file") img = `../app/images/dark-${img}`;
     return (
       <div className={classNames("download", {"active": this.props.progress < 1})}>
-        <div className="preview" style={{backgroundImage: `url(${this.props.img})`}}/>
+        <div className="preview" style={{backgroundImage: `url(${img})`}}/>
         <span className="title">{this.props.name}</span>
         <TransitionGroup>
           {this.renderProgress()}

@@ -2,6 +2,7 @@ import React from "react";
 import Reflux from "reflux";
 import Radium from "radium";
 import { IntlMixin, FormattedMessage } from "react-intl";
+import { History } from "react-router";
 import classNames from "classnames";
 import { Sounds } from "../../stores";
 import SoundItemClass from "../../classes/sound.js";
@@ -10,7 +11,7 @@ import { Image } from "../ui";
 
 export default new Radium(React.createClass({
   propTypes: SoundItemClass,
-  mixins: [ Reflux.connect(Sounds, "sounds"), IntlMixin ],
+  mixins: [ History, Reflux.connect(Sounds, "sounds"), IntlMixin ],
   handleClick() {
     if (!this.alreadyAdded()) {
       let name = this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase());
@@ -22,7 +23,7 @@ export default new Radium(React.createClass({
     return file.replace(/^.*[\\\/]/, "");
   },
   alreadyAdded() {
-    return this.state.sounds.filter(s => this.getFileName(this.props.file) === this.getFileName(s.file)).length === 1;
+    return this.state.sounds.filter(s => this.getFileName(this.props.file) === this.getFileName(s.file)).count() === 1;
   },
   render() {
     return (

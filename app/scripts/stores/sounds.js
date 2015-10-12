@@ -2,20 +2,22 @@ import ipc from "ipc";
 import fs from "fs";
 import path from "path";
 import Reflux from "reflux";
-import Immutable from "immutable";
+import {Map} from "immutable";
 import axios from "axios";
 import throttle from "lodash/function/throttle";
-import findWhere from "lodash/collection/findWhere";
 import { createSoundObj } from "../api";
 import { soundActions } from "../actions";
 import { dirname, toasterInstance } from "../utils";
 
-let sounds = new Immutable.OrderedMap(JSON.parse(localStorage.getItem("sounds")));
-let howls = new Immutable.Map();
+let sounds = new Map(JSON.parse(localStorage.getItem("sounds")));
+let howls = new Map();
 let mute = false;
 
 function updateIcon(s) {
-  let trayIcon = findWhere(s, { playing: true }) ? "TrayActive" : "TrayIdle";
+  let trayIcon = "TrayIdle";
+  sounds.forEach(s => {
+    if (s.playing) trayIcon = "TrayActive";
+  });
   ipc.sendChannel("update-icon", trayIcon);
 }
 
@@ -26,7 +28,7 @@ var SoundStore = Reflux.createStore({
     this.setSounds(sounds);
   },
   getInitialState() {
-    return sounds.toArray();
+    return sounds;
   },
   getHowl(s) {
     return new Promise(resolve => {
@@ -40,7 +42,7 @@ var SoundStore = Reflux.createStore({
   setSounds(data) {
     data.forEach(s => sounds = sounds.set(s.file, {...s, ...{ recentlyDownloaded: false }}));
     this.setAutoPlay();
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
   },
   setAutoPlay() {
     sounds.forEach(s => {
@@ -59,33 +61,33 @@ var SoundStore = Reflux.createStore({
       howl.play();
       if (mute) toasterInstance().then(t => t.toast("Kakapo is currently muted!"));
     });
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
   },
   onChangeVolume(sound, volume) {
     sounds = sounds.update(sound.file, s => ({...s, ...{ volume: volume }}));
     this.getHowl(sound).then(howl => howl.volume(volume));
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
   },
   onEditSound(sound, newData) {
     var opts = { "editing": !sound.editing };
     if (typeof (newData) !== "undefined") opts = {...opts, ...newData};
     sounds = sounds.update(sound.file, s => ({...s, ...opts}));
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
   },
   onRemoveSound(sound) {
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
     fs.unlinkSync(path.join(dirname, "sounds", sound.file));
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
   },
   soundProgressed(sound, progress) {
     sounds = sounds.set(sound.file, {...sound, ...{ progress: progress }});
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
   },
   soundDownloaded(sound) {
     toasterInstance().then(t => t.toast(`${sound.name} has been added.`));
     sounds = sounds.set(sound.file, {...sound, ...{ progress: 1 }});
-    this.trigger(sounds.toArray());
+    this.trigger(sounds);
     howls = howls.set(sound.file, createSoundObj(sound));
     if (mute) this.onToggleMute(mute);
   },
@@ -126,6 +128,6 @@ var SoundStore = Reflux.createStore({
 
 SoundStore.listen(s => updateIcon(s));
 
-SoundStore.listen(throttle(data => fs.writeFile(path.join(dirname, "/data/sounds.json"), JSON.stringify(data)), 1000));
+SoundStore.listen(throttle(data => fs.writeFile(path.join(dirname, "/data/sounds.json"), JSON.stringify(data.toArray())), 1000));
 
 export default SoundStore;

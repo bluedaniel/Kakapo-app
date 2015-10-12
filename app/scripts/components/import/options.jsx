@@ -28,7 +28,7 @@ export default new Radium(React.createClass({
             <i className="icon-soundcloud"/> {this.getIntlMessage("import.options.soundcloud")}
           </Link>
         </div>
-        <div className={classNames("download-wrap", {"active": activeDownloads.length})}>
+        <div className={classNames("download-wrap", {"active": activeDownloads.count()})}>
           <DownloadList sounds={activeDownloads}/>
         </div>
       </div>
