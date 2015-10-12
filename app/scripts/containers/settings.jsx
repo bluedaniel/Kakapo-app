@@ -9,7 +9,7 @@ import { Theme, Settings } from "../stores";
 import { themeActions, windowActions } from "../actions";
 import { ColorPicker, Checkbox } from "../components/ui";
 
-var app = remote.require('app');
+var app = remote.require("app");
 
 export default new Radium(React.createClass({
   mixins: [Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings"), IntlMixin],
@@ -53,6 +53,12 @@ export default new Radium(React.createClass({
                 name="toggle-dock"
                 />
             </div>) : ""}
+          <div className="opt quit">
+            <a onClick={() => ipc.sendChannel("app-quit")}>
+              <i className="icon-quit dark"/>
+              Quit Kakapo
+            </a>
+          </div>
           <div className="opt">
             <a
               className="github hint--right"
@@ -62,15 +68,8 @@ export default new Radium(React.createClass({
             >
               <i className="icon-github"/>
             </a>
+            <p className="version">v{app.getVersion()}</p>
           </div>
-          <div className="opt quit">
-            <a onClick={() => ipc.sendChannel("app-quit")}>
-              <i className="icon-quit dark"/>
-              Quit Kakapo
-            </a>
-          </div>
-          <hr/>
-          <p className="version">v{app.getVersion()}</p>
         </div>
         <Link className="modal-bg" to="/"/>
       </div>
