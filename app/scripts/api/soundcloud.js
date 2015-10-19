@@ -9,35 +9,35 @@ const SCAPI = "http://api.soundcloud.com";
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
 const SOUNDCLOUD_KEY = "733c506264b8a0b6b05c85d9f1615567";
 
-export function getSoundCloudSearch(q) {
+export function getSoundCloudSearch(_q) {
   return new Promise((resolve, reject) => {
     axios.get(`${SCAPI}/tracks`, { params: {
-        q: q,
-        "client_id": SOUNDCLOUD_KEY,
-        filter: "public"
-      }})
-      .then(res => resolve(res.data.filter(s => s.download_url)))
-      .catch(response => reject(response));
+      q: _q,
+      client_id: SOUNDCLOUD_KEY,
+      filter: "public"
+    }})
+    .then(res => resolve(res.data.filter(_s => _s.download_url)))
+    .catch(response => reject(response));
   });
 }
 
-
 function onData(progressed, sound, data) {
-  let progress = (this.dataRead += data.length) / this.fileSize;
+  const progress = (this.dataRead += data.length) / this.fileSize;
   progressed(sound, progress);
 }
 
 export function getSoundCloudURL(id) {
   this.fileSize = 1;
   this.dataRead = 0;
-  let progressBuffer = throttle(this.progressed, 100);
+  const progressBuffer = throttle(this.progressed, 100);
   return new Promise((resolve, reject) => {
-    axios.get(`${SCAPI_TRACKS}/${id}`, { params: { "client_id": SOUNDCLOUD_KEY } })
+    axios.get(`${SCAPI_TRACKS}/${id}`, { params: { client_id: SOUNDCLOUD_KEY } })
       .then(response => {
         if (!response.data.download_url) {
           return reject(new Error(`Sorry, that SoundCloud track cannot be downloaded.`));
         }
-        let newSound = {...Sound, ...{
+
+        const newSound = {...Sound, ...{
           file: `${uuid()}.mp3`,
           source: "soundcloudStream",
           name: response.data.title,

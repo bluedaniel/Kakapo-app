@@ -1,24 +1,24 @@
 import Reflux from "reflux";
 import { getYoutubeURL, getCustomURL, getSoundCloudURL } from "../api";
 
-let soundActions = Reflux.createActions({
-  "getYoutubeURL": {
+const soundActions = Reflux.createActions({
+  getYoutubeURL: {
     asyncResult: true,
     children: ["progressed"]
   },
-  "getCustomURL": {
+  getCustomURL: {
     asyncResult: true,
     children: ["progressed"]
   },
-  "getSoundCloudURL": {
+  getSoundCloudURL: {
     asyncResult: true,
     children: ["progressed"]
   },
-  "toggleMute": { sync: true },
-  "togglePlayPause": { sync: true },
-  "changeVolume": { sync: true },
-  "removeSound": { sync: true },
-  "editSound": { sync: true }
+  toggleMute: { sync: true },
+  togglePlayPause: { sync: true },
+  changeVolume: { sync: true },
+  removeSound: { sync: true },
+  editSound: { sync: true }
 });
 
 soundActions.getSoundCloudURL.listenAndPromise(getSoundCloudURL);

@@ -14,7 +14,7 @@ export default new Radium(React.createClass({
     return { loading: false };
   },
   componentDidMount() {
-    let autocomplete = this.observeAutocomplete();
+    const autocomplete = this.observeAutocomplete();
     autocomplete
       .subscribe(() => this.toggleSpinner(true));
 
@@ -23,9 +23,9 @@ export default new Radium(React.createClass({
       .subscribe(() => this.toggleSpinner(false));
   },
   observeAutocomplete() {
-    let input = this.refs.youtubeInput;
+    const input = this.refs.youtubeInput;
     return Rx.Observable.fromEvent(input, "keyup")
-      .map(e => e.target.value)
+      .map(el => el.target.value)
       .filter(text => text.length > 2)
       .throttle(250)
       .distinctUntilChanged();
@@ -52,10 +52,10 @@ export default new Radium(React.createClass({
           </div>
         </div>
         <div className={classNames({"youtube-items": this.state.items.youtube.length})}>
-          {this.state.items.youtube.map(y =>
+          {this.state.items.youtube.map(_y =>
             <YoutubeListItem
-              key={y.videoId}
-              {...y}
+              key={_y.videoId}
+              {..._y}
               {...Settings.opts.intlData}
             />, this)}
           </div>

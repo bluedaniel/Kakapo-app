@@ -20,20 +20,20 @@ export default new Radium(React.createClass({
     waves.ripple(this.refs.item);
     soundActions.togglePlayPause(this.props);
   },
-  handleDelete(e) {
-    this.handleStopPropagation(e);
+  handleDelete(el) {
+    this.handleStopPropagation(el);
     soundActions.removeSound(this.props);
   },
-  handleEdit(e) {
-    this.handleStopPropagation(e);
+  handleEdit(el) {
+    this.handleStopPropagation(el);
     soundActions.editSound(this.props);
   },
   handleChangeVolume() {
     soundActions.changeVolume(this.props, parseFloat(this.refs.volume.value));
   },
-  handleStopPropagation(e) {
-    e.preventDefault();
-    e.stopPropagation();
+  handleStopPropagation(el) {
+    el.preventDefault();
+    el.stopPropagation();
   },
   renderActions() {
     return (
@@ -61,7 +61,7 @@ export default new Radium(React.createClass({
   },
   render() {
     // Image size is relative to the volume
-    let itemClass = classNames({
+    const itemClass = classNames({
       "playing": this.props.playing,
       "paused": !this.props.playing,
       "youtube-stream": this.props.source === "youtubeStream"

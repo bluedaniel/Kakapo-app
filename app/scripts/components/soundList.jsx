@@ -5,8 +5,7 @@ import PureRenderMixin from "react-addons-pure-render-mixin";
 import {Map} from "immutable";
 import SoundListItem from "./soundListItem";
 import SoundEditItem from "./soundEditItem";
-import SoundClass from "../classes/sound";
-import { Theme, Settings } from "../stores";
+import { Settings } from "../stores";
 
 export default React.createClass({
   propTypes: {
@@ -18,14 +17,14 @@ export default React.createClass({
       <div className="six columns sound-list" ref="soundList1">
         {this.props.sounds
           .toArray()
-          .filter(s => s.progress === 1)
-          .map(s => {
-            let item = <SoundListItem key={s.file} {...s} {...this.state.settings.intlData}/>;
-            if (s.editing) {
-              item = <SoundEditItem key={s.file + "editing"} {...s} {...this.state.settings.intlData}/>;
+          .filter(_s => _s.progress === 1)
+          .map(_s => {
+            let item = <SoundListItem key={_s.file} {..._s} {...this.state.settings.intlData}/>;
+            if (_s.editing) {
+              item = <SoundEditItem key={_s.file + "editing"} {..._s} {...this.state.settings.intlData}/>;
             }
             return (
-              <div key={s.file}>
+              <div key={_s.file}>
                 <CSSTransitionGroup
                   transitionEnterTimeout={450}
                   transitionLeaveTimeout={450}

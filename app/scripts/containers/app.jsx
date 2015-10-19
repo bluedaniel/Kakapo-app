@@ -6,33 +6,39 @@ import Rx from "rx";
 import { Settings, Sounds, Theme } from "../stores";
 import { Header, Topnav, SoundList } from "../components";
 
-var autoUpdater = remote.require("auto-updater");
+const autoUpdater = remote.require("auto-updater");
 
 export default React.createClass({
   propTypes: {
     children: React.PropTypes.object
   },
   mixins: [ Reflux.connect(Sounds, "sounds"), Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings") ],
-  getInitialState: function () {
+  getInitialState() {
     return {
-      updateAvailable: false
+      updateAvailable: false,
+      konami: false
     };
   },
   componentDidMount() {
-    ipc.on("application:update-available", this.setUpdateAvailable);
+    ipc.on("application:update-available", this.handleUpdateAvailable);
     autoUpdater.checkForUpdates();
 
     // Konami!
     Rx.Observable.fromEvent(window, "keyup")
-      .map(e => e.keyCode)
+      .map(el => el.keyCode)
       .windowWithCount(10, 1)
-      .selectMany(x => x.toArray())
+      .selectMany(_x => _x.toArray())
       .filter(seq => seq.toString() === [38, 38, 40, 40, 37, 39, 37, 39, 66, 65].toString())
-      .subscribe(() => console.log("Konami!"));
+      .subscribe(this.handleKonami);
   },
-  setUpdateAvailable() {
+  handleUpdateAvailable() {
     this.setState({
       updateAvailable: true
+    });
+  },
+  handleKonami() {
+    this.setState({
+      konami: !this.state.konami
     });
   },
   handleAutoUpdateClick() {

@@ -14,7 +14,7 @@ export default new Radium(React.createClass({
     return { loading: false };
   },
   componentDidMount() {
-    let autocomplete = this.observeAutocomplete();
+    const autocomplete = this.observeAutocomplete();
     autocomplete
       .subscribe(() => this.toggleSpinner(true));
 
@@ -23,9 +23,9 @@ export default new Radium(React.createClass({
       .subscribe(() => this.toggleSpinner(false));
   },
   observeAutocomplete() {
-    let input = this.refs.soundcloudInput;
+    const input = this.refs.soundcloudInput;
     return Rx.Observable.fromEvent(input, "keyup")
-      .map(e => e.target.value)
+      .map(el => el.target.value)
       .filter(text => text.length > 2)
       .throttle(250)
       .distinctUntilChanged();
@@ -52,10 +52,10 @@ export default new Radium(React.createClass({
           </div>
         </div>
         <div className={classNames({"soundcloud-items": this.state.items.soundcloud.length})}>
-          {this.state.items.soundcloud.map(y =>
+          {this.state.items.soundcloud.map(_y =>
             <SoundCloudListItem
-              key={y.videoId}
-              {...y}
+              key={_y.videoId}
+              {..._y}
               {...Settings.opts.intlData}
             />, this)}
         </div>

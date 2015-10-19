@@ -11,7 +11,7 @@ export default React.createClass({
   },
   mixins: [ IntlMixin, Reflux.connect(Settings, "settings") ],
   render() {
-    let routeName = window.location.hash.substr(1).split("/").join(" ") || "";
+    const routeName = window.location.hash.substr(1).split("/").join(" ") || "";
     return (
       <CSSTransitionGroup
         component="div"

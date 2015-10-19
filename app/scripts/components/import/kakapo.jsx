@@ -18,10 +18,10 @@ export default new Radium(React.createClass({
         <h5>{this.getIntlMessage("import.kakapo.header")}</h5>
         <p>{this.getIntlMessage("import.kakapo.subheader")}</p>
           <div className={classNames({"kakapofavs-items": this.state.items.kakapofavs.length})}>
-            {this.state.items.kakapofavs.map(y =>
+            {this.state.items.kakapofavs.map(_y =>
               <KakapoListItem
-                key={y.name}
-                {...y}
+                key={_y.name}
+                {..._y}
                 {...Settings.opts.intlData}
               />, this)}
           </div>

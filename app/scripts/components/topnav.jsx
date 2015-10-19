@@ -2,7 +2,6 @@ import Radium from "radium";
 import React from "react";
 import Reflux from "reflux";
 import classNames from "classnames";
-import { Link } from "react-router";
 import { soundActions } from "../actions";
 import { Theme } from "../stores";
 
@@ -17,8 +16,8 @@ export default new Radium(React.createClass({
   render() {
     return (
       <div className={classNames("topbar", {
-          "dark": this.state.theme.darkUI
-        })} style={this.state.theme.header.download}>
+        "dark": this.state.theme.darkUI
+      })} style={this.state.theme.header.download}>
         <span className={classNames("mute", {
           "muted": this.state.mute,
           "dark": this.state.theme.darkUI

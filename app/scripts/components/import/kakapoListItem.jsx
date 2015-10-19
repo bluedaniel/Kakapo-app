@@ -12,18 +12,18 @@ import { Image } from "../ui";
 export default new Radium(React.createClass({
   propTypes: SoundItemClass,
   mixins: [ History, Reflux.connect(Sounds, "sounds"), IntlMixin ],
+  getFileName(file) {
+    return file.replace(/^.*[\\\/]/, "");
+  },
   handleClick() {
     if (!this.alreadyAdded()) {
-      let name = this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase());
+      const name = this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase());
       soundActions.getCustomURL(name, this.props.file, "file", this.props.img);
       this.history.pushState(null, "/downloads");
     }
   },
-  getFileName(file) {
-    return file.replace(/^.*[\\\/]/, "");
-  },
   alreadyAdded() {
-    return this.state.sounds.filter(s => this.getFileName(this.props.file) === this.getFileName(s.file)).count() === 1;
+    return this.state.sounds.filter(_s => this.getFileName(this.props.file) === this.getFileName(_s.file)).count() === 1;
   },
   render() {
     return (

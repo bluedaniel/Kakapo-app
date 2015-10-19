@@ -10,7 +10,7 @@ import { DownloadList } from "../../components";
 export default new Radium(React.createClass({
   mixins: [ IntlMixin, Reflux.connect(Sounds, "sounds") ],
   render() {
-    let activeDownloads = this.state.sounds.filter(s => s.recentlyDownloaded);
+    const activeDownloads = this.state.sounds.filter(_s => _s.recentlyDownloaded);
     return (
       <div className="media">
         <div className="options-kakapo">

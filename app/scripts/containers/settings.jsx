@@ -9,12 +9,12 @@ import { Theme, Settings } from "../stores";
 import { themeActions, windowActions } from "../actions";
 import { ColorPicker, Checkbox } from "../components/ui";
 
-var app = remote.require("app");
-var autoUpdater = remote.require("auto-updater");
+const app = remote.require("app");
+const autoUpdater = remote.require("auto-updater");
 
 export default new Radium(React.createClass({
   mixins: [Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings"), IntlMixin],
-  getInitialState: function () {
+  getInitialState() {
     return {
       updateStatus: false
     };
@@ -36,8 +36,8 @@ export default new Radium(React.createClass({
   changePaletteSlot(slotNo) {
     this.setState({ colorPickerActive: true, slotNo: slotNo, defaultColor: this.state.theme.palette[slotNo] });
   },
-  changeLanguage(e) {
-    windowActions.changeLanguage(e.target.value);
+  changeLanguage(el) {
+    windowActions.changeLanguage(el.target.value);
   },
   handleSwatch(swatch) {
     this.setState({ colorPickerActive: false });

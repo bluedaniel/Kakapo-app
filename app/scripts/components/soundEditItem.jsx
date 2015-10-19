@@ -9,14 +9,14 @@ import SoundClass from "../classes/sound";
 export default new Radium(React.createClass({
   propTypes: SoundClass,
   mixins: [ IntlMixin ],
-  handleCancel(e) {
-    e.preventDefault();
+  handleCancel(el) {
+    el.preventDefault();
     soundActions.editSound(this.props, null);
   },
-  handleSave(e) {
-    e.preventDefault();
+  handleSave(el) {
+    el.preventDefault();
     Ladda.create(this.refs.btn).start();
-    var newData = {
+    const newData = {
       name: this.refs.name.value,
       tags: this.refs.tags.value
     };

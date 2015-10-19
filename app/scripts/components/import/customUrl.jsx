@@ -10,9 +10,9 @@ import { toasterInstance } from "../../utils";
 
 export default new Radium(React.createClass({
   mixins: [ History, IntlMixin ],
-  handleSubmit(e) {
-    e.preventDefault();
-    var data = {
+  handleSubmit(el) {
+    el.preventDefault();
+    const data = {
       name: this.refs.name.value,
       url: this.refs.customInput.value
     };
@@ -22,10 +22,10 @@ export default new Radium(React.createClass({
         soundActions.getCustomURL(data.name, data.url);
         this.history.pushState(null, "/downloads");
       } else {
-        toasterInstance().then(t => t.toast(this.getIntlMessage("import.error.url")));
+        toasterInstance().then(_t => _t.toast(this.getIntlMessage("import.error.url")));
       }
     } else {
-      toasterInstance().then(t => t.toast(this.getIntlMessage("import.error.empty")));
+      toasterInstance().then(_t => _t.toast(this.getIntlMessage("import.error.empty")));
     }
   },
   render() {
