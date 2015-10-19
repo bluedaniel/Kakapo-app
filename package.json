@@ -11,6 +11,7 @@
     "babel-plugin-react-transform": "^1.1.1",
     "babel-runtime": "^5.8.25",
     "bower": "^1.5.3",
+    "browser-sync": "^2.9.11",
     "classnames": "^2.1.5",
     "color": "^0.10.1",
     "concurrent-transform": "^1.0.0",
@@ -20,6 +21,7 @@
     "electron-prebuilt": "^0.33.7",
     "electron-windows-installer": "^1.1.0",
     "eslint": "^1.6.0",
+    "eslint-config-airbnb": "^0.1.0",
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^3.5.1",
     "express": "^4.13.3",
@@ -43,15 +45,23 @@
     "howler": "^2.0.0-beta1",
     "immutable": "^3.7.4",
     "intl": "^1.0.0",
+    "jscs": "^2.3.4",
     "json-loader": "^0.5.2",
     "ladda": "^0.9.8",
     "lodash": "^3.10.1",
     "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
     "moment": "^2.10.5",
+    "ncp": "^2.0.0",
     "node-sass": "^3.1.2",
     "node-waves": "^0.7.2",
     "numeral": "^1.5.3",
     "object-assign": "^4.0.1",
+    "postcss": "^5.0.10",
+    "postcss-cssnext": "^2.1.0",
+    "postcss-import": "^7.1.0",
+    "postcss-loader": "^0.7.0",
+    "postcss-nested": "^1.0.0",
     "radium": "^0.14.1",
     "rcedit": "^0.3.0",
     "react": "^0.14.0",
@@ -64,8 +74,12 @@
     "react-intl": "^1.2.0",
     "react-proxy-loader": "^0.3.4",
     "react-router": "^1.0.0-rc3",
+    "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
-    "reflux": "^0.2.13",
+    "redbox-react": "^1.1.1",
+    "reflux": "^0.3.0",
+    "reflux-core": "^0.3.0",
+    "reflux-promise": "^1.0.2",
     "request": "^2.65.0",
     "require-dir": "^0.3.0",
     "rx": "^4.0.0",
@@ -79,11 +93,15 @@
     "ytdl-core": "^0.6.1"
   },
   "scripts": {
-    "profile": "webpack --config gulpfile.js/config/webpack-production.config.js --progress --colors --profile --json > stats.json",
-    "build": "gulp build:development",
-    "package": "gulp build:production",
-    "installer-mac": "gulp installer-mac",
-    "installer-win": "gulp installer-win"
+    "lint": "eslint app tools && jscs app/scripts tools",
+    "test": "karma start",
+    "debug": "karma start --no-single-run --auto-watch",
+    "clean": "babel-node --eval \"require('./tools/clean')().catch(err => console.error(err.stack))\"",
+    "copy": "babel-node --eval \"require('./tools/copy')().catch(err => console.error(err.stack))\"",
+    "bundle": "babel-node --eval \"require('./tools/bundle')().catch(err => console.error(err.stack))\"",
+    "build": "babel-node --eval \"require('./tools/build')().catch(err => console.error(err.stack))\"",
+    "serve": "babel-node --eval \"require('./tools/serve')().catch(err => console.error(err.stack))\"",
+    "start": "babel-node --eval \"require('./tools/start')().catch(err => console.error(err.stack))\""
   },
   "repository": {
     "type": "git",
@@ -94,5 +112,9 @@
   "bugs": {
     "url": "https://github.com/bluedaniel/Kakapo-app/issues"
   },
-  "homepage": "https://github.com/bluedaniel/Kakapo-app#readme"
+  "homepage": "https://github.com/bluedaniel/Kakapo-app#readme",
+  "dependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25"
+  }
 }
