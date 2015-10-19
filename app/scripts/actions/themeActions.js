@@ -1,5 +1,5 @@
 import Reflux from "reflux";
 
-export default Reflux.createActions({
-  changePaletteColor: { sync: true }
-});
+export default Reflux.createActions([
+  "changePaletteColor"
+]);

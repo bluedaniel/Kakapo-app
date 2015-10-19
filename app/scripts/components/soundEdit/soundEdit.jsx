@@ -1,12 +1,10 @@
 import React from "react";
-import Radium from "radium";
-import Ladda from "ladda";
 import { FormattedMessage, IntlMixin } from "react-intl";
-import { soundActions } from "../actions";
-import { Theme } from "../stores";
-import SoundClass from "../classes/sound";
+import { soundActions } from "../../actions";
+import { Theme } from "../../stores";
+import SoundClass from "../../classes/sound";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   propTypes: SoundClass,
   mixins: [ IntlMixin ],
   handleCancel(el) {
@@ -15,16 +13,14 @@ export default new Radium(React.createClass({
   },
   handleSave(el) {
     el.preventDefault();
-    Ladda.create(this.refs.btn).start();
-    const newData = {
+    soundActions.editSound(this.props, {
       name: this.refs.name.value,
       tags: this.refs.tags.value
-    };
-    soundActions.editSound(this.props, newData);
+    });
   },
   render() {
     return (
-      <div className="item editing" style={[Theme.styles.soundList.item]}>
+      <div className="item editing" style={Theme.styles.soundList.item}>
         <form onSubmit={this.handleSave}>
           <label><FormattedMessage message={this.getIntlMessage("list.editing_name")}/></label>
           <input
@@ -46,17 +42,11 @@ export default new Radium(React.createClass({
             <FormattedMessage message={this.getIntlMessage("list.cancel")}/>
           </a>
           <button
-            className="button-primary ladda-button"
-            data-style="expand-right"
-            ref="btn"
+            className="button-primary"
             style={Theme.styles.base.btnPrimary}
-          >
-            <span className="ladda-label">
-              <FormattedMessage message={this.getIntlMessage("list.save")}/>
-            </span>
-          </button>
+          ><FormattedMessage message={this.getIntlMessage("list.save")}/></button>
         </form>
       </div>
     );
   }
-}));
+});

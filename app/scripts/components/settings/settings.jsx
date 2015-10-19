@@ -1,18 +1,18 @@
 import ipc from "ipc";
 import remote from "remote";
 import React from "react";
-import Radium from "radium";
 import Reflux from "reflux";
 import { Link } from "react-router";
 import { IntlMixin, FormattedMessage } from "react-intl";
-import { Theme, Settings } from "../stores";
-import { themeActions, windowActions } from "../actions";
-import { ColorPicker, Checkbox } from "../components/ui";
+import { Theme, Settings } from "../../stores";
+import { themeActions, windowActions } from "../../actions";
+import { ColorPicker, Checkbox } from "../../components/ui";
+import "./settings.css";
 
 const app = remote.require("app");
 const autoUpdater = remote.require("auto-updater");
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [Reflux.connect(Theme, "theme"), Reflux.connect(Settings, "settings"), IntlMixin],
   getInitialState() {
     return {
@@ -101,4 +101,4 @@ export default new Radium(React.createClass({
       </div>
     );
   }
-}));
+});

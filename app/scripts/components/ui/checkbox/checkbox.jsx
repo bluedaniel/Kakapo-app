@@ -8,7 +8,7 @@ export default React.createClass({
     name: PropTypes.string,
     value: PropTypes.string
   },
-  handleChange: function(){
+  handleChange() {
     this.props.handleChange(this.refs.checkbox.checked);
   },
   render() {

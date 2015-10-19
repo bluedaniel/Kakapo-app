@@ -1,6 +1,5 @@
 import React from "react";
 import Reflux from "reflux";
-import Radium from "radium";
 import Rx from "rx";
 import { IntlMixin } from "react-intl";
 import classNames from "classnames";
@@ -8,7 +7,7 @@ import { searchActions } from "../../actions";
 import { Settings, Search } from "../../stores";
 import YoutubeListItem from "./youtubeListItem";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [ IntlMixin, Reflux.connect(Search, "items") ],
   getInitialState() {
     return { loading: false };
@@ -62,4 +61,4 @@ export default new Radium(React.createClass({
       </div>
     );
   }
-}));
+});

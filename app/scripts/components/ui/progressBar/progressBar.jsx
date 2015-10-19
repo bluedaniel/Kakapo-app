@@ -1,11 +1,12 @@
 import React, { PropTypes } from "react";
+import "./progressBar.css";
 
 export default React.createClass({
   propTypes: {
     progress: PropTypes.number
   },
   componentWillLeave(cb) {
-    let bar = this.refs.bar;
+    const bar = this.refs.bar;
     bar.addEventListener("transitionend", () => {
       bar.className += " animated bounceOut";
       bar.addEventListener("animationend", () => {

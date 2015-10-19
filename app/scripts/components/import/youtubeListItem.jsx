@@ -1,16 +1,15 @@
 import React from "react";
-import Radium from "radium";
 import { History } from "react-router";
 import YouTubeItemClass from "../../classes/youtubeItem";
 import { IntlMixin, FormattedMessage, FormattedNumber } from "react-intl";
 import { Image } from "../ui";
 import { soundActions } from "../../actions";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   propTypes: YouTubeItemClass,
   mixins: [ History, IntlMixin ],
   handleClick() {
-    soundActions.getYoutubeURL(`https://www.youtube.com/watch?v=${this.props.videoId}`);
+    soundActions.getYoutubeURL(this.props.videoId, this.props.name, this.props.img, this.props.tags);
     this.history.pushState(null, "/downloads");
   },
   render() {
@@ -31,4 +30,4 @@ export default new Radium(React.createClass({
     </div>
     );
   }
-}));
+});

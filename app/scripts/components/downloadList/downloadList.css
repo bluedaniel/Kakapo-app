@@ -24,7 +24,7 @@
     position: relative;
     &.active {
       animation: barberpole .5s linear infinite;
-      background-image: linear-gradient(45deg, rgba(#000, .1) 25%, transparent 25%, transparent 50%, rgba(#000, .1) 50%, rgba(#000, .1) 75%, transparent 75%, transparent);
+      background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
       background-size: 30px 30px;
     }
     .icon-tick {
@@ -43,10 +43,6 @@
     }
     .title {
       flex: 1;
-      max-width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
   }
 }

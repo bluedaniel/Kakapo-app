@@ -1,12 +1,11 @@
 import React from "react";
-import Radium from "radium";
 import { History } from "react-router";
 import SoundCloudItemClass from "../../classes/soundcloudItem";
 import { IntlMixin, FormattedMessage, FormattedNumber } from "react-intl";
 import { Image } from "../ui";
 import { soundActions } from "../../actions";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   propTypes: SoundCloudItemClass,
   mixins: [ History, IntlMixin ],
   handleClick() {
@@ -34,4 +33,4 @@ export default new Radium(React.createClass({
     </div>
     );
   }
-}));
+});

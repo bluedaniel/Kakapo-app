@@ -1,17 +1,16 @@
-import Radium from "radium";
 import React from "react";
 import Reflux from "reflux";
 import classNames from "classnames";
 import { Link } from "react-router";
 import { IntlMixin } from "react-intl";
-import { Theme } from "../stores";
-import { dirname } from "../utils";
+import { Theme } from "../../stores";
+import "./header.css";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [ IntlMixin, Reflux.connect(Theme, "theme") ],
   render() {
     return (
-      <header style={this.state.theme.header.titlebar}>
+      <header className="header" style={this.state.theme.header.titlebar}>
         <div className="container">
           <div className="titlebar">
             <Link title={this.getIntlMessage("nav.downloads")} to="/downloads">
@@ -21,7 +20,7 @@ export default new Radium(React.createClass({
             </Link>
             <Link className="logo" to="/">
               <h3 style={this.state.theme.header.h3}>
-                <img src={dirname + "/icons/social/kakapo.png"}/>
+                <img src="icons/social/kakapo.png"/>
                 Kakapo
               </h3>
             </Link>
@@ -35,4 +34,4 @@ export default new Radium(React.createClass({
       </header>
     );
   }
-}));
+});

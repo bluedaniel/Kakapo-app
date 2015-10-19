@@ -1,0 +1,83 @@
+i {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: inline-block;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+}
+
+.icon-add {
+  background-image: url("../../icons/light/add.png");
+  &.dark {
+    background-image: url("../../icons/dark/add.png");
+  }
+}
+.icon-download {
+  background-image: url("../../icons/light/download.png");
+  &.dark {
+    background-image: url("../../icons/dark/download.png");
+  }
+}
+.icon-file {
+  background-image: url("../../icons/light/file.png");
+  &.dark {
+    background-image: url("../../icons/dark/file.png");
+  }
+}
+.icon-pencil {
+  background-image: url("../../icons/light/pencil.png");
+  &.dark {
+    background-image: url("../../icons/dark/pencil.png");
+  }
+}
+.icon-quit {
+  background-image: url("../../icons/light/quit.png");
+  &.dark {
+    background-image: url("../../icons/dark/quit.png");
+  }
+}
+.icon-settings {
+  background-image: url("../../icons/light/settings.png");
+  &.dark {
+    background-image: url("../../icons/dark/settings.png");
+  }
+}
+.icon-sound {
+  background-image: url("../../icons/light/sound.png");
+  &.dark {
+    background-image: url("../../icons/dark/sound.png");
+  }
+}
+.icon-share {
+  background-image: url("../../icons/light/share.png");
+  &.dark {
+    background-image: url("../../icons/dark/share.png");
+  }
+}
+.icon-tick {
+  background-image: url("../../icons/light/tick.png");
+  &.dark {
+    background-image: url("../../icons/dark/tick.png");
+  }
+}
+.icon-trash {
+  background-image: url("../../icons/light/trash.png");
+  &.dark {
+    background-image: url("../../icons/dark/trash.png");
+  }
+}
+
+.icon-github {
+  background-image: url("../../icons/social/github.png");
+}
+.icon-kakapo {
+  background-image: url("../../icons/social/kakapo.png");
+}
+.icon-soundcloud {
+  background-image: url("../../icons/social/soundcloud.png");
+}
+.icon-youtube {
+  background-image: url("../../icons/social/youtube.png");
+}

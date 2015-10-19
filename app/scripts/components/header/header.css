@@ -1,7 +1,7 @@
 .topbar {
   color: #fff;
   font-size: 13px;
-  height: 20px;
+  height: 35px;
   left: 0;
   overflow: hidden;
   padding: 8px 0 7px;
@@ -10,6 +10,13 @@
   text-align: center;
   top: 0;
   z-index: 40;
+  .download-app {
+    display: block;
+    margin: 0 110px;
+    @media (max-width: 550px) {
+      display: none;
+    }
+  }
   .drag {
     -webkit-app-region: drag;
     height: 35px;
@@ -17,11 +24,6 @@
     position: absolute;
     top: 0;
     width: 220px;
-  }
-  .download-app {
-    display: block;
-    opacity: 0;
-    pointer-events: none;
   }
   .twitter,
   .facebook,
@@ -84,7 +86,7 @@ header {
   padding: 12px 0 11px;
   position: fixed;
   top: 35px;
-  width: $site-width;
+  width: 100%;
   z-index: 40;
 }
 .titlebar {

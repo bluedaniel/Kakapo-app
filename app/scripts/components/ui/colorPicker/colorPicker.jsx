@@ -1,9 +1,9 @@
 import React, { PropTypes } from "react";
-import Radium from "radium";
 import classNames from "classnames";
-import swatches from "../../utils/swatches";
+import swatches from "../../../utils/swatches";
+import "./colorPicker.css";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   propTypes: {
     active: PropTypes.bool,
     color: PropTypes.string,
@@ -17,4 +17,4 @@ export default new Radium(React.createClass({
       </div>
     );
   }
-}));
+});

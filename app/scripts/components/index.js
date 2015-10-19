@@ -1,13 +1,15 @@
 
-export { default as Header } from "./header";
-export { default as Topnav } from "./topnav";
+export { default as Header } from "./header/header";
+export { default as Nav } from "./nav/nav";
 
-export { default as SoundList } from "./soundList";
-export { default as SoundItem } from "./soundEditItem";
-export { default as SoundEditItem } from "./soundEditItem";
+export { default as Settings } from "./settings/settings";
 
-export { default as DownloadList } from "./downloadList";
-export { default as DownloadListItem } from "./downloadListItem";
+export { default as SoundList } from "./soundList/soundList";
+export { default as SoundItem } from "./soundItem/soundItem";
+export { default as SoundEdit } from "./soundEdit/soundEdit";
+
+export { default as DownloadList } from "./downloadList/downloadList";
+export { default as DownloadItem } from "./downloadItem/downloadItem";
 
 export { default as ImportOptions } from "./import/options";
 export { default as ImportCustomUrl } from "./import/customUrl";

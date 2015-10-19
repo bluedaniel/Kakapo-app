@@ -1,13 +1,12 @@
 import React from "react";
 import Reflux from "reflux";
-import Radium from "radium";
 import { IntlMixin } from "react-intl";
 import classNames from "classnames";
 import { searchActions } from "../../actions";
 import { Settings, Search } from "../../stores";
 import KakapoListItem from "./kakapoListItem";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [ IntlMixin, Reflux.connect(Search, "items") ],
   componentDidMount() {
     searchActions.getKakapoFavourites();
@@ -28,4 +27,4 @@ export default new Radium(React.createClass({
       </div>
     );
   }
-}));
+});

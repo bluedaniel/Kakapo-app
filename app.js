@@ -9,7 +9,7 @@ var Tray = require("tray");
 var child_process = require("child_process");
 
 var settings = JSON.parse(fs.readFileSync(path.join(__dirname, "app", "data", "settings.json")));
-var file = path.join("file://", __dirname, "app", (process.env.NODE_ENV === "development" ? "index-dev" : "index") + ".html");
+var file = path.join("file://", __dirname, "build", "index.html");
 var iconIdle = path.join(__dirname, "app", "images", "tray-idle.png");
 var iconActive = path.join(__dirname, "app", "images", "tray-active.png");
 

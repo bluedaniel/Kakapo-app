@@ -1,8 +1,8 @@
 import React from "react";
 import TransitionGroup from "react-addons-transition-group";
 import classNames from "classnames";
-import SoundClass from "../classes/sound";
-import { ProgressBar } from "./ui";
+import SoundClass from "../../classes/sound";
+import { ProgressBar } from "../ui";
 
 export default React.createClass({
   propTypes: SoundClass,
@@ -20,7 +20,9 @@ export default React.createClass({
   },
   render() {
     let img = this.props.img;
-    if (this.props.source === "file") img = `../app/images/dark-${img}`;
+    if (this.props.source === "file") {
+      img = `http://data.kakapo.co/images/dark-${img}`;
+    }
     return (
       <div className={classNames("download", {"active": this.props.progress < 1})}>
         <div className="preview" style={{backgroundImage: `url(${img})`}}/>

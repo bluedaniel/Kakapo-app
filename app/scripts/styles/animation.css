@@ -1,8 +1,4 @@
-
-// Animations
-$animation-speed: 450ms;
-
-// App clip circle intro
+/* App clip circle intro */
 @keyframes clipCircle {
   0% { clip-path: circle(0% at 50% 50%); }
   10% { clip-path: circle(8% at 50% 50%); }
@@ -10,7 +6,7 @@ $animation-speed: 450ms;
   100% { clip-path: circle(71% at 50% 50%); }
 }
 
-// Scale and fade in
+/* Scale and fade in */
 @keyframes scale-fade {
   0% {
     opacity: 0;
@@ -21,22 +17,22 @@ $animation-speed: 450ms;
   100% { transform: scale(1) rotateX(0); }
 }
 
-// Rotating the gear icon
+/* Rotating the gear icon */
 @keyframes rotating {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-// Barberpole for loading effect
+/* Barberpole for loading effect */
 @keyframes barberpole {
   from { background-position: 0 0; }
   to { background-position: 60px 30px; }
 }
 
-// Menu sliding in left
+/* Menu sliding in left */
 .modal {
   opacity: 1;
-  transition: opacity $animation-speed;
+  transition: opacity var(--animationSpeed);
   &.modal-enter {
     opacity: 0;
     &.modal-enter-active {
@@ -53,11 +49,11 @@ $animation-speed: 450ms;
 
 .sound-list {
   > div {
-    transition: height $animation-speed cubic-bezier(.23, 1, .32, 1) 0ms;
+    transition: height var(--animationSpeed) cubic-bezier(.23, 1, .32, 1) 0ms;
   }
   .item {
     &.list-animation-enter {
-      animation-duration: $animation-speed;
+      animation-duration: var(--animationSpeed);
       animation-name: fadeInUp;
       visibility: hidden;
       &.list-animation-enter-active {
@@ -66,7 +62,7 @@ $animation-speed: 450ms;
       }
     }
     &.list-animation-leave {
-      animation-duration: $animation-speed;
+      animation-duration: var(--animationSpeed);
       animation-name: fadeOutDown;
       position: absolute;
       top: 0;
@@ -80,10 +76,10 @@ $animation-speed: 450ms;
 
 .modal {
   .media-opts {
-    transition: height $animation-speed cubic-bezier(.23, 1, .32, 1) 0ms;
+    transition: height var(--animationSpeed) cubic-bezier(.23, 1, .32, 1) 0ms;
   }
   .list-animation-enter {
-    animation-duration: $animation-speed;
+    animation-duration: var(--animationSpeed);
     animation-name: fadeInUp;
     visibility: hidden;
     &.list-animation-enter-active {
@@ -92,7 +88,7 @@ $animation-speed: 450ms;
     }
   }
   .list-animation-leave {
-    animation-duration: $animation-speed;
+    animation-duration: var(--animationSpeed);
     animation-name: fadeOutDown;
     position: absolute;
     top: 0;
@@ -103,7 +99,7 @@ $animation-speed: 450ms;
   }
 }
 
-// Color transitions based on theme changes
+/* Color transitions based on theme changes */
 body,
 .titlebar,
 .navbar,
@@ -112,7 +108,7 @@ body,
   transition: all 450ms cubic-bezier(.23, 1, .32, 1) 0ms;
 }
 
-// Popup transitions
+/* Popup transitions */
 .color-picker {
   animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
   transform-origin: bottom center;

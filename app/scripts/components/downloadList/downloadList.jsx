@@ -1,6 +1,7 @@
 import React, { PropTypes } from "react";
 import {Map} from "immutable";
-import DownloadListItem from "./downloadListItem";
+import {DownloadItem} from "../";
+import "./downloadList.css";
 
 export default React.createClass({
   propTypes: {
@@ -11,7 +12,7 @@ export default React.createClass({
       <div>
         <h5>Recently added</h5>
         <div className="download-list">
-          {this.props.sounds.toArray().map(_s => <DownloadListItem key={_s.file} {..._s}/>)}
+          {this.props.sounds.toArray().map(_s => <DownloadItem key={_s.file} {..._s}/>)}
         </div>
       </div>
     );

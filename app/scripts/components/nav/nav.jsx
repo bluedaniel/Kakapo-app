@@ -1,11 +1,11 @@
-import Radium from "radium";
 import React from "react";
 import Reflux from "reflux";
 import classNames from "classnames";
-import { soundActions } from "../actions";
-import { Theme } from "../stores";
+import { soundActions } from "../../actions";
+import { Theme } from "../../stores";
+import "./nav.css";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [ Reflux.connect(Theme, "theme") ],
   getInitialState() {
     return { mute: false };
@@ -30,4 +30,4 @@ export default new Radium(React.createClass({
       </div>
     );
   }
-}));
+});

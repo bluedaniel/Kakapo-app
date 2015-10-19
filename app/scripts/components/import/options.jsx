@@ -1,4 +1,3 @@
-import Radium from "radium";
 import React from "react";
 import Reflux from "reflux";
 import classNames from "classnames";
@@ -7,7 +6,7 @@ import { Link } from "react-router";
 import { Sounds } from "../../stores";
 import { DownloadList } from "../../components";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [ IntlMixin, Reflux.connect(Sounds, "sounds") ],
   render() {
     const activeDownloads = this.state.sounds.filter(_s => _s.recentlyDownloaded);
@@ -34,4 +33,4 @@ export default new Radium(React.createClass({
       </div>
     );
   }
-}));
+});
