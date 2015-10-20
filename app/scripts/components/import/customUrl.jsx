@@ -1,6 +1,4 @@
 import React from "react";
-import Radium from "radium";
-import Ladda from "ladda";
 import { IntlMixin } from "react-intl";
 import { History } from "react-router";
 import validator from "validator";
@@ -8,24 +6,23 @@ import { soundActions } from "../../actions";
 import { Theme } from "../../stores";
 import { toasterInstance } from "../../utils";
 
-export default new Radium(React.createClass({
+export default React.createClass({
   mixins: [ History, IntlMixin ],
-  handleSubmit(e) {
-    e.preventDefault();
-    var data = {
+  handleSubmit(el) {
+    el.preventDefault();
+    const data = {
       name: this.refs.name.value,
       url: this.refs.customInput.value
     };
     if (data.name && data.url) {
       if (validator.isURL(data.url)) {
-        Ladda.create(this.refs.btn).start();
         soundActions.getCustomURL(data.name, data.url);
         this.history.pushState(null, "/downloads");
       } else {
-        toasterInstance().then(t => t.toast(this.getIntlMessage("import.error.url")));
+        toasterInstance().then(_t => _t.toast(this.getIntlMessage("import.error.url")));
       }
     } else {
-      toasterInstance().then(t => t.toast(this.getIntlMessage("import.error.empty")));
+      toasterInstance().then(_t => _t.toast(this.getIntlMessage("import.error.empty")));
     }
   },
   render() {
@@ -47,16 +44,13 @@ export default new Radium(React.createClass({
               type="text"
             />
             <button
-              className="button-primary ladda-button"
-              data-style="expand-right"
+              className="button-primary"
               ref="btn"
               style={Theme.styles.base.btnPrimary}
-            >
-              <span className="ladda-label">{this.getIntlMessage("import.save")}</span>
-            </button>
+            >{this.getIntlMessage("import.save")}</button>
           </div>
         </form>
       </div>
     );
   }
-}));
+});

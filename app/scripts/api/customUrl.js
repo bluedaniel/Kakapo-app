@@ -8,20 +8,21 @@ import Sound from "../classes/newSound";
 const Supported = ["mp3", "opus", "ogg", "wav", "aac", "m4a", "mp4", "weba"];
 
 function onData(progressed, sound, data) {
-  let progress = (this.dataRead += data.length) / this.fileSize;
+  const progress = (this.dataRead += data.length) / this.fileSize;
   if (this.fileSize && progress) progressed(sound, progress);
 }
 
-export function getCustomURL(name, url, source="customStream", icon="") {
+export function getCustomURL(name, url, source = "customStream", icon = "") {
   this.fileSize = 1;
   this.dataRead = 0;
-  let progressBuffer = throttle(this.progressed, 100);
+  const progressBuffer = throttle(this.progressed, 100);
   return new Promise((resolve, reject) => {
-    var ext = /^([\w\-]+)/.exec(url.split(".").pop())[0];
+    const ext = /^([\w\-]+)/.exec(url.split(".").pop())[0];
     if (Supported.indexOf(ext) === -1) {
       return reject(new Error(`${url} doesn't contain an audio format`));
     }
-    let newSound = {...Sound, ...{
+
+    const newSound = {...Sound, ...{
       file: source === "file" ? url.replace(/^.*[\\\/]/, "") : `${uuid()}.${ext}`,
       img: icon,
       name: name,
@@ -35,6 +36,7 @@ export function getCustomURL(name, url, source="customStream", icon="") {
         this.fileSize = 0;
         return reject(new Error(`Cannot download ${name}`));
       }
+
       this.fileSize = res.headers["content-length"];
     })
     .on("error", reject.bind(null, newSound))
@@ -47,7 +49,7 @@ export function getCustomURL(name, url, source="customStream", icon="") {
 export function getKakapoFavourites() {
   return new Promise((resolve, reject) => {
     axios.get("http://data.kakapo.co/data/sounds.json")
-      .then(res => resolve(res.data))
-      .catch(res => reject(res.data.errors[0].error_message));
-    });
+    .then(res => resolve(res.data))
+    .catch(res => reject(res.data.errors[0].error_message));
+  });
 }

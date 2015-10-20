@@ -47,7 +47,7 @@ app/sounds
 .sass-cache
 
 # Distribution directory
-dist
+build
 
 # Release directory
 release

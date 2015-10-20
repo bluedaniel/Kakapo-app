@@ -3,8 +3,8 @@ import { getCustomURL, getKakapoFavourites } from "./customUrl";
 import { getYoutubeSearch, getYoutubeURL } from "./youtube";
 import { getSoundCloudSearch, getSoundCloudURL } from "./soundcloud";
 
-function createSoundObj(s) {
-  return new Promise(resolve => resolve(getHowlerObj(s)));
+function createSoundObj(_s) {
+  return new Promise(resolve => resolve(getHowlerObj(_s)));
 }
 
 export default {

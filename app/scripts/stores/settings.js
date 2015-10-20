@@ -8,7 +8,7 @@ import langEn from "../../i18n/en.json";
 import { dirname } from "../utils";
 
 function setSettingsFile(opts) {
-  let settingsOpts = {
+  const settingsOpts = {
     dockIcon: opts.dockIcon
   };
   fs.writeFile(path.join(dirname, "/data/settings.json"), JSON.stringify(settingsOpts, null, 2));
@@ -18,8 +18,8 @@ function setSettingsFile(opts) {
 export default Reflux.createStore({
   listenables: [windowActions],
   init() {
-    let appSettings = JSON.parse(fs.readFileSync(path.join(dirname, "/data/settings.json")));
-    let lang = localStorage.getItem("language") || "en";
+    const appSettings = JSON.parse(fs.readFileSync(path.join(dirname, "/data/settings.json")));
+    const lang = localStorage.getItem("language") || "en";
     this.opts = {
       lang: lang,
       intlData: langEn,
@@ -29,9 +29,11 @@ export default Reflux.createStore({
       this.onChangeLanguage(lang);
     }
   },
+
   getInitialState() {
     return this.opts;
   },
+
   onChangeLanguage(lang) {
     axios.get(`http://data.kakapo.co/i18n/${lang}.json`)
       .then(response => {
@@ -41,9 +43,9 @@ export default Reflux.createStore({
           intlData: response.data
         };
         this.trigger(this.opts);
-      }.bind(this))
-      .catch(response => console.error("Failed!", response));
+      });
   },
+
   onToggleDock(toggle) {
     this.opts.dockIcon = toggle;
     this.trigger(this.opts);

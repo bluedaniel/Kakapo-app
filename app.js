@@ -9,7 +9,7 @@ var Tray = require("tray");
 var child_process = require("child_process");
 
 var settings = JSON.parse(fs.readFileSync(path.join(__dirname, "app", "data", "settings.json")));
-var file = path.join("file://", __dirname, "app", (process.env.NODE_ENV === "development" ? "index-dev" : "index") + ".html");
+var file = path.join("file://", __dirname, "build", (process.env.NODE_ENV === "development" ? "index-dev" : "index") + ".html");
 var iconIdle = path.join(__dirname, "app", "images", "tray-idle.png");
 var iconActive = path.join(__dirname, "app", "images", "tray-active.png");
 
@@ -115,11 +115,11 @@ app.on("ready", function() {
     }
   });
 
-  ipc.on("application:quit-install", function () {
+  ipc.on("application:quit-install", function() {
     autoUpdater.quitAndInstall();
   });
 
-  autoUpdater.on("update-downloaded", function (e, releaseNotes, releaseName, releaseDate, updateURL) {
+  autoUpdater.on("update-downloaded", function(e, releaseNotes, releaseName, releaseDate, updateURL) {
     appIcon.window.webContents.send("application:update-available");
   });
 });

@@ -1,6 +1,6 @@
 import howler from "howler";
 
-export default function (sound) {
+export default function(sound) {
   return new howler.Howl({
     src: [`../app/sounds/${sound.file}`],
     html5: true,

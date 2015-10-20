@@ -1,0 +1,53 @@
+@import "normalize.css/normalize";
+@import "skeleton/css/skeleton";
+@import "node-waves/dist/waves";
+@import "animate.css/animate";
+@import "hint.css/hint";
+
+@import "./variables";
+@import "./animation";
+@import "./type";
+@import "./icons";
+@import "./switch";
+@import "./toast";
+@import "./spinner";
+@import "./modal";
+@import "./search";
+@import "./media";
+
+body {
+  margin: 0 auto;
+  max-width: 100%;
+  padding-top: 105px;
+  @media (min-width: 550px) {
+    padding-top: 136px;
+  }
+}
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+.update-now,
+.update-now:hover {
+  background-color: #2ecc40;
+  color: #fff;
+  cursor: pointer;
+  display: block;
+  padding: .5em;
+  text-align: center;
+  &:hover {
+    background-color: darken(#2ecc40, 5%);
+  }
+}
+.hint--top,
+.hint--bottom {
+  &,
+  &:hover,
+  &:focus {
+    &:after,
+    &:before {
+      margin-left: 0;
+      transform: translate(-50%, 8px);
+    }
+  }
+}

@@ -1,0 +1,115 @@
+/* App clip circle intro */
+@keyframes clipCircle {
+  0% { clip-path: circle(0% at 50% 50%); }
+  10% { clip-path: circle(8% at 50% 50%); }
+  15% { clip-path: circle(2% at 50% 50%); }
+  100% { clip-path: circle(71% at 50% 50%); }
+}
+
+/* Scale and fade in */
+@keyframes scale-fade {
+  0% {
+    opacity: 0;
+    transform: scale(.8) rotateX(-40deg);
+  }
+  50% { opacity: 1; }
+  70% { transform: scale(1.05) rotateX(0); }
+  100% { transform: scale(1) rotateX(0); }
+}
+
+/* Rotating the gear icon */
+@keyframes rotating {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Barberpole for loading effect */
+@keyframes barberpole {
+  from { background-position: 0 0; }
+  to { background-position: 60px 30px; }
+}
+
+/* Menu sliding in left */
+.modal {
+  opacity: 1;
+  transition: opacity var(--animationSpeed);
+  &.modal-enter {
+    opacity: 0;
+    &.modal-enter-active {
+      opacity: 1;
+    }
+  }
+  &.modal-leave {
+    opacity: 1;
+    &.modal-leave-active {
+      opacity: 0;
+    }
+  }
+}
+
+.sound-list {
+  > div {
+    transition: height var(--animationSpeed) cubic-bezier(.23, 1, .32, 1) 0ms;
+  }
+  .item {
+    &.list-animation-enter {
+      animation-duration: var(--animationSpeed);
+      animation-name: fadeInUp;
+      visibility: hidden;
+      &.list-animation-enter-active {
+        animation-fill-mode: both;
+        visibility: visible;
+      }
+    }
+    &.list-animation-leave {
+      animation-duration: var(--animationSpeed);
+      animation-name: fadeOutDown;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      &.list-animation-leave-active {
+        animation-fill-mode: both;
+      }
+    }
+  }
+}
+
+.modal {
+  .media-opts {
+    transition: height var(--animationSpeed) cubic-bezier(.23, 1, .32, 1) 0ms;
+  }
+  .list-animation-enter {
+    animation-duration: var(--animationSpeed);
+    animation-name: fadeInUp;
+    visibility: hidden;
+    &.list-animation-enter-active {
+      animation-fill-mode: both;
+      visibility: visible;
+    }
+  }
+  .list-animation-leave {
+    animation-duration: var(--animationSpeed);
+    animation-name: fadeOutDown;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    &.list-animation-leave-active {
+      animation-fill-mode: both;
+    }
+  }
+}
+
+/* Color transitions based on theme changes */
+body,
+.titlebar,
+.navbar,
+.navbar > div,
+.swatches a {
+  transition: all 450ms cubic-bezier(.23, 1, .32, 1) 0ms;
+}
+
+/* Popup transitions */
+.color-picker {
+  animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
+  transform-origin: bottom center;
+}

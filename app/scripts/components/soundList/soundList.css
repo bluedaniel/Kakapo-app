@@ -1,0 +1,12 @@
+
+.sound-list {
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  &:first-child {
+    border-top: none;
+  }
+  > div {
+    position: relative;
+  }
+}

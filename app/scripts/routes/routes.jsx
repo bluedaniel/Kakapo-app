@@ -1,7 +1,8 @@
 import React from "react";
 import { Route, IndexRoute } from "react-router";
-import { AddMedia, App, Offline, Settings } from "../containers";
+import { AddMedia, App, Offline } from "../containers";
 import {
+  Settings,
   ImportOptions,
   ImportKakapo,
   ImportYouTube,
