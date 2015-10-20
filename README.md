@@ -1,4 +1,4 @@
-<img alignt="right" src="http://www.kakapo.co/icons/social/kakapo.png" width="128" height="128" />
+<img align="right" src="http://www.kakapo.co/icons/social/kakapo.png" width="128" height="128" />
 
 Kakapo app is an ambient sound mixer for relaxation or productivity that works on Mac & Windows.
 
