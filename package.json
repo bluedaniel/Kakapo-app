@@ -4,6 +4,7 @@
   "description": "A background noise app",
   "main": "app.js",
   "devDependencies": {
+    "archiver": "^0.16.0",
     "axios": "^0.7.0",
     "babel": "^5.8.23",
     "babel-eslint": "^4.1.2",
@@ -11,6 +12,7 @@
     "babel-plugin-react-transform": "^1.1.1",
     "bower": "^1.6.3",
     "browser-sync": "^2.9.11",
+    "chalk": "^1.1.1",
     "classnames": "^2.2.0",
     "color": "^0.10.1",
     "css-loader": "^0.20.1",
@@ -77,7 +79,8 @@
     "serve": "babel-node --eval \"require('./tools/serve')().catch(err => console.error(err.stack))\"",
     "start": "babel-node --eval \"require('./tools/start')().catch(err => console.error(err.stack))\"",
     "package": "babel-node --eval \"require('./tools/package')().catch(err => console.error(err.stack))\"",
-    "codesign": "babel-node --eval \"require('./tools/codesign')().catch(err => console.error(err.stack))\""
+    "installer-mac": "babel-node --eval \"require('./tools/installer-mac')().catch(err => console.error(err.stack))\"",
+    "installer-win": "babel-node --eval \"require('./tools/installer-win')().catch(err => console.error(err.stack))\""
   },
   "repository": {
     "type": "git",

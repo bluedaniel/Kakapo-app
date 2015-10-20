@@ -2,7 +2,7 @@ import proc from "child_process";
 import task from "./lib/task";
 import packagejson from "../package.json";
 
-export default task("codesign", async() => {
+export default task("installer-mac", async() => {
   const opts = {
     identity: "Developer ID Application: Daniel Levitt",
     name: "Kakapo",
