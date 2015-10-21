@@ -2,9 +2,9 @@ import Reflux from "reflux";
 import { getYoutubeURL, getCustomURL, getSoundCloudURL } from "../api";
 
 const soundActions = Reflux.createActions([
-  {getYoutubeURL: { asyncResult: true }},
-  {getCustomURL: { asyncResult: true }},
-  {getSoundCloudURL: { asyncResult: true }},
+  {getYoutubeURL: { children: ["completed", "failed", "progressed"] }},
+  {getCustomURL: { children: ["completed", "failed", "progressed"] }},
+  {getSoundCloudURL: { children: ["completed", "failed", "progressed"] }},
   "toggleMute",
   "togglePlayPause",
   "changeVolume",
