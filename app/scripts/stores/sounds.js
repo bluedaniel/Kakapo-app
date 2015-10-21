@@ -24,6 +24,7 @@ const SoundStore = Reflux.createStore({
     } catch (err) {
       fs.ensureFile(userSoundFile, () => fs.writeFile(userSoundFile, _s));
     }
+
     this.setSounds(JSON.parse(_s));
   },
 
