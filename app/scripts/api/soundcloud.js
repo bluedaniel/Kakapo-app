@@ -1,5 +1,5 @@
 import axios from "axios";
-import fs from "fs";
+import fs from "fs-extra";
 import request from "request";
 import uuid from "uuid";
 import throttle from "lodash/function/throttle";

@@ -1,5 +1,5 @@
 import ipc from "ipc";
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import Reflux from "reflux";
 import {Map} from "immutable";

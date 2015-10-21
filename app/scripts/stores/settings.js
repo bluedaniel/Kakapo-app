@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import ipc from "ipc";
 import Reflux from "reflux";
 import axios from "axios";

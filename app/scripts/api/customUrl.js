@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import request from "request";
 import uuid from "uuid";
 import axios from "axios";
