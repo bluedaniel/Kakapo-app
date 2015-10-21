@@ -1,4 +1,5 @@
 import webpack from "webpack";
+import fs from "fs-extra";
 import task from "./lib/task";
 import config from "./config";
 
@@ -11,6 +12,10 @@ export default task("bundle", async () => new Promise((resolve, reject) => {
     }
 
     console.log(stats.toString(config.stats));
+
+    // Upload stats.json to `http://webpack.github.io/analyse` for analysis.
+    fs.writeFile("stats.json", JSON.stringify(stats.toJson(), null, 4));
+
     return resolve();
   }
 
