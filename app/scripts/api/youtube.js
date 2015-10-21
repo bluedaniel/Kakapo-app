@@ -35,20 +35,16 @@ function onData(progressed, sound, data) {
   progressed(sound, progress);
 }
 
-export function getYoutubeURL(url) {
+export function getYoutubeURL(videoID) {
   this.fileSize = 1;
   this.dataRead = 0;
   const progressBuffer = throttle(this.progressed, 100);
   return new Promise((resolve, reject) => {
-    ytdl.getInfo(url, {downloadURL: true}, (err, info) => {
-      if (err) {
-        return reject(err);
-      }
+    ytdl.getInfo(`https://www.youtube.com/watch?v=${videoID}`, {downloadURL: true}, (err, info) => {
+      if (err) reject(err);
 
-      const audioFormats = info.formats.filter(format => format.container && format.type.startsWith("audio"));
-      if (!audioFormats.length) {
-        return reject(new Error(`${url} doesn"t contain an audio format`));
-      }
+      const audioFormats = info.formats.filter(format => (format.container && format.type) && format.type.startsWith("audio"));
+      if (!audioFormats.length) reject(new Error(`https://youtu.be/${videoID} doesn"t contain an audio format`));
 
       const audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
       const newSound = {...Sound, ...{
@@ -60,6 +56,7 @@ export function getYoutubeURL(url) {
         source: "youtubeStream",
         tags: info.keywords ? info.keywords.join(" ") : ""
       }};
+
       ytdl.downloadFromInfo(info, {
         format: audioFormat
       })
@@ -67,7 +64,7 @@ export function getYoutubeURL(url) {
       .on("format", formatInfo => this.fileSize = formatInfo.size)
       .on("data", onData.bind(this, progressBuffer, newSound))
       .on("end", resolve.bind(null, newSound))
-      .pipe(fs.createWriteStream(`./app/sounds/${newSound.file}`));
+      .pipe(fs.createWriteStream(`./build/sounds/${newSound.file}`));
     });
   });
 }
