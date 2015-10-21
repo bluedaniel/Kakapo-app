@@ -14,7 +14,7 @@ export default task("bundle", async () => new Promise((resolve, reject) => {
     return resolve();
   }
 
-  if (global.WATCH) {
+  if (global.HOT) {
     bundler.watch(200, bundle);
   } else {
     bundler.run(bundle);

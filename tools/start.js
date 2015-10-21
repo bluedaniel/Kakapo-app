@@ -7,8 +7,8 @@ import proc from "child_process";
 import task from "./lib/task";
 
 process.env.NODE_ENV = "development";
+global.HOT = true;
 
-global.WATCH = true;
 const webpackConfig = require("./config");
 const bundler = webpack(webpackConfig);
 
@@ -16,7 +16,7 @@ export default task("start", async () => {
   await require("./build")();
   await require("./serve")();
 
-  proc.spawn(electron, ["."]);
+  proc.spawn(electron, ["build"]);
 
   browserSync({
     open: false,

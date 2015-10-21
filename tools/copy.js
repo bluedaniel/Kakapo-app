@@ -1,12 +1,17 @@
 // import path from "path";
 import task from "./lib/task";
 import copy from "./lib/copy";
+import proc from "child_process";
+import fs from "fs-extra";
 
 // import watch from "./lib/watch";
+const indexFile = process.env.NODE_ENV === "development" ? "index-dev" : "index";
 
 export default task("copy", async () => {
   await Promise.all([
-    copy("app/html", "build"),
+    proc.execSync("babel app/browser.js --out-file build/browser.js"),
+    fs.copySync("package.json", "build/package.json"),
+    fs.copySync(`app/html/${indexFile}.html`, "build/index.html"),
     copy("app/data", "build/data"),
     copy("app/fonts", "build/fonts"),
     copy("app/icons", "build/icons"),

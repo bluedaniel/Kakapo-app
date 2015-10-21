@@ -1,23 +1,20 @@
 import path from "path";
 import webpack from "webpack";
+import webpackTargetElectronRenderer from "webpack-target-electron-renderer";
 
-const DEBUG = !process.argv.includes("release");
+const DEBUG = process.env.NODE_ENV === "development";
 const VERBOSE = process.argv.includes("verbose");
-const WATCH = global.WATCH === undefined ? false : global.WATCH;
+const HOT = global.HOT === undefined ? false : global.HOT;
 
-if (!DEBUG) {
-  process.env.NODE_ENV = "production";
-}
-
-export default {
+const config = {
   entry: [
-    ...(WATCH ? ["webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr"] : []),
+    ...(HOT ? ["webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr"] : []),
     "./app/scripts/index"
   ],
   output: {
     filename: "bundle.js",
     path: path.join(__dirname, "../build"),
-    publicPath: "/"
+    publicPath: HOT ? "http://localhost:3000/" : "/"
   },
   target: "atom",
   cache: DEBUG,
@@ -39,7 +36,7 @@ export default {
       }),
       new webpack.optimize.AggressiveMergingPlugin()
     ] : []),
-    ...(WATCH ? [
+    ...(HOT ? [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
     ] : [])
@@ -96,3 +93,7 @@ export default {
     cachedAssets: VERBOSE
   }
 };
+
+config.target = webpackTargetElectronRenderer(config);
+
+export default config;
