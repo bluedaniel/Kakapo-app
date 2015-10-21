@@ -54,7 +54,7 @@ export function getSoundCloudURL(id) {
         .on("error", reject.bind(null, newSound))
         .on("data", onData.bind(this, progressBuffer, newSound))
         .on("end", resolve.bind(null, newSound))
-        .pipe(fs.createWriteStream(`./app/sounds/${newSound.file}`));
+        .pipe(fs.createWriteStream(`./build/sounds/${newSound.file}`));
       })
       .catch(response => reject(response.data.errors[0].error_message));
   });

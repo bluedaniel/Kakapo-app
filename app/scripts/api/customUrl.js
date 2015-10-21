@@ -42,7 +42,7 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
     .on("error", reject.bind(null, newSound))
     .on("data", onData.bind(this, progressBuffer, newSound))
     .on("end", resolve.bind(null, newSound))
-    .pipe(fs.createWriteStream(`./app/sounds/${newSound.file}`));
+    .pipe(fs.createWriteStream(`./build/sounds/${newSound.file}`));
   });
 }
 

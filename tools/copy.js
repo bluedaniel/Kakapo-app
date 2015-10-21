@@ -12,6 +12,7 @@ export default task("copy", async () => {
     proc.execSync("babel app/browser.js --out-file build/browser.js"),
     fs.copySync("package.json", "build/package.json"),
     fs.copySync(`app/html/${indexFile}.html`, "build/index.html"),
+    copy("app/sounds", "build/sounds"),
     copy("app/data", "build/data"),
     copy("app/fonts", "build/fonts"),
     copy("app/icons", "build/icons"),

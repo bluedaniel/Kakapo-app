@@ -8,23 +8,23 @@ import { createSoundObj } from "../api";
 import { soundActions } from "../actions";
 import { dirname, toasterInstance } from "../utils";
 
-let sounds = new Map(JSON.parse(localStorage.getItem("sounds")));
+let sounds = new Map();
 let howls = new Map();
 let mute = false;
 
-function updateIcon() {
-  let trayIcon = "TrayIdle";
-  sounds.forEach(_s => {
-    if (_s.playing) trayIcon = "TrayActive";
-  });
-  ipc.sendChannel("update-icon", trayIcon);
-}
+const soundFile = path.join(dirname, "/data/sounds.json");
+const userSoundFile = path.join(dirname, "/user-data/sounds.json");
 
 const SoundStore = Reflux.createStore({
   listenables: [soundActions],
   init() {
-    const _s = JSON.parse(fs.readFileSync(path.join(dirname, "/data/sounds.json")));
-    this.setSounds(_s);
+    let _s = fs.readFileSync(soundFile);
+    try {
+      _s = fs.readFileSync(userSoundFile);
+    } catch (err) {
+      fs.ensureFile(userSoundFile, () => fs.writeFile(userSoundFile, _s));
+    }
+    this.setSounds(JSON.parse(_s));
   },
 
   getInitialState() {
@@ -142,8 +142,14 @@ const SoundStore = Reflux.createStore({
   }
 });
 
-SoundStore.listen(() => updateIcon());
+SoundStore.listen(() => {
+  let trayIcon = "TrayIdle";
+  sounds.forEach(_s => {
+    if (_s.playing) trayIcon = "TrayActive";
+  });
+  ipc.sendChannel("update-icon", trayIcon);
+});
 
-SoundStore.listen(throttle(data => fs.writeFile(path.join(dirname, "/data/sounds.json"), JSON.stringify(data.toArray())), 1000));
+SoundStore.listen(throttle(data => fs.writeFile(userSoundFile, JSON.stringify(data.toArray())), 1000));
 
 export default SoundStore;
