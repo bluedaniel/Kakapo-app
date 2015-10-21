@@ -2,7 +2,7 @@
   "name": "kakapo-app",
   "version": "1.0.1",
   "description": "A background noise app",
-  "main": "app.js",
+  "main": "browser.js",
   "devDependencies": {
     "archiver": "^0.16.0",
     "axios": "^0.7.0",
@@ -66,17 +66,11 @@
     "webpack": "^1.11.0",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1",
+    "webpack-target-electron-renderer": "^0.1.1",
     "ytdl-core": "^0.7.0"
   },
   "scripts": {
     "lint": "eslint app tools && jscs app/scripts tools",
-    "test": "karma start",
-    "debug": "karma start --no-single-run --auto-watch",
-    "clean": "babel-node --eval \"require('./tools/clean')().catch(err => console.error(err.stack))\"",
-    "copy": "babel-node --eval \"require('./tools/copy')().catch(err => console.error(err.stack))\"",
-    "bundle": "babel-node --eval \"require('./tools/bundle')().catch(err => console.error(err.stack))\"",
-    "build": "babel-node --eval \"require('./tools/build')().catch(err => console.error(err.stack))\"",
-    "serve": "babel-node --eval \"require('./tools/serve')().catch(err => console.error(err.stack))\"",
     "start": "babel-node --eval \"require('./tools/start')().catch(err => console.error(err.stack))\"",
     "package": "babel-node --eval \"require('./tools/package')().catch(err => console.error(err.stack))\"",
     "installer-mac": "babel-node --eval \"require('./tools/installer-mac')().catch(err => console.error(err.stack))\"",
@@ -93,6 +87,7 @@
   },
   "homepage": "https://github.com/bluedaniel/Kakapo-app#readme",
   "dependencies": {
-    "babel-core": "^5.8.25"
+    "babel-core": "^5.8.25",
+    "fs-extra": "^0.24.0"
   }
 }
