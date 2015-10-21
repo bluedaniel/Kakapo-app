@@ -41,7 +41,6 @@ bower_components
 app/sounds
 !app/sounds/cafe.*
 !app/sounds/rain.*
-!app/sounds/297d85d0-8bd1-4008-9089-637f2cc6fc94.*
 
 # Sass-cache
 .sass-cache
@@ -51,8 +50,6 @@ build
 
 # Release directory
 release
-
-app/scripts/sounds.json
 
 stats.json
 
