@@ -2,15 +2,15 @@
 import app from "app";
 import autoUpdater from "auto-updater";
 import BrowserWindow from "browser-window";
-import fs from "fs-extra";
+import fs from "fs";
 import ipc from "ipc";
 import path from "path";
 import Tray from "tray";
 import proc from "child_process";
 
-const settings = JSON.parse(fs.readFileSync(path.join(__dirname, "../app", "data", "settings.json")));
-const iconIdle = path.join(__dirname, "../app", "images", "tray-idle.png");
-const iconActive = path.join(__dirname, "../app", "images", "tray-active.png");
+const settings = JSON.parse(fs.readFileSync(path.join(__dirname, "data", "settings.json")));
+const iconIdle = path.join(__dirname, "images", "tray-idle.png");
+const iconActive = path.join(__dirname, "images", "tray-active.png");
 
 const updateCmd = function updateCmd(args, cb) {
   const updateExe = path.resolve(path.dirname(process.execPath), "..", "Update.exe");
@@ -80,6 +80,8 @@ app.on("ready", () => {
 
   appIcon.window.webContents.on("did-finish-load", () => {
     appIcon.window.setTitle("Kakapo");
+    appIcon.window.openDevTools();
+
     appIcon.setToolTip("Kakapo");
     if (process.env.NODE_ENV !== "development") {
       autoUpdater.setFeedUrl(`http://52.19.170.82:5000/update?version=${app.getVersion()}&platform=${process.platform}`);

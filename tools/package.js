@@ -8,19 +8,12 @@ process.env.NODE_ENV = "production";
 const opts = {
   "app-version": packagejson.version,
   asar: true,
-  dir: "./",
-  icon: "app/images/app.icns",
+  dir: "./build",
+  icon: "images/app.icns",
   name: "Kakapo",
   version: "0.34.0",
   ignore: [
-    "/bower.json",
-    "/node_modules($|/)",
-    "/bower_components($|/)",
-    "/gulpfile.js($|/)",
-    "/test($|/)",
-    "/tools($|/)",
-    "/release($|/)",
-    "/app/scripts($|/)"
+    "/user-data($|/)"
   ]
 };
 

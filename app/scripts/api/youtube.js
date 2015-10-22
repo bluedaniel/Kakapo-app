@@ -1,9 +1,11 @@
 import axios from "axios";
 import fs from "fs-extra";
+import path from "path";
 import uuid from "uuid";
 import ytdl from "ytdl-core";
 import throttle from "lodash/function/throttle";
 import Sound from "../classes/newSound";
+import { dirname } from "../utils";
 
 const GAPI_URL = "https://www.googleapis.com/youtube/v3";
 const GAPI_KEY = "AIzaSyArV70XKUil3cEj4nKn1yuMXCHiuK2AytI";
@@ -48,7 +50,7 @@ export function getYoutubeURL(videoID) {
 
       const audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
       const newSound = {...Sound, ...{
-        file: `${uuid()}.${audioFormat.container}`,
+        file: path.join(dirname, "../.tmp/sounds", `${uuid()}.${audioFormat.container}`),
         img: info.thumbnail_url,
         link: `https://www.youtube.com/watch?v=${info.video_id}`,
         name: info.title,
@@ -64,7 +66,7 @@ export function getYoutubeURL(videoID) {
       .on("format", formatInfo => this.fileSize = formatInfo.size)
       .on("data", onData.bind(this, progressBuffer, newSound))
       .on("end", resolve.bind(null, newSound))
-      .pipe(fs.createWriteStream(`./build/sounds/${newSound.file}`));
+      .pipe(fs.createWriteStream(newSound.file));
     });
   });
 }

@@ -13,16 +13,18 @@ let howls = new Map();
 let mute = false;
 
 const soundFile = path.join(dirname, "/data/sounds.json");
-const userSoundFile = path.join(dirname, "/user-data/sounds.json");
+const userSoundFile = path.join(dirname, "../.tmp/user-data/sounds.json");
 
 const SoundStore = Reflux.createStore({
   listenables: [soundActions],
   init() {
+    fs.ensureDir(path.join(dirname, "../.tmp/sounds"));
+    fs.ensureDir(path.join(dirname, "../.tmp/user-data"));
     let _s = fs.readFileSync(soundFile);
     try {
       _s = fs.readFileSync(userSoundFile);
     } catch (err) {
-      fs.ensureFile(userSoundFile, () => fs.writeFile(userSoundFile, _s));
+      fs.writeFile(userSoundFile, _s);
     }
 
     this.setSounds(JSON.parse(_s));
@@ -86,7 +88,7 @@ const SoundStore = Reflux.createStore({
   onRemoveSound(sound) {
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
-    fs.unlinkSync(path.join(dirname, "sounds", sound.file));
+    if (sound.souce !== "file") fs.unlinkSync(path.join(dirname, "sounds", sound.file));
     this.trigger(sounds);
   },
 

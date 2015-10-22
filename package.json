@@ -18,6 +18,7 @@
     "css-loader": "^0.20.1",
     "electron-packager": "^5.1.0",
     "electron-prebuilt": "^0.34.0",
+    "electron-rebuild": "^1.0.2",
     "electron-windows-installer": "^1.1.0",
     "eslint": "^1.7.1",
     "eslint-config-airbnb": "^0.1.0",
