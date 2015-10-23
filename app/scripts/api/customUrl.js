@@ -35,8 +35,8 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
 
     if (source === "file") {
       // We already have the file in asar
-      resolve.bind(null, {...newSound, ...{
-        file: `./sounds/${url.replace(/^.*[\\\/]/, "")}.m4a`
+      resolve({...newSound, ...{
+        file: `./sounds/${url.replace(/^.*[\\\/]/, "")}`
       }});
     } else {
       request({ method: "GET", uri: url })

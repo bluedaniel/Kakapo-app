@@ -18,7 +18,7 @@ export default React.createClass({
     }
   },
   alreadyAdded() {
-    return this.state.sounds.filter(_s => path.basename(this.props.file, ".mp3") === path.basename(_s.file, ".m4a")).count() === 1;
+    return this.state.sounds.filter(_s => path.basename(this.props.file, ".mp3") === path.basename(_s.file, ".mp3")).count() === 1;
   },
   render() {
     return (
