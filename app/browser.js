@@ -87,7 +87,6 @@ app.on("ready", () => {
 
   appIcon.window.webContents.on("did-finish-load", () => {
     appIcon.window.setTitle("Kakapo");
-    appIcon.window.openDevTools();
 
     appIcon.setToolTip("Kakapo");
     if (process.env.NODE_ENV !== "development") {
