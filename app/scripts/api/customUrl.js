@@ -1,9 +1,11 @@
 import fs from "fs-extra";
 import request from "request";
+import path from "path";
 import uuid from "uuid";
 import axios from "axios";
 import throttle from "lodash/function/throttle";
 import Sound from "../classes/newSound";
+import { pathConfig } from "../utils";
 
 const Supported = ["mp3", "opus", "ogg", "wav", "aac", "m4a", "mp4", "weba"];
 
@@ -23,26 +25,34 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
     }
 
     const newSound = {...Sound, ...{
-      file: source === "file" ? url.replace(/^.*[\\\/]/, "") : `${uuid()}.${ext}`,
+      file: path.join(pathConfig.soundDir, `${uuid()}.${ext}`),
       img: icon,
       name: name,
       progress: 0,
       source: source,
       tags: ""
     }};
-    request({ method: "GET", uri: url })
-    .on("response", res => {
-      if (!res.headers["content-length"]) {
-        this.fileSize = 0;
-        return reject(new Error(`Cannot download ${name}`));
-      }
 
-      this.fileSize = res.headers["content-length"];
-    })
-    .on("error", reject.bind(null, newSound))
-    .on("data", onData.bind(this, progressBuffer, newSound))
-    .on("end", resolve.bind(null, newSound))
-    .pipe(fs.createWriteStream(`./build/sounds/${newSound.file}`));
+    if (source === "file") {
+      // We already have the file in asar
+      resolve.bind(null, {...newSound, ...{
+        file: `./sounds/${url.replace(/^.*[\\\/]/, "")}.m4a`
+      }});
+    } else {
+      request({ method: "GET", uri: url })
+      .on("response", res => {
+        if (!res.headers["content-length"]) {
+          this.fileSize = 0;
+          return reject(new Error(`Cannot download ${name}`));
+        }
+
+        this.fileSize = res.headers["content-length"];
+      })
+      .on("error", reject.bind(null, newSound))
+      .on("data", onData.bind(this, progressBuffer, newSound))
+      .on("end", resolve.bind(null, newSound))
+      .pipe(fs.createWriteStream(newSound.file));
+    }
   });
 }
 

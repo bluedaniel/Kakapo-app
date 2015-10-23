@@ -1,9 +1,11 @@
 import axios from "axios";
 import fs from "fs-extra";
+import path from "path";
 import request from "request";
 import uuid from "uuid";
 import throttle from "lodash/function/throttle";
 import Sound from "../classes/newSound";
+import { pathConfig } from "../utils";
 
 const SCAPI = "http://api.soundcloud.com";
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
@@ -38,7 +40,7 @@ export function getSoundCloudURL(id) {
         }
 
         const newSound = {...Sound, ...{
-          file: `${uuid()}.mp3`,
+          file: path.join(pathConfig.soundDir, `${uuid()}.mp3`),
           source: "soundcloudStream",
           name: response.data.title,
           tags: response.data.tag_list,
@@ -54,7 +56,7 @@ export function getSoundCloudURL(id) {
         .on("error", reject.bind(null, newSound))
         .on("data", onData.bind(this, progressBuffer, newSound))
         .on("end", resolve.bind(null, newSound))
-        .pipe(fs.createWriteStream(`./build/sounds/${newSound.file}`));
+        .pipe(fs.createWriteStream(newSound.file));
       })
       .catch(response => reject(response.data.errors[0].error_message));
   });

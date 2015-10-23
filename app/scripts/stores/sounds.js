@@ -6,25 +6,20 @@ import {Map} from "immutable";
 import throttle from "lodash/function/throttle";
 import { createSoundObj } from "../api";
 import { soundActions } from "../actions";
-import { dirname, toasterInstance } from "../utils";
+import { toasterInstance, pathConfig } from "../utils";
 
 let sounds = new Map();
 let howls = new Map();
 let mute = false;
 
-const soundFile = path.join(dirname, "/data/sounds.json");
-const userSoundFile = path.join(dirname, "../.tmp/user-data/sounds.json");
-
 const SoundStore = Reflux.createStore({
   listenables: [soundActions],
   init() {
-    fs.ensureDir(path.join(dirname, "../.tmp/sounds"));
-    fs.ensureDir(path.join(dirname, "../.tmp/user-data"));
-    let _s = fs.readFileSync(soundFile);
+    let _s = fs.readFileSync(pathConfig.soundFile);
     try {
-      _s = fs.readFileSync(userSoundFile);
+      _s = fs.readFileSync(pathConfig.userSoundFile);
     } catch (err) {
-      fs.writeFile(userSoundFile, _s);
+      fs.writeFile(pathConfig.userSoundFile, _s);
     }
 
     this.setSounds(JSON.parse(_s));
@@ -88,7 +83,7 @@ const SoundStore = Reflux.createStore({
   onRemoveSound(sound) {
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
-    if (sound.souce !== "file") fs.unlinkSync(path.join(dirname, "sounds", sound.file));
+    if (sound.source !== "file") fs.unlinkSync(path.join(pathConfig.soundDir, sound.file));
     this.trigger(sounds);
   },
 
@@ -153,6 +148,6 @@ SoundStore.listen(() => {
   ipc.sendChannel("update-icon", trayIcon);
 });
 
-SoundStore.listen(throttle(data => fs.writeFile(userSoundFile, JSON.stringify(data.toArray())), 1000));
+SoundStore.listen(throttle(data => fs.writeFile(pathConfig.userSoundFile, JSON.stringify(data.toArray())), 1000));
 
 export default SoundStore;

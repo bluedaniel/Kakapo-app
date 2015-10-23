@@ -2,6 +2,7 @@ import React from "react";
 import Reflux from "reflux";
 import { IntlMixin, FormattedMessage } from "react-intl";
 import classNames from "classnames";
+import path from "path";
 import { Sounds } from "../../stores";
 import SoundItemClass from "../../classes/sound.js";
 import { soundActions } from "../../actions";
@@ -17,7 +18,7 @@ export default React.createClass({
     }
   },
   alreadyAdded() {
-    return this.state.sounds.filter(_s => this.props.file === _s.file).count() === 1;
+    return this.state.sounds.filter(_s => path.basename(this.props.file, ".mp3") === path.basename(_s.file, ".m4a")).count() === 1;
   },
   render() {
     return (

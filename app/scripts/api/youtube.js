@@ -5,7 +5,7 @@ import uuid from "uuid";
 import ytdl from "ytdl-core";
 import throttle from "lodash/function/throttle";
 import Sound from "../classes/newSound";
-import { dirname } from "../utils";
+import { pathConfig } from "../utils";
 
 const GAPI_URL = "https://www.googleapis.com/youtube/v3";
 const GAPI_KEY = "AIzaSyArV70XKUil3cEj4nKn1yuMXCHiuK2AytI";
@@ -50,7 +50,7 @@ export function getYoutubeURL(videoID) {
 
       const audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
       const newSound = {...Sound, ...{
-        file: path.join(dirname, "../.tmp/sounds", `${uuid()}.${audioFormat.container}`),
+        file: path.join(pathConfig.soundDir, `${uuid()}.${audioFormat.container}`),
         img: info.thumbnail_url,
         link: `https://www.youtube.com/watch?v=${info.video_id}`,
         name: info.title,

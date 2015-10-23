@@ -1,24 +1,22 @@
-import path from "path";
 import fs from "fs-extra";
 import ipc from "ipc";
 import Reflux from "reflux";
 import axios from "axios";
 import { windowActions } from "../actions";
 import langEn from "../../i18n/en.json";
-import { dirname } from "../utils";
-
-function setSettingsFile(opts) {
-  const settingsOpts = {
-    dockIcon: opts.dockIcon
-  };
-  fs.writeFile(path.join(dirname, "/data/settings.json"), JSON.stringify(settingsOpts, null, 2));
-  ipc.sendChannel("toggle-dock", opts.dockIcon);
-}
+import { pathConfig } from "../utils";
 
 export default Reflux.createStore({
   listenables: [windowActions],
   init() {
-    const appSettings = JSON.parse(fs.readFileSync(path.join(dirname, "/data/settings.json")));
+    let appSettings = fs.readFileSync(pathConfig.settingsFile);
+    try {
+      appSettings = fs.readFileSync(pathConfig.userSettingsFile);
+    } catch (err) {
+      fs.writeFile(pathConfig.userSettingsFile, appSettings);
+    }
+    appSettings = JSON.parse(appSettings);
+
     const lang = localStorage.getItem("language") || "en";
     this.opts = {
       lang: lang,
@@ -49,6 +47,8 @@ export default Reflux.createStore({
   onToggleDock(toggle) {
     this.opts.dockIcon = toggle;
     this.trigger(this.opts);
-    setSettingsFile(this.opts);
+    const settingOpts = { dockIcon: this.opts.dockIcon };
+    fs.writeFile(pathConfig.userSettingsFile, JSON.stringify(settingOpts, null, 2));
+    ipc.sendChannel("toggle-dock", settingOpts.dockIcon);
   }
 });
