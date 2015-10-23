@@ -25,7 +25,7 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
     }
 
     const newSound = {...Sound, ...{
-      file: path.join(pathConfig.soundDir, `${uuid()}.${ext}`),
+      file: path.join(pathConfig.userSoundDir, `${uuid()}.${ext}`),
       img: icon,
       name: name,
       progress: 0,
@@ -36,7 +36,7 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
     if (source === "file") {
       // We already have the file in asar
       resolve({...newSound, ...{
-        file: `./sounds/${url.replace(/^.*[\\\/]/, "")}`
+        file: url.replace(/^.*[\\\/]/, "")
       }});
     } else {
       request({ method: "GET", uri: url })

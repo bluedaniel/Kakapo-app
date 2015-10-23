@@ -8,16 +8,16 @@ import path from "path";
 import Tray from "tray";
 import proc from "child_process";
 
-let appSettings = fs.readFileSync(path.join(__dirname, "data/settings.json"));
+let appSettings = fs.readFileSync(path.join(app.getAppPath(), "data/settings.json"));
 try {
-  appSettings = fs.readFileSync(path.join(__dirname, "../.tmp/user-data/settings.json"));
+  appSettings = fs.readFileSync(path.join(app.getPath("userData"), "user-data/settings.json"));
 } catch (err) {
   // No settings file loaded
 }
 appSettings = JSON.parse(appSettings);
 
-const iconIdle = path.join(__dirname, "images/tray-idle.png");
-const iconActive = path.join(__dirname, "images/tray-active.png");
+const iconIdle = path.join(app.getAppPath(), "images/tray-idle.png");
+const iconActive = path.join(app.getAppPath(), "images/tray-active.png");
 
 const updateCmd = function updateCmd(args, cb) {
   const updateExe = path.resolve(path.dirname(process.execPath), "..", "Update.exe");
@@ -52,7 +52,7 @@ app.on("ready", () => {
     width: 360
   };
   appIcon.window = new BrowserWindow(defaults);
-  appIcon.window.loadUrl(path.join("file://", __dirname, "index.html"));
+  appIcon.window.loadUrl(path.join("file://", app.getAppPath(), "index.html"));
 
   if (process.platform === "darwin") {
     if (appSettings.dockIcon) {

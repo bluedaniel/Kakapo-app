@@ -1,7 +1,7 @@
 [{
   "source": "file",
   "name": "Rain",
-  "file": "./sounds/rain.mp3",
+  "file": "rain.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -12,7 +12,7 @@
 }, {
   "source": "file",
   "name": "Paris Cafe",
-  "file": "./sounds/paris-cafe.mp3",
+  "file": "paris-cafe.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -23,7 +23,7 @@
 }, {
   "source": "file",
   "name": "Cat Purring",
-  "file": "./sounds/cat-purr.mp3",
+  "file": "cat-purr.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -34,7 +34,7 @@
 }, {
   "source": "file",
   "name": "Chimes",
-  "file": "./sounds/chimes.mp3",
+  "file": "chimes.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -45,7 +45,7 @@
 }, {
   "source": "file",
   "name": "Fan",
-  "file": "./sounds/fan.mp3",
+  "file": "fan.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -56,7 +56,7 @@
 }, {
   "source": "file",
   "name": "Leaves",
-  "file": "./sounds/leaves.mp3",
+  "file": "leaves.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -67,7 +67,7 @@
 }, {
   "source": "file",
   "name": "Paris Street Corner",
-  "file": "./sounds/paris-street-corner.mp3",
+  "file": "paris-street-corner.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -78,7 +78,7 @@
 }, {
   "source": "file",
   "name": "Stream",
-  "file": "./sounds/stream.mp3",
+  "file": "stream.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -89,7 +89,7 @@
 }, {
   "source": "file",
   "name": "Thunder",
-  "file": "./sounds/thunder.mp3",
+  "file": "thunder.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -100,7 +100,7 @@
 }, {
   "source": "file",
   "name": "Train",
-  "file": "./sounds/train.mp3",
+  "file": "train.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -111,7 +111,7 @@
 }, {
   "source": "file",
   "name": "Waves",
-  "file": "./sounds/waves.mp3",
+  "file": "waves.mp3",
   "tags": "relax, outdoors",
   "volume": 0.5,
   "playing": false,
@@ -122,7 +122,7 @@
 }, {
   "source": "file",
   "name": "Wind",
-  "file": "./sounds/wind.mp3",
+  "file": "wind.mp3",
   "tags": "relax, indoors, people",
   "volume": 0.5,
   "playing": false,

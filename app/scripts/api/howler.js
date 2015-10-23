@@ -1,8 +1,12 @@
 import howler from "howler";
+import path from "path";
+import { pathConfig } from "../utils";
 
 export default function(sound) {
+  let src = sound.file;
+  if (sound.source === "file") src = path.join(pathConfig.soundDir, src);
   return new howler.Howl({
-    src: [`${sound.file}`],
+    src: [ src ],
     html5: true,
     loop: true,
     volume: sound.volume,

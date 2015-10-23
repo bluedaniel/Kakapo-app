@@ -83,7 +83,7 @@ const SoundStore = Reflux.createStore({
   onRemoveSound(sound) {
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
-    if (sound.source !== "file") fs.unlinkSync(path.join(pathConfig.soundDir, sound.file));
+    if (sound.source !== "file") fs.unlinkSync(path.join(pathConfig.userSoundDir, sound.file));
     this.trigger(sounds);
   },
 

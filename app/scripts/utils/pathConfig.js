@@ -1,21 +1,20 @@
 import path from "path";
+import remote from "remote";
 import fs from "fs-extra";
-import dirname from "./dirname";
 
-const resolvePath = dir => path.join(dirname, dir);
+const app = remote.require("app");
 
 // Setup directories
-["sounds", "user-data"].forEach(_d => fs.ensureDir(resolvePath(`../.tmp/${_d}`)));
+["user-sounds", "user-data"].forEach(_d => fs.ensureDir(path.join(app.getPath("userData"), _d)));
 
 export default {
-  // Default json objects
-  settingsFile: resolvePath("/data/settings.json"),
-  soundFile: resolvePath("/data/sounds.json"),
+  // Default json objects & dirs
+  settingsFile: path.join(app.getAppPath(), "data/settings.json"),
+  soundFile: path.join(app.getAppPath(), "data/sounds.json"),
+  soundDir: path.join(app.getAppPath(), "sounds"),
 
-  // User data directories
-  soundDir: resolvePath("../.tmp/sounds"),
-
-  // User data json objects
-  userSettingsFile: resolvePath("../.tmp/user-data/settings.json"),
-  userSoundFile: resolvePath("../.tmp/user-data/sounds.json")
+  // User data & dirs
+  userSoundDir: path.join(app.getPath("userData"), "user-sounds"),
+  userSettingsFile: path.join(app.getPath("userData"), "user-data/settings.json"),
+  userSoundFile: path.join(app.getPath("userData"), "user-data/sounds.json")
 };

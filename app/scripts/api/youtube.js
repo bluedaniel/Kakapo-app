@@ -50,7 +50,7 @@ export function getYoutubeURL(videoID) {
 
       const audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
       const newSound = {...Sound, ...{
-        file: path.join(pathConfig.soundDir, `${uuid()}.${audioFormat.container}`),
+        file: path.join(pathConfig.userSoundDir, `${uuid()}.${audioFormat.container}`),
         img: info.thumbnail_url,
         link: `https://www.youtube.com/watch?v=${info.video_id}`,
         name: info.title,

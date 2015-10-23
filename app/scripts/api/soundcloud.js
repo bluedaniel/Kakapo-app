@@ -40,7 +40,7 @@ export function getSoundCloudURL(id) {
         }
 
         const newSound = {...Sound, ...{
-          file: path.join(pathConfig.soundDir, `${uuid()}.mp3`),
+          file: path.join(pathConfig.userSoundDir, `${uuid()}.mp3`),
           source: "soundcloudStream",
           name: response.data.title,
           tags: response.data.tag_list,
