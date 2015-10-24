@@ -1,3 +1,5 @@
+import remote from "remote";
+import path from "path";
 import React from "react";
 import Reflux from "reflux";
 import classNames from "classnames";
@@ -9,6 +11,8 @@ import { Theme } from "../../stores";
 import SoundClass from "../../classes/sound";
 import { Image } from "../ui";
 import "./soundItem.css";
+
+const app = remote.require("app");
 
 export default React.createClass({
   propTypes: SoundClass,
@@ -77,7 +81,10 @@ export default React.createClass({
     });
     let img = this.props.img;
     if (this.props.source === "file") {
-      img = "http://data.kakapo.co/images/" + (this.props.playing ? "light-" : "dark-") + this.props.img.replace(/^.*[\\\/]/, "");
+      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light-" : "dark-") + this.props.img.replace(/^.*[\\\/]/, ""));
+    }
+    if (!img) {
+      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light-" : "dark-") + "untitled.png");
     }
     return (
       <div
