@@ -38,6 +38,7 @@
       },
       "options": {
         "header": "Add a sound",
+        "dragndrop": "You can drag and drop audio files into Kakapo from your computer.",
         "kakapo": "Kakapo favourites",
         "youtube": "YouTube",
         "soundcloud": "SoundCloud",

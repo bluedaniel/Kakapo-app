@@ -14,6 +14,7 @@ export default React.createClass({
       <div className="media">
         <div className="options-kakapo">
           <h5>{this.getIntlMessage("import.options.header")}</h5>
+          <p>{this.getIntlMessage("import.options.dragndrop")}</p>
           <Link className="option options-kakapo" to="/downloads/kakapo">
             <i className="icon-kakapo"/> {this.getIntlMessage("import.options.kakapo")}
           </Link>
