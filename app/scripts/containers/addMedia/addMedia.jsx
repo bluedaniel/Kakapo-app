@@ -3,7 +3,7 @@ import Reflux from "reflux";
 import { IntlMixin } from "react-intl";
 import CSSTransitionGroup from "react-addons-css-transition-group";
 import { Link } from "react-router";
-import { Settings } from "../stores";
+import { Settings } from "../../stores";
 
 export default React.createClass({
   propTypes: {

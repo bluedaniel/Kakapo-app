@@ -83,7 +83,7 @@ const SoundStore = Reflux.createStore({
   onRemoveSound(sound) {
     this.getHowl(sound).then(howl => howl.unload());
     sounds = sounds.delete(sound.file);
-    if (sound.source !== "file") fs.unlinkSync(path.join(pathConfig.userSoundDir, sound.file));
+    if (sound.source !== "file") fs.unlinkSync(sound.file);
     this.trigger(sounds);
   },
 
@@ -136,6 +136,15 @@ const SoundStore = Reflux.createStore({
   },
 
   onGetCustomURLFailed(error) {
+    toasterInstance().then(_t => _t.toast(error));
+  },
+
+  // CustomFile Listeners
+  onGetCustomFileCompleted(sound) {
+    this.soundDownloaded(sound);
+  },
+
+  onGetCustomFileFailed(error) {
     toasterInstance().then(_t => _t.toast(error));
   }
 });

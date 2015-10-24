@@ -9,6 +9,7 @@ const app = remote.require("app");
 
 export default {
   // Default json objects & dirs
+  gradientFile: path.join(app.getAppPath(), "data/gradients.json"),
   settingsFile: path.join(app.getAppPath(), "data/settings.json"),
   soundFile: path.join(app.getAppPath(), "data/sounds.json"),
   soundDir: path.join(app.getAppPath(), "sounds"),

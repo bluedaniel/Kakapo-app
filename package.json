@@ -89,6 +89,7 @@
   "homepage": "https://github.com/bluedaniel/Kakapo-app#readme",
   "dependencies": {
     "babel-core": "^5.8.25",
-    "fs-extra": "^0.24.0"
+    "fs-extra": "^0.24.0",
+    "react-dropzone": "^2.2.3"
   }
 }
