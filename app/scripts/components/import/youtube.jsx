@@ -13,6 +13,7 @@ export default React.createClass({
     return { loading: false };
   },
   componentDidMount() {
+    this.refs.youtubeInput.focus();
     const autocomplete = this.observeAutocomplete();
     autocomplete
       .subscribe(() => this.toggleSpinner(true));
