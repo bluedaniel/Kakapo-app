@@ -13,10 +13,13 @@ const webpackConfig = require("./config");
 const bundler = webpack(webpackConfig);
 
 export default task("start", async () => {
-  await require("./build")();
+  await require("./clean")();
+  await require("./copy")();
   await require("./serve")();
 
-  proc.spawn(electron, ["build"]);
+  proc
+    .spawn(electron, ["build"])
+    .stdout.on("data", data => console.log(data.toString()));
 
   browserSync({
     open: false,
