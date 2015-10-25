@@ -54,6 +54,10 @@ app.on("ready", () => {
   appIcon.window = new BrowserWindow(defaults);
   appIcon.window.loadUrl(path.join("file://", app.getAppPath(), "index.html"));
 
+  appIcon.window.webContents.on("new-window", (event, url, frameName, disposition, opts) => {
+    opts.frame = true;
+  });
+
   if (process.platform === "darwin") {
     if (appSettings.dockIcon) {
       app.dock.show();
