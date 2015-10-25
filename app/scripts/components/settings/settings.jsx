@@ -83,7 +83,7 @@ export default React.createClass({
             <a
               className="github hint--right"
               data-hint="Fork me on Github!"
-              href="https://github.com/bluedaniel/kakapo-web"
+              href="https://github.com/bluedaniel/kakapo-app"
               target="_blank"
             >
               <i className="icon-github"/>
