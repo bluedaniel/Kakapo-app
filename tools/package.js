@@ -8,8 +8,8 @@ process.env.NODE_ENV = "production";
 const opts = {
   "app-version": packagejson.version,
   asar: true,
-  dir: "./build",
-  icon: "images/app.icns",
+  dir: "build",
+  icon: "build/images/app",
   name: "Kakapo",
   version: "0.34.0",
   ignore: [
