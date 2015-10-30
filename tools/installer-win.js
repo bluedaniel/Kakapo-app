@@ -1,6 +1,6 @@
 import archiver from "archiver";
 import chalk from "chalk";
-import fs from "fs";
+import fs from "fs-extra";
 import os from "os";
 import rcedit from "rcedit";
 import winInstaller from "electron-windows-installer";
