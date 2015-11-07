@@ -10,7 +10,9 @@ export default task("copy", async () => {
     fs.copySync("package.json", "build/package.json"),
     fs.copySync("app/html/loading.css", "build/loading.css"),
     fs.copySync(`app/html/${indexFile}.html`, "build/index.html"),
-    ["sounds", "data", "fonts", "icons", "images"].map(_f =>
-      fs.copySync(`app/${_f}`, `build/${_f}`))
+    ["fonts"].map(_f =>
+      fs.copySync(`app/${_f}`, `build/${_f}`)),
+    ["sounds", "data", "icons", "images"].map(_f =>
+      fs.copySync(`./node_modules/kakapo-assets/${_f}`, `build/${_f}`))
   ]);
 });

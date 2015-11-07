@@ -3,7 +3,7 @@ import ipc from "ipc";
 import Reflux from "reflux";
 import axios from "axios";
 import { windowActions } from "../actions";
-import langEn from "../../i18n/en.json";
+import kakapoAssets from "kakapo-assets";
 import { pathConfig } from "../utils";
 
 export default Reflux.createStore({
@@ -20,7 +20,7 @@ export default Reflux.createStore({
     const lang = localStorage.getItem("language") || "en";
     this.opts = {
       lang: lang,
-      intlData: langEn,
+      intlData: kakapoAssets.i18n.en,
       dockIcon: appSettings.dockIcon
     };
     if (lang !== "en") {

@@ -81,10 +81,10 @@ export default React.createClass({
     });
     let img = this.props.img;
     if (this.props.source === "file") {
-      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light-" : "dark-") + this.props.img.replace(/^.*[\\\/]/, ""));
+      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light_" : "dark_") + this.props.img.replace(/^.*[\\\/]/, "")) + ".png";
     }
     if (!img) {
-      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light-" : "dark-") + "untitled.png");
+      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light_" : "dark_") + "untitled.png");
     }
     return (
       <div

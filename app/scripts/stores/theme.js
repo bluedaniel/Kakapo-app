@@ -2,13 +2,13 @@ import Reflux from "reflux";
 import Color from "color";
 import { themeActions } from "../actions";
 import throttle from "lodash/function/throttle";
-import defaultTheme from "../../data/theme.json";
+import kakapoAssets from "kakapo-assets";
 import swatches from "../utils/swatches";
 
 const Theme = Reflux.createStore({
   listenables: [themeActions],
   init() {
-    this.styles = JSON.parse(localStorage.getItem("theme")) || defaultTheme;
+    this.styles = JSON.parse(localStorage.getItem("theme")) || kakapoAssets.theme;
   },
 
   getInitialState() {

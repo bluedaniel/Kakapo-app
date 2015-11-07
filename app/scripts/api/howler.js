@@ -4,7 +4,7 @@ import { pathConfig } from "../utils";
 
 export default function(sound) {
   let src = sound.file;
-  if (sound.source === "file") src = path.join(pathConfig.soundDir, src);
+  if (sound.source === "file") src = `${path.join(pathConfig.soundDir, src)}.m4a`;
   return new howler.Howl({
     src: [ src ],
     html5: true,
