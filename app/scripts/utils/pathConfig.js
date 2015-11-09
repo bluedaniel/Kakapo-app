@@ -17,5 +17,6 @@ export default {
   // User data & dirs
   userSoundDir: path.join(app.getPath("userData"), "user-sounds"),
   userSettingsFile: path.join(app.getPath("userData"), "user-data/settings.json"),
-  userSoundFile: path.join(app.getPath("userData"), "user-data/sounds.json")
+  userSoundFile: path.join(app.getPath("userData"), "user-data/sounds.json"),
+  userInstallFile: path.join(app.getPath("userData"), "user-data/app-details.json")
 };

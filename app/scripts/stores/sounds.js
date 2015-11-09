@@ -1,3 +1,4 @@
+import semver from "semver";
 import ipc from "ipc";
 import fs from "fs-extra";
 import path from "path";
@@ -7,6 +8,7 @@ import throttle from "lodash/function/throttle";
 import { createSoundObj } from "../api";
 import { soundActions } from "../actions";
 import { toasterInstance, pathConfig } from "../utils";
+import packageJson from "../../../package.json";
 
 let sounds = new Map();
 let howls = new Map();
@@ -17,12 +19,25 @@ const SoundStore = Reflux.createStore({
   init() {
     let _s = fs.readFileSync(pathConfig.soundFile);
     try {
-      _s = fs.readFileSync(pathConfig.userSoundFile);
+      let _userSounds = fs.readFileSync(pathConfig.userSoundFile);
+      try {
+        let _appDetails = JSON.parse(fs.readFileSync(pathConfig.userInstallFile));
+        if (semver.lt(_appDetails.version, packageJson.version)) {
+          _s = this.mergeSoundsUpdateApp(_userSounds, _s);
+        } else {
+          _s = _userSounds;
+        }
+      } catch (err) {
+        _s = this.mergeSoundsUpdateApp(_userSounds, _s);
+      }
     } catch (err) {
       fs.writeFile(pathConfig.userSoundFile, _s);
     }
-
-    this.setSounds(JSON.parse(_s));
+    try {
+      this.setSounds(JSON.parse(_s));
+    } catch (e) {
+      this.setSounds(_s);
+    }
   },
 
   getInitialState() {
@@ -43,6 +58,11 @@ const SoundStore = Reflux.createStore({
     data.forEach(_s => sounds = sounds.set(_s.file, {..._s, ...{ recentlyDownloaded: false }}));
     this.setAutoPlay();
     this.trigger(sounds);
+  },
+
+  mergeSoundsUpdateApp(userSounds, defaultSounds) {
+    fs.writeFile(pathConfig.userInstallFile, JSON.stringify({version: packageJson.version}));
+    return JSON.parse(userSounds).filter(_s => _s.source !== "file").concat(JSON.parse(defaultSounds));
   },
 
   setAutoPlay() {
