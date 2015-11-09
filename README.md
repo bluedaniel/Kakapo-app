@@ -4,7 +4,7 @@ Kakapo app is an ambient sound mixer for relaxation or productivity that works o
 
 [Download the latest version here](https://github.com/bluedaniel/Kakapo-app/releases).
 
-See also: [Kakapo for Web](https://github.com/bluedaniel/Kakapo-web) - [Kakapo for iOS](https://github.com/bluedaniel/Kakapo-native) - [Kakapo for Chrome](https://github.com/bluedaniel/Kakapo-chrome).
+See also: [Kakapo for Web](https://github.com/bluedaniel/Kakapo-web) - [Kakapo for iOS & Android](https://github.com/bluedaniel/Kakapo-native) - [Kakapo for Chrome](https://github.com/bluedaniel/Kakapo-chrome).
 
 The main features to this repo over the others are:
 
