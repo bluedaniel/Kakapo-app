@@ -20,7 +20,8 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
   const progressBuffer = throttle(this.progressed, 100);
   return new Promise((resolve, reject) => {
     const ext = /^([\w\-]+)/.exec(url.split(".").pop())[0];
-    if (Supported.indexOf(ext) === -1) {
+
+    if (source !== "file" && Supported.indexOf(ext) === -1) {
       return reject(new Error(`${url} doesn't contain an audio format`));
     }
 
@@ -58,7 +59,7 @@ export function getCustomURL(name, url, source = "customStream", icon = "") {
 
 export function getKakapoFavourites() {
   return new Promise((resolve, reject) => {
-    axios.get("http://data.kakapo.co/data/sounds.json")
+    axios.get("http://data.kakapo.co/v2/data/sounds.json")
     .then(res => resolve(res.data))
     .catch(res => reject(res.data.errors[0].error_message));
   });

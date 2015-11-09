@@ -33,7 +33,7 @@ export default Reflux.createStore({
   },
 
   onChangeLanguage(lang) {
-    axios.get(`http://data.kakapo.co/i18n/${lang}.json`)
+    axios.get(`http://data.kakapo.co/v2/i18n/${lang}.json`)
       .then(response => {
         localStorage.setItem("language", lang);
         this.opts = {

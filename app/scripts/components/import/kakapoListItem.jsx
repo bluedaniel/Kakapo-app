@@ -24,7 +24,7 @@ export default React.createClass({
     return (
       <div className={classNames("kakapo-item", {"disabled": this.alreadyAdded()})} onClick={this.handleClick}>
         <div className="thumbnail">
-          <Image img={`http://data.kakapo.co/images/dark-${this.props.img}`}/>
+          <Image img={`http://data.kakapo.co/v2/images/dark_${this.props.img}.png`}/>
         </div>
         <span className="title">
           <FormattedMessage message={this.getIntlMessage("sounds." + this.props.name.replace(/\s+/g, "_").toLowerCase())} />

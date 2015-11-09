@@ -21,7 +21,7 @@ export default React.createClass({
   render() {
     let img = this.props.img;
     if (this.props.source === "file") {
-      img = `http://data.kakapo.co/images/dark-${img}`;
+      img = `http://data.kakapo.co/v2/images/dark_${img}.png`;
     }
     return (
       <div className={classNames("download", {"active": this.props.progress < 1})}>
