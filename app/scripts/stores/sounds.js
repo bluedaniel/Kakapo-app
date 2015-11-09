@@ -22,7 +22,7 @@ const SoundStore = Reflux.createStore({
       let _userSounds = fs.readFileSync(pathConfig.userSoundFile);
       try {
         let _appDetails = JSON.parse(fs.readFileSync(pathConfig.userInstallFile));
-        if (semver.lt(_appDetails.version, packageJson.version)) {
+        if (semver.lt(_appDetails.version, packageJson.config.soundsVersion)) {
           _s = this.mergeSoundsUpdateApp(_userSounds, _s);
         } else {
           _s = _userSounds;
@@ -61,7 +61,7 @@ const SoundStore = Reflux.createStore({
   },
 
   mergeSoundsUpdateApp(userSounds, defaultSounds) {
-    fs.writeFile(pathConfig.userInstallFile, JSON.stringify({version: packageJson.version}));
+    fs.writeFile(pathConfig.userInstallFile, JSON.stringify({soundsVersion: packageJson.config.soundsVersion}));
     return JSON.parse(userSounds).filter(_s => _s.source !== "file").concat(JSON.parse(defaultSounds));
   },
 
