@@ -1,7 +1,9 @@
 {
   "extends": "rackt",
   "globals": {
-    "__DEV__": true
+    "__DEV__": true,
+    "__DESKTOP__": true,
+    "__WEB__": true
   },
   "rules": {
     "no-var": 0,

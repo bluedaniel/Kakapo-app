@@ -42,6 +42,8 @@ let config = {
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
+      __DESKTOP__: argv.platform === 'desktop',
+      __WEB__: argv.platform === 'web',
       __DEV__: false
     }),
     ...(!DEBUG ? [
