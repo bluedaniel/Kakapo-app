@@ -1,7 +1,7 @@
-import task from "./lib/task";
+import run from './run';
 
-export default task("build", async () => {
-  await require("./clean")();
-  await require("./copy")();
-  await require("./bundle")();
-});
+export default async function build() {
+  await run(require('./clean'));
+  await run(require('./copy'));
+  await run(require('./bundle'));
+}
