@@ -13,6 +13,15 @@ if (!DEBUG) {
 
 const devServer = 'http://localhost:3000';
 
+let externals = {};
+if (argv.platform === 'web') {
+  const voidModules = [ 'ipc', 'remote', 'fs', 'fs-extra' ];
+  externals = voidModules.reduce((a, b) => {
+    a[b] = 'void 0';
+    return a;
+  }, {});
+}
+
 let config = {
   entry: [
     ...(WATCH ? [ `webpack-hot-middleware/client?path=${devServer}/__webpack_hmr` ] : []),
@@ -24,6 +33,7 @@ let config = {
     publicPath: WATCH && argv.platform === 'desktop' ? devServer : '/'
   },
   target: argv.platform === 'web' ? 'web' : 'atom',
+  externals: externals,
   cache: DEBUG,
   debug: DEBUG,
   devtool: DEBUG ? '#eval' : false,
