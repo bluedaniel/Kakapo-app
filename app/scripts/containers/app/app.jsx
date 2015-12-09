@@ -5,6 +5,7 @@ import ipc from 'ipc';
 import fs from 'fs-extra';
 import remote from 'remote';
 import Dropzone from 'react-dropzone';
+import classNames from 'classnames';
 import { soundActions } from '../../actions';
 import { Header, Nav, SoundList } from '../../components';
 import { konami, pathConfig } from '../../utils';
@@ -48,9 +49,7 @@ class App extends Component {
   }
 
   handleUpdateAvailable() { // Desktop only
-    this.setState({
-      updateAvailable: true
-    });
+    this.setState({ updateAvailable: true });
   }
 
   handleAutoUpdateClick() { // Desktop only
@@ -59,37 +58,42 @@ class App extends Component {
 
   render() {
     return (
-      <Dropzone
-        className="inactiveDrop"
-        activeClassName="activeDrop"
-        disableClick onDrop={this.onDrop}
-      >
-        <div
-          className="upload-files"
-          style={{
-            background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
-          }}
+      <div className={classNames('app-container', {
+        web: __WEB__,
+        desktop: __DESKTOP__
+      })}>
+        <Dropzone
+          className="inactiveDrop"
+          activeClassName="activeDrop"
+          disableClick onDrop={this.onDrop}
         >
-          <div className="inner">
-            <h3><i className="icon-add"></i></h3>
-            <p className="text">Drop files to upload</p>
-            <a className="gradient-name" href="http://uigradients.com" target="_blank">
-              Gradient: {this.state.gradient.name}
-            </a>
+          <div
+            className="upload-files"
+            style={{
+              background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
+            }}
+          >
+            <div className="inner">
+              <h3><i className="icon-add"></i></h3>
+              <p className="text">Drop files to upload</p>
+              <a className="gradient-name" href="http://uigradients.com" target="_blank">
+                Gradient: {this.state.gradient.name}
+              </a>
+            </div>
           </div>
-        </div>
-        <div>
-          {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
-          <Nav/>
-          <Header/>
-          <div className="container">
-            <SoundList/>
-            {this.props.children && React.cloneElement(this.props.children)}
-            <aside className="toast-view"></aside>
+          <div>
+            {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
+            <Nav/>
+            <Header/>
+            <div className="container">
+              <SoundList/>
+              {this.props.children && React.cloneElement(this.props.children)}
+              <aside className="toast-view"></aside>
+            </div>
+            {__DEV__ ? <DevTools/> : null}
           </div>
-          {__DEV__ ? <DevTools/> : null}
-        </div>
-      </Dropzone>
+        </Dropzone>
+      </div>
     );
   }
 }
