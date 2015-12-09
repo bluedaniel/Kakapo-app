@@ -11,15 +11,17 @@ if (!DEBUG) {
   process.env.NODE_ENV = 'production';
 }
 
+const devServer = 'http://localhost:3000';
+
 let config = {
   entry: [
-    ...(WATCH ? [ 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr' ] : []),
+    ...(WATCH ? [ `webpack-hot-middleware/client?path=${devServer}/__webpack_hmr` ] : []),
     './app/scripts/index'
   ],
   output: {
     filename: 'index.js',
     path: path.join(__dirname, '../build'),
-    publicPath: '/'
+    publicPath: WATCH && argv.platform === 'desktop' ? devServer : '/'
   },
   target: argv.platform === 'web' ? 'web' : 'atom',
   cache: DEBUG,
