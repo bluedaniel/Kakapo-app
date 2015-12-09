@@ -1,94 +1,100 @@
-import remote from "remote";
-import path from "path";
-import React from "react";
-import Reflux from "reflux";
-import classNames from "classnames";
-import waves from "node-waves";
-import throttle from "lodash/function/throttle";
-import PureRenderMixin from "react-addons-pure-render-mixin";
-import { soundActions } from "../../actions";
-import { Theme } from "../../stores";
-import SoundClass from "../../classes/sound";
-import { Image } from "../ui";
-import "./soundItem.css";
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
+import waves from 'node-waves';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import throttle from 'lodash/function/throttle';
+import { soundActions } from '../../actions';
+import { soundClass } from '../../classes';
+import { Image } from '../ui';
+import './soundItem.css';
 
-const app = remote.require("app");
+class SoundItem extends Component {
+  constructor(props) {
+    super(props);
+    this.handleVolume = throttle(this.handleVolume.bind(this), 250);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+  }
 
-export default React.createClass({
-  propTypes: SoundClass,
-  mixins: [Reflux.connect(Theme, "theme"), PureRenderMixin],
   componentWillMount() {
-    this.handleChangeVolume = throttle(this.handleChangeVolume, 250);
-  },
+    this.handleVolume = throttle(this.handleVolume, 250);
+  }
+
   handleToggle() {
     waves.ripple(this.refs.item);
-    soundActions.togglePlayPause(this.props);
-  },
+    this.props.soundActions.soundsPlay(this.props.sound);
+  }
+
   handleDelete(el) {
     this.handleStopPropagation(el);
-    soundActions.removeSound(this.props);
-  },
+    this.props.soundActions.soundsRemove(this.props.sound);
+  }
+
   handleEdit(el) {
     this.handleStopPropagation(el);
-    soundActions.editSound(this.props);
-  },
-  handleChangeVolume() {
-    soundActions.changeVolume(this.props, parseFloat(this.refs.volume.value));
-  },
+    this.props.soundActions.soundsEdit(this.props.sound);
+  }
+
+  handleVolume() {
+    this.props.soundActions.soundsVolume(this.props.sound, parseFloat(this.refs.volume.value));
+  }
+
   handleStopPropagation(el) {
     el.preventDefault();
     el.stopPropagation();
-  },
+  }
+
   renderActions() {
     return (
-      <ul className="actions" style={this.state.theme.soundList.actions}>
-        {this.props.link ? (
+      <ul className="actions" >
+        {this.props.sound.link ? (
           <li>
-            <a href={this.props.link} target="_blank">
-              <i className={classNames("icon-share", {
-                "dark": !this.props.playing
+            <a href={this.props.sound.link} target="_blank">
+              <i className={classNames('icon-share', {
+                dark: !this.props.sound.playing
               })}/>
             </a>
-          </li>) : ""}
-        {this.props.source !== "youtubeStream" ? (
+          </li>) : ''}
+        {this.props.sound.source !== 'youtubeStream' ? (
           <li onClick={this.handleEdit}>
-            <i className={classNames("icon-pencil", {
-              "dark": !this.props.playing
-            })}/></li>) : ""}
+            <i className={classNames('icon-pencil', {
+              dark: !this.props.sound.playing
+            })}/></li>) : ''}
         <li onClick={this.handleDelete}>
-          <i className={classNames("icon-trash", {
-            "dark": !this.props.playing
+          <i className={classNames('icon-trash', {
+            dark: !this.props.sound.playing
           })}/>
         </li>
       </ul>
     );
-  },
+  }
+
   renderVideo() {
-    if (this.props.source === "youtubeStream") {
+    if (this.props.sound.source === 'youtubeStream') {
       return (
-        <div className="youtube-video" id={`video-${this.props.file}`}></div>
+        <div className="youtube-video" id={`video-${this.props.sound.file}`}></div>
       );
     }
-  },
+  }
+
   render() {
-    let objStyle = this.state.theme.soundList.item;
-    if (this.props.playing) objStyle = {...objStyle, ...this.state.theme.soundList.itemPlaying};
-    // Image size is relative to the volume
+    let objStyle = this.props.themes.getIn([ 'soundList', 'item' ]).toJS();
+    if (this.props.sound.playing) objStyle = { ...objStyle, ...this.props.themes.getIn([ 'soundList', 'itemPlaying' ]).toJS() };
     const itemClass = classNames({
-      "playing": this.props.playing,
-      "paused": !this.props.playing,
-      "youtube-stream": this.props.source === "youtubeStream"
+      playing: this.props.sound.playing,
+      paused: !this.props.sound.playing,
+      'youtube-stream': this.props.sound.source === 'youtubeStream'
     });
-    let img = this.props.img;
-    if (this.props.source === "file") {
-      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light_" : "dark_") + this.props.img.replace(/^.*[\\\/]/, "")) + ".png";
+    let img = this.props.sound.img;
+    if (this.props.sound.source === 'file') {
+      img = 'http://data.kakapo.co/v2/images/' + (this.props.sound.playing ? 'light_' : 'dark_') + this.props.sound.img.replace(/^.*[\\\/]/, '') + '.png';
     }
-    if (!img) {
-      img = path.join(app.getAppPath(), "images", (this.props.playing ? "light_" : "dark_") + "untitled.png");
-    }
+
     return (
       <div
-        className={classNames("item", "waves-effect", "waves-block", itemClass)}
+        className={classNames('item', 'waves-effect', 'waves-block', itemClass)}
         onClick={this.handleToggle}
         ref="item"
         style={objStyle}
@@ -97,13 +103,13 @@ export default React.createClass({
           <Image img={img}/>
           {this.renderActions()}
           <span className="title">
-            {this.props.name}
+            {this.props.sound.name}
           </span>
           <input
-            defaultValue={this.props.volume}
+            defaultValue={this.props.sound.volume}
             max="1"
             min="0"
-            onChange={this.handleChangeVolume}
+            onChange={this.handleVolume}
             onClick={this.handleStopPropagation}
             ref="volume"
             step="0.001"
@@ -114,4 +120,20 @@ export default React.createClass({
       </div>
     );
   }
+}
+
+SoundItem.propTypes = {
+  themes: PropTypes.object,
+  soundActions: PropTypes.object,
+  sound: PropTypes.shape(soundClass)
+};
+
+const mapStateToProps = state => ({
+  themes: state.themes
 });
+
+const mapDispatchToProps = dispatch => ({
+  soundActions: bindActionCreators(soundActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SoundItem);

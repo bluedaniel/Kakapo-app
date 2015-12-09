@@ -1,81 +1,77 @@
-import axios from "axios";
-import fs from "fs-extra";
-import path from "path";
-import uuid from "uuid";
-import ytdl from "ytdl-core";
-import throttle from "lodash/function/throttle";
-import Sound from "../classes/newSound";
-import { pathConfig } from "../utils";
+import axios from 'axios';
+import { newSoundClass } from '../classes';
 
-const GAPI_URL = "https://www.googleapis.com/youtube/v3";
-const GAPI_KEY = "AIzaSyArV70XKUil3cEj4nKn1yuMXCHiuK2AytI";
+const GAPI_URL = 'https://www.googleapis.com/youtube/v3';
+const GAPI_KEY = 'AIzaSyArV70XKUil3cEj4nKn1yuMXCHiuK2AytI';
 const GAPI_OPTS_SEARCH = {
   key: GAPI_KEY,
   maxResults: 15,
-  part: "snippet",
-  type: "video"
+  part: 'snippet',
+  type: 'video'
 };
 const GAPI_OPTS_LIST = {
   key: GAPI_KEY,
-  part: "contentDetails,statistics,status"
+  part: 'contentDetails,statistics,status'
 };
 
 function getStatistics(resolve, reject, videos) {
   // Get the duration
   let _it = 0;
-  const paramObjV = {...GAPI_OPTS_LIST, ...{id: videos.map(_i => _i.id.videoId).join(",")}};
+  const paramObjV = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
   axios.get(`${GAPI_URL}/videos`, { params: paramObjV })
     .then(response => resolve(response.data.items.map(_v =>
-      ({...videos[_it++], ...{
+      ({ ...videos[_it++], ...{
         duration: _v.contentDetails.duration,
-        viewCount: _v.statistics.viewCount}}))))
+        viewCount: _v.statistics.viewCount } }))))
     .catch(response => reject(response));
 }
 
-function onData(progressed, sound, data) {
-  const progress = (this.dataRead += data.length) / this.fileSize;
-  progressed(sound, progress);
-}
+export function getYoutubeObj(video) {
+  return new Promise(resolve => new window.YT.Player(`video-${video.file}`, {
+    videoId: video.file,
+    height: 225,
+    width: 400,
+    playerVars: {
+      iv_load_policy: 3,
+      autoplay: video.playing ? 1 : 0,
+      controls: 0,
+      loop: 1,
+      playlist: video.file,
+      showinfo: 0
+    },
+    events: {
+      onReady: (el) => resolve({
+        play: () => el.target.playVideo(),
+        pause: () => el.target.pauseVideo(),
+        volume: vol => el.target.setVolume(vol * 100),
+        mute: toggle => {
+          if (toggle) return el.target.mute();
+          el.target.unMute();
+        },
 
-export function getYoutubeURL(videoID) {
-  this.fileSize = 1;
-  this.dataRead = 0;
-  const progressBuffer = throttle(this.progressed, 100);
-  return new Promise((resolve, reject) => {
-    ytdl.getInfo(`https://www.youtube.com/watch?v=${videoID}`, {downloadURL: true}, (err, info) => {
-      if (err) reject(err);
-
-      const audioFormats = info.formats.filter(format => (format.container && format.type) && format.type.startsWith("audio"));
-      if (!audioFormats.length) reject(new Error(`https://youtu.be/${videoID} doesn"t contain an audio format`));
-
-      const audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
-      const newSound = {...Sound, ...{
-        file: path.join(pathConfig.userSoundDir, `${uuid()}.${audioFormat.container}`),
-        img: info.thumbnail_url,
-        link: `https://www.youtube.com/watch?v=${info.video_id}`,
-        name: info.title,
-        progress: 0,
-        source: "youtubeStream",
-        tags: info.keywords ? info.keywords.join(" ") : ""
-      }};
-
-      ytdl.downloadFromInfo(info, {
-        format: audioFormat
+        unload: () => el.target.destroy()
       })
-      .on("error", reject.bind(null, newSound))
-      .on("format", formatInfo => this.fileSize = formatInfo.size)
-      .on("data", onData.bind(this, progressBuffer, newSound))
-      .on("end", resolve.bind(null, newSound))
-      .pipe(fs.createWriteStream(newSound.file));
-    });
-  });
+    }
+  }));
 }
 
-export function getYoutubeSearch(_q) {
+export function getYoutubeSearch(term) {
   return new Promise((resolve, reject) => {
-    const paramObj = {...GAPI_OPTS_SEARCH, ...{q: _q}};
+    const paramObj = { ...GAPI_OPTS_SEARCH, ...{ q: term } };
     axios.get(`${GAPI_URL}/search`, { params: paramObj })
       .then(response => getStatistics(resolve, reject, response.data.items))
       .catch(response => reject(response));
   });
+}
+
+export function getYoutubeURL(data) {
+  return new Promise(resolve => resolve({ ...newSoundClass, ...{
+    file: data.id,
+    img: data.thumbnail,
+    link: `https://www.youtube.com/watch?v=${data.id}`,
+    name: data.title,
+    progress: 0,
+    source: 'youtubeStream',
+    tags: data.tags
+  } }));
 }

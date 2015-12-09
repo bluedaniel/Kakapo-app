@@ -1,12 +1,14 @@
-import howler from "howler";
-import path from "path";
-import { pathConfig } from "../utils";
+import howler from 'howler';
+import path from 'path';
 
-export default function(sound) {
-  let src = sound.file;
-  if (sound.source === "file") src = `${path.join(pathConfig.soundDir, src)}.m4a`;
+export default function (sound) {
+  let soundFile = sound.file;
+  if (sound.source === 'file') {
+    soundFile = `http://data.kakapo.co/v2/sounds/${path.basename(soundFile)}.m4a`;
+  }
+
   return new howler.Howl({
-    src: [ src ],
+    src: [ soundFile ],
     html5: true,
     loop: true,
     volume: sound.volume,

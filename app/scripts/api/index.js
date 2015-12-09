@@ -1,20 +1,35 @@
-import getHowlerObj from "./howler";
-import { getCustomURL, getKakapoFavourites } from "./customUrl";
-import { getYoutubeSearch, getYoutubeURL } from "./youtube";
-import { getSoundCloudSearch, getSoundCloudURL } from "./soundcloud";
-import { getCustomFile } from "./customFile";
+import axios from 'axios';
+import getHowlerObj from './howler';
+import { getCustomURL, getKakapoFavourites } from './customUrl';
+import { getYoutubeObj, getYoutubeSearch, getYoutubeURL } from './youtube';
+import { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } from './soundcloud';
 
-function createSoundObj(_s) {
-  return new Promise(resolve => resolve(getHowlerObj(_s)));
+function getDefaultSounds() {
+  return axios.get('http://data.kakapo.co/v2/data/sounds.json');
 }
 
-export default {
-  getCustomFile,
+function createSoundObj(sound) {
+  return new Promise(resolve => {
+    switch (sound.source) {
+      case 'soundcloudStream':
+        resolve(getSoundCloudObj(sound));
+        break;
+      case 'youtubeStream':
+        resolve(getYoutubeObj(sound));
+        break;
+      default:
+        resolve(getHowlerObj(sound));
+    }
+  });
+}
+
+export {
   getCustomURL,
   getKakapoFavourites,
   getSoundCloudSearch,
   getSoundCloudURL,
   getYoutubeSearch,
   getYoutubeURL,
+  getDefaultSounds,
   createSoundObj
 };

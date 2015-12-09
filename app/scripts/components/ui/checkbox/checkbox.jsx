@@ -1,16 +1,15 @@
-import React, { PropTypes } from "react";
+import React, { Component, PropTypes } from 'react';
 
-export default React.createClass({
-  propTypes: {
-    checked: PropTypes.bool,
-    handleChange: PropTypes.func,
-    label: PropTypes.string,
-    name: PropTypes.string,
-    value: PropTypes.string
-  },
+export default class Checkbox extends Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
   handleChange() {
     this.props.handleChange(this.refs.checkbox.checked);
-  },
+  }
+
   render() {
     return (
       <label className="switch" htmlFor={this.props.name}>
@@ -27,4 +26,12 @@ export default React.createClass({
       </label>
     );
   }
-});
+}
+
+Checkbox.propTypes = {
+  checked: PropTypes.bool,
+  handleChange: PropTypes.func,
+  label: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string
+};

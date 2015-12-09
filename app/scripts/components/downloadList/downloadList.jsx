@@ -1,12 +1,13 @@
-import React, { PropTypes } from "react";
-import {Map} from "immutable";
-import {DownloadItem} from "../";
-import "./downloadList.css";
+import React, { Component, PropTypes } from 'react';
+import { Map } from 'immutable';
+import { DownloadItem } from '../';
+import './downloadList.css';
 
-export default React.createClass({
-  propTypes: {
-    sounds: PropTypes.instanceOf(Map)
-  },
+export default class DownloadList extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
@@ -17,4 +18,8 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+DownloadList.propTypes = {
+  sounds: PropTypes.instanceOf(Map)
+};

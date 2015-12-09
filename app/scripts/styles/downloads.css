@@ -1,0 +1,190 @@
+@import "normalize.css/normalize";
+@import "skeleton/css/skeleton";
+@import "animate.css/animate";
+@import "./emoji";
+
+body {
+  background: linear-gradient(90deg, #de6262 10%, #ffb88c 90%);
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+}
+a,
+a:hover {
+  color: #fff;
+}
+h1 {
+  font-weight: 700;
+}
+.button {
+  border-radius: 100px;
+}
+.share {
+  left: 0;
+  margin: 15px;
+  position: absolute;
+  text-align: left;
+  top: 0;
+  .fb-share-button,
+  .twitter-share-button {
+    margin-right: 15px;
+  }
+  .fb-share-button {
+    display: inline-block;
+    top: -6px;
+  }
+}
+.features {
+  padding: 3rem 0;
+  ul {
+    font-size: 1em;
+    list-style: none;
+    text-align: left;
+    li {
+      margin-bottom: 2rem;
+      .twa {
+        font-size: 3rem;
+        margin-right: 7px;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+.section {
+  padding: 8rem 0 7rem;
+  position: relative;
+  text-align: center;
+  .feat-img {
+    border-radius: 3px;
+    max-width: 100%;
+    width: 600px;
+  }
+  &.intro {
+    background: linear-gradient(90deg, #de6262 10%, #ffb88c 90%);
+  }
+  &.ios {
+    background: linear-gradient(90deg, #5f2c82 10%, #49a09d 90%);
+    img {
+      max-height: 500px;
+      width: auto;
+    }
+  }
+  &.desktop {
+    background: linear-gradient(90deg, #E55D87 10%, #5FC3E4 90%);
+  }
+  &.chrome {
+    background: linear-gradient(90deg, #70e1f5 10%, #ffd194 90%);
+    img {
+      max-height: 500px;
+      width: auto;
+    }
+  }
+  ul {
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+}
+.intro {
+  .row {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+  img {
+    display: block;
+    margin: 0 auto 10px;
+    max-height: 48px;
+    max-width: 48px;
+  }
+}
+.section-heading,
+.section-description {
+  margin-bottom: 1.2rem;
+}
+.apps-badge-wrap {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .apps-badge {
+    max-width: 150px;
+    img {
+      max-width: 100%;
+    }
+    &.apps-badge-ios {
+      margin-right: 8px;
+    }
+  }
+}
+
+@keyframes octocat-wave{
+  0%, 100% {
+    transform:rotate(0)
+  }
+  20%, 60% {
+    transform:rotate(-25deg)
+  }
+  40%, 80% {
+    transform:rotate(10deg)
+  }
+}
+
+.github-corner:hover .octo-arm {
+  animation:octocat-wave 560ms ease-in-out
+}
+
+@media (max-width:500px) {
+  .github-corner:hover .octo-arm {
+    animation:none
+  }
+  .github-corner .octo-arm {
+    animation:octocat-wave 560ms ease-in-out
+  }
+}
+
+/* Bigger than 550 */
+@media (min-width: 550px) {
+  .section {
+    padding: 12rem 0 11rem;
+  }
+  .hero {
+    padding-bottom: 12rem;
+  }
+  .hero-heading {
+    font-size: 2rem;
+  }
+}
+
+/* Bigger than 750 */
+@media (min-width: 750px) {
+  .hero {
+    padding: 8rem 0 5rem;
+  }
+  .hero-heading {
+    font-size: 2rem;
+  }
+  .section {
+    padding: 14rem 0 15rem;
+  }
+  .section-description {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 60%;
+  }
+  .features {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+/* Bigger than 1000 */
+@media (min-width: 1000px) {
+  .section {
+    padding: 10rem 0;
+  }
+  .hero {
+    padding: 6rem 0;
+  }
+  .hero-heading {
+    font-size: 2rem;
+  }
+}

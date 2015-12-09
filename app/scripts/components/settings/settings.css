@@ -22,23 +22,8 @@
     }
     .github,
     .icon-github {
-      float: left;
       height: 48px;
       width: 48px;
     }
-    .icon-quit {
-      height: 24px;
-      margin-right: 13px;
-      width: 24px;
-    }
-  }
-  .version {
-    cursor: default;
-    float: right;
-    font-size: .8em;
-    font-style: italic;
-    margin: 0;
-    text-align: right;
-    width: 100%;
   }
 }

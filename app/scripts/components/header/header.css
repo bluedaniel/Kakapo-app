@@ -1,7 +1,7 @@
 .topbar {
   color: #fff;
   font-size: 13px;
-  height: 35px;
+  height: 20px;
   left: 0;
   overflow: hidden;
   padding: 8px 0 7px;
@@ -17,13 +17,14 @@
       display: none;
     }
   }
-  .drag {
-    -webkit-app-region: drag;
-    height: 35px;
-    left: 33px;
+  .share {
     position: absolute;
-    top: 0;
-    width: 220px;
+    right: 7px;
+    top: 7px;
+    .fb_iframe_widget {
+      top: -6px;
+      margin-right: 8px;
+    }
   }
   .twitter,
   .facebook,

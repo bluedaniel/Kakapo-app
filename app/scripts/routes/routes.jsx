@@ -1,6 +1,7 @@
-import React from "react";
-import { Route, IndexRoute } from "react-router";
-import { AddMedia, App, Offline } from "../containers";
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+import { AddMedia, App } from '../containers';
+
 import {
   Settings,
   ImportOptions,
@@ -8,11 +9,10 @@ import {
   ImportYouTube,
   ImportCustomUrl,
   ImportSoundCloud
-} from "../components";
+} from '../components';
 
 export default (
   <Route component={App} path="/">
-    <Route component={Offline} path="desktop"/>
     <Route component={Settings} path="settings"/>
     <Route component={AddMedia} path="downloads">
       <IndexRoute component={ImportOptions}/>

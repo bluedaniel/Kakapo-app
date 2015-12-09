@@ -1,63 +1,46 @@
-import axios from "axios";
-import fs from "fs-extra";
-import path from "path";
-import request from "request";
-import uuid from "uuid";
-import throttle from "lodash/function/throttle";
-import Sound from "../classes/newSound";
-import { pathConfig } from "../utils";
+import axios from 'axios';
+import { newSoundClass } from '../classes';
 
-const SCAPI = "http://api.soundcloud.com";
+const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
-const SOUNDCLOUD_KEY = "733c506264b8a0b6b05c85d9f1615567";
+const SOUNDCLOUD_KEY = '733c506264b8a0b6b05c85d9f1615567';
 
-export function getSoundCloudSearch(_q) {
-  return new Promise((resolve, reject) => {
-    axios.get(`${SCAPI}/tracks`, { params: {
-      q: _q,
-      client_id: SOUNDCLOUD_KEY,
-      filter: "public"
-    }})
-    .then(res => resolve(res.data.filter(_s => _s.download_url)))
-    .catch(response => reject(response));
-  });
+export function getSoundCloudObj(sound) {
+  const soundCloudObj = new Audio();
+  soundCloudObj.src = `${sound.file}?client_id=${SOUNDCLOUD_KEY}`;
+  soundCloudObj.loop = true;
+  soundCloudObj.volume = sound.volume;
+  soundCloudObj.autoplay = sound.playing;
+  return {
+    play: () => soundCloudObj.play(),
+    pause: () => soundCloudObj.pause(),
+    volume: vol => soundCloudObj.volume = vol,
+    mute: toggle => soundCloudObj.muted = toggle,
+    unload: () => {
+      soundCloudObj.pause();
+      soundCloudObj.src = '';
+    }
+  };
 }
 
-function onData(progressed, sound, data) {
-  const progress = (this.dataRead += data.length) / this.fileSize;
-  progressed(sound, progress);
+export function getSoundCloudSearch(term) {
+  if (!window.SC) window.SC.initialize({ client_id: SOUNDCLOUD_KEY });
+  return new Promise(resolve =>
+    window.SC.get('/tracks', { q: term }, tracks => resolve(tracks)));
 }
 
 export function getSoundCloudURL(id) {
-  this.fileSize = 1;
-  this.dataRead = 0;
-  const progressBuffer = throttle(this.progressed, 100);
   return new Promise((resolve, reject) => {
     axios.get(`${SCAPI_TRACKS}/${id}`, { params: { client_id: SOUNDCLOUD_KEY } })
-      .then(response => {
-        if (!response.data.download_url) {
-          return reject(new Error(`Sorry, that SoundCloud track cannot be downloaded.`));
-        }
-
-        const newSound = {...Sound, ...{
-          file: path.join(pathConfig.userSoundDir, `${uuid()}.mp3`),
-          source: "soundcloudStream",
-          name: response.data.title,
-          tags: response.data.tag_list,
-          img: response.data.artwork_url || "https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png",
-          link: response.data.permalink_url,
-          progress: 0
-        }};
-        request({
-          method: "GET",
-          uri: `${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`
-        })
-        .on("response", res => this.fileSize = res.headers["content-length"])
-        .on("error", reject.bind(null, newSound))
-        .on("data", onData.bind(this, progressBuffer, newSound))
-        .on("end", resolve.bind(null, newSound))
-        .pipe(fs.createWriteStream(newSound.file));
-      })
+      .then(response => resolve({ ...newSoundClass, ...{
+        file: response.data.stream_url,
+        img: response.data.artwork_url,
+        link: response.data.permalink_url,
+        name: response.data.title,
+        progress: 0,
+        source: 'soundcloudStream',
+        tags: response.data.tag_list
+      } }))
       .catch(response => reject(response.data.errors[0].error_message));
   });
 }

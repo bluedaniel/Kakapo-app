@@ -1,37 +1,48 @@
-import React from "react";
-import Reflux from "reflux";
-import classNames from "classnames";
-import { IntlMixin } from "react-intl";
-import { Link } from "react-router";
-import { Sounds } from "../../stores";
-import { DownloadList } from "../../components";
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
+import { connect } from 'react-redux';
+import { DownloadList } from '../../components';
 
-export default React.createClass({
-  mixins: [ IntlMixin, Reflux.connect(Sounds, "sounds") ],
+class Options extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
-    const activeDownloads = this.state.sounds.filter(_s => _s.recentlyDownloaded);
+    const activeDownloads = this.props.sounds.filter(_s => _s.recentlyDownloaded);
     return (
       <div className="media">
         <div className="options-kakapo">
-          <h5>{this.getIntlMessage("import.options.header")}</h5>
-          <p>{this.getIntlMessage("import.options.dragndrop")}</p>
+          <h5><FormattedMessage id="import.options.header"/></h5>
           <Link className="option options-kakapo" to="/downloads/kakapo">
-            <i className="icon-kakapo"/> {this.getIntlMessage("import.options.kakapo")}
+            <i className="icon-kakapo"/> <FormattedMessage id="import.options.kakapo"/>
           </Link>
           <Link className="option options-custom" to="/downloads/custom">
-            <i className="icon-file dark"/> {this.getIntlMessage("import.options.custom")}
+            <i className="icon-file dark"/> <FormattedMessage id="import.options.custom"/>
           </Link>
           <Link className="option options-youtube" to="/downloads/youtube">
-            <i className="icon-youtube"/> {this.getIntlMessage("import.options.youtube")}
+            <i className="icon-youtube"/> <FormattedMessage id="import.options.youtube"/>
           </Link>
           <Link className="option options-soundcloud" to="/downloads/soundcloud">
-            <i className="icon-soundcloud"/> {this.getIntlMessage("import.options.soundcloud")}
+            <i className="icon-soundcloud"/> <FormattedMessage id="import.options.soundcloud"/>
           </Link>
         </div>
-        <div className={classNames("download-wrap", {"active": activeDownloads.count()})}>
+        <div className={classNames('download-wrap', { active: activeDownloads.count() })}>
           <DownloadList sounds={activeDownloads}/>
         </div>
       </div>
     );
   }
+}
+
+Options.propTypes = {
+  sounds: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+  sounds: state.sounds
 });
+
+export default injectIntl(connect(mapStateToProps)(Options));

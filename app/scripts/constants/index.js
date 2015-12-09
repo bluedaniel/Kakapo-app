@@ -1,0 +1,26 @@
+import { createConstants } from '../utils';
+
+export default createConstants(
+  'SETTINGS_LANGUAGE',
+
+  'THEMES_CHANGE',
+
+  'SOUNDS_MUTE',
+  'SOUNDS_PLAY',
+  'SOUNDS_RECEIVED',
+  'SOUNDS_VOLUME',
+  'SOUNDS_EDIT',
+  'SOUNDS_REMOVE',
+
+  'SOUNDS_ADD_CUSTOM',
+  'SOUNDS_ADD_YOUTUBE',
+  'SOUNDS_ADD_SOUNDCLOUD',
+
+  'SOUNDS_DOWNLOADED',
+  'SOUNDS_ERROR',
+
+  'SEARCH_KAKAPO',
+  'SEARCH_YOUTUBE',
+  'SEARCH_SOUNDCLOUD',
+  'SEARCH_ERROR'
+);
