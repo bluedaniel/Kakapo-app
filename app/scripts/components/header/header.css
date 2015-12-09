@@ -17,6 +17,14 @@
       display: none;
     }
   }
+  .drag {
+    -webkit-app-region: drag;
+    height: 35px;
+    left: 33px;
+    position: absolute;
+    top: 0;
+    width: 220px;
+  }
   .share {
     position: absolute;
     right: 7px;

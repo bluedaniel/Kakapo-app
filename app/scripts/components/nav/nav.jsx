@@ -17,6 +17,17 @@ class Nav extends Component {
     this.setState({ mute: !this.state.mute }, () => this.props.soundActions.soundsMute(this.state.mute));
   }
 
+  renderDragOrDownload() {
+    if (__DESKTOP__) {
+      return (<span className="drag"/>);
+    }
+    return (
+      <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank">
+        <FormattedMessage id="nav.app"/>
+      </a>
+    );
+  }
+
   render() {
     return (
       <div className={classNames('topbar', {
@@ -26,9 +37,7 @@ class Nav extends Component {
           muted: this.state.mute,
           dark: this.props.themes.get('darkUI')
         })} onClick={this.handleMute}/>
-        <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank">
-          <FormattedMessage id="nav.app"/>
-        </a>
+        {this.renderDragOrDownload()}
         <div className="share">
           <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"></div>
           <a href="https://twitter.com/share" className="twitter-share-button" data-url="http://www.kakapo.co">Tweet</a>
