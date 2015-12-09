@@ -13,7 +13,12 @@
 @import "./modal";
 @import "./search";
 @import "./media";
+@import "./hint";
+@import "./update";
 
+.initial-loading {
+  display: none;
+}
 body {
   margin: 0 auto;
   max-width: 100%;
@@ -25,16 +30,4 @@ body {
 .container {
   padding-left: 0;
   padding-right: 0;
-}
-.hint--top,
-.hint--bottom {
-  &,
-  &:hover,
-  &:focus {
-    &:after,
-    &:before {
-      margin-left: 0;
-      transform: translate(-50%, 8px);
-    }
-  }
 }
