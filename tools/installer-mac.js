@@ -1,13 +1,12 @@
-import proc from "child_process";
-import task from "./lib/task";
-import packagejson from "../package.json";
+import proc from 'child_process';
+import packagejson from '../package.json';
 
-export default task("installer-mac", async() => {
+export default async function installerMac() {
   const opts = {
-    identity: "Developer ID Application: Daniel Levitt",
-    name: "Kakapo",
+    identity: 'Developer ID Application: Daniel Levitt',
+    name: 'Kakapo',
     v: packagejson.version,
-    file: "./release/darwin/Kakapo-darwin-x64/Kakapo.app"
+    file: './release/darwin/Kakapo-darwin-x64/Kakapo.app'
   };
   [
     `codesign --deep -v -f -s '${opts.identity}' ${opts.file}/Contents/Frameworks/*`,
@@ -18,4 +17,4 @@ export default task("installer-mac", async() => {
     `chmod +x release`,
     `ditto -c -k --sequesterRsrc --keepParent ${opts.file} release/${opts.name}-${opts.v}-Mac.zip`
   ].forEach(_p => proc.execSync(_p));
-});
+}

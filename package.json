@@ -112,7 +112,7 @@
     "build": "babel-node tools/run build",
     "deploy": "babel-node tools/run deploy",
     "serve": "babel-node tools/run serve",
-    "package": "babel-node tools/run package",
+    "pkg": "babel-node tools/run pkg",
     "installer-mac": "babel-node tools/run installer-mac",
     "installer-win": "babel-node tools/run installer-win",
     "start": "babel-node tools/run start"
