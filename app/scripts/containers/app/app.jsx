@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import ipc from 'ipc';
+import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
-import remote from 'remote';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { soundActions } from '../../actions';
@@ -35,7 +34,7 @@ class App extends Component {
     konami.subscribe(this.konamiEntered);
 
     if (__DESKTOP__) {
-      ipc.on('application:update-available', this.handleUpdateAvailable);
+      ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
       autoUpdater.checkForUpdates();
     }
   }
@@ -53,7 +52,26 @@ class App extends Component {
   }
 
   handleAutoUpdateClick() { // Desktop only
-    ipc.send('application:quit-install');
+    ipcRenderer.send('application:quit-install');
+  }
+
+  renderUpload() {
+    return (
+      <div
+        className="upload-files"
+        style={{
+          background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
+        }}
+      >
+        <div className="inner">
+          <h3><i className="icon-add"></i></h3>
+          <p className="text">Drop files to upload</p>
+          <a className="gradient-name" href="http://uigradients.com" target="_blank">
+            Gradient: {this.state.gradient.name}
+          </a>
+        </div>
+      </div>
+    );
   }
 
   render() {
@@ -67,20 +85,7 @@ class App extends Component {
           activeClassName="activeDrop"
           disableClick onDrop={this.onDrop}
         >
-          <div
-            className="upload-files"
-            style={{
-              background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
-            }}
-          >
-            <div className="inner">
-              <h3><i className="icon-add"></i></h3>
-              <p className="text">Drop files to upload</p>
-              <a className="gradient-name" href="http://uigradients.com" target="_blank">
-                Gradient: {this.state.gradient.name}
-              </a>
-            </div>
-          </div>
+          {__DESKTOP__ ? this.renderUpload() : null}
           <div>
             {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
             <Nav/>

@@ -1,9 +1,7 @@
 /* eslint id-length: 0 */
 import app from 'app';
-import autoUpdater from 'auto-updater';
-import BrowserWindow from 'browser-window';
 import fs from 'fs';
-import ipc from 'ipc';
+import { ipcMain, BrowserWindow, autoUpdater } from 'electron';
 import path from 'path';
 import Tray from 'tray';
 import proc from 'child_process';
@@ -64,7 +62,7 @@ app.on('ready', () => {
     } else {
       app.dock.hide();
     }
-    ipc.on('toggle-dock', (event, arg) => arg ? app.dock.show() : app.dock.hide());
+    ipcMain.on('toggle-dock', (event, arg) => arg ? app.dock.show() : app.dock.hide());
   }
 
   appIcon.on('clicked', function clicked(_e, bounds) {
@@ -79,15 +77,15 @@ app.on('ready', () => {
     }
   });
 
-  ipc.on('reopen-window', () => appIcon.window.show());
+  ipcMain.on('reopen-window', () => appIcon.window.show());
 
   if (process.platform === 'win32') {
     app.on('window-all-closed', () => app.quit());
   }
 
-  ipc.on('update-icon', (event, arg) => appIcon.setImage(arg === 'TrayActive' ? iconActive : iconIdle));
+  ipcMain.on('update-icon', (event, arg) => appIcon.setImage(arg === 'TrayActive' ? iconActive : iconIdle));
 
-  ipc.on('app-quit', () => app.quit());
+  ipcMain.on('app-quit', () => app.quit());
 
   appIcon.window.webContents.on('did-finish-load', () => {
     appIcon.window.setTitle('Kakapo');
@@ -98,7 +96,7 @@ app.on('ready', () => {
     }
   });
 
-  ipc.on('application:quit-install', () => autoUpdater.quitAndInstall());
+  ipcMain.on('application:quit-install', () => autoUpdater.quitAndInstall());
 
   autoUpdater.on('update-downloaded', () =>
     appIcon.window.webContents.send('application:update-available'));

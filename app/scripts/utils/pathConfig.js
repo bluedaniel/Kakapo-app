@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import path from 'path';
-import remote from 'remote';
+import { remote } from 'electron';
 
 let exportData;
 
