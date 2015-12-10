@@ -1,10 +1,18 @@
 import axios from 'axios';
+import fs from 'fs-extra';
 import getHowlerObj from './howler';
 import { getCustomURL, getKakapoFavourites } from './customUrl';
 import { getYoutubeObj, getYoutubeSearch, getYoutubeURL } from './youtube';
 import { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } from './soundcloud';
+import { pathConfig } from '../utils';
 
 function getDefaultSounds() {
+  if (__DESKTOP__) {
+    return new Promise((resolve, reject) => fs.readJson(pathConfig.soundFile, (err, data) => {
+      if (err) reject(err);
+      resolve(data);
+    }));
+  }
   return axios.get('http://data.kakapo.co/v2/data/sounds.json');
 }
 

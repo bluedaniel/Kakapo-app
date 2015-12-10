@@ -1,12 +1,11 @@
-import semver from 'semver';
 import { Map } from 'immutable';
 import { createSoundObj } from '../api';
 import constants from '../constants';
 import { createReducer, toasterInstance } from '../utils';
-import packageJson from '../../../package.json';
 import { observableStore } from '../stores/configureStore';
+import { bridgedSounds } from '../bridge';
 
-let initialState = new Map(JSON.parse(localStorage.getItem('sounds')));
+let initialState = new Map();
 let howls = new Map();
 let mute = false;
 
@@ -15,9 +14,15 @@ function saveToStorage() {
     if (initialState === _x.sounds) return; // Still the same state
     let obj = new Map();
     _x.sounds.map(_s => obj = obj.set(_s.file, { ..._s }));
-    localStorage.setItem('sounds', JSON.stringify(obj));
+    bridgedSounds.saveToStorage(JSON.stringify(obj));
     initialState = _x.sounds;
   });
+}
+
+function init(state, defaultSounds) {
+  saveToStorage();
+  const newState = bridgedSounds.initWithDefault(defaultSounds.data || defaultSounds);
+  return setSounds(newState);
 }
 
 function getHowl(_s) {
@@ -93,23 +98,7 @@ function soundError(state, error) {
 }
 
 export default createReducer(initialState, {
-  [constants.SOUNDS_RECEIVED]: (state, action) => {
-    saveToStorage();
-
-    if (!initialState.size) {
-      localStorage.setItem('version', packageJson.version);
-      return setSounds(action.resp.data);
-    }
-
-    let data = initialState;
-    if (semver.lt(localStorage.getItem('version') || '0.0.1', packageJson.version)) {
-      data = data.filterNot(_s => _s.source === 'file').toArray().concat(action.resp.data);
-      localStorage.setItem('version', packageJson.version);
-    }
-
-    return setSounds(data);
-  },
-
+  [constants.SOUNDS_RECEIVED]: (state, action) => init(state, action.resp),
   [constants.SOUNDS_MUTE]: (state, action) => toggleMute(state, action.mute),
   [constants.SOUNDS_PLAY]: (state, action) => togglePlay(state, action.sound),
   [constants.SOUNDS_VOLUME]: (state, action) => changeVolume(state, action.sound, action.volume),
