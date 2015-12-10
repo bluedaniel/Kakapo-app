@@ -7,7 +7,7 @@
 
 This repo builds both the website and desktop apps.
 
-[Download the latest desktop version here](https://github.com/bluedaniel/Kakapo-app/releases), or install via [homebrew-cask](http://caskroom.io/) with `brew cask install kakapo`.
+[Download the latest desktop version here](http://www.kakapo.co/app.html), or install via [homebrew-cask](http://caskroom.io/) with `brew cask install kakapo`.
 
 See also: [Kakapo for iOS & Android](https://github.com/bluedaniel/Kakapo-native) - [Kakapo for Chrome](https://github.com/bluedaniel/Kakapo-chrome).
 
