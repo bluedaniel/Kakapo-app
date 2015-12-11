@@ -10,7 +10,5 @@ const initialState = {
 };
 
 export default createReducer(initialState, {
-  [constants.SETTINGS_LANGUAGE]: state => {
-    return state;
-  }
+  [constants.SETTINGS_LANGUAGE]: state => state
 });

@@ -1,4 +1,13 @@
 import desktopSounds from './desktop/sounds';
-import webSounds from './web/sounds';
+import desktopThemes from './desktop/themes';
 
-export const bridgedSounds = __DESKTOP__ ? desktopSounds : webSounds;
+import webSounds from './web/sounds';
+import webThemes from './web/themes';
+
+const bridgedSounds = __DESKTOP__ ? desktopSounds : webSounds;
+const bridgedThemes = __DESKTOP__ ? desktopThemes : webThemes;
+
+export {
+  bridgedSounds,
+  bridgedThemes
+};

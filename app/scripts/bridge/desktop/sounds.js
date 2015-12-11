@@ -1,5 +1,6 @@
 import semver from 'semver';
 import fs from 'fs-extra';
+import { ipcRenderer } from 'electron';
 import { Map } from 'immutable';
 import { pathConfig } from '../../utils';
 import packageJson from '../../../../package.json';
@@ -39,7 +40,12 @@ const actions = {
     return initialState;
   },
   saveToStorage(json) {
+    const trayIcon = new Map(JSON.parse(json)).filter(_s => _s.playing).size;
+    ipcRenderer.send('update-icon', trayIcon ? 'TrayActive' : 'TrayIdle');
     fs.writeFile(pathConfig.userSoundFile, json);
+  },
+  removeFromDisk(sound) {
+    fs.unlinkSync(sound.file);
   }
 };
 
