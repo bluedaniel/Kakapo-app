@@ -1,12 +1,15 @@
 import axios from 'axios';
 import fs from 'fs-extra';
-import getHowlerObj from './howler';
+import { bridgedYoutube } from '../bridge';
+import { getHowlerObj } from './howler';
 import { getCustomURL, getKakapoFavourites } from './customUrl';
-import { getYoutubeObj, getYoutubeSearch, getYoutubeURL } from './youtube';
 import { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } from './soundcloud';
+import { getYoutubeSearch } from './youtube';
 import { pathConfig } from '../utils';
 
-function getDefaultSounds() {
+const getYoutubeObj = bridgedYoutube.getYoutubeObj;
+
+export function getDefaultSounds() {
   if (__DESKTOP__) {
     return new Promise((resolve, reject) => fs.readJson(pathConfig.soundFile, (err, data) => {
       if (err) reject(err);
@@ -16,7 +19,7 @@ function getDefaultSounds() {
   return axios.get('http://data.kakapo.co/v2/data/sounds.json');
 }
 
-function createSoundObj(sound) {
+export function createSoundObj(sound) {
   return new Promise(resolve => {
     switch (sound.source) {
       case 'soundcloudStream':
@@ -31,13 +34,18 @@ function createSoundObj(sound) {
   });
 }
 
-export {
+actions = ({
   getCustomURL,
+  getYoutubeObj,
   getKakapoFavourites,
   getSoundCloudSearch,
   getSoundCloudURL,
-  getYoutubeSearch,
-  getYoutubeURL,
-  getDefaultSounds,
-  createSoundObj
-};
+  getYoutubeSearch
+});
+
+// Object.assign({}, actions, {
+//   ...{ ...bridgedYoutube.getYoutubeObj }
+// });
+
+
+ const actions;

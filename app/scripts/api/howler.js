@@ -1,7 +1,7 @@
 import howler from 'howler';
 import path from 'path';
 
-export default function (sound) {
+export default function getHowlerObj(sound) {
   let soundFile = sound.file;
   if (sound.source === 'file') {
     soundFile = `http://data.kakapo.co/v2/sounds/${path.basename(soundFile)}.m4a`;

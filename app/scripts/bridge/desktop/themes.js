@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import { pathConfig } from '../../utils';
 
-const actions = {
+export default {
   fromStorage() {
     let themeData;
     try {
@@ -15,5 +15,3 @@ const actions = {
     fs.writeFile(pathConfig.userThemeFile, json);
   }
 };
-
-export default actions;

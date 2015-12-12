@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 import semver from 'semver';
 import packageJson from '../../../../package.json';
 
-const actions = {
+export default {
   setVersion() {
     localStorage.setItem('version', packageJson.version);
   },
@@ -25,5 +25,3 @@ const actions = {
     localStorage.setItem('sounds', json);
   }
 };
-
-export default actions;

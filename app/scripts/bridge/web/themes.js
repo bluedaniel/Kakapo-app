@@ -1,4 +1,4 @@
-const actions = {
+export default {
   fromStorage() {
     return JSON.parse(localStorage.getItem('theme'));
   },
@@ -6,5 +6,3 @@ const actions = {
     localStorage.setItem('theme', json);
   }
 };
-
-export default actions;

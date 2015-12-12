@@ -7,7 +7,7 @@ import packageJson from '../../../../package.json';
 
 const latestVersion = packageJson.config.soundsVersion;
 
-const actions = {
+export default {
   setVersion() {
     fs.writeFile(pathConfig.userInstallFile, JSON.stringify({ version: latestVersion }));
   },
@@ -48,5 +48,3 @@ const actions = {
     fs.unlinkSync(sound.file);
   }
 };
-
-export default actions;
