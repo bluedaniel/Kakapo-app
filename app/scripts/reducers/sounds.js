@@ -85,6 +85,7 @@ const soundReducers = {
 
   soundError(state, error) {
     toasterInstance().then(_t => _t.toast(error));
+    return state;
   },
 
   saveToStorage() {
@@ -106,5 +107,5 @@ export default createReducer(initialState, {
   [constants.SOUNDS_EDIT]: (state, action) => soundReducers.editSound(state, action.sound, action.data),
   [constants.SOUNDS_REMOVE]: (state, action) => soundReducers.removeSound(state, action.sound),
   [constants.SOUNDS_DOWNLOADED]: (state, action) => soundReducers.soundDownloaded(state, action.sound),
-  [constants.SOUNDS_ERROR]: (state, action) => soundReducers.soundError(state, action.error)
+  [constants.SOUNDS_ERROR]: (state, action) => soundReducers.soundError(state, action.err)
 });

@@ -19,7 +19,10 @@ const actions = {
     opts
       .provider(data)
       .catch(err => dispatch(actions.addSoundError(err)))
-      .then(resp => dispatch(actions.addSoundComplete(resp)));
+      .then(resp => {
+        if (resp.err) return;
+        dispatch(actions.addSoundComplete(resp));
+      });
   },
 
   addSoundComplete: sound => ({ type: constants.SOUNDS_DOWNLOADED, sound }),
