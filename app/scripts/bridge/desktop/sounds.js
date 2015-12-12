@@ -16,10 +16,15 @@ export default {
     let appDetails;
 
     try {
-      initialState = new Map(fs.readJsonSync(pathConfig.userSoundFile, { throws: false }));
+      initialState = fs.readJsonSync(pathConfig.userSoundFile, { throws: false }, (err, data) => {
+        if (err) return [];
+        return data;
+      });
     } catch(e) {
-      initialState = new Map();
+      initialState = [];
     }
+
+    initialState = new Map(initialState);
 
     if (!initialState.size) {
       this.setVersion();

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import fs from 'fs-extra';
 import { bridgedYoutube } from '../bridge';
-import { getHowlerObj } from './howler';
+import getHowlerObj from './howler';
 import { getCustomURL, getKakapoFavourites } from './customUrl';
 import { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } from './soundcloud';
 import { getYoutubeSearch } from './youtube';
 import { pathConfig } from '../utils';
 
-const getYoutubeObj = bridgedYoutube.getYoutubeObj;
+const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
 
 export function getDefaultSounds() {
   if (__DESKTOP__) {
@@ -34,18 +34,12 @@ export function createSoundObj(sound) {
   });
 }
 
-actions = ({
+export {
   getCustomURL,
-  getYoutubeObj,
   getKakapoFavourites,
   getSoundCloudSearch,
   getSoundCloudURL,
-  getYoutubeSearch
-});
-
-// Object.assign({}, actions, {
-//   ...{ ...bridgedYoutube.getYoutubeObj }
-// });
-
-
- const actions;
+  getYoutubeObj,
+  getYoutubeSearch,
+  getYoutubeURL
+};
