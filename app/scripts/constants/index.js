@@ -16,6 +16,7 @@ export default createConstants(
   'SOUNDS_ADD_YOUTUBE',
   'SOUNDS_ADD_SOUNDCLOUD',
 
+  'SOUNDS_DOWNLOADING',
   'SOUNDS_DOWNLOADED',
   'SOUNDS_ERROR',
 

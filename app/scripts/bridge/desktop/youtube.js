@@ -3,19 +3,21 @@ import fs from 'fs-extra';
 import path from 'path';
 import uuid from 'uuid';
 import { pathConfig } from '../../utils';
-import throttle from 'lodash/function/throttle';
 import { newSoundClass } from '../../classes';
+import { EventEmitter } from 'events';
 
-let fileSize = 1;
+let fileSize = 0;
+let currentProgress = 0;
 let dataRead = 0;
 
-function progressed(sound, progress) {
-  console.log(progress);
-}
-
-function onData(progressed, sound, data) {
+function downloadProgress(sound, ee, data) {
   const progress = (dataRead += data.length) / fileSize;
-  progressed(sound, progress);
+  if (progress > (currentProgress + 0.05) || progress === 1) {
+    currentProgress = progress;
+    ee.emit('progress', { ...sound, ...{
+      progress: progress
+    } });
+  }
 }
 
 const actions = {
@@ -24,37 +26,40 @@ const actions = {
   },
 
   getYoutubeURL(data) {
-    fileSize = 1;
+    fileSize = 0;
+    currentProgress = 0;
     dataRead = 0;
-    const progressBuffer = throttle(progressed, 100);
-    return new Promise((resolve, reject) => {
-      ytdl.getInfo(`https://www.youtube.com/watch?v=${data.videoID}`, { downloadURL: true }, (err, info) => {
-        if (err) return reject(err);
 
-        const audioFormats = info.formats.filter(format => (format.container && format.type) && format.type.startsWith('audio'));
-        if (!audioFormats.length) return reject(`https://youtu.be/${data.videoID} doesn"t contain an audio format`);
+    const ee = new EventEmitter();
 
-        const audioFormat = audioFormats.reduce((acc, audio) => audio.audioBitrate > acc.audioBitrate ? audio : acc, { audioBitrate: 0 });
-        const newSound = { ...newSoundClass, ...{
-          file: path.join(pathConfig.userSoundDir, `${uuid()}.${audioFormat.container}`),
-          img: info.thumbnail_url,
-          link: `https://www.youtube.com/watch?v=${info.video_id}`,
-          name: info.title,
-          progress: 0,
-          source: 'youtubeStream',
-          tags: info.keywords ? info.keywords.join(' ') : ''
-        } };
+    let newSound = {};
+    const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-        ytdl.downloadFromInfo(info, {
-          format: audioFormat
-        })
-        .on('error', reject.bind(null, newSound))
-        .on('format', formatInfo => fileSize = formatInfo.size)
-        .on('data', onData.bind(this, progressBuffer, newSound))
-        .on('end', resolve.bind(null, newSound))
-        .pipe(fs.createWriteStream(newSound.file));
-      });
-    });
+    ytdl(`https://www.youtube.com/watch?v=${data.id}`, {
+      format: 'audioonly'
+    })
+    .on('info', (info, format) => {
+      newSound = { ...newSoundClass, ...{
+        file: path.join(pathConfig.userSoundDir, `${uuid()}.${format.container}`),
+        img: info.thumbnail_url,
+        link: `https://www.youtube.com/watch?v=${info.video_id}`,
+        name: info.title,
+        source: 'youtubeStream',
+        tags: info.keywords ? info.keywords.join(' ') : ''
+      } };
+    })
+    .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
+    .on('response', resp => {
+      fileSize = resp.headers['content-length'];
+      resp.on('data', downloadProgress.bind(this, newSound, ee));
+    })
+    .on('finish', () => {
+      fs.rename(tmpFile, newSound.file);
+      ee.emit('finish', newSound); // Completed download
+    })
+    .pipe(fs.createWriteStream(tmpFile));
+
+    return ee;
   }
 };
 
