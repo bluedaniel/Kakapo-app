@@ -41,6 +41,16 @@ if (process.platform === 'win32') {
   }
 }
 
+function toggleDock(app, bool) {
+  if (bool) return app.dock.show();
+  app.dock.hide();
+}
+
+function toggleDevTools(app, bool) {
+  if (bool) return app.openDevTools({ detach: true });
+  app.closeDevTools();
+}
+
 app.on('ready', () => {
   const appIcon = new Tray(iconIdle);
   const defaults = {
@@ -57,12 +67,11 @@ app.on('ready', () => {
   });
 
   if (process.platform === 'darwin') {
-    if (appSettings.dockIcon) {
-      app.dock.show();
-    } else {
-      app.dock.hide();
-    }
-    ipcMain.on('toggle-dock', (event, arg) => arg ? app.dock.show() : app.dock.hide());
+    toggleDock(app, appSettings.dockIcon);
+    ipcMain.on('toggle-dock', (event, arg) => toggleDock(app, arg));
+
+    toggleDevTools(appIcon.window, appSettings.devTools);
+    ipcMain.on('toggle-devtools', (event, arg) => toggleDevTools(appIcon.window, arg));
   }
 
   appIcon.on('clicked', function clicked(_e, bounds) {

@@ -1,5 +1,7 @@
 @import "purecss/build/base";
 @import "purecss/build/grids";
+@import "purecss/build/grids-responsive";
+@import "purecss/build/buttons";
 @import "node-waves/dist/waves";
 @import "animate.css/animate";
 @import "hint.css/hint";

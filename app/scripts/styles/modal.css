@@ -2,14 +2,23 @@
   background-color: rgba(255, 255, 255, 0.97);
   bottom: 0;
   left: 0;
+  overflow: scroll;
   padding: 15px 20px 20px;
   position: fixed;
   right: 0;
-  top: 105px;
+  top: 107px;
   z-index: 50;
+  @media screen and (min-width: 35.5em) {
+    top: 136px;
+  }
   .close {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvUlEQVQ4T42TUQ0CQQxE3ykAKTgAHIATUAJOOAeAA6SAAzIbmjR7Ldv9bG7etTPtBKyBG3AGXtTeBrgAxwl4AFvgDewLEInvvx8/BVBBkFUB4sUfYCeAXgWyEKtbA4wgoVgiD8ggqtvMrW3vUw+IIKopqYU46sBC9J6oFopHAGtb36URZyP4mQVII45M7A0TIN2TPsbM7XRP/CKlUf1bNlvlkThKpxnrjymNqjtQP047Ji3JDJwKl+g7uQKHL6x7ShGbfH2lAAAAAElFTkSuQmCC');
+    background-size: contain;
+    height: 16px;
+    opacity: .5;
     position: absolute;
-    right: 20px;
+    right: 12px;
+    width: 16px;
     z-index: 51;
   }
   .modal-inner {
@@ -25,7 +34,7 @@
   .kakapofavs-items,
   .soundcloud-items,
   .youtube-items {
-    margin: 20px 0 0;
+    margin: 10px 0 0;
     max-height: 400px;
     overflow: scroll;
   }

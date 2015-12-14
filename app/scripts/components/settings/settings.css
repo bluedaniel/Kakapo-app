@@ -4,9 +4,6 @@
     border-top: 1px solid #efefef;
     display: flex;
     padding: 1.1em 0;
-    &:last-child {
-      padding-bottom: 0;
-    }
     span:first-child {
       flex: 1.75 0 0;
     }
@@ -24,6 +21,18 @@
     .icon-github {
       height: 48px;
       width: 48px;
+    }
+    .icon-quit {
+      margin-right: 5px;
+      height: 23px;
+      width: 23px;
+    }
+    &.opt-repo {
+      display: block;
+      .version {
+        float: right;
+        font-size: 14px;
+      }
     }
   }
 }

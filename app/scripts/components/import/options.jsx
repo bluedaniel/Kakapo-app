@@ -1,8 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-import classNames from 'classnames';
+import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import { connect } from 'react-redux';
 import { DownloadList } from '../../components';
 
 class Options extends Component {
@@ -11,7 +9,6 @@ class Options extends Component {
   }
 
   render() {
-    const activeDownloads = this.props.sounds.filter(_s => _s.recentlyDownloaded);
     return (
       <div className="modal-inner media">
         <div className="pure-g">
@@ -32,20 +29,12 @@ class Options extends Component {
             </Link>
           </div>
         </div>
-        <div className={classNames('download-wrap', { active: activeDownloads.count() })}>
-          <DownloadList sounds={activeDownloads}/>
+        <div className="download-wrap">
+          <DownloadList/>
         </div>
       </div>
     );
   }
 }
 
-Options.propTypes = {
-  sounds: PropTypes.object
-};
-
-const mapStateToProps = state => ({
-  sounds: state.sounds
-});
-
-export default injectIntl(connect(mapStateToProps)(Options));
+export default injectIntl(Options);

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Map } from 'immutable';
+import { connect } from 'react-redux';
 import { DownloadItem } from '../';
 import './downloadList.css';
 
@@ -9,11 +10,12 @@ export default class DownloadList extends Component {
   }
 
   render() {
+    const downloads = this.props.sounds.toArray().filter(_s => _s.recentlyDownloaded);
     return (
       <div>
-        <h5>Recently added</h5>
+        {downloads.length ? <h5>Recently added</h5> : null}
         <div className="download-list">
-          {this.props.sounds.toArray().map(_s => <DownloadItem key={_s.file} {..._s}/>)}
+          {downloads.map(_s => <DownloadItem key={_s.file} sound={{ ..._s }}/>)}
         </div>
       </div>
     );
@@ -23,3 +25,9 @@ export default class DownloadList extends Component {
 DownloadList.propTypes = {
   sounds: PropTypes.instanceOf(Map)
 };
+
+const mapStateToProps = state => ({
+  sounds: state.sounds
+});
+
+export default connect(mapStateToProps)(DownloadList);

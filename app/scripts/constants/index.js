@@ -2,6 +2,8 @@ import { createConstants } from '../utils';
 
 export default createConstants(
   'SETTINGS_LANGUAGE',
+  'SETTINGS_DOCK',
+  'SETTINGS_DEVTOOLS',
 
   'THEMES_CHANGE',
 

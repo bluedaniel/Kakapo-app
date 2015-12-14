@@ -27,6 +27,8 @@ class YouTube extends Component {
     autocomplete
       .flatMapLatest(this.props.searchActions.searchYoutube)
       .subscribe(() => this.toggleSpinner(false));
+
+    this.refs.youtubeInput.focus();
   }
 
   observeAutocomplete() {

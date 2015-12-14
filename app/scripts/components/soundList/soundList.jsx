@@ -33,11 +33,11 @@ class SoundList extends Component {
   render() {
     const sounds = this.props.sounds.toArray().filter(_s => _s.progress === 1);
     return (
-      <div className="row">
-        <div className="six columns sound-list" ref="soundList1">
+      <div className="pure-g">
+        <div className="pure-u-1 pure-u-sm-1-2 sound-list" ref="soundList1">
           {this.renderSound(sounds.slice(0, Math.floor(sounds.length / 2)))}
         </div>
-        <div className="six columns sound-list" ref="soundList2">
+        <div className="pure-u-1 pure-u-sm-1-2 sound-list" ref="soundList2">
           {this.renderSound(sounds.slice(Math.floor(sounds.length / 2), sounds.length))}
         </div>
       </div>

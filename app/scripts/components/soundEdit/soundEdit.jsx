@@ -1,13 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 import { soundActions } from '../../actions';
 import { soundClass } from '../../classes';
+import { toasterInstance } from '../../utils';
 
 class SoundEdit extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      loading: false,
+      focused: false,
+      inputName: this.props.sound.name,
+      inputTags: this.props.sound.tags
+    };
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
@@ -19,9 +30,28 @@ class SoundEdit extends Component {
 
   handleSave(el) {
     el.preventDefault();
+    if (!this.refs.name.value) {
+      return toasterInstance().then(_t => _t.toast(this.props.intl.formatMessage({ id: 'import.error.empty' })));
+    }
     this.props.soundActions.soundsEdit(this.props.sound, {
       name: this.refs.name.value,
       tags: this.refs.tags.value
+    });
+  }
+
+  onFocus(e) {
+    this.setState({
+      focused: e.target.id,
+      inputName: this.refs.name.value.length,
+      inputTags: this.refs.tags.value.length
+    });
+  }
+
+  onBlur() {
+    this.setState({
+      focused: false,
+      inputName: this.refs.name.value.length,
+      inputTags: this.refs.tags.value.length
     });
   }
 
@@ -29,27 +59,34 @@ class SoundEdit extends Component {
     return (
       <div className="item editing" style={this.props.themes.getIn([ 'soundList', 'item' ]).toJS()}>
         <form onSubmit={this.handleSave}>
-          <label><FormattedMessage id="list.editing_name"/></label>
-          <input
-            className="u-full-width"
-            defaultValue={this.props.sound.name}
-            placeholder={this.props.intl.formatMessage({ id: 'list.editing_name_placeholder' })}
-            ref="name"
-            type="text"
-          />
-        <label><FormattedMessage id="list.editing_tag"/></label>
-          <input
-            className="u-full-width"
-            defaultValue={this.props.sound.tags}
-            placeholder={this.props.intl.formatMessage({ id: 'list.editing_tag_placeholder' })}
-            ref="tags"
-            type="text"
-          />
-        <a className="button" onClick={this.handleCancel} style={this.props.themes.getIn([ 'base', 'btn' ]).toJS()}>
+
+          <span className={classNames('input', {
+            'input--filled': this.state.focused === 'input-name' || this.state.inputName
+          })}>
+            <input className="input__field" id="input-name" defaultValue={this.props.sound.name} onBlur={this.onBlur} onFocus={this.onFocus} ref="name" type="text"/>
+            <label className="input__label" htmlFor="input-name">
+              <span className="input__label-content">
+                <FormattedMessage id="list.editing_name"/>
+              </span>
+            </label>
+          </span>
+
+          <span className={classNames('input', {
+            'input--filled': this.state.focused === 'input-tags' || this.state.inputTags
+          })}>
+            <input className="input__field" id="input-tags" defaultValue={this.props.sound.tags} onBlur={this.onBlur} onFocus={this.onFocus} ref="tags" type="text"/>
+            <label className="input__label" htmlFor="input-tags">
+              <span className="input__label-content">
+                <FormattedMessage id="list.editing_tag"/>
+              </span>
+            </label>
+          </span>
+
+          <a className="pure-button" onClick={this.handleCancel} style={this.props.themes.getIn([ 'base', 'btn' ]).toJS()}>
             <FormattedMessage id="list.cancel"/>
           </a>
           <button
-            className="button-primary"
+            className="pure-button pure-button-primary"
             style={this.props.themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
           ><FormattedMessage id="list.save"/></button>
         </form>

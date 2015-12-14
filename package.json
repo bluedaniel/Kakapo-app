@@ -18,6 +18,7 @@
     "babel-plugin-syntax-async-functions": "^6.3.13",
     "babel-plugin-transform-async-functions": "^6.3.13",
     "babel-plugin-transform-async-to-generator": "^6.3.13",
+    "babel-plugin-transform-class-properties": "^6.3.13",
     "babel-plugin-transform-regenerator": "^6.3.13",
     "babel-plugin-transform-runtime": "^6.3.13",
     "babel-polyfill": "^6.3.14",

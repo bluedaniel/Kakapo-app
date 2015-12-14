@@ -5,7 +5,7 @@ import { remote } from 'electron';
 let exportData;
 
 if (__DESKTOP__) {
-  const app = remote.require('app');
+  const app = remote.app;
 
   // Setup directories
   [ 'user-sounds', 'user-data' ].forEach(_d => fs.ensureDir(path.join(app.getPath('userData'), _d)));

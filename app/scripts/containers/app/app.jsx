@@ -13,7 +13,7 @@ import '../../styles/base.css';
 import './app.css';
 
 let autoUpdater;
-if (__DESKTOP__) autoUpdater = remote.require('auto-updater');
+if (__DESKTOP__) autoUpdater = remote.autoUpdater;
 
 class App extends Component {
   constructor(props) {
@@ -86,17 +86,13 @@ class App extends Component {
           disableClick onDrop={this.onDrop}
         >
           {__DESKTOP__ ? this.renderUpload() : null}
-          <div>
-            {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
-            <Nav/>
-            <Header/>
-            <div className="container">
-              <SoundList/>
-              {this.props.children && React.cloneElement(this.props.children)}
-              <aside className="toast-view"></aside>
-            </div>
-            {__DEV__ ? <DevTools/> : null}
-          </div>
+          {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
+          <Nav/>
+          <Header/>
+          <SoundList/>
+          {this.props.children && React.cloneElement(this.props.children)}
+          <aside className="toast-view"></aside>
+          {__DEV__ ? <DevTools/> : null}
         </Dropzone>
       </div>
     );

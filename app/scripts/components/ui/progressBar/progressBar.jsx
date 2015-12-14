@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 import './progressBar.css';
 
 export default class ProgressBar extends Component {
@@ -16,11 +17,14 @@ export default class ProgressBar extends Component {
 
   render() {
     return (
-      <div className="progress-bar">
+      <div className={classNames('progress-bar', {
+        finish: this.props.progress === 1
+      })}>
         <div
           className="bar"
           ref="bar"
-          style={{ transform: 'translate3d(-' + (100 - (this.props.progress * 100)) + '%, 0px, 0px)' }}>
+          style={{ transform: 'translate3d(-' + (100 - (this.props.progress * 100)) + '%, 0px, 0px)' }}
+        >
           <div className="peg"></div>
         </div>
       </div>

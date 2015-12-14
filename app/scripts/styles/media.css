@@ -25,10 +25,14 @@
   }
   .option {
     float: left;
-    margin-bottom: 20px;
+    margin-bottom: 1.75em;
     padding: 0;
     text-align: center;
     width: 100%;
+    &.options-soundcloud,
+    &.options-custom {
+      margin-bottom: 1em;
+    }
     @media (min-width: 550px) {
       width: 50%;
     }
@@ -36,8 +40,8 @@
       display: block;
       height: auto;
       margin: 0 auto 10px;
-      padding-bottom: 50%;
-      width: 50%;
+      padding-bottom: 35%;
+      width: 35%;
     }
     &.options-soundcloud {
       margin-bottom: 0;

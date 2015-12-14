@@ -30,6 +30,7 @@ const actions = {
 
     if (fetchFunc instanceof EventEmitter) {
       fetchFunc
+      .on('error', err => dispatch(actions.addSoundError(err)))
       .on('progress', resp => dispatch(actions.addSoundDownloading(resp)))
       .on('finish', resp => dispatch(actions.addSoundComplete(resp)));
     }

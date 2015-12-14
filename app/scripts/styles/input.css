@@ -10,6 +10,7 @@ input {
 	overflow: hidden;
   border: 0;
   display: inline-block;
+  margin-bottom: 15px;
   position: relative;
   vertical-align: top;
   width: calc(100% - 2em);
@@ -17,7 +18,7 @@ input {
 
   .input__field {
     background: transparent;
-    padding: 1.25em 0 1em 0;
+    padding: 1.25em 0 1em;
   }
 
   .input__label-content {
@@ -31,7 +32,6 @@ input {
   	position: absolute;
   	text-align: left;
   	width: 100%;
-    border-color: hsl(20, 100%, 50%);
     bottom: 0;
     color: #595F6E;
 
@@ -47,7 +47,7 @@ input {
     }
 
     &::after {
-    	border-bottom: 4px solid red;
+    	border-bottom: 1px solid #595F6E;
     	transform: translate3d(-100%, 0, 0);
     	transition: transform 0.3s;
     }

@@ -5,11 +5,8 @@
 }
 
 .download-wrap {
-  display: none;
-  &.active {
-    display: block;
-    margin-top: 20px;
-  }
+  display: block;
+  margin-top: 20px;
   h5 {
     margin-bottom: 1rem;
   }
@@ -19,7 +16,7 @@
   > div {
     align-items: center;
     display: flex;
-    margin: 0 -20px;
+    margin-bottom: 10px;
     overflow: hidden;
     position: relative;
     &.active {
@@ -38,7 +35,7 @@
       background-repeat: no-repeat;
       background-size: cover;
       height: 80px;
-      margin: 5px 20px;
+      margin-right: 12px;
       width: 80px;
     }
     .title {

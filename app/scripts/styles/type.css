@@ -1,5 +1,6 @@
 /* https://raw.githubusercontent.com/devinhunt/typebase.css */
-html {
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
   font-family: 'PT Sans', sans-serif;
 }
 
@@ -9,7 +10,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Open Sans', sans-serif;
+  font-weight: normal;
+  margin-top: 0;
 }
 
 /* Custom styling */

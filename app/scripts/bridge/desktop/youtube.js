@@ -9,12 +9,14 @@ import { EventEmitter } from 'events';
 let fileSize = 0;
 let currentProgress = 0;
 let dataRead = 0;
+let newSound = {};
 
-function downloadProgress(sound, ee, data) {
+function downloadProgress(ee, data) {
+  if (!newSound) return;
   const progress = (dataRead += data.length) / fileSize;
   if (progress > (currentProgress + 0.05) || progress === 1) {
     currentProgress = progress;
-    ee.emit('progress', { ...sound, ...{
+    ee.emit('progress', { ...newSound, ...{
       progress: progress
     } });
   }
@@ -29,16 +31,18 @@ const actions = {
     fileSize = 0;
     currentProgress = 0;
     dataRead = 0;
+    newSound = {};
 
     const ee = new EventEmitter();
 
-    let newSound = {};
     const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-    ytdl(`https://www.youtube.com/watch?v=${data.id}`, {
-      format: 'audioonly'
-    })
-    .on('info', (info, format) => {
+    const readStream = ytdl(`https://www.youtube.com/watch?v=${data.id}`, {
+      format: 'audioonly',
+      debug: true
+    });
+
+    readStream.on('info', (info, format) => {
       newSound = { ...newSoundClass, ...{
         file: path.join(pathConfig.userSoundDir, `${uuid()}.${format.container}`),
         img: info.thumbnail_url,
@@ -47,17 +51,19 @@ const actions = {
         source: 'youtubeStream',
         tags: info.keywords ? info.keywords.join(' ') : ''
       } };
-    })
-    .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
-    .on('response', resp => {
-      fileSize = resp.headers['content-length'];
-      resp.on('data', downloadProgress.bind(this, newSound, ee));
-    })
-    .on('finish', () => {
+      fileSize = format.size;
+    });
+
+    readStream.on('error', e => ee.emit('error', 'problem with request: ' + e.message));
+
+    readStream.on('data', downloadProgress.bind(this, ee));
+
+    readStream.on('finish', () => {
       fs.rename(tmpFile, newSound.file);
       ee.emit('finish', newSound); // Completed download
-    })
-    .pipe(fs.createWriteStream(tmpFile));
+    });
+
+    readStream.pipe(fs.createWriteStream(tmpFile));
 
     return ee;
   }

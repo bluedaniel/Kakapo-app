@@ -54,7 +54,7 @@ class CustomUrl extends Component {
               type="text"
             />
             <button
-              className="button-primary"
+              className="pure-button pure-button-primary"
               ref="btn"
               style={this.props.themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
             ><FormattedMessage id="import.save"/></button>

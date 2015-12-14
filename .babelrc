@@ -4,7 +4,8 @@
     "syntax-async-functions",
     "transform-async-functions",
     "transform-async-to-generator",
-    "transform-regenerator"
+    "transform-regenerator",
+    "transform-class-properties"
   ],
   "env": {
     "development": {

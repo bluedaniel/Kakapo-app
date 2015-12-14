@@ -91,12 +91,17 @@
   }
 }
 header {
+  height: 46px;
   margin: 0 auto;
-  padding: 12px 0 11px;
+  overflow: hidden;
+  padding: 12px 0;
   position: fixed;
   top: 35px;
   width: 100%;
   z-index: 40;
+	@media screen and (min-width: 35.5em) {
+    height: 77px;
+  }
 }
 .titlebar {
   .logo,
