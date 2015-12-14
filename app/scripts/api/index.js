@@ -21,6 +21,7 @@ export function getDefaultSounds() {
 
 export function createSoundObj(sound) {
   return new Promise(resolve => {
+    if (__DESKTOP__) return resolve(getHowlerObj(sound));
     switch (sound.source) {
       case 'soundcloudStream':
         resolve(getSoundCloudObj(sound));

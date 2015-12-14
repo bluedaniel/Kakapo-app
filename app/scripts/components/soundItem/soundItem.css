@@ -9,7 +9,7 @@
   padding: 20px 25px 20px 75px;
   position: relative;
   transition: opacity, background-color $animation-speed ease;
-  &.youtube-stream {
+  &.youtube-stream & .app-container.web {
     min-height: 185px;
     * {
       z-index: 2;

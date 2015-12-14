@@ -16,7 +16,7 @@ const soundReducers = {
     return this.setSounds(newState);
   },
 
-  getHowl(_s) {
+  _getHowl(_s) {
     return new Promise(resolve => {
       const currentHowl = howls.get(_s.file);
       if (currentHowl) return resolve(currentHowl);
@@ -28,14 +28,14 @@ const soundReducers = {
 
   toggleMute(state, muteToggle) {
     mute = muteToggle;
-    state.map(_s => this.getHowl(_s).then(howl => howl.mute(muteToggle)));
+    state.map(_s => this._getHowl(_s).then(howl => howl.mute(muteToggle)));
     return state;
   },
 
   setSounds(data) {
     let newState = new Map();
     data.map(_s => {
-      if (_s.playing) this.getHowl(_s).then(howl => howl.play()); // Autoplay
+      if (_s.playing) this._getHowl(_s).then(howl => howl.play()); // Autoplay
       newState = newState.set(_s.file, { ..._s, ...{ recentlyDownloaded: false } });
     });
     if (mute) this.toggleMute(newState, mute); // Auto mute
@@ -44,7 +44,7 @@ const soundReducers = {
 
   togglePlay(state, sound) {
     state = state.update(sound.file, _s => ({ ..._s, ...{ playing: !_s.playing } }));
-    this.getHowl(sound).then(howl => {
+    this._getHowl(sound).then(howl => {
       if (sound.playing) {
         howl.pause();
       } else {
@@ -57,7 +57,7 @@ const soundReducers = {
 
   changeVolume(state, sound, volume) {
     state = state.update(sound.file, _s => ({ ..._s, ...{ volume: volume } }));
-    this.getHowl(sound).then(howl => howl.volume(volume));
+    this._getHowl(sound).then(howl => howl.volume(volume));
     return state;
   },
 
@@ -69,7 +69,7 @@ const soundReducers = {
   },
 
   removeSound(state, sound) {
-    this.getHowl(sound).then(howl => howl.unload());
+    this._getHowl(sound).then(howl => howl.unload());
     state = state.delete(sound.file);
     if (__DESKTOP__ && sound.source !== 'file') bridgedSounds.removeFromDisk(sound);
     return state;
