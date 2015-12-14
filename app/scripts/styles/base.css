@@ -1,12 +1,16 @@
-@import "skeleton-css/css/normalize";
-@import "skeleton-css/css/skeleton";
+@import "purecss/build/base";
+@import "purecss/build/grids";
 @import "node-waves/dist/waves";
 @import "animate.css/animate";
 @import "hint.css/hint";
 
+@import "../../fonts/stylesheet";
+
 @import "./variables";
 @import "./animation";
 @import "./type";
+@import "./icons";
+@import "./input";
 @import "./switch";
 @import "./toast";
 @import "./spinner";

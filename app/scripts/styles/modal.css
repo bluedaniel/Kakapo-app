@@ -1,27 +1,20 @@
-
-.modal-bg {
-  background: #000;
-  cursor: default;
-  height: 100%;
-  left: 0;
-  opacity: .15;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 40;
-}
 .modal {
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, .117647) 0 1px 6px, rgba(0, 0, 0, .239216) 0 1px 4px;
-  left: 50%;
-  margin-left: calc(-35% - 20px);
+  background-color: rgba(255, 255, 255, 0.97);
+  bottom: 0;
+  left: 0;
   padding: 15px 20px 20px;
   position: fixed;
-  top: 5%;
-  width: 70%;
+  right: 0;
+  top: 105px;
   z-index: 50;
   .close {
-    float: right;
+    position: absolute;
+    right: 20px;
+    z-index: 51;
+  }
+  .modal-inner {
+    animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
+    transform-origin: bottom center;
   }
   form,
   button,

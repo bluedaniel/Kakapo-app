@@ -10,7 +10,12 @@ import YoutubeListItem from './youtubeListItem';
 class YouTube extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false };
+    this.state = {
+      loading: false,
+      focused: false
+    };
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
   }
 
   componentDidMount() {
@@ -38,10 +43,28 @@ class YouTube extends Component {
     }
   }
 
+  onFocus(e) {
+    this.setState({ focused: e.target.id });
+  }
+
+  onBlur() {
+    this.setState({ focused: false });
+  }
+
   render() {
     return (
       <div>
         <h5><FormattedMessage id="import.youtube.header"/></h5>
+
+        <span className={classNames('input', 'input--manami', {
+          'input--filled': this.state.focused === 'input-33'
+        })}>
+					<input className="input__field input__field--manami" type="text" id="input-33" onBlur={this.onBlur} onFocus={this.onFocus}/>
+					<label className="input__label input__label--manami" htmlFor="input-33">
+						<span className="input__label-content input__label-content--manami">Website</span>
+					</label>
+				</span>
+
         <div className="input-add-on">
           <input
             className="input-add-on-field"

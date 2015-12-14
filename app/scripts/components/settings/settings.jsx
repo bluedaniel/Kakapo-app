@@ -30,9 +30,9 @@ class Settings extends Component {
 
   render() {
     return (
-      <div>
-        <div className="modal settings-pane">
-          <Link className="close" to="/"><FormattedMessage id="modal.close"/></Link>
+      <div className="modal settings-pane">
+        <Link className="close" to="/"><FormattedMessage id="modal.close"/></Link>
+        <div className="modal-inner">
           <h5><FormattedMessage id="settings.header"/></h5>
           <div className="opt">
             <FormattedMessage id="settings.theme"/>
@@ -57,7 +57,6 @@ class Settings extends Component {
             </a>
           </div>
         </div>
-        <Link className="modal-bg" to="/"/>
       </div>
     );
   }

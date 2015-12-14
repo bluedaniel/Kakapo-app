@@ -1,0 +1,119 @@
+.input {
+  border: 0;
+  display: inline-block;
+  margin: 1em;
+  max-width: 350px;
+  position: relative;
+  vertical-align: top;
+  width: calc(100% - 2em);
+  z-index: 1;
+}
+.input__field {
+  position: relative;
+  display: block;
+  float: right;
+  padding: 0.8em;
+  width: 60%;
+  border: none;
+  border-radius: 0;
+  background: #f0f0f0;
+  color: #aaa;
+  font-weight: 400;
+  -webkit-appearance: none;
+  /* for box shadows to show on iOS */
+  &:focus {
+    outline: none;
+  }
+}
+.input__label {
+  display: inline-block;
+  float: right;
+  padding: 0 1em;
+  width: 40%;
+  color: #696969;
+  font-weight: bold;
+  font-size: 70.25%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+.input__label-content {
+  position: relative;
+  display: block;
+  padding: 1.6em 0;
+  width: 100%;
+}
+.graphic {
+  position: absolute;
+  top: 0;
+  left: 0;
+  fill: none;
+}
+.icon {
+  color: #ddd;
+  font-size: 150%;
+}
+
+.input--manami {
+  overflow: hidden;
+}
+.input__field--manami {
+  width: 100%;
+  background: transparent;
+  padding: 0.5em;
+  margin-bottom: 2em;
+  color: #f9f7f6;
+  z-index: 100;
+  opacity: 0;
+}
+.input__label--manami {
+  width: 100%;
+  position: absolute;
+  text-align: left;
+  padding: 0.5em 0;
+  pointer-events: none;
+  font-size: 1em;
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    left: 0;
+  }
+}
+.input__label--manami {
+  &::before {
+    height: 100%;
+    background: #A8A8A8;
+    top: 0;
+    transform: translate3d(0, -100%, 0);
+    transition: transform 0.2s;
+  }
+  &::after {
+    height: 2px;
+    background: #A8A8A8;
+    top: 100%;
+    transition: opacity 0.2s;
+  }
+}
+.input__label-content--manami {
+  padding: 0;
+  transform-origin: 0 0;
+  transition: transform 0.2s, color 0.2s;
+}
+.input__field--manami:focus, .input--filled .input__field--manami {
+  opacity: 1;
+  transition: opacity 0s 0.2s;
+}
+.input__label--manami::before, .input__label--manami::after, .input__label-content--manami, .input__field--manami:focus, .input--filled .input__field--manami {
+  transition-timing-function: cubic-bezier(0, 0.25, 0.5, 1);
+}
+.input__field--manami:focus + .input__label--manami::before, .input--filled .input__label--manami::before {
+  transform: translate3d(0, 0, 0);
+}
+.input__field--manami:focus + .input__label--manami::after, .input--filled .input__label--manami::after {
+  opacity: 0;
+}
+.input__field--manami:focus + .input__label--manami .input__label-content--manami, .input--filled .input__label--manami .input__label-content--manami {
+  color: #cbc4c6;
+  transform: translate3d(0, 2.1em, 0) scale3d(0.65, 0.65, 1);
+}

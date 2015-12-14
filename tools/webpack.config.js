@@ -74,7 +74,7 @@ let config = {
         loader: 'url-loader?limit=100000'
       },
       {
-        test: /\.(jpg|woff2)$/,
+        test: /\.(jpg|ttf|eot|svg|woff|woff2)$/,
         loader: 'file-loader'
       },
       {

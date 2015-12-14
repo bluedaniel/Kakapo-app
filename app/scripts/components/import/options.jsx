@@ -13,21 +13,24 @@ class Options extends Component {
   render() {
     const activeDownloads = this.props.sounds.filter(_s => _s.recentlyDownloaded);
     return (
-      <div className="media">
-        <div className="options-kakapo">
-          <h5><FormattedMessage id="import.options.header"/></h5>
-          <Link className="option options-kakapo" to="/downloads/kakapo">
-            <i className="icon-kakapo"/> <FormattedMessage id="import.options.kakapo"/>
-          </Link>
-          <Link className="option options-custom" to="/downloads/custom">
-            <i className="icon-file dark"/> <FormattedMessage id="import.options.custom"/>
-          </Link>
-          <Link className="option options-youtube" to="/downloads/youtube">
-            <i className="icon-youtube"/> <FormattedMessage id="import.options.youtube"/>
-          </Link>
-          <Link className="option options-soundcloud" to="/downloads/soundcloud">
-            <i className="icon-soundcloud"/> <FormattedMessage id="import.options.soundcloud"/>
-          </Link>
+      <div className="modal-inner media">
+        <div className="row">
+          <div className="one-half column">
+            <Link className="option options-kakapo" to="/downloads/kakapo">
+              <i className="icon-kakapo"/> <FormattedMessage id="import.options.kakapo"/>
+            </Link>
+            <Link className="option options-soundcloud" to="/downloads/soundcloud">
+              <i className="icon-soundcloud"/> <FormattedMessage id="import.options.soundcloud"/>
+            </Link>
+          </div>
+          <div className="one-half columns">
+            <Link className="option options-youtube" to="/downloads/youtube">
+              <i className="icon-youtube"/> <FormattedMessage id="import.options.youtube"/>
+            </Link>
+            <Link className="option options-custom" to="/downloads/custom">
+              <i className="icon-file dark"/> <FormattedMessage id="import.options.custom"/>
+            </Link>
+          </div>
         </div>
         <div className={classNames('download-wrap', { active: activeDownloads.count() })}>
           <DownloadList sounds={activeDownloads}/>
