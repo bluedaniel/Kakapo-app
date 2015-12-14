@@ -14,8 +14,8 @@ class Options extends Component {
     const activeDownloads = this.props.sounds.filter(_s => _s.recentlyDownloaded);
     return (
       <div className="modal-inner media">
-        <div className="row">
-          <div className="one-half column">
+        <div className="pure-g">
+          <div className="pure-u-1-2">
             <Link className="option options-kakapo" to="/downloads/kakapo">
               <i className="icon-kakapo"/> <FormattedMessage id="import.options.kakapo"/>
             </Link>
@@ -23,7 +23,7 @@ class Options extends Component {
               <i className="icon-soundcloud"/> <FormattedMessage id="import.options.soundcloud"/>
             </Link>
           </div>
-          <div className="one-half columns">
+          <div className="pure-u-1-2">
             <Link className="option options-youtube" to="/downloads/youtube">
               <i className="icon-youtube"/> <FormattedMessage id="import.options.youtube"/>
             </Link>

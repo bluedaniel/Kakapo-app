@@ -29,4 +29,9 @@
     max-height: 400px;
     overflow: scroll;
   }
+  &.downloads {
+    .input {
+      width: 85%
+    }
+  }
 }

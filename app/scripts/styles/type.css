@@ -1,13 +1,18 @@
-body {
-  font-family: 'Avenir LT Std', 'Avenir Next LT Pro', sans-serif;
+/* https://raw.githubusercontent.com/devinhunt/typebase.css */
+html {
+  font-family: 'PT Sans', sans-serif;
 }
+
 h1,
 h2,
 h3,
 h4,
-h5 {
-
+h5,
+h6 {
+  font-family: 'Open Sans', sans-serif;
 }
+
+/* Custom styling */
 a {
   color: inherit;
   text-decoration: none;

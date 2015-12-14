@@ -4,10 +4,9 @@
 @import "animate.css/animate";
 @import "hint.css/hint";
 
-@import "../../fonts/stylesheet";
-
 @import "./variables";
 @import "./animation";
+@import "./fonts";
 @import "./type";
 @import "./icons";
 @import "./input";

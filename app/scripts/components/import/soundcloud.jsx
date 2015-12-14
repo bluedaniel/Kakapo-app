@@ -10,7 +10,13 @@ import SoundCloudListItem from './soundcloudListItem';
 class SoundCloud extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: false };
+    this.state = {
+      loading: false,
+      focused: false,
+      inputSC: false
+    };
+    this.onFocus = this.onFocus.bind(this);
+    this.onBlur = this.onBlur.bind(this);
   }
 
   componentDidMount() {
@@ -38,22 +44,35 @@ class SoundCloud extends Component {
     }
   }
 
+  onFocus(e) {
+    this.setState({ focused: e.target.id });
+  }
+
+  onBlur() {
+    this.setState({
+      focused: false,
+      inputYT: this.refs.soundcloudInput.value.length
+    });
+  }
+
   render() {
     return (
       <div>
-        <h5><FormattedMessage id="import.soundcloud.header"/></h5>
-        <div className="input-add-on">
-          <input
-            className="input-add-on-field"
-            placeholder={this.props.intl.formatMessage({ id: 'import.soundcloud.search_placeholder' })}
-            ref="soundcloudInput"
-            type="text"
-          />
-        <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
+        <span className={classNames('input', {
+          'input--filled': this.state.focused === 'input-sc' || this.state.inputYT
+        })}>
+          <input className="input__field" id="input-sc" onBlur={this.onBlur} onFocus={this.onFocus} ref="soundcloudInput" type="text"/>
+          <label className="input__label" htmlFor="input-sc">
+            <span className="input__label-content">
+              <FormattedMessage id="import.soundcloud.search_placeholder"/>
+            </span>
+          </label>
+          <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
             <div className="double-bounce1"></div>
             <div className="double-bounce2"></div>
           </div>
-        </div>
+        </span>
+
         <div className={classNames({ 'soundcloud-items': this.props.search.get('soundcloud').count() })}>
           {this.props.search.get('soundcloud').map(_y => <SoundCloudListItem key={_y.scId} sound={_y}/>, this)}
         </div>

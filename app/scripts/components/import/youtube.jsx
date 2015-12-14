@@ -12,7 +12,8 @@ class YouTube extends Component {
     super(props);
     this.state = {
       loading: false,
-      focused: false
+      focused: false,
+      inputYT: false
     };
     this.onFocus = this.onFocus.bind(this);
     this.onBlur = this.onBlur.bind(this);
@@ -48,35 +49,30 @@ class YouTube extends Component {
   }
 
   onBlur() {
-    this.setState({ focused: false });
+    this.setState({
+      focused: false,
+      inputYT: this.refs.youtubeInput.value.length
+    });
   }
 
   render() {
     return (
       <div>
-        <h5><FormattedMessage id="import.youtube.header"/></h5>
-
-        <span className={classNames('input', 'input--manami', {
-          'input--filled': this.state.focused === 'input-33'
+        <span className={classNames('input', {
+          'input--filled': this.state.focused === 'input-yt' || this.state.inputYT
         })}>
-					<input className="input__field input__field--manami" type="text" id="input-33" onBlur={this.onBlur} onFocus={this.onFocus}/>
-					<label className="input__label input__label--manami" htmlFor="input-33">
-						<span className="input__label-content input__label-content--manami">Website</span>
-					</label>
-				</span>
-
-        <div className="input-add-on">
-          <input
-            className="input-add-on-field"
-            placeholder={this.props.intl.formatMessage({ id: 'import.youtube.search_placeholder' })}
-            ref="youtubeInput"
-            type="text"
-          />
-        <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
+          <input className="input__field" id="input-yt" onBlur={this.onBlur} onFocus={this.onFocus} ref="youtubeInput" type="text"/>
+          <label className="input__label" htmlFor="input-yt">
+            <span className="input__label-content">
+              <FormattedMessage id="import.youtube.search_placeholder"/>
+            </span>
+          </label>
+          <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
             <div className="double-bounce1"></div>
             <div className="double-bounce2"></div>
           </div>
-        </div>
+        </span>
+
         <div className={classNames({ 'youtube-items': this.props.search.get('youtube').count() })}>
           {this.props.search.get('youtube').map(_y => <YoutubeListItem key={_y.videoId} sound={_y}/>, this)}
         </div>
