@@ -1,7 +1,7 @@
 import kakapoAssets from 'kakapo-assets';
+import { bridgedSettings } from 'kakapoBridge';
 import constants from '../constants';
 import { createReducer, flatten } from '../utils';
-import { bridgedSettings } from '../bridge';
 
 let initialState = {
   lang: bridgedSettings.getItem('lang'),

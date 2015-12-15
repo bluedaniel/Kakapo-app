@@ -89,7 +89,10 @@ let config = {
     noParse: /node_modules\/json-schema\/lib\/validate\.js/
   },
   resolve: {
-    extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ]
+    extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ],
+    alias: {
+      kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', argv.platform)
+    }
   },
   postcss: function plugins() {
     return [

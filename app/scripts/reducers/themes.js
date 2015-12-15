@@ -1,10 +1,10 @@
 import { fromJS } from 'immutable';
 import color from 'color';
 import kakapoAssets from 'kakapo-assets';
+import { bridgedThemes } from 'kakapoBridge';
 import constants from '../constants';
 import { createReducer, swatches } from '../utils';
 import { observableStore } from '../stores/configureStore';
-import { bridgedThemes } from '../bridge';
 
 let initialState = new fromJS(bridgedThemes.fromStorage() || kakapoAssets.theme);
 

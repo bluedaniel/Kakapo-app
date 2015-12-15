@@ -1,6 +1,6 @@
 import axios from 'axios';
 import fs from 'fs-extra';
-import { bridgedYoutube, bridgedSoundcloud } from '../bridge';
+import { bridgedYoutube, bridgedSoundcloud } from 'kakapoBridge';
 import getHowlerObj from './howler';
 import { getCustomURL, getKakapoFavourites } from './customUrl';
 import { getYoutubeSearch } from './youtube';

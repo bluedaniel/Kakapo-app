@@ -14,7 +14,6 @@ const GAPI_OPTS_LIST = {
 };
 
 export function getStatistics(resolve, reject, videos) {
-  // Get the duration
   let _it = 0;
   const paramObjV = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
   axios.get(`${GAPI_URL}/videos`, { params: paramObjV })
