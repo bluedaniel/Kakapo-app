@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
+import path from 'path';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { soundActions } from '../../actions';
@@ -27,6 +29,11 @@ class App extends Component {
         gradient: gradients[Math.floor(Math.random() * gradients.length)]
       } };
     }
+  }
+
+  static propTypes = {
+    children: PropTypes.object,
+    soundActions: PropTypes.object
   }
 
   componentDidMount() {
@@ -91,6 +98,12 @@ class App extends Component {
           <Header/>
           <SoundList/>
           {this.props.children && React.cloneElement(this.props.children)}
+          {this.props.children ? (
+            <div>
+              <div className={classNames('tri', this.props.location.pathname.split(path.sep))}/>
+              <Link className="modal-bg" to="/"/>
+            </div>
+          ) : null}
           <aside className="toast-view"></aside>
           {__DEV__ ? <DevTools/> : null}
         </Dropzone>
@@ -99,22 +112,8 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  children: PropTypes.object,
-  settings: PropTypes.object,
-  sounds: PropTypes.object,
-  themes: PropTypes.object,
-  soundActions: PropTypes.object
-};
-
-const mapStateToProps = state => ({
-  sounds: state.sounds,
-  settings: state.settings,
-  routerState: state.router
-});
-
 const mapDispatchToProps = dispatch => ({
   soundActions: bindActionCreators(soundActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(() => ({}), mapDispatchToProps)(App);

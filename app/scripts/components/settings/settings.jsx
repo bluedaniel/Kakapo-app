@@ -1,6 +1,5 @@
 import { ipcRenderer, remote } from 'electron';
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,11 +28,13 @@ class Settings extends Component {
   }
 
   componentDidMount() {
-    autoUpdater
+    if (__DESKTOP__) {
+      autoUpdater
       .on('checking-for-update', () => this.setUpdateStatus({ updateStatus: 'checking' }))
       .on('update-available', () => this.setUpdateStatus({ updateStatus: 'downloading' }))
       .on('update-not-available', () => this.setUpdateStatus({ updateStatus: 'latest' }))
       .on('update-downloaded', () => this.setUpdateStatus({ updateStatus: 'downloaded' }));
+    }
   }
 
   changePaletteSlot = (slotNo) => {
@@ -111,10 +112,7 @@ class Settings extends Component {
       <div>
         {process.platform === 'darwin' ? this.renderDockOpt() : null}
         <div className="opt quit">
-          <a onClick={() => ipcRenderer.send('app-quit')}>
-            <i className="icon-quit dark"/>
-            Quit Kakapo
-          </a>
+          <a onClick={() => ipcRenderer.send('app-quit')}>Quit Kakapo</a>
         </div>
       </div>
     );
@@ -123,10 +121,8 @@ class Settings extends Component {
   render() {
     return (
       <div className="modal settings-pane">
-        <Link className="close" to="/"/>
         <div className="modal-inner">
-          <h3><FormattedMessage id="settings.header"/></h3>
-          <div className="opt">
+          <div className="opt first">
             <FormattedMessage id="settings.theme"/>
             <span className="swatches">
               <a onClick={() => this.changePaletteSlot(0)} style={{ backgroundColor: this.props.themes.get('palette').get(0) }}></a>

@@ -8,15 +8,16 @@ import { searchActions } from '../../actions';
 import SoundCloudListItem from './soundcloudListItem';
 
 class SoundCloud extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      focused: false,
-      inputSC: false
-    };
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
+  static propTypes = {
+    searchActions: PropTypes.object,
+    search: PropTypes.object,
+    intl: intlShape.isRequired
+  }
+
+  state = {
+    loading: false,
+    focused: false,
+    inputSC: false
   }
 
   componentDidMount() {
@@ -27,6 +28,8 @@ class SoundCloud extends Component {
     autocomplete
       .flatMapLatest(this.props.searchActions.searchSoundCloud)
       .subscribe(() => this.toggleSpinner(false));
+
+    this.refs.soundcloudInput.focus();
   }
 
   observeAutocomplete() {
@@ -38,17 +41,15 @@ class SoundCloud extends Component {
       .distinctUntilChanged();
   }
 
-  toggleSpinner(active) {
+  toggleSpinner = (active) => {
     if (this.state.loading !== active) {
       this.setState({ loading: active });
     }
   }
 
-  onFocus(e) {
-    this.setState({ focused: e.target.id });
-  }
+  onFocus = (e) => this.setState({ focused: e.target.id })
 
-  onBlur() {
+  onBlur = () => {
     this.setState({
       focused: false,
       inputYT: this.refs.soundcloudInput.value.length
@@ -57,7 +58,7 @@ class SoundCloud extends Component {
 
   render() {
     return (
-      <div>
+      <div className="modal-inner">
         <span className={classNames('input', {
           'input--filled': this.state.focused === 'input-sc' || this.state.inputYT
         })}>
@@ -80,12 +81,6 @@ class SoundCloud extends Component {
     );
   }
 }
-
-SoundCloud.propTypes = {
-  searchActions: PropTypes.object,
-  search: PropTypes.object,
-  intl: intlShape.isRequired
-};
 
 const mapStateToProps = state => ({
   search: state.search

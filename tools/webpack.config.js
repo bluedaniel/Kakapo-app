@@ -15,7 +15,7 @@ const devServer = 'http://localhost:3000';
 
 let externals = {};
 if (argv.platform === 'web') {
-  const voidModules = [ 'electron', 'fs', 'fs-extra' ];
+  const voidModules = [ 'electron', 'request', 'fs', 'fs-extra' ];
   externals = voidModules.reduce((a, b) => {
     a[b] = 'void 0';
     return a;

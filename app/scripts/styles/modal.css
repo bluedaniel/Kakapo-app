@@ -1,29 +1,55 @@
-.modal {
-  background-color: rgba(255, 255, 255, 0.97);
+.modal-bg {
+  background: transparent;
   bottom: 0;
+  cursor: normal;
   left: 0;
-  overflow: scroll;
-  padding: 15px 20px 20px;
-  position: fixed;
+  position: absolute;
   right: 0;
-  top: 107px;
+  top: 0;
+  z-index: 40;
+}
+.tri {
+  border-color: transparent transparent #fff;
+  border-style: dashed dashed solid;
+  border-width: 0 8.5px 8.5px;
+  height: 0;
+  left: 20px;
+  position: absolute;
+  top: 90px;
+  width: 0;
   z-index: 50;
-  @media screen and (min-width: 35.5em) {
-    top: 136px;
+  &.settings {
+    right: 20px;
+    left: initial;
   }
-  .close {
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAvUlEQVQ4T42TUQ0CQQxE3ykAKTgAHIATUAJOOAeAA6SAAzIbmjR7Ldv9bG7etTPtBKyBG3AGXtTeBrgAxwl4AFvgDewLEInvvx8/BVBBkFUB4sUfYCeAXgWyEKtbA4wgoVgiD8ggqtvMrW3vUw+IIKopqYU46sBC9J6oFopHAGtb36URZyP4mQVII45M7A0TIN2TPsbM7XRP/CKlUf1bNlvlkThKpxnrjymNqjtQP047Ji3JDJwKl+g7uQKHL6x7ShGbfH2lAAAAAElFTkSuQmCC');
-    background-size: contain;
-    height: 16px;
-    opacity: .5;
-    position: absolute;
-    right: 12px;
-    width: 16px;
-    z-index: 51;
+}
+.modal {
+  background: #fff;
+  border-color: rgba(0,0,0,.2);
+  border-radius: 2px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  min-height: 345px;
+  outline: none;
+  overflow: hidden;
+  position: fixed;
+  right: 10px;
+  top: 97px;
+  width: 300px;
+  z-index: 50;
+  @media (min-width: 550px) {
+    top: 115px;
   }
   .modal-inner {
     animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
+    background: #fff;
+    margin: 0;
+    min-height: 100px;
+    padding-right: 27px;
+    padding: 28px;
+    text-align: left;
     transform-origin: bottom center;
+    white-space: normal;
   }
   form,
   button,
@@ -39,8 +65,6 @@
     overflow: scroll;
   }
   &.downloads {
-    .input {
-      width: 85%
-    }
+    left: 10px;
   }
 }

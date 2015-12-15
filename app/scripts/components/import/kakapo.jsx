@@ -17,7 +17,7 @@ class Kakapo extends Component {
 
   render() {
     return (
-      <div>
+      <div className="modal-inner">
         <h5><FormattedMessage id="import.kakapo.header"/></h5>
         <p><FormattedMessage id="import.kakapo.subheader"/></p>
           <div className={classNames({ 'kakapofavs-items': this.props.search.kakapofavs.length })}>

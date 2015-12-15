@@ -27,8 +27,13 @@
       height: 23px;
       width: 23px;
     }
+    &.first {
+      border-top: 0;
+      padding-top: 0;
+    }
     &.opt-repo {
       display: block;
+      padding-bottom: 0;
       .version {
         float: right;
         font-size: 14px;

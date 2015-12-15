@@ -7,12 +7,16 @@ import { Image } from '../ui';
 import { soundActions } from '../../actions';
 
 class YouTubeItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
+  static contextTypes = {
+    history: PropTypes.object
   }
 
-  handleClick() {
+  static propTypes = {
+    soundActions: PropTypes.object,
+    sound: PropTypes.shape(youtubeItemClass)
+  }
+
+  handleClick = () => {
     this.props.soundActions.addSound('youtube', {
       id: this.props.sound.videoId,
       thumbnail: this.props.sound.img,
@@ -41,15 +45,6 @@ class YouTubeItem extends Component {
     );
   }
 }
-
-YouTubeItem.contextTypes = {
-  history: PropTypes.object
-};
-
-YouTubeItem.propTypes = {
-  soundActions: PropTypes.object,
-  sound: PropTypes.shape(youtubeItemClass)
-};
 
 const mapDispatchToProps = dispatch => ({
   soundActions: bindActionCreators(soundActions, dispatch)

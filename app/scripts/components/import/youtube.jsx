@@ -8,15 +8,16 @@ import { searchActions } from '../../actions';
 import YoutubeListItem from './youtubeListItem';
 
 class YouTube extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: false,
-      focused: false,
-      inputYT: false
-    };
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
+  static propTypes = {
+    searchActions: PropTypes.object,
+    search: PropTypes.object,
+    intl: intlShape.isRequired
+  }
+
+  state = {
+    loading: false,
+    focused: false,
+    inputYT: false
   }
 
   componentDidMount() {
@@ -46,11 +47,9 @@ class YouTube extends Component {
     }
   }
 
-  onFocus(e) {
-    this.setState({ focused: e.target.id });
-  }
+  onFocus = (e) => this.setState({ focused: e.target.id })
 
-  onBlur() {
+  onBlur = () => {
     this.setState({
       focused: false,
       inputYT: this.refs.youtubeInput.value.length
@@ -59,7 +58,7 @@ class YouTube extends Component {
 
   render() {
     return (
-      <div>
+      <div className="modal-inner">
         <span className={classNames('input', {
           'input--filled': this.state.focused === 'input-yt' || this.state.inputYT
         })}>
@@ -82,12 +81,6 @@ class YouTube extends Component {
     );
   }
 }
-
-YouTube.propTypes = {
-  searchActions: PropTypes.object,
-  search: PropTypes.object,
-  intl: intlShape.isRequired
-};
 
 const mapStateToProps = state => ({
   search: state.search
