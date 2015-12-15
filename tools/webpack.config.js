@@ -85,7 +85,8 @@ let config = {
         test: /\.css$/,
         loader: 'style-loader!css-loader!postcss-loader'
       }
-    ]
+    ],
+    noParse: /node_modules\/json-schema\/lib\/validate\.js/
   },
   resolve: {
     extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ]

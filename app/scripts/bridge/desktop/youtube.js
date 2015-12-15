@@ -37,12 +37,11 @@ const actions = {
 
     const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-    const readStream = ytdl(`https://www.youtube.com/watch?v=${data.id}`, {
+    ytdl(`https://www.youtube.com/watch?v=${data.id}`, {
       format: 'audioonly',
       debug: true
-    });
-
-    readStream.on('info', (info, format) => {
+    })
+    .on('info', (info, format) => {
       newSound = { ...newSoundClass, ...{
         file: path.join(pathConfig.userSoundDir, `${uuid()}.${format.container}`),
         img: info.thumbnail_url,
@@ -52,18 +51,14 @@ const actions = {
         tags: info.keywords ? info.keywords.join(' ') : ''
       } };
       fileSize = format.size;
-    });
-
-    readStream.on('error', e => ee.emit('error', 'problem with request: ' + e.message));
-
-    readStream.on('data', downloadProgress.bind(this, ee));
-
-    readStream.on('finish', () => {
+    })
+    .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
+    .on('data', downloadProgress.bind(this, ee))
+    .on('finish', () => {
       fs.rename(tmpFile, newSound.file);
       ee.emit('finish', newSound); // Completed download
-    });
-
-    readStream.pipe(fs.createWriteStream(tmpFile));
+    })
+    .pipe(fs.createWriteStream(tmpFile));
 
     return ee;
   }

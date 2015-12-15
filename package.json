@@ -88,7 +88,7 @@
     "redux-logger": "^2.2.1",
     "redux-simple-router": "^1.0.0",
     "redux-thunk": "^1.0.0",
-    "request": "^2.65.0",
+    "request": "^2.67.0",
     "rx": "^4.0.6",
     "s3": "^4.4.0",
     "semver": "^5.1.0",

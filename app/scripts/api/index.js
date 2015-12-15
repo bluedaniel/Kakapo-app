@@ -1,13 +1,13 @@
 import axios from 'axios';
 import fs from 'fs-extra';
-import { bridgedYoutube } from '../bridge';
+import { bridgedYoutube, bridgedSoundcloud } from '../bridge';
 import getHowlerObj from './howler';
 import { getCustomURL, getKakapoFavourites } from './customUrl';
-import { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } from './soundcloud';
 import { getYoutubeSearch } from './youtube';
 import { pathConfig } from '../utils';
 
 const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
+const { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } = bridgedSoundcloud;
 
 export function getDefaultSounds() {
   if (__DESKTOP__) {
