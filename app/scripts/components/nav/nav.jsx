@@ -39,7 +39,7 @@ class Nav extends Component {
         })} onClick={this.handleMute}/>
         {this.renderDragOrDownload()}
         <div className="share">
-          <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"></div>
+          {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"/> : null}
           <a href="https://twitter.com/share" className="twitter-share-button" data-url="http://www.kakapo.co">Tweet</a>
         </div>
       </div>
