@@ -71,18 +71,19 @@ const actions = {
         link: response.data.permalink_url
       } };
 
-      request({
-        method: 'GET',
-        uri: `${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`
-      })
+      request(`${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`)
       .on('response', res => {
         fileSize = res.headers['content-length'];
-      })
-      .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
-      .on('data', downloadProgress.bind(this, ee))
-      .on('end', () => {
-        fs.rename(tmpFile, newSound.file);
-        ee.emit('finish', newSound); // Completed download
+        if (!fileSize) {
+          ee.emit('error', 'Error: Could not access file.');
+        } else {
+          res.on('data', downloadProgress.bind(this, ee))
+          .on('error', e => ee.emit('error', 'Error: ' + e.message))
+          .on('end', () => {
+            fs.rename(tmpFile, newSound.file);
+            ee.emit('finish', newSound); // Completed download
+          });
+        }
       })
       .pipe(fs.createWriteStream(tmpFile));
     })

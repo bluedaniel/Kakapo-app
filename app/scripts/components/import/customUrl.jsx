@@ -5,7 +5,7 @@ import validator from 'validator';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import { soundActions } from '../../actions';
-import { toasterInstance } from '../../utils';
+import { toasterInstance, validHowl } from '../../utils';
 
 class CustomUrl extends Component {
   static contextTypes = {
@@ -24,6 +24,10 @@ class CustomUrl extends Component {
     inputCustom: false
   }
 
+  componentDidMount() {
+    this.refs.name.focus();
+  }
+
   handleSubmit = (el) => {
     el.preventDefault();
     const data = {
@@ -33,6 +37,7 @@ class CustomUrl extends Component {
 
     if (!data.name || !data.url) return this.handleError('import.error.empty');
     if (!validator.isURL(data.url)) return this.handleError('import.error.url');
+    if (!validHowl(data.url)) return this.handleError(validHowl(data.url, true), false);
 
     this.props.soundActions.addSound('custom', {
       name: data.name,
@@ -43,7 +48,10 @@ class CustomUrl extends Component {
     this.context.history.push('/downloads');
   }
 
-  handleError = (msg) => toasterInstance().then(_t => _t.toast(this.props.intl.formatMessage({ id: msg })))
+  handleError = (msg, intl=true) => {
+    const err = intl ? this.props.intl.formatMessage({ id: msg }) : msg;
+    toasterInstance().then(_t => _t.toast(err));
+  }
 
   onFocus = (e) => this.setState({ focused: e.target.id })
 

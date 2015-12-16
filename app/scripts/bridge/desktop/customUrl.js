@@ -2,11 +2,9 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import uuid from 'uuid';
-import { pathConfig } from '../../utils';
+import { pathConfig, validHowl } from '../../utils';
 import { newSoundClass } from '../../classes';
 import { EventEmitter } from 'events';
-
-const Supported = [ 'mp3', 'opus', 'ogg', 'wav', 'aac', 'm4a', 'mp4', 'weba' ];
 
 let fileSize = 0;
 let currentProgress = 0;
@@ -35,33 +33,31 @@ const actions = {
 
     const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-    const ext = /^([\w\-]+)/.exec(data.url.split('.').pop())[0];
-    if (data.source !== 'file' && Supported.indexOf(ext) === -1) {
-      ee.emit('error', `${data.url} must be one of ${Supported.join(', ')}`);
+    if (data.source !== 'file' && !validHowl(data.url)) {
+      ee.emit('error', validHowl(data.url, true));
       return ee;
     }
 
     newSound = { ...newSoundClass, ... {
-      file: data.url,
+      file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(data.url).substring(1)}`),
       img: data.icon,
       name: data.name,
-      progress: 0,
-      source: data.source,
-      tags: ''
+      source: data.source
     } };
 
-    request({
-      method: 'GET',
-      uri: data.url
-    })
+    request(data.url)
     .on('response', res => {
       fileSize = res.headers['content-length'];
-    })
-    .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
-    .on('data', downloadProgress.bind(this, ee))
-    .on('end', () => {
-      fs.rename(tmpFile, newSound.file);
-      ee.emit('finish', newSound); // Completed download
+      if (!fileSize) {
+        ee.emit('error', 'Error: Could not access file.');
+      } else {
+        res.on('data', downloadProgress.bind(this, ee))
+        .on('error', e => ee.emit('error', 'Error: ' + e.message))
+        .on('end', () => {
+          fs.rename(tmpFile, newSound.file);
+          ee.emit('finish', newSound); // Completed download
+        });
+      }
     })
     .pipe(fs.createWriteStream(tmpFile));
 

@@ -1,21 +1,23 @@
 import { newSoundClass } from '../../classes';
+import { validHowl } from '../../utils';
 
-const Supported = [ 'mp3', 'opus', 'ogg', 'wav', 'aac', 'm4a', 'mp4', 'weba' ];
+const actions = {
+  getCustomURL(data) {
+    return new Promise((resolve, reject) => {
+      if (data.source !== 'file' && !validHowl(data.url)) {
+        return reject(new Error(validHowl(data.url, true)));
+      }
 
-export function getCustomURL(data) {
-  return new Promise((resolve, reject) => {
-    const ext = /^([\w\-]+)/.exec(data.url.split('.').pop())[0];
-    if (data.source !== 'file' && Supported.indexOf(ext) === -1) {
-      return reject(new Error(`${data.url} must be one of ${Supported.join(', ')}`));
-    }
+      resolve({ ...newSoundClass, ... {
+        file: data.url,
+        img: data.icon,
+        name: data.name,
+        progress: 0,
+        source: data.source,
+        tags: ''
+      } });
+    });
+  }
+};
 
-    resolve({ ...newSoundClass, ... {
-      file: data.url,
-      img: data.icon,
-      name: data.name,
-      progress: 0,
-      source: data.source,
-      tags: ''
-    } });
-  });
-}
+export default actions;

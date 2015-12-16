@@ -1,11 +1,12 @@
 import axios from 'axios';
 import fs from 'fs-extra';
-import { bridgedYoutube, bridgedSoundcloud } from 'kakapoBridge';
+import { bridgedYoutube, bridgedSoundcloud, bridgedCustom } from 'kakapoBridge';
 import getHowlerObj from './howler';
-import { getCustomURL, getKakapoFavourites } from './customUrl';
+import { getKakapoFavourites } from './customUrl';
 import { getYoutubeSearch } from './youtube';
 import { pathConfig } from '../utils';
 
+const { getCustomURL } = bridgedCustom;
 const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
 const { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } = bridgedSoundcloud;
 
