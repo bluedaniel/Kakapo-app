@@ -75,7 +75,7 @@ class YouTube extends Component {
         </span>
 
         <div className={classNames({ 'youtube-items': this.props.search.get('youtube').count() })}>
-          {this.props.search.get('youtube').map(_y => <YoutubeListItem key={_y.videoId} sound={_y}/>, this)}
+          {this.props.search.get('youtube').map(_y => <YoutubeListItem key={_y.videoId} sound={_y}/>)}
         </div>
       </div>
     );

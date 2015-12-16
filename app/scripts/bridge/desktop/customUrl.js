@@ -31,35 +31,42 @@ const actions = {
 
     const ee = new EventEmitter();
 
-    const tmpFile = path.join(pathConfig.userSoundDir, uuid());
-
-    if (data.source !== 'file' && !validHowl(data.url)) {
-      ee.emit('error', validHowl(data.url, true));
+    if (data.source === 'file') {
+      ee.emit('finish', newSound);
       return ee;
     }
 
-    newSound = { ...newSoundClass, ... {
-      file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(data.url).substring(1)}`),
-      img: data.icon,
-      name: data.name,
-      source: data.source
-    } };
+    if (data.source !== 'file') {
+      const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-    request(data.url)
-    .on('response', res => {
-      fileSize = res.headers['content-length'];
-      if (!fileSize) {
-        ee.emit('error', 'Error: Could not access file.');
-      } else {
-        res.on('data', downloadProgress.bind(this, ee))
-        .on('error', e => ee.emit('error', 'Error: ' + e.message))
-        .on('end', () => {
-          fs.rename(tmpFile, newSound.file);
-          ee.emit('finish', newSound); // Completed download
-        });
+      if (!validHowl(data.url)) {
+        ee.emit('error', validHowl(data.url, true));
+        return ee;
       }
-    })
-    .pipe(fs.createWriteStream(tmpFile));
+
+      newSound = { ...newSoundClass, ... {
+        file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(data.url).substring(1)}`),
+        img: data.icon,
+        name: data.name,
+        source: data.source
+      } };
+
+      request(data.url)
+      .on('response', res => {
+        fileSize = res.headers['content-length'];
+        if (!fileSize) {
+          ee.emit('error', 'Error: Could not access file.');
+        } else {
+          res.on('data', downloadProgress.bind(this, ee))
+          .on('error', e => ee.emit('error', 'Error: ' + e.message))
+          .on('end', () => {
+            fs.rename(tmpFile, newSound.file);
+            ee.emit('finish', newSound); // Completed download
+          });
+        }
+      })
+      .pipe(fs.createWriteStream(tmpFile));
+    }
 
     return ee;
   }

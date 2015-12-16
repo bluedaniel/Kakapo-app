@@ -75,7 +75,7 @@ class SoundCloud extends Component {
         </span>
 
         <div className={classNames({ 'soundcloud-items': this.props.search.get('soundcloud').count() })}>
-          {this.props.search.get('soundcloud').map(_y => <SoundCloudListItem key={_y.scId} sound={_y}/>, this)}
+          {this.props.search.get('soundcloud').map(_y => <SoundCloudListItem key={_y.scId} sound={_y}/>)}
         </div>
       </div>
     );

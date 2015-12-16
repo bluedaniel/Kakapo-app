@@ -14,10 +14,13 @@
   border-width: 0 8.5px 8.5px;
   height: 0;
   left: 20px;
-  position: absolute;
+  position: fixed;
   top: 90px;
   width: 0;
   z-index: 50;
+  @media (min-width: 550px) {
+    top: 108px;
+  }
   &.settings {
     right: 20px;
     left: initial;

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
@@ -8,25 +8,24 @@ import { soundActions } from '../../actions';
 import { Image } from '../ui';
 
 class KakapoItem extends Component {
-  constructor(props) {
-    super(props);
-    this.handleClick = this.handleClick.bind(this);
+  static contextTypes = {
+    history: PropTypes.object
   }
 
-  handleClick() {
+  static propTypes = {
+    sounds: PropTypes.object,
+    soundActions: PropTypes.object,
+    sound: PropTypes.shape(soundClass)
+  }
+
+  handleClick = () => {
     if (!this.alreadyAdded()) {
-      this.props.soundActions.addSound('kakapo', {
-        name: this.props.intl.formatMessage({ id: `sounds.${this.props.sound.name.replace(/\s+/g, '_').toLowerCase()}` }),
-        url: this.props.sound.file,
-        source: 'file',
-        icon: this.props.sound.img
-      });
+      this.props.soundActions.addSound('kakapo', this.props.sound);
+      this.context.history.push('/downloads');
     }
   }
 
-  alreadyAdded() {
-    return this.props.sounds.filter(_s => this.props.sound.file === _s.file).count() === 1;
-  }
+  alreadyAdded = () => this.props.sounds.filter(_s => this.props.sound.file === _s.file).count() === 1
 
   render() {
     return (
@@ -41,13 +40,6 @@ class KakapoItem extends Component {
     );
   }
 }
-
-KakapoItem.propTypes = {
-  sounds: PropTypes.object,
-  soundActions: PropTypes.object,
-  intl: intlShape.isRequired,
-  sound: PropTypes.shape(soundClass)
-};
 
 const mapStateToProps = state => ({
   sounds: state.sounds

@@ -7,8 +7,9 @@ import { searchActions } from '../../actions';
 import KakapoListItem from './kakapoListItem';
 
 class Kakapo extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    searchActions: PropTypes.object,
+    search: PropTypes.object
   }
 
   componentDidMount() {
@@ -19,19 +20,13 @@ class Kakapo extends Component {
     return (
       <div className="modal-inner">
         <h5><FormattedMessage id="import.kakapo.header"/></h5>
-        <p><FormattedMessage id="import.kakapo.subheader"/></p>
-          <div className={classNames({ 'kakapofavs-items': this.props.search.kakapofavs.length })}>
-            {this.props.search.kakapofavs.map(_y => <KakapoListItem key={_y.name} sound={_y}/>, this)}
-          </div>
+        <div className={classNames({ 'kakapofavs-items': this.props.search.get('kakapofavs').count() })}>
+          {this.props.search.get('kakapofavs').map(_y => <KakapoListItem key={_y.name} sound={_y}/>)}
+        </div>
       </div>
     );
   }
 }
-
-Kakapo.propTypes = {
-  searchActions: PropTypes.object,
-  search: PropTypes.object
-};
 
 const mapStateToProps = state => ({
   search: state.search
