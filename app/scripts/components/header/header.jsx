@@ -22,7 +22,7 @@ class Header extends Component {
             </Link>
             <Link className="logo" to="/">
               <h3 style={this.props.themes.getIn([ 'header', 'h3' ]).toJS()}>
-                <img src="/icons/social/kakapo.png"/>
+                <img src={require('kakapo-assets/icons/social/kakapo.png')}/>
                 Kakapo
               </h3>
             </Link>
