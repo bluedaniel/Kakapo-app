@@ -26,9 +26,7 @@ const actions = {
         if (resp.err) return;
         dispatch(actions.addSoundComplete(resp));
       });
-    }
-
-    if (fetchFunc instanceof EventEmitter) {
+    } else if (fetchFunc instanceof EventEmitter) {
       fetchFunc
       .on('error', err => dispatch(actions.addSoundError(err)))
       .on('progress', resp => dispatch(actions.addSoundDownloading(resp)))

@@ -32,7 +32,7 @@ const actions = {
     const ee = new EventEmitter();
 
     if (data.source === 'file') {
-      ee.emit('finish', newSound);
+      setTimeout(() => ee.emit('finish', data), 250);
       return ee;
     }
 

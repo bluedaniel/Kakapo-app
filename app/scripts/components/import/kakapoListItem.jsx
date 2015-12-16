@@ -19,10 +19,7 @@ class KakapoItem extends Component {
   }
 
   handleClick = () => {
-    if (!this.alreadyAdded()) {
-      this.props.soundActions.addSound('kakapo', this.props.sound);
-      this.context.history.push('/downloads');
-    }
+    if (!this.alreadyAdded()) this.props.soundActions.addSound('kakapo', this.props.sound);
   }
 
   alreadyAdded = () => this.props.sounds.filter(_s => this.props.sound.file === _s.file).count() === 1
