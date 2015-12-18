@@ -13,7 +13,6 @@
   border-style: dashed dashed solid;
   border-width: 0 8.5px 8.5px;
   height: 0;
-  left: 20px;
   position: fixed;
   top: 90px;
   width: 0;
@@ -21,9 +20,17 @@
   @media (min-width: 550px) {
     top: 108px;
   }
+  &.downloads {
+    left: 31px;
+    @media (min-width: 550px) {
+      left: 6.5%;
+    }
+  }
   &.settings {
-    right: 20px;
-    left: initial;
+    right: 31px;
+    @media (min-width: 550px) {
+      right: 6.5%;
+    }
   }
 }
 .modal {
@@ -36,7 +43,6 @@
   outline: none;
   overflow: hidden;
   position: fixed;
-  right: 10px;
   top: 97px;
   width: 300px;
   z-index: 50;
@@ -69,5 +75,14 @@
   }
   &.downloads {
     left: 10px;
+    @media (min-width: 550px) {
+      left: 3%;
+    }
+  }
+  &.settings-pane {
+    right: 10px;
+    @media (min-width: 550px) {
+      right: 3%;
+    }
   }
 }

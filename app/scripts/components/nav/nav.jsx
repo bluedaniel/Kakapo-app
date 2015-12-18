@@ -33,14 +33,16 @@ class Nav extends Component {
       <div className={classNames('topbar', {
         dark: this.props.themes.get('darkUI')
       })} style={this.props.themes.getIn([ 'header', 'download' ]).toJS()}>
-        <span className={classNames('mute', {
-          muted: this.state.mute,
-          dark: this.props.themes.get('darkUI')
-        })} onClick={this.handleMute}/>
-        {this.renderDragOrDownload()}
-        <div className="share">
-          {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"/> : null}
-          <a href="https://twitter.com/share" className="twitter-share-button" data-url="http://www.kakapo.co">Tweet</a>
+        <div className="container">
+          <span className={classNames('mute', {
+            muted: this.state.mute,
+            dark: this.props.themes.get('darkUI')
+          })} onClick={this.handleMute}/>
+          {this.renderDragOrDownload()}
+          <div className="share">
+            {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"/> : null}
+            <a href="https://twitter.com/share" className="twitter-share-button" data-url="http://www.kakapo.co">Tweet</a>
+          </div>
         </div>
       </div>
     );

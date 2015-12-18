@@ -68,7 +68,7 @@ class CustomUrl extends Component {
       <div className="modal-inner">
         <h5>{this.props.intl.formatMessage({ id: 'import.custom.header' })}</h5>
         <form onSubmit={this.handleSubmit}>
-          <div className="row media-import">
+          <div className="media-import">
             <span className={classNames('input', {
               'input--filled': this.state.focused === 'input-name' || this.state.inputName
             })}>
