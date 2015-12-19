@@ -7,13 +7,12 @@ header {
   top: 35px;
   width: 100%;
   z-index: 40;
-	@media screen and (min-width: 35.5em) {
+  @media screen and (min-width: 35.5em) {
     height: 77px;
   }
 }
 .titlebar {
-  .logo,
-  a {
+  .logo, a {
     color: #fff;
     float: left;
     font-size: .8em;
@@ -28,6 +27,9 @@ header {
     position: relative;
     top: 3px;
     width: 70%;
+    @media (min-width: 568px) {
+      top: 10px;
+    }
   }
   h3 {
     font-size: 1.75rem;
@@ -44,13 +46,14 @@ header {
       width: 42px;
     }
     @media (min-width: 568px) {
-      font-size: 2.5rem;
+      font-size: 2rem;
       span {
-        top: -25px;
+        margin-left: 14px;
+        top: -22px;
       }
       img {
-        height: 72px;
-        width: 72px;
+        height: 62px;
+        width: 62px;
       }
     }
   }
