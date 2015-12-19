@@ -8,6 +8,11 @@ const actions = {
         return reject(new Error(validHowl(data.url, true)));
       }
 
+      if (data.source === 'file') {
+        resolve({ ...newSoundClass, ...data });
+        return;
+      }
+
       resolve({ ...newSoundClass, ... {
         file: data.url,
         img: data.icon,
