@@ -6,7 +6,7 @@ import { getKakapoFavourites } from './customUrl';
 import { getYoutubeSearch } from './youtube';
 import { pathConfig } from '../utils';
 
-const { getCustomURL } = bridgedCustom;
+const { getCustomFile, getCustomURL } = bridgedCustom;
 const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
 const { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } = bridgedSoundcloud;
 
@@ -37,6 +37,7 @@ export function createSoundObj(sound) {
 }
 
 export {
+  getCustomFile,
   getCustomURL,
   getKakapoFavourites,
   getSoundCloudSearch,

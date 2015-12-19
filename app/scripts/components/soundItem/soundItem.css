@@ -27,12 +27,16 @@
       z-index: 1;
     }
   }
-  img {
+  img,
+  .no-image {
     height: 44px;
     left: 12px;
     position: absolute;
     top: 23px;
     width: 44px;
+  }
+  .no-image {
+    background: linear-gradient(to left, #232526 , #414345);
   }
   [type="range"] {
     display: none;

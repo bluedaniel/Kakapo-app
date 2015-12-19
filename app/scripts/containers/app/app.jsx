@@ -48,9 +48,9 @@ class App extends Component {
     this.setState({ konami: !this.state.konami });
   }
 
-  onDrop(files) { // Desktop only
+  onDrop = (files) => { // Desktop only
     if (__DESKTOP__) {
-      files.map(_f => soundActions.getCustomFile(_f.name, _f.path));
+      files.map(_f => this.props.soundActions.addLocalSound(_f.name, _f.path));
     } else {
       toasterInstance().then(_t => _t.toast('You can only add desktop files with the Kakapo desktop app.'));
     }

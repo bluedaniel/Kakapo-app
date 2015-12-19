@@ -98,7 +98,7 @@ class SoundItem extends Component {
         style={objStyle}
       >
         <div className="inner">
-          <Image img={img}/>
+          {img ? <Image img={img}/> : <div className="no-image"/>}
           {this.renderActions()}
           <span className="title">
             {this.props.sound.name}

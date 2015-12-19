@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import constants from '../constants';
-import { getDefaultSounds, getYoutubeURL, getCustomURL, getSoundCloudURL } from '../api';
+import { getDefaultSounds, getYoutubeURL, getCustomFile, getCustomURL, getSoundCloudURL } from '../api';
 
 const actions = {
   soundsInit: () => dispatch => dispatch(actions.fetchSounds()),
@@ -12,6 +12,11 @@ const actions = {
 
   fetchSounds: () => dispatch => getDefaultSounds().then(resp => dispatch(actions.fetchSoundsComplete(resp))),
   fetchSoundsComplete: resp => ({ type: constants.SOUNDS_RECEIVED, resp }),
+
+  addLocalSound: (name, path) => dispatch => {
+    let newSound = getCustomFile(name, path);
+    dispatch(actions.addSoundComplete(newSound));
+  },
 
   addSound: (service, data) => dispatch => {
     let opts = { provider: getCustomURL, type: constants.SOUNDS_ADD_CUSTOM }; // Kakapo/custom default

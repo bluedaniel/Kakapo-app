@@ -23,6 +23,17 @@ function downloadProgress(ee, data) {
 }
 
 const actions = {
+  getCustomFile(name, filePath) {
+    newSound = { ...newSoundClass, ... {
+      file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(filePath).substring(1)}`),
+      img: '',
+      name: name,
+      source: 'customFile'
+    } };
+
+    fs.copySync(filePath, newSound.file);
+    return newSound;
+  },
   getCustomURL(data) {
     fileSize = 0;
     currentProgress = 0;
