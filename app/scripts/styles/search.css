@@ -62,7 +62,7 @@
   cursor: pointer;
   height: 40px;
   margin-bottom: 35px;
-  @media (min-width: 550px) {
+  @media (min-width: 568px) {
     float: left;
     width: 50%;
   }

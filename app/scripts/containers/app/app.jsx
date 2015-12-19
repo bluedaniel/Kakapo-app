@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
-import path from 'path';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { soundActions } from '../../actions';
@@ -96,14 +95,11 @@ class App extends Component {
           {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
           <Nav/>
           <Header/>
+          <div className="container">
+            {this.props.children && React.cloneElement(this.props.children)}
+            {this.props.children ? (<Link className="modal-bg" to="/"/>) : null}
+          </div>
           <SoundList/>
-          {this.props.children && React.cloneElement(this.props.children)}
-          {this.props.children ? (
-            <div>
-              <div className={classNames('tri', this.props.location.pathname.split(path.sep))}/>
-              <Link className="modal-bg" to="/"/>
-            </div>
-          ) : null}
           <aside className="toast-view"></aside>
           {__DEV__ ? <DevTools/> : null}
         </Dropzone>

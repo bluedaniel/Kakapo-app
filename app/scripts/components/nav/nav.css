@@ -51,7 +51,7 @@
     left: 35px;
     position: absolute;
     width: calc(100% - 35px);
-    @media (max-width: 550px) {
+    @media (max-width: 568px) {
       display: none;
     }
   }

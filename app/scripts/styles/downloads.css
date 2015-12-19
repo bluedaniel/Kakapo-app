@@ -140,8 +140,8 @@ h1 {
   }
 }
 
-/* Bigger than 550 */
-@media (min-width: 550px) {
+/* Bigger than 568 */
+@media (min-width: 568px) {
   .section {
     padding: 12rem 0 11rem;
   }

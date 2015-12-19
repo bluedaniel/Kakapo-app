@@ -19,7 +19,7 @@ header {
     font-size: .8em;
     text-align: center;
     width: 15%;
-    @media (min-width: 550px) {
+    @media (min-width: 568px) {
       padding-top: 15px;
     }
   }
@@ -43,7 +43,7 @@ header {
       height: 42px;
       width: 42px;
     }
-    @media (min-width: 550px) {
+    @media (min-width: 568px) {
       font-size: 2.5rem;
       span {
         top: -25px;
@@ -56,12 +56,15 @@ header {
   }
   i {
     display: block;
-    margin: 7px auto;
+    margin: 7px;
     width: 27px;
-    @media (min-width: 550px) {
+    @media (min-width: 568px) {
       height: 32px;
-      margin: 10px auto;
+      margin: 10px;
       width: 32px;
+    }
+    &.icon-settings {
+      float: right;
     }
   }
 }

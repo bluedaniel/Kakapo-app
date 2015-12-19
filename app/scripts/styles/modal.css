@@ -1,37 +1,12 @@
 .modal-bg {
   background: transparent;
   bottom: 0;
-  cursor: normal;
+  cursor: default;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
   z-index: 40;
-}
-.tri {
-  border-color: transparent transparent #fff;
-  border-style: dashed dashed solid;
-  border-width: 0 8.5px 8.5px;
-  height: 0;
-  position: fixed;
-  top: 90px;
-  width: 0;
-  z-index: 50;
-  @media (min-width: 550px) {
-    top: 108px;
-  }
-  &.downloads {
-    left: 31px;
-    @media (min-width: 550px) {
-      left: 6.5%;
-    }
-  }
-  &.settings {
-    right: 31px;
-    @media (min-width: 550px) {
-      right: 6.5%;
-    }
-  }
 }
 .modal {
   background: #fff;
@@ -39,15 +14,15 @@
   border-radius: 2px;
   border: 1px solid #ccc;
   box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  margin-top: -10px;
   min-height: 345px;
   outline: none;
   overflow: hidden;
   position: fixed;
-  top: 97px;
   width: 300px;
   z-index: 50;
-  @media (min-width: 550px) {
-    top: 115px;
+  @media (min-width: 568px) {
+    margin-top: -10px;
   }
   .modal-inner {
     animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
@@ -69,20 +44,18 @@
   .kakapofavs-items,
   .soundcloud-items,
   .youtube-items {
+    font-size: 13px;
     margin: 10px 0 0;
     max-height: 400px;
     overflow: scroll;
   }
   &.downloads {
-    left: 10px;
-    @media (min-width: 550px) {
-      left: 3%;
-    }
+    margin-left: 10px;
   }
   &.settings-pane {
-    right: 10px;
-    @media (min-width: 550px) {
-      right: 3%;
+    margin-left: 500px;
+    @media (max-width: 800px) {
+      margin-left: calc(100% - 310px);
     }
   }
 }

@@ -28,7 +28,7 @@ body {
   margin: 0 auto;
   max-width: 100%;
   padding-top: 105px;
-  @media (min-width: 550px) {
+  @media (min-width: 568px) {
     padding-top: 136px;
   }
 }
