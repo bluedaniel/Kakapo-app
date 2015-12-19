@@ -1,11 +1,8 @@
-
-**Note: This branch is very much under active development and quite experimental.**
-
 <img src="http://www.kakapo.co/icons/social/kakapo.png" width="128" height="128" align="right" />
 
 [Kakapo](http://kakapo.co) is an open source ambient sound mixer for relaxation or productivity.
 
-This repo builds both the website and desktop apps.
+This repo builds a website and desktop version (for Mac OSX & Windows).
 
 [Download the latest desktop version here](http://www.kakapo.co/app.html), or install via [homebrew-cask](http://caskroom.io/) with `brew cask install kakapo`.
 
@@ -14,7 +11,7 @@ See also: [Kakapo for iOS & Android](https://github.com/bluedaniel/Kakapo-native
 It's built using:
 
 - [Electron](https://github.com/atom/electron) - Creates app for desktop.
-- [ReactJS](https://github.com/facebook/react) - Components
+- [ReactJS](https://github.com/facebook/react) - UI & view components
 - [Babel 6](https://github.com/babel/babel) - To transform ES6 code.
 - [Redux](https://github.com/rackt/redux) - State management.
 - [ImmutableJs](https://github.com/facebook/immutable-js) - All stores uses immutable maps/lists.
@@ -22,11 +19,9 @@ It's built using:
 - [ReactIntl](https://github.com/yahoo/react-intl) - Internationalisation.
 - [RxJS](https://github.com/Reactive-Extensions/RxJS) - Search autocomplete and state changes use observables.
 - [PostCSS](https://github.com/postcss/postcss) - Transform JS styles.
-- [Webpack](https://github.com/webpack/webpack) - Bundling JS and Hot module replacement.
+- [Webpack](https://github.com/webpack/webpack) - Bundling JS and hot module replacement.
 
-<img src="http://www.kakapo.co/images/screenshot.png" width="728" height="533" />
-
-<img src="http://www.kakapo.co/images/kakapo-app-screenshot.png" width="728" height="600" />
+<img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-app/e89784bfe3c88f6c9cb243126fcca2ffb4e99e25/app/screenshots/web_app.jpg" />
 
 ## Install and build
 
