@@ -103,7 +103,7 @@
     "webpack-hot-middleware": "^2.6.0",
     "webpack-target-electron-renderer": "^0.2.0",
     "yargs": "^3.31.0",
-    "ytdl-core": "^0.7.8"
+    "ytdl-core": "^0.7.9"
   },
   "scripts": {
     "lint": "eslint app tools",
