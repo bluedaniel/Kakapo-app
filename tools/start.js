@@ -7,6 +7,8 @@ import proc from 'child_process';
 import electron from 'electron-prebuilt';
 import run from './run';
 
+process.env.NODE_ENV = JSON.stringify('development');
+
 global.WATCH = true;
 const webpackConfig = require('./webpack.config').default;
 const bundler = webpack(webpackConfig);

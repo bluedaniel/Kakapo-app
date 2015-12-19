@@ -7,10 +7,6 @@ const DEBUG = !argv.production;
 const VERBOSE = argv.verbose;
 const WATCH = global.WATCH === undefined ? false : global.WATCH;
 
-if (!DEBUG) {
-  process.env.NODE_ENV = 'production';
-}
-
 const devServer = 'http://localhost:3000';
 
 let externals = {};
@@ -41,10 +37,12 @@ let config = {
     new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': DEBUG ? '"development"' : '"production"',
+      'process.env': {
+        NODE_ENV: JSON.stringify(DEBUG ? 'development' : 'production')
+      },
       __DESKTOP__: argv.platform === 'desktop',
       __WEB__: argv.platform === 'web',
-      __DEV__: false
+      __DEV__: DEBUG
     }),
     ...(!DEBUG ? [
       new webpack.optimize.DedupePlugin(),

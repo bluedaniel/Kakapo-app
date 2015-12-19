@@ -2,7 +2,7 @@ import packager from 'electron-packager';
 import packagejson from '../package.json';
 import del from 'del';
 
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV = JSON.stringify('production');
 
 const opts = {
   'app-version': packagejson.version,

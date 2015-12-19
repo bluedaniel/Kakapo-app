@@ -22,7 +22,7 @@ class App extends Component {
     this.state = { konami: false };
 
     if (__DESKTOP__) {
-      const gradients = JSON.parse(fs.readFileSync(pathConfig.gradientFile));
+      const gradients = fs.readJsonSync(pathConfig.gradientFile);
       this.state = { ...this.state, ...{
         updateAvailable: false,
         gradient: gradients[Math.floor(Math.random() * gradients.length)]

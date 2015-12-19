@@ -1,18 +1,16 @@
-/* eslint id-length: 0 */
 import app from 'app';
-import fs from 'fs';
+import fs from 'fs-extra';
 import { ipcMain, BrowserWindow, autoUpdater } from 'electron';
 import path from 'path';
 import Tray from 'tray';
 import proc from 'child_process';
 
-let appSettings = fs.readFileSync(path.join(app.getAppPath(), 'data/settings.json'));
+let appSettings;
 try {
-  appSettings = fs.readFileSync(path.join(app.getPath('userData'), 'user-data/settings.json'));
+  appSettings = fs.readJsonSync(path.join(app.getPath('userData'), 'user-data/settings.json'));
 } catch (err) {
-  // No settings file loaded
+  appSettings = fs.readJsonSync(path.join(app.getAppPath(), 'data/settings.json'));
 }
-appSettings = JSON.parse(appSettings);
 
 const iconIdle = path.join(app.getAppPath(), 'images/tray-idle.png');
 const iconActive = path.join(app.getAppPath(), 'images/tray-active.png');
@@ -56,8 +54,8 @@ app.on('ready', () => {
   const defaults = {
     frame: false,
     height: 600,
-    resizable: false,
-    width: 360
+    resizable: process.env.NODE_ENV === '"development"',
+    width: process.env.NODE_ENV === '"development"' ? 500 : 360
   };
   appIcon.window = new BrowserWindow(defaults);
   appIcon.window.loadUrl(path.join('file://', app.getAppPath(), 'index.html'));
@@ -100,8 +98,8 @@ app.on('ready', () => {
     appIcon.window.setTitle('Kakapo');
 
     appIcon.setToolTip('Kakapo');
-    if (process.env.NODE_ENV !== 'development') {
-      // autoUpdater.setFeedUrl(`http://52.19.170.82:5000/update?version=${app.getVersion()}&platform=${process.platform}`);
+    if (process.env.NODE_ENV !== '"development"') {
+      autoUpdater.setFeedUrl(`http://52.19.170.82:5000/update?version=${app.getVersion()}&platform=${process.platform}`);
     }
   });
 

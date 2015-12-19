@@ -4,13 +4,12 @@ import { pathConfig } from '../../utils';
 
 export default {
   _fromSettings() {
-    let appSettings = fs.readFileSync(pathConfig.settingsFile, { throws: false });
+    let appSettings = fs.readJsonSync(pathConfig.settingsFile, { throws: false });
     try {
-      appSettings = fs.readFileSync(pathConfig.userSettingsFile, { throws: false });
+      appSettings = fs.readJsonSync(pathConfig.userSettingsFile, { throws: false });
     } catch (err) {
       fs.writeFile(pathConfig.userSettingsFile, appSettings);
     }
-    appSettings = JSON.parse(appSettings);
     return {
       lang: appSettings.lang || 'en',
       devTools: appSettings.devTools || false,

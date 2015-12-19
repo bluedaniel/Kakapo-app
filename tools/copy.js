@@ -2,7 +2,7 @@ import { argv } from 'yargs';
 import fs from 'fs-extra';
 import proc from 'child_process';
 
-const indexFile = process.env.NODE_ENV === 'development' ? 'index-dev' : 'index';
+const indexFile = process.env.NODE_ENV === '"development"' ? 'index-dev' : 'index';
 
 export default async function copy() {
   await fs.copy('node_modules/kakapo-assets/icons', 'build/icons', {});
