@@ -9,7 +9,6 @@ import classNames from 'classnames';
 import { soundActions } from '../../actions';
 import { Header, Nav, SoundList } from '../../components';
 import { konami, pathConfig } from '../../utils';
-import { DevTools } from '../';
 import '../../styles/base.css';
 import './app.css';
 
@@ -101,7 +100,6 @@ class App extends Component {
           </div>
           <SoundList/>
           <aside className="toast-view"></aside>
-          {__DEV__ ? <DevTools/> : null}
         </Dropzone>
       </div>
     );

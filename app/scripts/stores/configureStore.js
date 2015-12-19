@@ -1,18 +1,18 @@
 import { Observable } from 'rx';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
-import { DevTools } from '../containers';
 
 function configureStore(debug = false) {
   let createStoreWithMiddleware;
 
-  const middleware = applyMiddleware(thunk);
+  const logger = createLogger();
+  const middleware = applyMiddleware(thunk, logger);
 
   if (debug) {
     createStoreWithMiddleware = compose(
-      middleware,
-      DevTools.instrument()
+      middleware
     );
   } else {
     createStoreWithMiddleware = compose(middleware);

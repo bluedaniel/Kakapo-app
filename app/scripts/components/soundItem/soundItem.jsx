@@ -12,34 +12,34 @@ import './soundItem.css';
 class SoundItem extends Component {
   constructor(props) {
     super(props);
-    this.handleVolume = throttle(this.handleVolume.bind(this), 250);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleEdit = this.handleEdit.bind(this);
+    // this.handleVolume = throttle(this.handleVolume.bind(this), 250);
+    // this.handleToggle = this.handleToggle.bind(this);
+    // this.handleDelete = this.handleDelete.bind(this);
+    // this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentWillMount() {
     this.handleVolume = throttle(this.handleVolume, 250);
   }
 
-  handleToggle() {
+  handleToggle = () => {
     waves.ripple(this.refs.item);
     this.props.soundActions.soundsPlay(this.props.sound);
   }
 
-  handleDelete(el) {
+  handleDelete = (el) => {
     this.handleStopPropagation(el);
     this.props.soundActions.soundsRemove(this.props.sound);
   }
 
-  handleEdit(el) {
+  handleEdit = (el) => {
     this.handleStopPropagation(el);
     this.props.soundActions.soundsEdit(this.props.sound);
   }
 
-  handleVolume() {
+  handleVolume = throttle(() => {
     this.props.soundActions.soundsVolume(this.props.sound, parseFloat(this.refs.volume.value));
-  }
+  }, 250)
 
   handleStopPropagation(el) {
     el.preventDefault();
