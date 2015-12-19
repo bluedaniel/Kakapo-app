@@ -54,8 +54,8 @@ app.on('ready', () => {
   const defaults = {
     frame: false,
     height: 600,
-    resizable: process.env.NODE_ENV === '"development"',
-    width: process.env.NODE_ENV === '"development"' ? 500 : 360
+    resizable: false,
+    width: 360
   };
   appIcon.window = new BrowserWindow(defaults);
   appIcon.window.loadUrl(path.join('file://', app.getAppPath(), 'index.html'));
