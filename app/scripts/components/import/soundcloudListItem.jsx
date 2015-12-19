@@ -9,10 +9,18 @@ import { soundActions } from '../../actions';
 class SoundCloudItem extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  static contextTypes = {
+    history: PropTypes.object
+  }
+
+  static propTypes = {
+    soundActions: PropTypes.object,
+    sound: PropTypes.shape(soundcloudItemClass)
+  }
+
+  handleClick = () => {
     this.props.soundActions.addSound('soundcloud', this.props.sound.scId);
     this.context.history.push('/downloads');
   }
@@ -39,15 +47,6 @@ class SoundCloudItem extends Component {
     );
   }
 }
-
-SoundCloudItem.contextTypes = {
-  history: PropTypes.object
-};
-
-SoundCloudItem.propTypes = {
-  soundActions: PropTypes.object,
-  sound: PropTypes.shape(soundcloudItemClass)
-};
 
 const mapDispatchToProps = dispatch => ({
   soundActions: bindActionCreators(soundActions, dispatch)

@@ -4,8 +4,8 @@ import { soundClass } from '../../classes';
 import { ProgressBar } from '../ui';
 
 export default class DownloadItem extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    sound: PropTypes.shape(soundClass)
   }
 
   render() {
@@ -20,7 +20,3 @@ export default class DownloadItem extends Component {
     );
   }
 }
-
-DownloadItem.propTypes = {
-  sound: PropTypes.shape(soundClass)
-};

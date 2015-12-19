@@ -10,12 +10,10 @@ import { Image } from '../ui';
 import './soundItem.css';
 
 class SoundItem extends Component {
-  constructor(props) {
-    super(props);
-    // this.handleVolume = throttle(this.handleVolume.bind(this), 250);
-    // this.handleToggle = this.handleToggle.bind(this);
-    // this.handleDelete = this.handleDelete.bind(this);
-    // this.handleEdit = this.handleEdit.bind(this);
+  static propTypes = {
+    themes: PropTypes.object,
+    soundActions: PropTypes.object,
+    sound: PropTypes.shape(soundClass)
   }
 
   componentWillMount() {
@@ -121,12 +119,6 @@ class SoundItem extends Component {
     );
   }
 }
-
-SoundItem.propTypes = {
-  themes: PropTypes.object,
-  soundActions: PropTypes.object,
-  sound: PropTypes.shape(soundClass)
-};
 
 const mapStateToProps = state => ({
   themes: state.themes

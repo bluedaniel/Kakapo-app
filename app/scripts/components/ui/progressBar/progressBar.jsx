@@ -7,6 +7,10 @@ export default class ProgressBar extends Component {
     super(props);
   }
 
+  static propTypes = {
+    progress: PropTypes.number
+  }
+
   componentWillLeave(cb) {
     const bar = this.refs.bar;
     bar.addEventListener('transitionend', () => {
@@ -31,7 +35,3 @@ export default class ProgressBar extends Component {
     );
   }
 }
-
-ProgressBar.propTypes = {
-  progress: PropTypes.number
-};

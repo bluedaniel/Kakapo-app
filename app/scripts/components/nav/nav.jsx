@@ -7,13 +7,15 @@ import { soundActions } from '../../actions';
 import './nav.css';
 
 class Nav extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { mute: false };
-    this.handleMute = this.handleMute.bind(this);
+  static propTypes = {
+    settings: PropTypes.object,
+    soundActions: PropTypes.object,
+    themes: PropTypes.object
   }
 
-  handleMute() {
+  state = { mute: false }
+
+  handleMute = () => {
     this.setState({ mute: !this.state.mute }, () => this.props.soundActions.soundsMute(this.state.mute));
   }
 
@@ -48,12 +50,6 @@ class Nav extends Component {
     );
   }
 }
-
-Nav.propTypes = {
-  settings: PropTypes.object,
-  soundActions: PropTypes.object,
-  themes: PropTypes.object
-};
 
 const mapStateToProps = state => ({
   settings: state.settings,

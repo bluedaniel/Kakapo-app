@@ -6,8 +6,9 @@ import { Link } from 'react-router';
 import './header.css';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    themes: PropTypes.object,
+    intl: intlShape.isRequired
   }
 
   render() {
@@ -37,11 +38,6 @@ class Header extends Component {
     );
   }
 }
-
-Header.propTypes = {
-  themes: PropTypes.object,
-  intl: intlShape.isRequired
-};
 
 const mapStateToProps = state => ({
   themes: state.themes

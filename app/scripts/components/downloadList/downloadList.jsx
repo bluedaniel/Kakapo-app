@@ -5,8 +5,8 @@ import { DownloadItem } from '../';
 import './downloadList.css';
 
 export default class DownloadList extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    sounds: PropTypes.instanceOf(Map)
   }
 
   render() {
@@ -21,10 +21,6 @@ export default class DownloadList extends Component {
     );
   }
 }
-
-DownloadList.propTypes = {
-  sounds: PropTypes.instanceOf(Map)
-};
 
 const mapStateToProps = state => ({
   sounds: state.sounds

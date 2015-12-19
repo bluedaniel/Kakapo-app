@@ -8,27 +8,26 @@ import { soundClass } from '../../classes';
 import { toasterInstance } from '../../utils';
 
 class SoundEdit extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      focused: false,
-      inputName: this.props.sound.name,
-      inputTags: this.props.sound.tags
-    };
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.handleCancel = this.handleCancel.bind(this);
-    this.handleSave = this.handleSave.bind(this);
+  static propTypes = {
+    themes: PropTypes.object,
+    intl: PropTypes.object,
+    soundActions: PropTypes.object,
+    sound: PropTypes.shape(soundClass)
   }
 
-  handleCancel(el) {
+  state = {
+    loading: false,
+    focused: false,
+    inputName: this.props.sound.name,
+    inputTags: this.props.sound.tags
+  }
+
+  handleCancel = (el) => {
     el.preventDefault();
     this.props.soundActions.soundsEdit(this.props.sound, null);
   }
 
-  handleSave(el) {
+  handleSave = (el) => {
     el.preventDefault();
     if (!this.refs.name.value) {
       return toasterInstance().then(_t => _t.toast(this.props.intl.formatMessage({ id: 'import.error.empty' })));
@@ -39,7 +38,7 @@ class SoundEdit extends Component {
     });
   }
 
-  onFocus(e) {
+  onFocus = (e) => {
     this.setState({
       focused: e.target.id,
       inputName: this.refs.name.value.length,
@@ -47,7 +46,7 @@ class SoundEdit extends Component {
     });
   }
 
-  onBlur() {
+  onBlur = () => {
     this.setState({
       focused: false,
       inputName: this.refs.name.value.length,
@@ -94,13 +93,6 @@ class SoundEdit extends Component {
     );
   }
 }
-
-SoundEdit.propTypes = {
-  themes: PropTypes.object,
-  intl: PropTypes.object,
-  soundActions: PropTypes.object,
-  sound: PropTypes.shape(soundClass)
-};
 
 const mapStateToProps = state => ({
   themes: state.themes

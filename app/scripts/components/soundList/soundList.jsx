@@ -6,8 +6,8 @@ import { SoundItem, SoundEdit } from '../';
 import './soundList.css';
 
 class SoundList extends Component {
-  constructor(props) {
-    super(props);
+  static propTypes = {
+    sounds: PropTypes.instanceOf(Map)
   }
 
   renderSound(arr) {
@@ -44,10 +44,6 @@ class SoundList extends Component {
     );
   }
 }
-
-SoundList.propTypes = {
-  sounds: PropTypes.instanceOf(Map)
-};
 
 const mapStateToProps = state => ({
   sounds: state.sounds

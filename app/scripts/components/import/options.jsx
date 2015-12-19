@@ -4,10 +4,6 @@ import { Link } from 'react-router';
 import { DownloadList } from '../../components';
 
 class Options extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="modal-inner media">

@@ -3,10 +3,17 @@ import React, { Component, PropTypes } from 'react';
 export default class Checkbox extends Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange() {
+  static propTypes = {
+    checked: PropTypes.bool,
+    handleChange: PropTypes.func,
+    label: PropTypes.string,
+    name: PropTypes.string,
+    value: PropTypes.string
+  }
+
+  handleChange = () => {
     this.props.handleChange(this.refs.checkbox.checked);
   }
 
@@ -27,11 +34,3 @@ export default class Checkbox extends Component {
     );
   }
 }
-
-Checkbox.propTypes = {
-  checked: PropTypes.bool,
-  handleChange: PropTypes.func,
-  label: PropTypes.string,
-  name: PropTypes.string,
-  value: PropTypes.string
-};
