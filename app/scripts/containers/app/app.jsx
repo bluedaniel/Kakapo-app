@@ -8,7 +8,7 @@ import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { soundActions } from '../../actions';
 import { Header, Nav, SoundList } from '../../components';
-import { konami, pathConfig } from '../../utils';
+import { konami, pathConfig, toasterInstance } from '../../utils';
 import '../../styles/base.css';
 import './app.css';
 
@@ -49,7 +49,11 @@ class App extends Component {
   }
 
   onDrop(files) { // Desktop only
-    files.map(_f => soundActions.getCustomFile(_f.name, _f.path));
+    if (__DESKTOP__) {
+      files.map(_f => soundActions.getCustomFile(_f.name, _f.path));
+    } else {
+      toasterInstance().then(_t => _t.toast('You can only add desktop files with the Kakapo desktop app.'));
+    }
   }
 
   handleUpdateAvailable() { // Desktop only
