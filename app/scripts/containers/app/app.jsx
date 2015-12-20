@@ -44,9 +44,7 @@ class App extends Component {
     }
   }
 
-  konamiEntered() {
-    this.setState({ konami: !this.state.konami });
-  }
+  konamiEntered = () => this.setState({ konami: !this.state.konami });
 
   onDrop = (files) => { // Desktop only
     if (__DESKTOP__) {
@@ -56,13 +54,11 @@ class App extends Component {
     }
   }
 
-  handleUpdateAvailable() { // Desktop only
-    this.setState({ updateAvailable: true });
-  }
+  // Desktop only
+  handleUpdateAvailable = () => this.setState({ updateAvailable: true });
 
-  handleAutoUpdateClick() { // Desktop only
-    ipcRenderer.send('application:quit-install');
-  }
+  // Desktop only
+  handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
 
   renderUpload() {
     return (
