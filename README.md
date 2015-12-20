@@ -27,7 +27,7 @@ It's built using:
 
 ``` bash
 # Clone
-$ git clone https://github.com/bluedaniel/Kakapo-web.git
+$ git clone https://github.com/bluedaniel/Kakapo-app.git
 
 # Install
 $ cd Kakapo-app && npm install
