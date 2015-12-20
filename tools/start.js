@@ -5,17 +5,16 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import proc from 'child_process';
 import electron from 'electron-prebuilt';
+import webpackConfig from './webpack.config';
 import run from './run';
 
 process.env.NODE_ENV = JSON.stringify('development');
 
-global.WATCH = true;
-const webpackConfig = require('./webpack.config').default;
-const bundler = webpack(webpackConfig);
-
 export default async function start() {
   await run(require('./build'));
   await run(require('./serve'));
+
+  const bundler = webpack(webpackConfig);
 
   if (argv.platform === 'desktop') {
     proc

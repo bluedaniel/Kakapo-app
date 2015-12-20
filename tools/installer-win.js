@@ -1,5 +1,4 @@
 import archiver from 'archiver';
-import chalk from 'chalk';
 import fs from 'fs-extra';
 import os from 'os';
 import rcedit from 'rcedit';
@@ -63,7 +62,7 @@ async function winSetupExe() {
         setupExe: 'KakapoSetup-' + packagejson.version + '-Win.exe'
       }).then(resolve(console.log(`[${new Date()}] Finished winSetupExe`)));
     } else {
-      reject(console.error(chalk.bold.red('Error: `winSetupExe` can only be run on a Windows machine!')));
+      reject(console.log('Error: `winSetupExe` can only be run on a Windows machine!'));
     }
   });
 }

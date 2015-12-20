@@ -5,7 +5,6 @@ import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
 
 const DEBUG = !argv.production;
 const VERBOSE = argv.verbose;
-const WATCH = global.WATCH === undefined ? false : global.WATCH;
 
 const devServer = 'http://localhost:3000';
 
@@ -20,13 +19,13 @@ if (argv.platform === 'web') {
 
 let config = {
   entry: [
-    ...(WATCH ? [ `webpack-hot-middleware/client?path=${devServer}/__webpack_hmr` ] : []),
+    ...(DEBUG ? [ `webpack-hot-middleware/client?path=${devServer}/__webpack_hmr` ] : []),
     './app/scripts/index'
   ],
   output: {
     filename: 'index.js',
     path: path.join(__dirname, '../build'),
-    publicPath: WATCH && argv.platform === 'desktop' ? devServer : '/'
+    publicPath: DEBUG && argv.platform === 'desktop' ? devServer : '/'
   },
   target: argv.platform === 'web' ? 'web' : 'atom',
   externals: externals,
@@ -52,11 +51,10 @@ let config = {
         }
       }),
       new webpack.optimize.AggressiveMergingPlugin()
-    ] : []),
-    ...(WATCH ? [
+    ] : [
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
-    ] : [])
+    ])
   ],
   module: {
     loaders: [
@@ -72,8 +70,12 @@ let config = {
         loader: 'url-loader?limit=100000'
       },
       {
-        test: /\.(jpg|ttf|eot|svg|woff|woff2)$/,
+        test: /\.(jpg)$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.(ttf|eot|svg|woff|woff2)$/,
+        loader: 'file-loader?name=fonts/[hash].[ext]'
       },
       {
         test: /\.json$/,
