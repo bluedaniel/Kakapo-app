@@ -1,12 +1,19 @@
-@import "normalize.css/normalize";
-@import "skeleton/css/skeleton";
+@import "purecss/build/base";
+@import "purecss/build/grids";
+@import "purecss/build/grids-responsive";
+@import "purecss/build/buttons";
 @import "animate.css/animate";
-@import "./emoji";
+@import "../scripts/styles/fonts";
+@import "../scripts/styles/type";
+@import "../scripts/styles/emoji";
 
 body {
   background: linear-gradient(90deg, #de6262 10%, #ffb88c 90%);
   color: #fff;
-  font-family: 'Open Sans', sans-serif;
+}
+.pure-g {
+  margin: 0 auto;
+  max-width: 960px;
 }
 a,
 a:hover {
@@ -15,7 +22,7 @@ a:hover {
 h1 {
   font-weight: 700;
 }
-.button {
+.pure-button {
   border-radius: 100px;
 }
 .share {
@@ -84,7 +91,7 @@ h1 {
   }
 }
 .intro {
-  .row {
+  .pure-g {
     margin: 0 auto;
     max-width: 400px;
   }
@@ -162,7 +169,7 @@ h1 {
     font-size: 2rem;
   }
   .section {
-    padding: 14rem 0 15rem;
+    padding: 9rem 0 10rem;
   }
   .section-description {
     margin-left: auto;

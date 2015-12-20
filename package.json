@@ -110,6 +110,7 @@
     "bundle": "babel-node tools/run bundle",
     "build": "babel-node tools/run build",
     "deploy": "babel-node tools/run deploy",
+    "css": "babel-node tools/run css",
     "serve": "babel-node tools/run serve",
     "pkg": "babel-node tools/run pkg",
     "installer-mac": "babel-node tools/run installer-mac",
