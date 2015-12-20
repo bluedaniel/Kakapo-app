@@ -16,6 +16,7 @@ export default async function copy() {
     await fs.copy('./node_modules/kakapo-assets/sounds', 'build/sounds', {});
     await fs.copy('./node_modules/kakapo-assets/data', 'build/data', {});
   }
+
   if (argv.platform === 'web') {
     await fs.copy('app/html/web', 'build', {});
     await fs.copy('app/favicons', 'build/favicons', {});

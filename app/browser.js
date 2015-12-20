@@ -1,5 +1,5 @@
 import app from 'app';
-import fs from 'fs-extra';
+import fs from 'fs';
 import { ipcMain, BrowserWindow, autoUpdater } from 'electron';
 import path from 'path';
 import Tray from 'tray';
@@ -7,10 +7,11 @@ import proc from 'child_process';
 
 let appSettings;
 try {
-  appSettings = fs.readJsonSync(path.join(app.getPath('userData'), 'user-data/settings.json'));
+  appSettings = fs.readFileSync(path.join(app.getPath('userData'), 'user-data/settings.json'));
 } catch (err) {
-  appSettings = fs.readJsonSync(path.join(app.getAppPath(), 'data/settings.json'));
+  appSettings = fs.readFileSync(path.join(app.getAppPath(), 'data/settings.json'));
 }
+appSettings = JSON.parse(appSettings);
 
 const iconIdle = path.join(app.getAppPath(), 'images/tray-idle.png');
 const iconActive = path.join(app.getAppPath(), 'images/tray-active.png');

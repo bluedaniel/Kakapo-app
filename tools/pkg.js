@@ -1,8 +1,6 @@
 import packager from 'electron-packager';
-import packagejson from '../package.json';
 import del from 'del';
-
-process.env.NODE_ENV = JSON.stringify('production');
+import packagejson from '../package.json';
 
 const opts = {
   'app-version': packagejson.version,
@@ -10,14 +8,13 @@ const opts = {
   dir: 'build',
   icon: 'build/images/app',
   name: 'Kakapo',
-  version: '0.34.0',
+  version: '0.36.1',
   ignore: [
     '/user-data($|/)'
   ]
 };
 
 export default async function pkg() {
-  await require('./build')();
   await del('release');
   await Promise.all([ 'linux', 'win32', 'darwin' ].map(plat =>
     new Promise((resolve, reject) =>
