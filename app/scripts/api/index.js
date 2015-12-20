@@ -17,7 +17,12 @@ export function getDefaultSounds() {
       resolve(data);
     }));
   }
-  return axios.get('http://data.kakapo.co/v2/data/sounds.json');
+
+  let defaultSounds = axios.get('http://data.kakapo.co/v2/data/sounds.json');
+
+  return new Promise(resolve => {
+    new Promise(res => window.onYouTubeIframeAPIReady = res(true)).then(resolve(defaultSounds));
+  });
 }
 
 export function createSoundObj(sound) {

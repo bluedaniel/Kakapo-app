@@ -7,16 +7,14 @@ import rootReducer from '../reducers';
 function configureStore(debug = false) {
   let createStoreWithMiddleware;
 
-  const logger = createLogger();
-  const middleware = applyMiddleware(thunk, logger);
+  let middleware = applyMiddleware(thunk);
 
   if (debug) {
-    createStoreWithMiddleware = compose(
-      middleware
-    );
-  } else {
-    createStoreWithMiddleware = compose(middleware);
+    const logger = createLogger();
+    middleware = applyMiddleware(thunk, logger);
   }
+
+  createStoreWithMiddleware = compose(middleware);
 
   const store = createStoreWithMiddleware(createStore)(
     rootReducer,
