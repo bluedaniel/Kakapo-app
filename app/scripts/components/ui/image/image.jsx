@@ -1,13 +1,11 @@
-import React, { PropTypes } from "react";
+import React, { PropTypes } from 'react';
 
-export default React.createClass({
-  propTypes: {
-    img: PropTypes.string
-  },
-  render() {
-    const img = this.props.img;
-    return (
-      <img ref="icon" src={img}/>
-    );
-  }
-});
+export default function Image({ img }) {
+  return (
+    <img src={img}/>
+  );
+}
+
+Image.propTypes = {
+  img: PropTypes.string
+};

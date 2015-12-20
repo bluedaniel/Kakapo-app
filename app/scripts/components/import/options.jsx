@@ -1,37 +1,44 @@
-import React from "react";
-import Reflux from "reflux";
-import classNames from "classnames";
-import { IntlMixin } from "react-intl";
-import { Link } from "react-router";
-import { Sounds } from "../../stores";
-import { DownloadList } from "../../components";
+import React, { Component } from 'react';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
+import { DownloadList } from '../../components';
 
-export default React.createClass({
-  mixins: [ IntlMixin, Reflux.connect(Sounds, "sounds") ],
+class Options extends Component {
   render() {
-    const activeDownloads = this.state.sounds.filter(_s => _s.recentlyDownloaded);
     return (
-      <div className="media">
-        <div className="options-kakapo">
-          <h5>{this.getIntlMessage("import.options.header")}</h5>
-          <p>{this.getIntlMessage("import.options.dragndrop")}</p>
-          <Link className="option options-kakapo" to="/downloads/kakapo">
-            <i className="icon-kakapo"/> {this.getIntlMessage("import.options.kakapo")}
-          </Link>
-          <Link className="option options-custom" to="/downloads/custom">
-            <i className="icon-file dark"/> {this.getIntlMessage("import.options.custom")}
-          </Link>
-          <Link className="option options-youtube" to="/downloads/youtube">
-            <i className="icon-youtube"/> {this.getIntlMessage("import.options.youtube")}
-          </Link>
-          <Link className="option options-soundcloud" to="/downloads/soundcloud">
-            <i className="icon-soundcloud"/> {this.getIntlMessage("import.options.soundcloud")}
-          </Link>
-        </div>
-        <div className={classNames("download-wrap", {"active": activeDownloads.count()})}>
-          <DownloadList sounds={activeDownloads}/>
+      <div className="modal-inner media">
+        <ul className="option-ul">
+          <li className="option options-kakapo">
+            <Link to="/downloads/kakapo">
+              <i className="icon-kakapo"/>
+              <span className="text"><FormattedMessage id="import.options.kakapo"/></span>
+            </Link>
+          </li>
+          <li className="option options-youtube">
+            <Link to="/downloads/youtube">
+              <i className="icon-youtube"/>
+              <span className="text"><FormattedMessage id="import.options.youtube"/></span>
+            </Link>
+          </li>
+          <li className="option options-soundcloud">
+            <Link to="/downloads/soundcloud">
+              <i className="icon-soundcloud"/>
+              <span className="text"><FormattedMessage id="import.options.soundcloud"/></span>
+            </Link>
+          </li>
+          <li className="option options-custom" >
+            <Link to="/downloads/custom">
+              <i className="icon-file dark"/>
+              <span className="text"><FormattedMessage id="import.options.custom"/></span>
+            </Link>
+          </li>
+        </ul>
+        <div className="download-wrap">
+          <DownloadList/>
         </div>
       </div>
     );
   }
-});
+}
+
+export default injectIntl(Options);

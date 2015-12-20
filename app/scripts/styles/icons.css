@@ -14,7 +14,6 @@ i {
     background-image: url("../../../node_modules/kakapo-assets/icons/dark/add.png");
   }
 }
-
 .icon-download {
   background-image: url("../../../node_modules/kakapo-assets/icons/light/download.png");
   &.dark {

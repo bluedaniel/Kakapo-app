@@ -1,75 +1,117 @@
-import ipc from "ipc";
-import fs from "fs-extra";
-import remote from "remote";
-import React from "react";
-import Reflux from "reflux";
-import Dropzone from "react-dropzone";
-import { soundActions } from "../../actions";
-import { Settings, Sounds } from "../../stores";
-import { Header, Nav, SoundList } from "../../components";
-import { pathConfig } from "../../utils";
-import "../../styles/base.css";
-import "./app.css";
+import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { ipcRenderer, remote } from 'electron';
+import fs from 'fs-extra';
+import Dropzone from 'react-dropzone';
+import classNames from 'classnames';
+import { soundActions } from '../../actions';
+import { Header, Nav, SoundList } from '../../components';
+import { konami, pathConfig, toasterInstance } from '../../utils';
+import '../../styles/base.css';
+import './app.css';
 
-const autoUpdater = remote.require("auto-updater");
+let autoUpdater;
+if (__DESKTOP__) autoUpdater = remote.autoUpdater;
 
-export default React.createClass({
-  propTypes: {
-    children: React.PropTypes.object
-  },
-  mixins: [ Reflux.connect(Sounds, "sounds"), Reflux.connect(Settings, "settings") ],
-  getInitialState() {
-    const gradients = JSON.parse(fs.readFileSync(pathConfig.gradientFile));
-    return {
-      updateAvailable: false,
-      gradient: gradients[Math.floor(Math.random() * gradients.length)]
-    };
-  },
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { konami: false };
+
+    if (__DESKTOP__) {
+      const gradients = fs.readJsonSync(pathConfig.gradientFile);
+      this.state = { ...this.state, ...{
+        updateAvailable: false,
+        gradient: gradients[Math.floor(Math.random() * gradients.length)]
+      } };
+    }
+  }
+
+  static propTypes = {
+    children: PropTypes.object,
+    soundActions: PropTypes.object
+  }
+
   componentDidMount() {
-    ipc.on("application:update-available", this.handleUpdateAvailable);
-    autoUpdater.checkForUpdates();
-  },
-  onDrop(files) {
-    files.map(_f => soundActions.getCustomFile(_f.name, _f.path));
-  },
-  handleUpdateAvailable() {
-    this.setState({
-      updateAvailable: true
-    });
-  },
-  handleAutoUpdateClick() {
-    ipc.send("application:quit-install");
-  },
-  render() {
+    this.props.soundActions.soundsInit();
+    konami.subscribe(this.konamiEntered);
+
+    if (__DESKTOP__) {
+      ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
+      autoUpdater.checkForUpdates();
+    }
+  }
+
+  konamiEntered() {
+    this.setState({ konami: !this.state.konami });
+  }
+
+  onDrop = (files) => { // Desktop only
+    if (__DESKTOP__) {
+      files.map(_f => this.props.soundActions.addLocalSound(_f.name, _f.path));
+    } else {
+      toasterInstance().then(_t => _t.toast('You can only add desktop files with the Kakapo desktop app.'));
+    }
+  }
+
+  handleUpdateAvailable() { // Desktop only
+    this.setState({ updateAvailable: true });
+  }
+
+  handleAutoUpdateClick() { // Desktop only
+    ipcRenderer.send('application:quit-install');
+  }
+
+  renderUpload() {
     return (
-      <Dropzone
-        className="inactiveDrop"
-        activeClassName="activeDrop"
-        disableClick onDrop={this.onDrop}
+      <div
+        className="upload-files"
+        style={{
+          background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
+        }}
       >
-        <div
-          className="upload-files"
-          style={{
-            background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
-          }}
-        >
-          <div className="inner">
-            <h3><i className="icon-add"></i></h3>
-            <p className="text">Drop files to upload</p>
-            <a className="gradient-name" href="http://uigradients.com" target="_blank">
-              Gradient: {this.state.gradient.name}
-            </a>
-          </div>
+        <div className="inner">
+          <h3><i className="icon-add"></i></h3>
+          <p className="text">Drop files to upload</p>
+          <a className="gradient-name" href="http://uigradients.com" target="_blank">
+            Gradient: {this.state.gradient.name}
+          </a>
         </div>
-        {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
-        <Nav/>
-        <Header {...this.state.settings.intlData}/>
-        <div className="container">
-          <SoundList sounds={this.state.sounds} {...this.state.settings.intlData}/>
-          {this.props.children && React.cloneElement(this.props.children, {...this.state.settings.intlData})}
-          <aside className="toast-view"></aside>
-        </div>
-      </Dropzone>
+      </div>
     );
   }
+
+  render() {
+    return (
+      <div className={classNames('app-container', {
+        web: __WEB__,
+        desktop: __DESKTOP__
+      })}>
+        <Dropzone
+          className="inactiveDrop"
+          activeClassName="activeDrop"
+          disableClick onDrop={this.onDrop}
+        >
+          {__DESKTOP__ ? this.renderUpload() : null}
+          {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
+          <Nav/>
+          <Header/>
+          <div className="container">
+            {this.props.children && React.cloneElement(this.props.children)}
+            {this.props.children ? (<Link className="modal-bg" to="/"/>) : null}
+          </div>
+          <SoundList/>
+          <aside className="toast-view"></aside>
+        </Dropzone>
+      </div>
+    );
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  soundActions: bindActionCreators(soundActions, dispatch)
 });
+
+export default connect(() => ({}), mapDispatchToProps)(App);

@@ -1,4 +1,4 @@
-import { PropTypes } from "react";
+import { PropTypes } from 'react';
 
 export default {
   desc: PropTypes.string,
@@ -6,7 +6,7 @@ export default {
   img: PropTypes.string,
   name: PropTypes.string.isRequired,
   tags: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  scId: PropTypes.number.isRequired,
   userAvatar: PropTypes.string,
   viewCount: PropTypes.number
 };

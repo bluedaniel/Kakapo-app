@@ -20,4 +20,9 @@
     transform: rotate(3deg) translate(0, -4px);
     width: 100px;
   }
+  &.finish {
+    .bar {
+      background: #4CAF50;
+    }
+  }
 }

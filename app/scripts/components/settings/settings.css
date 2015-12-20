@@ -4,9 +4,6 @@
     border-top: 1px solid #efefef;
     display: flex;
     padding: 1.1em 0;
-    &:last-child {
-      padding-bottom: 0;
-    }
     span:first-child {
       flex: 1.75 0 0;
     }
@@ -22,23 +19,25 @@
     }
     .github,
     .icon-github {
-      float: left;
       height: 48px;
       width: 48px;
     }
     .icon-quit {
-      height: 24px;
-      margin-right: 13px;
-      width: 24px;
+      margin-right: 5px;
+      height: 23px;
+      width: 23px;
     }
-  }
-  .version {
-    cursor: default;
-    float: right;
-    font-size: .8em;
-    font-style: italic;
-    margin: 0;
-    text-align: right;
-    width: 100%;
+    &.first {
+      border-top: 0;
+      padding-top: 0;
+    }
+    &.opt-repo {
+      display: block;
+      padding-bottom: 0;
+      .version {
+        float: right;
+        font-size: 14px;
+      }
+    }
   }
 }

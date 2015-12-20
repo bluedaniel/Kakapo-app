@@ -2,10 +2,11 @@
 .soundcloud {
   .spinner {
     height: 20px;
-    margin: 9px 10px;
+    margin: 0;
     opacity: 0;
     position: absolute;
-    right: 20px;
+    right: 5px;
+    top: 20px;
     transition: opacity .5 ease;
     width: 20px;
     &.active {
@@ -61,7 +62,7 @@
   cursor: pointer;
   height: 40px;
   margin-bottom: 35px;
-  @media (min-width: 550px) {
+  @media (min-width: 568px) {
     float: left;
     width: 50%;
   }

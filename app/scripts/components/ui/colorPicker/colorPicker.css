@@ -1,12 +1,9 @@
 .color-picker {
   border: 1px solid #efefef;
   display: none;
-  height: 350px;
-  left: 50%;
-  margin-left: -140px;
-  overflow: scroll;
+  left: 10px;
   position: absolute;
-  top: 25%;
+  top: 75px;
   width: 280px;
   z-index: 60;
   &.active {
@@ -14,7 +11,7 @@
   }
   > div {
     float: left;
-    padding-bottom: 25%;
-    width: 25%;
+    padding-bottom: 20%;
+    width: 20%;
   }
 }

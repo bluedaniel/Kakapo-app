@@ -9,12 +9,34 @@
   padding: 20px 25px 20px 75px;
   position: relative;
   transition: opacity, background-color $animation-speed ease;
-  img {
+  &.youtube-stream & .app-container.web {
+    min-height: 185px;
+    * {
+      z-index: 2;
+    }
+    input {
+      position: relative;
+    }
+    .youtube-video {
+      left: 0;
+      opacity: .4;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 1;
+    }
+  }
+  img,
+  .no-image {
     height: 44px;
     left: 12px;
     position: absolute;
     top: 23px;
     width: 44px;
+  }
+  .no-image {
+    background: linear-gradient(to left, #232526 , #414345);
   }
   [type="range"] {
     display: none;

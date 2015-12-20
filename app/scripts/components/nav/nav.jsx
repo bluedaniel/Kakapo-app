@@ -1,33 +1,63 @@
-import React from "react";
-import Reflux from "reflux";
-import classNames from "classnames";
-import { soundActions } from "../../actions";
-import { Theme } from "../../stores";
-import "./nav.css";
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { soundActions } from '../../actions';
+import './nav.css';
 
-export default React.createClass({
-  mixins: [ Reflux.connect(Theme, "theme") ],
-  getInitialState() {
-    return { mute: false };
-  },
-  handleMute() {
-    this.setState({ mute: !this.state.mute }, () => soundActions.toggleMute(this.state.mute));
-  },
+class Nav extends Component {
+  static propTypes = {
+    settings: PropTypes.object,
+    soundActions: PropTypes.object,
+    themes: PropTypes.object
+  }
+
+  state = { mute: false }
+
+  handleMute = () => {
+    this.setState({ mute: !this.state.mute }, () => this.props.soundActions.soundsMute(this.state.mute));
+  }
+
+  renderDragOrDownload() {
+    if (__DESKTOP__) {
+      return (<span className="drag"/>);
+    }
+    return (
+      <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank">
+        <FormattedMessage id="nav.app"/>
+      </a>
+    );
+  }
+
   render() {
     return (
-      <div className={classNames("topbar", {
-        "dark": this.state.theme.darkUI
-      })} style={this.state.theme.header.download}>
-        <span className={classNames("mute", {
-          "muted": this.state.mute,
-          "dark": this.state.theme.darkUI
-        })} onClick={this.handleMute}/>
-        <span className="drag"/>
-        <a className="facebook" href="https://www.facebook.com/dialog/share?app_id=1663218660581932&redirect_uri=http://kakapo.co&href=http://kakapo.co" target="_blank"/>
-        <a className="twitter" href="https://twitter.com/intent/tweet?text=Kakapo%20is%20neat!%20%F0%9F%98%80&url=http://kakapo.co" target="_blank"/>
-        <a className="email" href="mailto:?subject=Kakapo&body=http://kakapo.co" target="_blank"/>
-        <a className="github" href="http://github.com/bluedaniel/kakapo-app" target="_blank"/>
+      <div className={classNames('topbar', {
+        dark: this.props.themes.get('darkUI')
+      })} style={this.props.themes.getIn([ 'header', 'download' ]).toJS()}>
+        <div className="container">
+          <span className={classNames('mute', {
+            muted: this.state.mute,
+            dark: this.props.themes.get('darkUI')
+          })} onClick={this.handleMute}/>
+          {this.renderDragOrDownload()}
+          <div className="share">
+            {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"/> : null}
+            <a href="https://twitter.com/share" className="twitter-share-button" data-url="http://www.kakapo.co">Tweet</a>
+          </div>
+        </div>
       </div>
     );
   }
+}
+
+const mapStateToProps = state => ({
+  settings: state.settings,
+  themes: state.themes
 });
+
+const mapDispatchToProps = dispatch => ({
+  soundActions: bindActionCreators(soundActions, dispatch)
+});
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Nav));
