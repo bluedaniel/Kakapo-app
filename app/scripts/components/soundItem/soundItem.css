@@ -9,24 +9,6 @@
   padding: 20px 25px 20px 75px;
   position: relative;
   transition: opacity, background-color $animation-speed ease;
-  &.youtube-stream & .app-container.web {
-    min-height: 185px;
-    * {
-      z-index: 2;
-    }
-    input {
-      position: relative;
-    }
-    .youtube-video {
-      left: 0;
-      opacity: .4;
-      pointer-events: none;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      z-index: 1;
-    }
-  }
   img,
   .no-image {
     height: 44px;
@@ -117,8 +99,27 @@
   }
 }
 
+.app-container.web .item.youtube-stream {
+  min-height: 185px;
+  * {
+    z-index: 2;
+  }
+  input {
+    position: relative;
+  }
+  .youtube-video {
+    left: 0;
+    opacity: .4;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }
+}
+
 :root {
-  --volumeColor: white;
+  --volumeColor: #fff;
 }
 
 [type=range] {
