@@ -1,4 +1,4 @@
-<img src="http://www.kakapo.co/icons/social/kakapo.png" width="128" height="128" align="right" />
+<img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/icons/social/kakapo.png" width="128" height="128" align="right" />
 
 [Kakapo](http://kakapo.co) is an open source ambient sound mixer for relaxation or productivity.
 
@@ -21,7 +21,7 @@ It's built using:
 - [PostCSS](https://github.com/postcss/postcss) - Transform JS styles.
 - [Webpack](https://github.com/webpack/webpack) - Bundling JS and hot module replacement.
 
-<img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-app/e89784bfe3c88f6c9cb243126fcca2ffb4e99e25/app/screenshots/web_app.jpg" />
+<img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/images/screenshots/web_app.jpg" />
 
 ## Install and build
 
