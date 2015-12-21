@@ -13,8 +13,8 @@ try {
 }
 appSettings = JSON.parse(appSettings);
 
-const iconIdle = path.join(app.getAppPath(), 'images/tray-idle.png');
-const iconActive = path.join(app.getAppPath(), 'images/tray-active.png');
+const iconIdle = path.join(app.getAppPath(), 'images/desktop/tray-idle.png');
+const iconActive = path.join(app.getAppPath(), 'images/desktop/tray-active.png');
 
 const updateCmd = function updateCmd(args, cb) {
   const updateExe = path.resolve(path.dirname(process.execPath), '..', 'Update.exe');
