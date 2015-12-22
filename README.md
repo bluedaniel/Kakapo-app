@@ -23,7 +23,7 @@ It's built using:
 
 <img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/images/screenshots/web_app.jpg" />
 
-## Install and build
+## Install and run
 
 ``` bash
 # Clone
@@ -40,6 +40,19 @@ $ npm start -- --platform=web
 ```
 
 Both the website and desktop app should automatically open and have hot module enabled for live changes.
+
+## Build for production
+
+``` bash
+# Build website
+$ npm run build -- --platform=web --production
+
+# Build desktop
+$ npm run build -- --platform=desktop --production
+
+# Sign apps and zip after desktop build
+$ npm run installer-mac && npm run installer-win
+```
 
 ## Contribute
 You are most welcome to do with this repo what you will :smile:.
