@@ -9,7 +9,7 @@ async function winRcedit() {
   return await new Promise(resolve => {
     console.log(`[${new Date()}] Starting winRcedit ...`);
     rcedit('release/win32/Kakapo-win32-x64/Kakapo.exe', {
-      icon: 'app/images/app.ico',
+      icon: 'node_modules/kakapo-assets/images/desktop/app.ico',
       'file-version': packagejson.version,
       'product-version': packagejson.version,
       'version-string': {
@@ -52,9 +52,9 @@ async function winSetupExe() {
         appDirectory: 'release/win32/Kakapo-win32-x64',
         outputDirectory: 'release',
         authors: 'Daniel Levitt',
-        loadingGif: 'app/images/loading.gif',
-        setupIcon: 'app/images/app.ico',
-        iconUrl: 'https://raw.githubusercontent.com/bluedaniel/Kakapo-app/master/app/app.ico',
+        loadingGif: 'node_modules/kakapo-assets/images/desktop/loading.gif',
+        setupIcon: 'node_modules/kakapo-assets/images/desktop/app.ico',
+        iconUrl: 'https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/images/desktop/app.ico',
         description: 'Kakapo',
         title: 'Kakapo',
         exe: 'Kakapo.exe',
