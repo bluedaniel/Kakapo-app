@@ -32,6 +32,11 @@ $ git clone https://github.com/bluedaniel/Kakapo-app.git
 # Install
 $ cd Kakapo-app && npm install
 
+# Convert .mp3 files to .ogg with ffmpeg
+$ brew install ffmpeg --with-libvpx --with-libvorbis
+$ cd node_modules/kakapo-assets
+$ sh mp3-to-ogg.sh
+
 # Run desktop
 $ npm start -- --platform=desktop
 

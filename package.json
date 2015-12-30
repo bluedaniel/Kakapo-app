@@ -48,7 +48,7 @@
     "intl": "^1.0.0",
     "jasmine-core": "^2.4.1",
     "json-loader": "^0.5.3",
-    "kakapo-assets": "git+https://github.com/bluedaniel/Kakapo-assets.git",
+    "kakapo-assets": "^5.2.0",
     "karma": "^0.13.11",
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^0.2.2",

@@ -13,7 +13,9 @@ export default async function copy() {
     await fs.copy('package.json', 'build/package.json', {});
     await fs.copy('app/html/desktop/loading.css', 'build/loading.css', {});
     await fs.copy(`app/html/desktop/${indexFile}.html`, 'build/index.html', {});
-    await fs.copy('./node_modules/kakapo-assets/sounds', 'build/sounds', {});
+    await fs.copySync('./node_modules/kakapo-assets/sounds', 'build/sounds', {
+      filter: /.ogg$/i
+    });
     await fs.copy('./node_modules/kakapo-assets/data', 'build/data', {});
   }
 
