@@ -1,15 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { AddMedia, App } from '../containers';
-
-import {
-  Settings,
-  ImportOptions,
-  ImportKakapo,
-  ImportYouTube,
-  ImportCustomUrl,
-  ImportSoundCloud
-} from '../components';
+import { AddMedia, App, Settings } from '../containers';
+import { ImportOptions, ImportKakapo, ImportYouTube, ImportCustomUrl, ImportSoundCloud } from '../components';
 
 export default (
   <Route component={App} path="/">
