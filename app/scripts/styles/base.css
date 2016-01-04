@@ -18,7 +18,6 @@
 @import "./modal";
 @import "./search";
 @import "./media";
-@import "./hint";
 @import "./update";
 
 .initial-loading {

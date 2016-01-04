@@ -36,10 +36,14 @@ class Nav extends Component {
         dark: this.props.themes.get('darkUI')
       })} style={this.props.themes.getIn([ 'header', 'download' ]).toJS()}>
         <div className="container">
-          <span className={classNames('mute', {
-            muted: this.state.mute,
-            dark: this.props.themes.get('darkUI')
-          })} onClick={this.handleMute}/>
+          <span
+            className={classNames('mute', 'hint--right', {
+              muted: this.state.mute,
+              dark: this.props.themes.get('darkUI')
+            })}
+            data-hint={this.state.mute ? 'Unmute' : 'Mute'}
+            onClick={this.handleMute}
+          />
           {this.renderDragOrDownload()}
           <div className="share">
             {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"/> : null}

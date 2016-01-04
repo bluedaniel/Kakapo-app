@@ -48,6 +48,9 @@
     margin: 10px 0 0;
     max-height: 400px;
     overflow: scroll;
+    .kakapo-item {
+      width: 100%;
+    }
   }
   &.downloads {
     margin-left: 10px;

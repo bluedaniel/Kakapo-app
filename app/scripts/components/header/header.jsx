@@ -16,10 +16,13 @@ class Header extends Component {
       <header className="header" style={this.props.themes.getIn([ 'header', 'titlebar' ]).toJS()}>
         <div className="container">
           <div className="titlebar">
-            <Link title={this.props.intl.formatMessage({ id: 'nav.downloads' })} to="/downloads">
-              <i className={classNames('icon-add', {
-                dark: this.props.themes.get('darkUI')
-              })}/>
+            <Link to="/downloads">
+              <i
+                className={classNames('icon-add', 'hint--right', {
+                  dark: this.props.themes.get('darkUI')
+                })}
+                data-hint={this.props.intl.formatMessage({ id: 'nav.downloads' })}
+              />
             </Link>
             <Link className="logo" to="/">
               <h3 style={this.props.themes.getIn([ 'header', 'h3' ]).toJS()}>
@@ -28,9 +31,12 @@ class Header extends Component {
               </h3>
             </Link>
             <Link title={this.props.intl.formatMessage({ id: 'nav.settings' })} to="/settings">
-              <i className={classNames('icon-settings', {
-                dark: this.props.themes.get('darkUI')
-              })}/>
+              <i
+                className={classNames('icon-settings', 'hint--left', {
+                  dark: this.props.themes.get('darkUI')
+                })}
+                data-hint={this.props.intl.formatMessage({ id: 'nav.settings' })}
+              />
             </Link>
           </div>
         </div>
