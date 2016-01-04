@@ -45,7 +45,7 @@ class CustomUrl extends Component {
       source: 'customStream',
       icon: ''
     });
-    this.context.history.push('/downloads');
+    this.context.history.push('/');
   }
 
   handleError = (msg, intl=true) => {

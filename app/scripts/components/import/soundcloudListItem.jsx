@@ -22,7 +22,7 @@ class SoundCloudItem extends Component {
 
   handleClick = () => {
     this.props.soundActions.addSound('soundcloud', this.props.sound.scId);
-    this.context.history.push('/downloads');
+    this.context.history.push('/');
   }
 
   render() {

@@ -23,7 +23,7 @@ class YouTubeItem extends Component {
       title: this.props.sound.name,
       tags: this.props.sound.tags
     });
-    this.context.history.push('/downloads');
+    this.context.history.push('/');
   }
 
   render() {

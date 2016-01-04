@@ -18,7 +18,7 @@ class Header extends Component {
           <div className="titlebar">
             <Link to="/downloads">
               <i
-                className={classNames('icon-add', 'hint--right', {
+                className={classNames('icon-add', 'hint--bottom-right', {
                   dark: this.props.themes.get('darkUI')
                 })}
                 data-hint={this.props.intl.formatMessage({ id: 'nav.downloads' })}
@@ -32,7 +32,7 @@ class Header extends Component {
             </Link>
             <Link title={this.props.intl.formatMessage({ id: 'nav.settings' })} to="/settings">
               <i
-                className={classNames('icon-settings', 'hint--left', {
+                className={classNames('icon-settings', 'hint--bottom', {
                   dark: this.props.themes.get('darkUI')
                 })}
                 data-hint={this.props.intl.formatMessage({ id: 'nav.settings' })}

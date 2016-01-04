@@ -76,8 +76,12 @@ const soundReducers = {
   },
 
   soundDownloaded(state, sound) {
+    sound = { ...sound, ...{
+      progress: 1,
+      playing: true
+    } };
     toasterInstance().then(_t => _t.toast(`${sound.name} has been added.`));
-    state = state.set(sound.file, { ...sound, ...{ progress: 1 } });
+    state = state.set(sound.file, sound);
     howls = howls.set(sound.file, createSoundObj(sound));
     if (mute) this.toggleMute(state, mute);
     return state;
