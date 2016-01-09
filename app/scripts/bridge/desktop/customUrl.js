@@ -50,19 +50,16 @@ const actions = {
     if (data.source !== 'file') {
       const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-      if (!validHowl(data.url)) {
-        ee.emit('error', validHowl(data.url, true));
+      if (!validHowl(data.file)) {
+        ee.emit('error', validHowl(data.file, true));
         return ee;
       }
 
-      newSound = { ...newSoundClass, ... {
-        file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(data.url).substring(1)}`),
-        img: data.icon,
-        name: data.name,
-        source: data.source
+      newSound = { ...newSoundClass, ...data, ... {
+        file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(data.file).substring(1)}`)
       } };
 
-      request(data.url)
+      request(data.file)
       .on('response', res => {
         fileSize = res.headers['content-length'];
         if (!fileSize) {

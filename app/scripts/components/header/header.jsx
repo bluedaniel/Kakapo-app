@@ -15,30 +15,36 @@ class Header extends Component {
     return (
       <header className="header" style={this.props.themes.getIn([ 'header', 'titlebar' ]).toJS()}>
         <div className="container">
-          <div className="titlebar">
-            <Link to="/downloads">
-              <i
-                className={classNames('icon-add', 'hint--bottom-right', {
-                  dark: this.props.themes.get('darkUI')
-                })}
-                data-hint={this.props.intl.formatMessage({ id: 'nav.downloads' })}
-              />
-            </Link>
-            <Link className="logo" to="/">
-              <h3 style={this.props.themes.getIn([ 'header', 'h3' ]).toJS()}>
-                <img src={require('kakapo-assets/icons/social/kakapo.png')}/>
-                Kakapo
-              </h3>
-            </Link>
-            <Link title={this.props.intl.formatMessage({ id: 'nav.settings' })} to="/settings">
-              <i
-                className={classNames('icon-settings', 'hint--bottom', {
-                  dark: this.props.themes.get('darkUI')
-                })}
-                data-hint={this.props.intl.formatMessage({ id: 'nav.settings' })}
-              />
-            </Link>
-          </div>
+          <Link to="/downloads">
+            <i
+              className={classNames('icon-add', 'hint--bottom-right', {
+                dark: this.props.themes.get('darkUI')
+              })}
+              data-hint={this.props.intl.formatMessage({ id: 'nav.downloads' })}
+            />
+          </Link>
+          <Link to="/playlist">
+            <i
+              className={classNames('icon-playlist', 'hint--bottom-right', {
+                dark: this.props.themes.get('darkUI')
+              })}
+              data-hint={this.props.intl.formatMessage({ id: 'nav.playlist' })}
+            />
+          </Link>
+          <Link className="logo" to="/">
+            <h3 style={this.props.themes.getIn([ 'header', 'h3' ]).toJS()}>
+              <img src={require('kakapo-assets/icons/social/kakapo.png')}/>
+              Kakapo
+            </h3>
+          </Link>
+          <Link title={this.props.intl.formatMessage({ id: 'nav.settings' })} to="/settings">
+            <i
+              className={classNames('icon-settings', 'hint--bottom', {
+                dark: this.props.themes.get('darkUI')
+              })}
+              data-hint={this.props.intl.formatMessage({ id: 'nav.settings' })}
+            />
+          </Link>
         </div>
       </header>
     );

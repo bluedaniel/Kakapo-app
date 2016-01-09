@@ -34,3 +34,8 @@ hr {
     flex: 1;
   }
 }
+.pure-button {
+  background-color: transparent;
+  border-radius: 4px;
+  border: 1px solid #bbb;
+}

@@ -41,9 +41,8 @@ class CustomUrl extends Component {
 
     this.props.soundActions.addSound('custom', {
       name: data.name,
-      url: data.url,
-      source: 'customStream',
-      icon: ''
+      file: data.url,
+      source: 'customStream'
     });
     this.context.history.push('/');
   }

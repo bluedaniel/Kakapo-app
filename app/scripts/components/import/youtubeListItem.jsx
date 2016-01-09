@@ -18,9 +18,11 @@ class YouTubeItem extends Component {
 
   handleClick = () => {
     this.props.soundActions.addSound('youtube', {
-      id: this.props.sound.videoId,
-      thumbnail: this.props.sound.img,
-      title: this.props.sound.name,
+      file: this.props.sound.videoId,
+      img: this.props.sound.img,
+      link: `https://www.youtube.com/watch?v=${this.props.sound.videoId}`,
+      name: this.props.sound.name,
+      source: 'youtubeStream',
       tags: this.props.sound.tags
     });
     this.context.history.push('/');

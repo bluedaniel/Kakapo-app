@@ -37,7 +37,7 @@ const actions = {
 
     const tmpFile = path.join(pathConfig.userSoundDir, uuid());
 
-    ytdl(`https://www.youtube.com/watch?v=${data.id}`, {
+    ytdl(`https://www.youtube.com/watch?v=${data.file}`, {
       format: 'audioonly',
       debug: true
     })

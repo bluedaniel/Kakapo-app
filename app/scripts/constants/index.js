@@ -21,6 +21,7 @@ export default createConstants(
   'SOUNDS_DOWNLOADING',
   'SOUNDS_DOWNLOADED',
   'SOUNDS_ERROR',
+  'SOUNDS_RESET',
 
   'SEARCH_KAKAPO',
   'SEARCH_YOUTUBE',

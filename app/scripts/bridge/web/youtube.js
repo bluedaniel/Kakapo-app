@@ -41,14 +41,6 @@ export default {
   },
 
   getYoutubeURL(data) {
-    return new Promise(resolve => resolve({ ...newSoundClass, ...{
-      file: data.id,
-      img: data.thumbnail,
-      link: `https://www.youtube.com/watch?v=${data.id}`,
-      name: data.title,
-      progress: 0,
-      source: 'youtubeStream',
-      tags: data.tags
-    } }));
+    return new Promise(resolve => resolve({ ...newSoundClass, ...data }));
   }
 };

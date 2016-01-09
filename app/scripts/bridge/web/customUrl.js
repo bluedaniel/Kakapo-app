@@ -11,19 +11,7 @@ const actions = {
         return reject(new Error(validHowl(data.url, true)));
       }
 
-      if (data.source === 'file') {
-        resolve({ ...newSoundClass, ...data });
-        return;
-      }
-
-      resolve({ ...newSoundClass, ... {
-        file: data.url,
-        img: data.icon,
-        name: data.name,
-        progress: 0,
-        source: data.source,
-        tags: ''
-      } });
+      resolve({ ...newSoundClass, ...data });
     });
   }
 };

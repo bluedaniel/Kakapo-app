@@ -101,7 +101,7 @@
 
 /* Color transitions based on theme changes */
 body,
-.titlebar,
+.header,
 .navbar,
 .navbar > div,
 .swatches a {

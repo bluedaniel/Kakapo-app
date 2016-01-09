@@ -86,9 +86,10 @@ class App extends Component {
         desktop: __DESKTOP__
       })}>
         <Dropzone
-          className="inactiveDrop"
           activeClassName="activeDrop"
-          disableClick onDrop={this.onDrop}
+          className="inactiveDrop"
+          disableClick
+          onDrop={this.onDrop}
         >
           {__DESKTOP__ ? this.renderUpload() : null}
           {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}

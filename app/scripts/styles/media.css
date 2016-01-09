@@ -17,23 +17,22 @@
     padding: 1px;
     text-align: center;
     vertical-align: top;
-    width: 32%;
+    width: 49%;
     z-index: 999;
     span.text {
       display: block;
-      font-size: 13px;
+      font-size: 14px;
       line-height: 20px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 77px;
     }
     i {
       display: block;
-      height: 54px;
+      height: 65%;
       margin: 10px auto;
       vertical-align: top;
-      width: 54px;
+      width: 65%;
     }
     &.options-soundcloud {
       margin-bottom: 0;

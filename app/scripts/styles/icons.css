@@ -68,6 +68,12 @@ i {
     background-image: url("../../../node_modules/kakapo-assets/icons/dark/trash.png");
   }
 }
+.icon-playlist {
+  background-image: url("../../../node_modules/kakapo-assets/icons/light/playlist.png");
+  &.dark {
+    background-image: url("../../../node_modules/kakapo-assets/icons/dark/playlist.png");
+  }
+}
 
 .icon-github {
   background-image: url("../../../node_modules/kakapo-assets/icons/social/github.png");
