@@ -20,12 +20,12 @@ class Settings extends Component {
     themes: PropTypes.object,
     settingActions: PropTypes.object,
     themeActions: PropTypes.object
-  }
+  };
 
   state = {
     updateStatus: false,
     colorPickerActive: false
-  }
+  };
 
   componentDidMount() {
     if (__DESKTOP__) {
@@ -43,23 +43,23 @@ class Settings extends Component {
       slotNo: slotNo,
       defaultColor: this.props.themes.get('palette').get(slotNo)
     });
-  }
+  };
 
   handleSwatch = (swatch) => {
     this.setState({ colorPickerActive: false });
     this.props.themeActions.themesChange(swatch, this.state.slotNo);
-  }
+  };
 
-  setUpdateStatus = (opts) => this.setState(opts)
+  setUpdateStatus = (opts) => this.setState(opts);
 
   checkForUpdates = () => {
     if (!this.state.updateStatus) autoUpdater.checkForUpdates();
     if (this.state.updateStatus === 'downloaded') ipcRenderer.send('application:quit-install');
-  }
+  };
 
-  toggleDockIcon = (value) => this.props.settingActions.toggleDock(value)
+  toggleDockIcon = (value) => this.props.settingActions.toggleDock(value);
 
-  toggleDevTools = (value) => this.props.settingActions.toggleDevTools(value)
+  toggleDevTools = (value) => this.props.settingActions.toggleDevTools(value);
 
   renderDockOpt() {
     return (

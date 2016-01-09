@@ -11,11 +11,11 @@ export default class Checkbox extends Component {
     label: PropTypes.string,
     name: PropTypes.string,
     value: PropTypes.string
-  }
+  };
 
   handleChange = () => {
     this.props.handleChange(this.refs.checkbox.checked);
-  }
+  };
 
   render() {
     return (

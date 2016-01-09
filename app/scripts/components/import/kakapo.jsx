@@ -10,7 +10,7 @@ class Kakapo extends Component {
   static propTypes = {
     searchActions: PropTypes.object,
     search: PropTypes.object
-  }
+  };
 
   componentDidMount() {
     this.props.searchActions.searchKakapo();

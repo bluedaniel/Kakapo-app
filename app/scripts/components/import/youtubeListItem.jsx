@@ -9,12 +9,12 @@ import { soundActions } from '../../actions';
 class YouTubeItem extends Component {
   static contextTypes = {
     history: PropTypes.object
-  }
+  };
 
   static propTypes = {
     soundActions: PropTypes.object,
     sound: PropTypes.shape(youtubeItemClass)
-  }
+  };
 
   handleClick = () => {
     this.props.soundActions.addSound('youtube', {
@@ -26,7 +26,7 @@ class YouTubeItem extends Component {
       tags: this.props.sound.tags
     });
     this.context.history.push('/');
-  }
+  };
 
   render() {
     return (

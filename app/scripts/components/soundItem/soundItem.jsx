@@ -14,7 +14,7 @@ class SoundItem extends Component {
     themes: PropTypes.object,
     soundActions: PropTypes.object,
     sound: PropTypes.shape(soundClass)
-  }
+  };
 
   componentWillMount() {
     this.handleVolume = throttle(this.handleVolume, 250);
@@ -23,21 +23,21 @@ class SoundItem extends Component {
   handleToggle = () => {
     waves.ripple(this.refs.item);
     this.props.soundActions.soundsPlay(this.props.sound);
-  }
+  };
 
   handleDelete = (el) => {
     this.handleStopPropagation(el);
     this.props.soundActions.soundsRemove(this.props.sound);
-  }
+  };
 
   handleEdit = (el) => {
     this.handleStopPropagation(el);
     this.props.soundActions.soundsEdit(this.props.sound);
-  }
+  };
 
   handleVolume = throttle(() => {
     this.props.soundActions.soundsVolume(this.props.sound, parseFloat(this.refs.volume.value));
-  }, 250)
+  }, 250);
 
   handleStopPropagation(el) {
     el.preventDefault();

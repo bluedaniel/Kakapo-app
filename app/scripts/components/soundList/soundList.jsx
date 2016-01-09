@@ -8,7 +8,7 @@ import './soundList.css';
 class SoundList extends Component {
   static propTypes = {
     sounds: PropTypes.instanceOf(Map)
-  }
+  };
 
   renderSound(arr) {
     return arr.map(_s => {

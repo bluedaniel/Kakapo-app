@@ -11,13 +11,13 @@ class Nav extends Component {
     settings: PropTypes.object,
     soundActions: PropTypes.object,
     themes: PropTypes.object
-  }
+  };
 
-  state = { mute: false }
+  state = { mute: false };
 
   handleMute = () => {
     this.setState({ mute: !this.state.mute }, () => this.props.soundActions.soundsMute(this.state.mute));
-  }
+  };
 
   renderDragOrDownload() {
     if (__DESKTOP__) {

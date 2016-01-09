@@ -4,7 +4,7 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 export default class Media extends Component {
   static propTypes = {
     children: PropTypes.object
-  }
+  };
 
   render() {
     const routeName = window.location.hash.substr(1).split('/').join(' ') || '';

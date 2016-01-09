@@ -13,19 +13,19 @@ class SoundEdit extends Component {
     intl: PropTypes.object,
     soundActions: PropTypes.object,
     sound: PropTypes.shape(soundClass)
-  }
+  };
 
   state = {
     loading: false,
     focused: false,
     inputName: this.props.sound.name,
     inputTags: this.props.sound.tags
-  }
+  };
 
   handleCancel = (el) => {
     el.preventDefault();
     this.props.soundActions.soundsEdit(this.props.sound, null);
-  }
+  };
 
   handleSave = (el) => {
     el.preventDefault();
@@ -36,7 +36,7 @@ class SoundEdit extends Component {
       name: this.refs.name.value,
       tags: this.refs.tags.value
     });
-  }
+  };
 
   onFocus = (e) => {
     this.setState({
@@ -44,7 +44,7 @@ class SoundEdit extends Component {
       inputName: this.refs.name.value.length,
       inputTags: this.refs.tags.value.length
     });
-  }
+  };
 
   onBlur = () => {
     this.setState({
@@ -52,7 +52,7 @@ class SoundEdit extends Component {
       inputName: this.refs.name.value.length,
       inputTags: this.refs.tags.value.length
     });
-  }
+  };
 
   render() {
     return (

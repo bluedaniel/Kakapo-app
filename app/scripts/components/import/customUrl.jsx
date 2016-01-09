@@ -10,19 +10,19 @@ import { toasterInstance, validHowl } from '../../utils';
 class CustomUrl extends Component {
   static contextTypes = {
     history: PropTypes.object
-  }
+  };
 
   static propTypes = {
     themes: PropTypes.object,
     soundActions: PropTypes.object,
     intl: intlShape.isRequired
-  }
+  };
 
   state = {
     focused: false,
     inputName: false,
     inputCustom: false
-  }
+  };
 
   componentDidMount() {
     this.refs.name.focus();
@@ -45,14 +45,14 @@ class CustomUrl extends Component {
       source: 'customStream'
     });
     this.context.history.push('/');
-  }
+  };
 
   handleError = (msg, intl=true) => {
     const err = intl ? this.props.intl.formatMessage({ id: msg }) : msg;
     toasterInstance().then(_t => _t.toast(err));
-  }
+  };
 
-  onFocus = (e) => this.setState({ focused: e.target.id })
+  onFocus = (e) => this.setState({ focused: e.target.id });
 
   onBlur = () => {
     this.setState({
@@ -60,7 +60,7 @@ class CustomUrl extends Component {
       inputName: this.refs.name.value.length,
       inputCustom: this.refs.customInput.value.length
     });
-  }
+  };
 
   render() {
     return (

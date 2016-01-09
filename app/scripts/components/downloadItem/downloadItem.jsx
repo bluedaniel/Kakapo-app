@@ -7,7 +7,7 @@ import './downloadItem.css';
 export default class DownloadItem extends Component {
   static propTypes = {
     sound: PropTypes.shape(soundClass)
-  }
+  };
 
   render() {
     let img = this.props.sound.img;

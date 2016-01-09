@@ -7,7 +7,7 @@ import './downloadList.css';
 export default class DownloadList extends Component {
   static propTypes = {
     sounds: PropTypes.instanceOf(Map)
-  }
+  };
 
   render() {
     const downloads = this.props.sounds.toArray().filter(_s => _s.recentlyDownloaded);

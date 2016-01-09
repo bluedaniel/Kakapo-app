@@ -9,7 +9,7 @@ export default class ProgressBar extends Component {
 
   static propTypes = {
     progress: PropTypes.number
-  }
+  };
 
   componentWillLeave(cb) {
     const bar = this.refs.bar;

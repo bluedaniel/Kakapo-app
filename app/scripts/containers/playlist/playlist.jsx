@@ -20,16 +20,16 @@ const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 class Playlist extends Component {
   static contextTypes = {
     history: PropTypes.object
-  }
+  };
 
   static propTypes = {
     themes: PropTypes.object
-  }
+  };
 
   state = {
     playlistUrl: null,
     loadingPlaylist: false
-  }
+  };
 
   componentDidMount() {
     var clipboard = new Clipboard('.copy-clipboard');
@@ -59,19 +59,19 @@ class Playlist extends Component {
 
       this.context.history.push('/');
     }
-  }
+  };
 
   createPlaylist = () => {
     const currentPlaylistHash = btoa(JSON.stringify(this.props.sounds));
     let shareID = shortid.generate();
     let putItem = { Item: { shareID: { S: shareID }, playlistID: { S: currentPlaylistHash } } };
     table.putItem(putItem, () => this.setState({ playlistUrl: shareID }));
-  }
+  };
 
   resetSounds = () => {
     this.props.soundActions.resetSounds(false);
     this.context.history.push('/');
-  }
+  };
 
   setSoundsToPlaylist = (playlist) => Object.keys(playlist).map(_p => {
     this.props.soundActions.resetSounds(true);
@@ -116,6 +116,21 @@ class Playlist extends Component {
     );
   }
 
+  renderDesktopPlaylistInput() {
+    return (
+      <div>
+        <p><FormattedMessage id="playlist.input_playlist"/></p>
+        <form className="pure-form">
+          <div className="InputAddOn">
+            <span className="InputAddOn-item">playlist/</span>
+            <input className="pure-input-1"/>
+          </div>
+        </form>
+      </div>
+    );
+    // playlist/NyWMXk5De
+  }
+
   render() {
     if (this.state.loadingPlaylist) return null;
     return (
@@ -130,6 +145,7 @@ class Playlist extends Component {
               <FormattedMessage id={`playlist.list_${_e}`}/>
             </Link>
           ))}
+          {__DESKTOP__ ? this.renderDesktopPlaylistInput() : null}
         </div>
       </div>
     );

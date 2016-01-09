@@ -12,13 +12,13 @@ class YouTube extends Component {
     searchActions: PropTypes.object,
     search: PropTypes.object,
     intl: intlShape.isRequired
-  }
+  };
 
   state = {
     loading: false,
     focused: false,
     inputYT: false
-  }
+  };
 
   componentDidMount() {
     const autocomplete = this.observeAutocomplete();
@@ -47,14 +47,14 @@ class YouTube extends Component {
     }
   }
 
-  onFocus = (e) => this.setState({ focused: e.target.id })
+  onFocus = (e) => this.setState({ focused: e.target.id });
 
   onBlur = () => {
     this.setState({
       focused: false,
       inputYT: this.refs.youtubeInput.value.length
     });
-  }
+  };
 
   render() {
     return (

@@ -12,13 +12,13 @@ class SoundCloud extends Component {
     searchActions: PropTypes.object,
     search: PropTypes.object,
     intl: intlShape.isRequired
-  }
+  };
 
   state = {
     loading: false,
     focused: false,
     inputSC: false
-  }
+  };
 
   componentDidMount() {
     const autocomplete = this.observeAutocomplete();
@@ -45,16 +45,16 @@ class SoundCloud extends Component {
     if (this.state.loading !== active) {
       this.setState({ loading: active });
     }
-  }
+  };
 
-  onFocus = (e) => this.setState({ focused: e.target.id })
+  onFocus = (e) => this.setState({ focused: e.target.id });
 
   onBlur = () => {
     this.setState({
       focused: false,
       inputYT: this.refs.soundcloudInput.value.length
     });
-  }
+  };
 
   render() {
     return (

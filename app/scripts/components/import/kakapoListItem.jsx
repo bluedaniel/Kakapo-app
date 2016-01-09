@@ -10,19 +10,19 @@ import { Image } from '../ui';
 class KakapoItem extends Component {
   static contextTypes = {
     history: PropTypes.object
-  }
+  };
 
   static propTypes = {
     sounds: PropTypes.object,
     soundActions: PropTypes.object,
     sound: PropTypes.shape(soundClass)
-  }
+  };
 
   handleClick = () => {
     if (!this.alreadyAdded()) this.props.soundActions.addSound('kakapo', this.props.sound);
-  }
+  };
 
-  alreadyAdded = () => this.props.sounds.filter(_s => this.props.sound.file === _s.file).count() === 1
+  alreadyAdded = () => this.props.sounds.filter(_s => this.props.sound.file === _s.file).count() === 1;
 
   render() {
     return (

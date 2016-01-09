@@ -32,7 +32,7 @@ class App extends Component {
   static propTypes = {
     children: PropTypes.object,
     soundActions: PropTypes.object
-  }
+  };
 
   componentDidMount() {
     this.props.soundActions.soundsInit();
@@ -52,7 +52,7 @@ class App extends Component {
     } else {
       toasterInstance().then(_t => _t.toast('You can only add desktop files with the Kakapo desktop app.'));
     }
-  }
+  };
 
   // Desktop only
   handleUpdateAvailable = () => this.setState({ updateAvailable: true });

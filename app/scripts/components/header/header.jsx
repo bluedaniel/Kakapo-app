@@ -9,7 +9,7 @@ class Header extends Component {
   static propTypes = {
     themes: PropTypes.object,
     intl: intlShape.isRequired
-  }
+  };
 
   render() {
     return (

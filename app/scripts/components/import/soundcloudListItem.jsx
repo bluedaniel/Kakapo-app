@@ -13,17 +13,17 @@ class SoundCloudItem extends Component {
 
   static contextTypes = {
     history: PropTypes.object
-  }
+  };
 
   static propTypes = {
     soundActions: PropTypes.object,
     sound: PropTypes.shape(soundcloudItemClass)
-  }
+  };
 
   handleClick = () => {
     this.props.soundActions.addSound('soundcloud', this.props.sound.scId);
     this.context.history.push('/');
-  }
+  };
 
   render() {
     return (

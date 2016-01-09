@@ -17,7 +17,7 @@ syncReduxAndRouter(history, store);
 const target = document.getElementById('app');
 const node = (
   <Provider store={store}>
-    <IntlProvider locale={state.settings.intlData.locale} messages={state.settings.intlData.messages}>
+    <IntlProvider locale={state.settings.intlData.id} messages={state.settings.intlData.messages}>
       <Router history={history}>{routes}</Router>
     </IntlProvider>
   </Provider>
