@@ -34,20 +34,20 @@ class Playlist extends Component {
   componentDidMount() {
     var clipboard = new Clipboard('.copy-clipboard');
     clipboard.on('success', () => toasterInstance().then(_t => _t.toast('Playlist link copied!')));
-    this.getParam();
+    this.getParam(this.props.params.playlistId);
   }
 
   componentDidUpdate() {
-    this.getParam();
+    this.getParam(this.props.params.playlistId);
   }
 
-  getParam = () => {
-    if (this.props.params.playlistId && !this.state.loadingPlaylist) {
+  getParam = (playlistId) => {
+    if (playlistId && !this.state.loadingPlaylist) {
       this.setState({ loadingPlaylist: true });
 
       toasterInstance().then(_t => _t.toast('Loading playlist ...'));
 
-      table.getItem({ Key: { shareID: { S: this.props.params.playlistId } } }, (err, data) => {
+      table.getItem({ Key: { shareID: { S: playlistId } } }, (err, data) => {
         if (err) toasterInstance().then(_t => _t.toast(err));
         if (data.Item) {
           this.setSoundsToPlaylist(JSON.parse(atob(data.Item.playlistID.S)));
@@ -86,8 +86,12 @@ class Playlist extends Component {
         this.props.soundActions.addSound('kakapo', playlist[_p], false);
         break;
     }
-    toasterInstance().then(_t => _t.hide());
   });
+
+  handleDesktopPlaylistInput = (el) => {
+    this.getParam(this.refs.desktopPlaylist.value);
+    el.preventDefault();
+  };
 
   handleStopPropagation(el) {
     el.preventDefault();
@@ -119,16 +123,16 @@ class Playlist extends Component {
   renderDesktopPlaylistInput() {
     return (
       <div>
+        <hr/>
         <p><FormattedMessage id="playlist.input_playlist"/></p>
-        <form className="pure-form">
+        <form onSubmit={this.handleDesktopPlaylistInput} className="pure-form">
           <div className="InputAddOn">
-            <span className="InputAddOn-item">playlist/</span>
-            <input className="pure-input-1"/>
+            <span className="InputAddOn-item">kakapo.co/playlist/</span>
+            <input className="pure-input-1 InputAddOn-field" ref="desktopPlaylist" type="text"/>
           </div>
         </form>
       </div>
     );
-    // playlist/NyWMXk5De
   }
 
   render() {

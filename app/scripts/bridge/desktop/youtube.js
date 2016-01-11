@@ -41,17 +41,15 @@ const actions = {
       format: 'audioonly',
       debug: true
     })
-    .on('info', (info, format) => {
-      newSound = { ...newSoundClass, ...{
-        file: path.join(pathConfig.userSoundDir, `${uuid()}.${format.container}`),
-        img: info.thumbnail_url,
-        link: `https://www.youtube.com/watch?v=${info.video_id}`,
-        name: info.title,
-        source: 'youtubeStream',
-        tags: info.keywords ? info.keywords.join(' ') : ''
-      } };
-      fileSize = format.size;
-    })
+    .on('response', res => fileSize = res.headers['content-length'])
+    .on('info', (info, format) => newSound = { ...newSoundClass, ...{
+      file: path.join(pathConfig.userSoundDir, `${uuid()}.${format.container}`),
+      img: info.thumbnail_url,
+      link: `https://www.youtube.com/watch?v=${info.video_id}`,
+      name: info.title,
+      source: 'youtubeStream',
+      tags: info.keywords ? info.keywords.join(' ') : ''
+    } })
     .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
     .on('data', downloadProgress.bind(this, ee))
     .on('finish', () => {

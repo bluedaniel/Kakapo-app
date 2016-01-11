@@ -1,0 +1,23 @@
+.progress-barberpole {
+  animation: barberpole 0.5s linear infinite;
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.1) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+  background-size: 30px 30px;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+}
+.progress-text {
+  margin: 13px 5px 12px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+@keyframes barberpole {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 60px 30px;
+  }
+}

@@ -7,7 +7,7 @@ import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { soundActions } from '../../actions';
-import { Header, Nav, SoundList } from '../../components';
+import { Header, Nav, SoundList, DownloadList } from '../../components';
 import { konami, pathConfig, toasterInstance } from '../../utils';
 import '../../styles/base.css';
 import './app.css';
@@ -101,6 +101,7 @@ class App extends Component {
           </div>
           <SoundList/>
           <aside className="toast-view"></aside>
+          <DownloadList/>
         </Dropzone>
       </div>
     );

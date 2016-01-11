@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
-import { DownloadList } from '../../components';
 
 class Options extends Component {
   render() {
@@ -33,9 +32,6 @@ class Options extends Component {
             </Link>
           </li>
         </ul>
-        <div className="download-wrap">
-          <DownloadList/>
-        </div>
       </div>
     );
   }

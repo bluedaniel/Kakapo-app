@@ -1,13 +1,6 @@
-.downloads {
-  .download-wrap {
-    flex: 1;
-  }
-}
-
-.download-wrap {
-  display: block;
-  margin-top: 20px;
-  h5 {
-    margin-bottom: 1rem;
-  }
+.download-list {
+  bottom: 0;
+  position: fixed;
+  right: 10px;
+  width: 300px;
 }

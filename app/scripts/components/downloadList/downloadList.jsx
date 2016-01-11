@@ -10,13 +10,11 @@ export default class DownloadList extends Component {
   };
 
   render() {
-    const downloads = this.props.sounds.toArray().filter(_s => _s.recentlyDownloaded);
+    const downloads = this.props.sounds.toArray().filter(_s => _s.progress < 1);
+    if (!downloads) return null;
     return (
-      <div>
-        {downloads.length ? <h5>Recently added</h5> : null}
-        <div className="download-list">
-          {downloads.map(_s => <DownloadItem key={_s.file} sound={{ ..._s }}/>)}
-        </div>
+      <div className="download-list">
+        {downloads.map(_s => <DownloadItem key={_s.file} sound={{ ..._s }}/>)}
       </div>
     );
   }
