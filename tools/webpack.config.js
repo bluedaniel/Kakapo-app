@@ -1,12 +1,14 @@
 import { argv } from 'yargs';
 import path from 'path';
 import webpack from 'webpack';
-import webpackTargetElectronRenderer from 'webpack-target-electron-renderer';
+import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
+import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
+
+const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
+const ExternalsPlugin = webpack.ExternalsPlugin;
+const LoaderTargetPlugin = webpack.LoaderTargetPlugin;
 
 const DEBUG = !argv.production;
-const VERBOSE = argv.verbose;
-
-const devServer = 'http://localhost:3000';
 
 let externals = {};
 if (argv.platform === 'web') {
@@ -18,16 +20,18 @@ if (argv.platform === 'web') {
 }
 
 let config = {
-  entry: [
-    ...(DEBUG ? [ `webpack-hot-middleware/client?path=${devServer}/__webpack_hmr` ] : []),
-    './app/scripts/index'
-  ],
-  output: {
-    filename: 'index.js',
-    path: path.join(__dirname, '../build'),
-    publicPath: DEBUG && argv.platform === 'desktop' ? devServer : '/'
+  entry: {
+    index: [
+      './app/scripts/index',
+      ...(DEBUG ? [ `webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr` ] : [])
+    ]
   },
-  target: argv.platform === 'web' ? 'web' : 'atom',
+  output: {
+    filename: '[name].js',
+    path: path.join(__dirname, '../build'),
+    publicPath: '/'
+  },
+  target: argv.platform === 'web' ? 'web' : 'electron',
   externals: externals,
   cache: DEBUG,
   debug: DEBUG,
@@ -47,7 +51,7 @@ let config = {
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
-          warnings: VERBOSE
+          screw_ie8: true
         }
       }),
       new webpack.optimize.AggressiveMergingPlugin()
@@ -60,9 +64,7 @@ let config = {
     loaders: [
       {
         test: /\.(js|jsx)?$/,
-        include: [
-          path.resolve(__dirname, '../app')
-        ],
+        include: path.resolve(__dirname, '../app'),
         loaders: [ 'babel' ]
       },
       {
@@ -106,22 +108,49 @@ let config = {
       require('postcss-cssnext')()
     ];
   },
-
   stats: {
     colors: true,
     reasons: DEBUG,
-    hash: VERBOSE,
-    version: VERBOSE,
-    timings: true,
-    chunks: VERBOSE,
-    chunkModules: VERBOSE,
-    cached: VERBOSE,
-    cachedAssets: VERBOSE
+    timings: true
   }
 };
 
 if (argv.platform === 'desktop') {
-  config.target = webpackTargetElectronRenderer(config);
+  config.target = function (compiler) {
+    compiler.apply(
+      new JsonpTemplatePlugin(config.output),
+      new FunctionModulePlugin(config.output),
+      new NodeTargetPlugin(),
+      new ExternalsPlugin('commonjs', [
+        'app',
+        'auto-updater',
+        'browser-window',
+        'content-tracing',
+        'desktop-capturer',
+        'dialog',
+        'electron',
+        'global-shortcut',
+        'ipc',
+        'ipc-main',
+        'ipc-renderer',
+        'menu',
+        'menu-item',
+        'native-image',
+        'power-monitor',
+        'power-save-blocker',
+        'protocol',
+        'tray',
+        'remote',
+        'web-frame',
+        'clipboard',
+        'crash-reporter',
+        'screen',
+        'session',
+        'shell'
+      ]),
+      new LoaderTargetPlugin(config.target)
+    );
+  };
 }
 
 export default config;
