@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import validator from 'validator';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
-import { soundActions } from 'actions';
-import { toasterInstance, validHowl } from 'utils';
+import { soundActions } from 'actions/';
+import { toasterInstance, validHowl } from 'utils/';
 
 class CustomUrl extends Component {
   static contextTypes = {

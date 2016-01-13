@@ -4,9 +4,9 @@ import waves from 'node-waves';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import throttle from 'lodash/function/throttle';
-import { soundActions } from 'actions';
-import { soundClass } from 'classes';
-import { Image } from 'components/ui';
+import { soundActions } from 'actions/';
+import { soundClass } from 'classes/';
+import { Image } from 'components/ui/';
 import './soundItem.css';
 
 class SoundItem extends Component {

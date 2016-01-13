@@ -2,7 +2,7 @@ import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
 import { Map } from 'immutable';
-import { pathConfig } from 'utils';
+import { pathConfig } from 'utils/';
 import packageJson from '../../../../package.json';
 
 const latestVersion = packageJson.config.soundsVersion;

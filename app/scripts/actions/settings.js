@@ -1,4 +1,4 @@
-import constants from 'constants';
+import constants from 'constants/';
 
 export default {
   toggleDock: bool => ({ type: constants.SETTINGS_DOCK, bool }),

@@ -3,9 +3,9 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { soundActions } from 'actions';
-import { soundClass } from 'classes';
-import { toasterInstance } from 'utils';
+import { soundActions } from 'actions/';
+import { soundClass } from 'classes/';
+import { toasterInstance } from 'utils/';
 
 class SoundEdit extends Component {
   static propTypes = {

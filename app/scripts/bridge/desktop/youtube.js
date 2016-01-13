@@ -2,8 +2,8 @@ import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import uuid from 'uuid';
-import { pathConfig } from 'utils';
-import { newSoundClass } from 'classes';
+import { pathConfig } from 'utils/';
+import { newSoundClass } from 'classes/';
 import { EventEmitter } from 'events';
 
 let fileSize = 0;

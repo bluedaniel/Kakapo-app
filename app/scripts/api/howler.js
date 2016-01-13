@@ -1,6 +1,6 @@
 import howler from 'howler';
 import path from 'path';
-import { pathConfig } from 'utils';
+import { pathConfig } from 'utils/';
 
 export default function getHowlerObj(sound) {
   let soundFile = sound.file;

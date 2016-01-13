@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { newSoundClass } from 'classes';
+import { newSoundClass } from 'classes/';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;

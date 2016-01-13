@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { settingActions, themeActions } from 'actions';
-import { ColorPicker, Checkbox } from 'components/ui';
+import { settingActions, themeActions } from 'actions/';
+import { ColorPicker, Checkbox } from 'components/ui/';
 import './settings.css';
 
 let app;

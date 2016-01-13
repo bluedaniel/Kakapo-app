@@ -4,7 +4,7 @@ import { bridgedYoutube, bridgedSoundcloud, bridgedCustom } from 'kakapoBridge';
 import getHowlerObj from './howler';
 import { getKakapoFavourites } from './customUrl';
 import { getYoutubeSearch } from './youtube';
-import { pathConfig } from 'utils';
+import { pathConfig } from 'utils/';
 
 const { getCustomFile, getCustomURL } = bridgedCustom;
 const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;

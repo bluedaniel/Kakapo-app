@@ -3,9 +3,9 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
-import { soundClass } from 'classes';
-import { soundActions } from 'actions';
-import { Image } from 'components/ui';
+import { soundClass } from 'classes/';
+import { soundActions } from 'actions/';
+import { Image } from 'components/ui/';
 
 class KakapoItem extends Component {
   static contextTypes = {

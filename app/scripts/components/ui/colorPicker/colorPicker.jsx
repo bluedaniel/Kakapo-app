@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import classNames from 'classnames';
-import swatches from 'utils/swatches';
+import { swatches } from 'utils/';
 import './colorPicker.css';
 
 export default function ColorPicker({ active, handleSwatch }) {

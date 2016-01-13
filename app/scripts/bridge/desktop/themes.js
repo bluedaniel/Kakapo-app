@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { pathConfig } from 'utils';
+import { pathConfig } from 'utils/';
 
 export default {
   fromStorage() {

@@ -1,4 +1,3 @@
-import { store } from './stores/configureStore';
 import 'Intl';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -8,6 +7,7 @@ import { IntlProvider } from 'react-intl';
 import { syncReduxAndRouter } from 'redux-simple-router';
 import createHashHistory from 'history/lib/createHashHistory';
 import routes from 'routes/routes';
+import { store } from 'stores/configureStore';
 
 const state = store.getState();
 const history = createHashHistory({ queryKey: false });

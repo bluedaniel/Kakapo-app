@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { pathConfig } from 'utils';
+import { pathConfig } from 'utils/';
 
 export default {
   _fromSettings() {
