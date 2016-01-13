@@ -1,7 +1,7 @@
 import { List, fromJS } from 'immutable';
 import moment from 'moment';
 import numeral from 'numeral';
-import trimLeft from 'lodash/string/trimLeft';
+import trimStart from 'lodash/trimStart';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 
@@ -13,7 +13,7 @@ const initialState = new fromJS({
 
 const searchReducers = {
   formatDuration(seconds) {
-    const formatted = trimLeft(numeral(seconds).format('00:00:00'), '0:');
+    const formatted = trimStart(numeral(seconds).format('00:00:00'), '0:');
     return formatted.indexOf(':') === -1 ? `0:${formatted}` : formatted;
   },
 

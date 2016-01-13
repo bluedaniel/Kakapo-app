@@ -92,6 +92,7 @@ let config = {
     ],
     noParse: [
       /aws\-sdk/,
+      /node_modules\/sinon\//,
       /node_modules\/json-schema\/lib\/validate\.js/
     ]
   },
