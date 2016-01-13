@@ -2,7 +2,7 @@ import { Observable } from 'rx';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
-import rootReducer from '../reducers';
+import rootReducer from 'reducers';
 
 function configureStore(debug = false) {
   let createStoreWithMiddleware;

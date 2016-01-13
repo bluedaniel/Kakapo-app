@@ -1,5 +1,5 @@
-import { newSoundClass } from '../../classes';
-import { validHowl } from '../../utils';
+import { newSoundClass } from 'classes';
+import { validHowl } from 'utils';
 
 const actions = {
   getCustomFile() {

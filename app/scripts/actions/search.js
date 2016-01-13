@@ -1,5 +1,5 @@
-import constants from '../constants';
-import { getYoutubeSearch, getSoundCloudSearch, getKakapoFavourites } from '../api';
+import constants from 'constants';
+import { getYoutubeSearch, getSoundCloudSearch, getKakapoFavourites } from 'api';
 
 const actions = {
   searchInput: input => ({ type: constants.SEARCH_INPUT, input }),

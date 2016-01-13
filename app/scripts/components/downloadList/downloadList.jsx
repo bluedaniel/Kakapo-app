@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
-import { DownloadItem } from '../';
+import { DownloadItem } from 'components';
 import './downloadList.css';
 
 export default class DownloadList extends Component {

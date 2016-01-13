@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import classNames from 'classnames';
-import { searchActions } from '../../actions';
+import { searchActions } from 'actions';
 import SoundCloudListItem from './soundcloudListItem';
 
 class SoundCloud extends Component {

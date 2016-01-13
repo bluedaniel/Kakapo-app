@@ -9,9 +9,10 @@ const ExternalsPlugin = webpack.ExternalsPlugin;
 const LoaderTargetPlugin = webpack.LoaderTargetPlugin;
 
 const DEBUG = !argv.production;
+const platformDevice = argv.platform || 'web';
 
 let externals = {};
-if (argv.platform === 'web') {
+if (platformDevice === 'web') {
   const voidModules = [ 'electron', 'request', 'fs', 'fs-extra' ];
   externals = voidModules.reduce((a, b) => {
     a[b] = 'void 0';
@@ -31,7 +32,7 @@ let config = {
     path: path.join(__dirname, '../build'),
     publicPath: '/'
   },
-  target: argv.platform === 'web' ? 'web' : 'electron',
+  target: platformDevice === 'web' ? 'web' : 'electron',
   externals: externals,
   cache: DEBUG,
   debug: DEBUG,
@@ -43,8 +44,8 @@ let config = {
       'process.env': {
         NODE_ENV: JSON.stringify(DEBUG ? 'development' : 'production')
       },
-      __DESKTOP__: argv.platform === 'desktop',
-      __WEB__: argv.platform === 'web',
+      __DESKTOP__: platformDevice === 'desktop',
+      __WEB__: platformDevice === 'web',
       __DEV__: DEBUG
     }),
     ...(!DEBUG ? [
@@ -65,6 +66,7 @@ let config = {
       {
         test: /\.(js|jsx)?$/,
         include: path.resolve(__dirname, '../app'),
+        exclude: /node_modules/,
         loaders: [ 'babel' ]
       },
       {
@@ -94,9 +96,10 @@ let config = {
     ]
   },
   resolve: {
+    root: path.resolve(__dirname, '../app/scripts'),
     extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ],
     alias: {
-      kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', argv.platform)
+      kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', platformDevice)
     }
   },
   postcss: function plugins() {
@@ -115,7 +118,7 @@ let config = {
   }
 };
 
-if (argv.platform === 'desktop') {
+if (platformDevice === 'desktop') {
   config.target = function (compiler) {
     compiler.apply(
       new JsonpTemplatePlugin(config.output),

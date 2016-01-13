@@ -3,8 +3,8 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import uuid from 'uuid';
-import { pathConfig } from '../../utils';
-import { newSoundClass } from '../../classes';
+import { pathConfig } from 'utils';
+import { newSoundClass } from 'classes';
 import { EventEmitter } from 'events';
 
 const SCAPI = 'http://api.soundcloud.com';

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { soundActions } from '../../actions';
+import { soundActions } from 'actions';
 import './nav.css';
 
 class Nav extends Component {

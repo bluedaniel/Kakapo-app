@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { searchActions } from '../../actions';
+import { searchActions } from 'actions';
 import KakapoListItem from './kakapoListItem';
 
 class Kakapo extends Component {

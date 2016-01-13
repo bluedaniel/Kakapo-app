@@ -6,10 +6,10 @@ import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
-import { soundActions } from '../../actions';
-import { Header, Nav, SoundList, DownloadList } from '../../components';
-import { konami, pathConfig, toasterInstance } from '../../utils';
-import '../../styles/base.css';
+import { soundActions } from 'actions';
+import { Header, Nav, SoundList, DownloadList } from 'components';
+import { konami, pathConfig, toasterInstance } from 'utils';
+import 'styles/base.css';
 import './app.css';
 
 let autoUpdater;

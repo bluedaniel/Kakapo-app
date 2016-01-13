@@ -2,9 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
-import { youtubeItemClass } from '../../classes';
-import { Image } from '../ui';
-import { soundActions } from '../../actions';
+import { youtubeItemClass } from 'classes';
+import { Image } from 'components/ui';
+import { soundActions } from 'actions';
 
 class YouTubeItem extends Component {
   static contextTypes = {

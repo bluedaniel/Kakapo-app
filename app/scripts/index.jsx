@@ -7,7 +7,7 @@ import Router from 'react-router';
 import { IntlProvider } from 'react-intl';
 import { syncReduxAndRouter } from 'redux-simple-router';
 import createHashHistory from 'history/lib/createHashHistory';
-import routes from './routes/routes';
+import routes from 'routes/routes';
 
 const state = store.getState();
 const history = createHashHistory({ queryKey: false });

@@ -1,4 +1,4 @@
-import { newSoundClass } from '../../classes';
+import { newSoundClass } from 'classes';
 
 export default {
   getYoutubeObj(video) {

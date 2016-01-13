@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import constants from '../constants';
-import { getDefaultSounds, getYoutubeURL, getCustomFile, getCustomURL, getSoundCloudURL } from '../api';
+import constants from 'constants';
+import { getDefaultSounds, getYoutubeURL, getCustomFile, getCustomURL, getSoundCloudURL } from 'api';
 
 const actions = {
   soundsInit: () => dispatch => dispatch(actions.fetchSounds()),

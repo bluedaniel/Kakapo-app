@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import classNames from 'classnames';
-import { soundClass } from '../../classes';
-import { Progress } from '../ui';
+import { soundClass } from 'classes';
+import { Progress } from 'components/ui';
 import './downloadItem.css';
 
 export default class DownloadItem extends Component {

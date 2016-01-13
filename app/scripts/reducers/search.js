@@ -2,8 +2,8 @@ import { List, fromJS } from 'immutable';
 import moment from 'moment';
 import numeral from 'numeral';
 import trimLeft from 'lodash/string/trimLeft';
-import constants from '../constants';
-import { createReducer } from '../utils';
+import constants from 'constants';
+import { createReducer } from 'utils';
 
 const initialState = new fromJS({
   youtube: [],

@@ -2,8 +2,8 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import uuid from 'uuid';
-import { pathConfig, validHowl } from '../../utils';
-import { newSoundClass } from '../../classes';
+import { pathConfig, validHowl } from 'utils';
+import { newSoundClass } from 'classes';
 import { EventEmitter } from 'events';
 
 let fileSize = 0;

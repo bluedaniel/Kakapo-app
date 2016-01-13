@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { SoundItem, SoundEdit } from '../';
+import { SoundItem, SoundEdit } from 'components';
 import './soundList.css';
 
 class SoundList extends Component {

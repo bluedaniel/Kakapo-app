@@ -1,9 +1,9 @@
 import { Map } from 'immutable';
 import { bridgedSounds } from 'kakapoBridge';
-import { createSoundObj } from '../api';
-import constants from '../constants';
-import { createReducer, toasterInstance } from '../utils';
-import { observableStore } from '../stores/configureStore';
+import { createSoundObj } from 'api';
+import constants from 'constants';
+import { createReducer, toasterInstance } from 'utils';
+import { observableStore } from 'stores/configureStore';
 
 let initialState = new Map();
 let defaultSounds = new Map();

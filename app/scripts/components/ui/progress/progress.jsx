@@ -13,8 +13,8 @@ export default class Progress extends Component {
   render() {
     return (
       <div>
-      <div className="progress-barberpole" style={{ width: `${Math.ceil(this.props.progress * 100)}%` }}/>
-      <div className="progress-text">{Math.ceil(this.props.progress * 100)}%</div>
+        <div className="progress-barberpole" style={{ width: `${Math.ceil(this.props.progress * 100)}%` }}/>
+        <div className="progress-text">{Math.ceil(this.props.progress * 100)}%</div>
       </div>
     );
   }
