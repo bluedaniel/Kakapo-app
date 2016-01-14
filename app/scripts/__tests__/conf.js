@@ -25,7 +25,7 @@ const webpackTestConfig = {
 
 export default (config) => {
   config.set({
-    browsers: [ 'Chrome' ],
+    browsers: [ 'PhantomJS' ],
     singleRun: !argv.watch,
     frameworks: [ 'mocha', 'chai' ],
     files: [
@@ -37,7 +37,6 @@ export default (config) => {
     },
     plugins: [
       'karma-chai',
-      'karma-chrome-launcher',
       'karma-coverage',
       'karma-mocha',
       'karma-mocha-reporter',

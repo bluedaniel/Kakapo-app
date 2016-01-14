@@ -1,3 +1,4 @@
+import 'Intl';
 import { IntlProvider } from 'react-intl';
 import { store } from 'stores/configureStore';
 
