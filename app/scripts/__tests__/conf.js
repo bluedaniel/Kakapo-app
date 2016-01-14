@@ -13,7 +13,7 @@ const webpackTestConfig = {
       test: /\.(js|jsx)$/,
       include: new RegExp('app/scripts'),
       loader: 'isparta',
-      exclude: /node_modules/
+      exclude: /(node_modules|__tests__)/
     } ]
   } },
   resolve: { ...webpackConfig.resolve, ...{
@@ -43,7 +43,6 @@ export default (config) => {
       'karma-mocha-reporter',
       'karma-phantomjs-launcher',
       'karma-sourcemap-loader',
-      'karma-spec-reporter',
       'karma-webpack'
     ],
     reporters: [ 'mocha', 'coverage' ],
