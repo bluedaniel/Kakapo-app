@@ -46,7 +46,7 @@
     "history": "^1.17.0",
     "howler": "^2.0.0-beta6",
     "immutable": "^3.7.6",
-    "intl": "^1.0.0",
+    "intl": "^1.0.1",
     "isparta-loader": "^2.0.0",
     "json-loader": "^0.5.3",
     "kakapo-assets": "^5.8.0",
