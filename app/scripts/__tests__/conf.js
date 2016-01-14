@@ -7,11 +7,13 @@ const webpackTestConfig = {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true
   } },
+  devtool: 'inline-source-map',
   module: { ...webpackConfig.module, ...{
     postLoaders: [ {
-      test: /\.js$/,
-      exclude: /(__tests__|node_modules)/,
-      loader: 'istanbul-instrumenter'
+      test: /\.(js|jsx)$/,
+      include: new RegExp('app/scripts'),
+      loader: 'isparta',
+      exclude: /node_modules/
     } ]
   } },
   resolve: { ...webpackConfig.resolve, ...{
@@ -28,28 +30,30 @@ export default (config) => {
     frameworks: [ 'mocha', 'chai' ],
     files: [
       './node_modules/phantomjs-polyfill/bind-polyfill.js',
-      './app/scripts/__tests__/index.js'
+      './app/scripts/__tests__/test-bundler.js'
     ],
     preprocessors: {
-      './app/scripts/__tests__/index.js': [ 'webpack', 'sourcemap' ]
+      './app/scripts/__tests__/test-bundler.js': [ 'webpack', 'sourcemap' ]
     },
     plugins: [
-      'karma-mocha',
       'karma-chai',
-      'karma-webpack',
-      'karma-phantomjs-launcher',
       'karma-chrome-launcher',
+      'karma-coverage',
+      'karma-mocha',
+      'karma-mocha-reporter',
+      'karma-phantomjs-launcher',
+      'karma-sourcemap-loader',
       'karma-spec-reporter',
-      'karma-sourcemap-loader'
+      'karma-webpack'
     ],
-    reporters: [ 'spec' ],
+    reporters: [ 'mocha', 'coverage' ],
     webpack: { ...webpackConfig, ...webpackTestConfig },
     webpackServer: {
       noInfo: true
     },
     coverageReporter: {
       type: 'html',
-      dir: 'coverage/'
+      dir: './coverage/'
     }
   });
 };
