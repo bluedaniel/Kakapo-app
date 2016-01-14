@@ -6,6 +6,7 @@
 !.scss-lint.yml
 !.babelrc
 !.eslintignore
+!.travis.yml
 
 # Logs
 logs
