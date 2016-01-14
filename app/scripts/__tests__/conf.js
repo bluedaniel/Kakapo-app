@@ -29,11 +29,11 @@ export default (config) => {
     singleRun: !argv.watch,
     frameworks: [ 'mocha', 'chai' ],
     files: [
-      './node_modules/phantomjs-polyfill/bind-polyfill.js',
-      './app/scripts/__tests__/test-bundler.js'
+      'node_modules/phantomjs-polyfill/bind-polyfill.js',
+      'app/scripts/__tests__/test-bundler.js'
     ],
     preprocessors: {
-      './app/scripts/__tests__/test-bundler.js': [ 'webpack', 'sourcemap' ]
+      'app/scripts/__tests__/test-bundler.js': [ 'webpack', 'sourcemap' ]
     },
     plugins: [
       'karma-chai',
