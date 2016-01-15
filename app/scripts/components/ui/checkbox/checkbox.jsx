@@ -13,9 +13,7 @@ export default class Checkbox extends Component {
     value: PropTypes.string
   };
 
-  handleChange = () => {
-    this.props.handleChange(this.refs.checkbox.checked);
-  };
+  handleChange = () => this.props.handleChange(this.refs.checkbox.checked);
 
   render() {
     return (

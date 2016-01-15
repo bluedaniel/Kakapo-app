@@ -7,7 +7,6 @@ const webpackTestConfig = {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true
   } },
-  devtool: 'inline-source-map',
   module: { ...webpackConfig.module, ...{
     postLoaders: [ {
       test: /\.(js|jsx)$/,

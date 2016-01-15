@@ -14,20 +14,16 @@ function setup(props={}) {
 }
 
 describe('<Progress/>', () => {
-  it('renders as a <div>', () => {
+  it('renders as a <div> with className equals `progress`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-  });
-
-  it('className equals `progress`', () => {
-    const { wrapper } = setup();
     expect(wrapper.prop('className')).to.eql('progress');
   });
 
   describe('When given props', () => {
     it('progress rounds 0.415 to 42% ', () => {
       const { wrapper } = setup({
-        progress: .415
+        progress: 0.415
       });
       expect(wrapper.find('.progress-text').text()).to.eql('42%');
     });
