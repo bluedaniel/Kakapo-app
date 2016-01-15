@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { soundcloudItemClass } from 'classes/';
-import { Image } from 'components/ui/';
 import { soundActions } from 'actions/';
 
 class SoundCloudItem extends Component {
@@ -30,9 +29,9 @@ class SoundCloudItem extends Component {
       <div className="soundcloud-item" onClick={this.handleClick}>
         <div className="thumbnail">
           <div className="user-avatar">
-            <Image img={this.props.sound.userAvatar}/>
+            <img src={this.props.sound.userAvatar}/>
           </div>
-          <Image img={this.props.sound.img}/>
+          <img src={this.props.sound.img}/>
           <span className="duration">
             {this.props.sound.duration}
           </span>

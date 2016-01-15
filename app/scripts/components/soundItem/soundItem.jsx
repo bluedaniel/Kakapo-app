@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
 import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
-import { Image } from 'components/ui/';
 import './soundItem.css';
 
 class SoundItem extends Component {
@@ -98,7 +97,7 @@ class SoundItem extends Component {
         style={objStyle}
       >
         <div className="inner">
-          {img ? <Image img={img}/> : <div className="no-image"/>}
+          {img ? <img src={img}/> : <div className="no-image"/>}
           {this.renderActions()}
           <span className="title">
             {this.props.sound.name}

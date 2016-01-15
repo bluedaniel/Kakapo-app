@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { soundClass } from 'classes/';
 import { soundActions } from 'actions/';
-import { Image } from 'components/ui/';
 
 class KakapoItem extends Component {
   static contextTypes = {
@@ -28,7 +27,7 @@ class KakapoItem extends Component {
     return (
       <div className={classNames('kakapo-item', { disabled: this.alreadyAdded() })} onClick={this.handleClick}>
         <div className="thumbnail">
-          <Image img={`http://data.kakapo.co/v2/images/dark_${this.props.sound.img}.png`}/>
+          <img src={`http://data.kakapo.co/v2/images/dark_${this.props.sound.img}.png`}/>
         </div>
         <span className="title">
           <FormattedMessage id={(`sounds.${this.props.sound.name.replace(/\s+/g, '_').toLowerCase()}`)} />

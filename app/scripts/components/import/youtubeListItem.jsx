@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { youtubeItemClass } from 'classes/';
-import { Image } from 'components/ui/';
 import { soundActions } from 'actions/';
 
 class YouTubeItem extends Component {
@@ -32,7 +31,7 @@ class YouTubeItem extends Component {
     return (
       <div className="youtube-item" onClick={this.handleClick}>
         <div className="thumbnail">
-          <Image img={this.props.sound.img}/>
+          <img src={this.props.sound.img}/>
           <span className="duration">
             {this.props.sound.duration}
           </span>
