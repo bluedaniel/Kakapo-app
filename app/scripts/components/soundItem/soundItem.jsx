@@ -1,14 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import waves from 'node-waves';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import throttle from 'lodash/throttle';
-import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import './soundItem.css';
 
-class SoundItem extends Component {
+export default class SoundItem extends Component {
   static propTypes = {
     themes: PropTypes.object,
     soundActions: PropTypes.object,
@@ -118,13 +115,3 @@ class SoundItem extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  themes: state.themes
-});
-
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SoundItem);

@@ -9,5 +9,6 @@ export default {
   progress: 0,
   recentlyDownloaded: true,
   tags: null,
+  source: null,
   volume: 0.5
 };

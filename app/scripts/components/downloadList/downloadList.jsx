@@ -11,7 +11,7 @@ export default class DownloadList extends Component {
 
   render() {
     const downloads = this.props.sounds.toArray().filter(_s => _s.progress < 1);
-    if (!downloads) return null;
+    if (!downloads.length) return null;
     return (
       <div className="download-list">
         {downloads.map(_s => <DownloadItem key={_s.file} sound={{ ..._s }}/>)}

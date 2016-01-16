@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { bindActionCreators } from 'redux';
+import { soundActions } from 'actions/';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
@@ -12,13 +14,19 @@ class SoundList extends Component {
 
   renderSound(arr) {
     return arr.map(_s => {
-      let item = <SoundItem key={_s.file} sound={{ ..._s }}/>;
+      let soundProps = {
+        soundActions: this.props.soundActions,
+        themes: this.props.themes,
+        sound: { ..._s }
+      };
+
+      let item = <SoundItem key={_s.file} { ...soundProps }/>;
       if (_s.editing) {
-        item = <SoundEdit key={_s.file + 'editing'} sound={{ ..._s }}/>;
+        item = <SoundEdit key={_s.file + 'editing'} { ...soundProps }/>;
       }
 
       return (
-        <div key={_s.file}>
+        <div className="sound-item-wrap" key={_s.file}>
           <CSSTransitionGroup
             transitionEnterTimeout={450}
             transitionLeaveTimeout={450}
@@ -32,6 +40,7 @@ class SoundList extends Component {
 
   render() {
     const sounds = this.props.sounds.toArray().filter(_s => _s.progress === 1);
+    if (!sounds.length) return null;
     return (
       <div className="container pure-g">
         <div className="pure-u-1 pure-u-sm-1-2 sound-list" ref="soundList1">
@@ -46,7 +55,12 @@ class SoundList extends Component {
 }
 
 const mapStateToProps = state => ({
-  sounds: state.sounds
+  sounds: state.sounds,
+  themes: state.themes
 });
 
-export default connect(mapStateToProps)(SoundList);
+const mapDispatchToProps = dispatch => ({
+  soundActions: bindActionCreators(soundActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SoundList);

@@ -3,12 +3,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { getReduxStore, getReactIntlContext } from '__tests__/helper';
+import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
 import { Link } from 'react-router';
 import Header from '../header';
 
 function setup(props={}) {
-  const wrapper = shallow(<Header {...props} store={getReduxStore()}/>, {
+  const storeData = getFakeData('themes');
+  const wrapper = shallow(<Header {...props} store={getFakeStore(storeData)}/>, {
     context: getReactIntlContext()
   }).shallow().shallow();
   return {
