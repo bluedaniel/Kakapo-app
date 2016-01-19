@@ -9,7 +9,7 @@ import { toasterInstance, validHowl } from 'utils/';
 
 class CustomUrl extends Component {
   static contextTypes = {
-    history: PropTypes.object
+    router: PropTypes.object
   };
 
   static propTypes = {
@@ -44,7 +44,7 @@ class CustomUrl extends Component {
       file: data.url,
       source: 'customStream'
     });
-    this.context.history.push('/');
+    this.context.router.push('/');
   };
 
   handleError = (msg, intl=true) => {

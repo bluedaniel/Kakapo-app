@@ -11,7 +11,7 @@ class SoundCloudItem extends Component {
   }
 
   static contextTypes = {
-    history: PropTypes.object
+    router: PropTypes.object
   };
 
   static propTypes = {
@@ -21,7 +21,7 @@ class SoundCloudItem extends Component {
 
   handleClick = () => {
     this.props.soundActions.addSound('soundcloud', this.props.sound.scId);
-    this.context.history.push('/');
+    this.context.router.push('/');
   };
 
   render() {

@@ -2,23 +2,21 @@ import 'intl';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import Router from 'react-router';
+import { Router, useRouterHistory } from 'react-router';
+import { createHashHistory } from 'history';
 import { IntlProvider } from 'react-intl';
-import { syncReduxAndRouter } from 'redux-simple-router';
-import createHashHistory from 'history/lib/createHashHistory';
 import routes from 'routes/routes';
 import { store } from 'stores/configureStore';
 
+const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+
 const state = store.getState();
-const history = createHashHistory({ queryKey: false });
-
-syncReduxAndRouter(history, store);
-
 const target = document.getElementById('app');
+
 const node = (
   <Provider store={store}>
     <IntlProvider locale={state.settings.intlData.id} messages={state.settings.intlData.messages}>
-      <Router history={history}>{routes}</Router>
+      <Router history={appHistory}>{routes}</Router>
     </IntlProvider>
   </Provider>
 );

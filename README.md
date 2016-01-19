@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bluedaniel/Kakapo-app.svg)](https://travis-ci.org/bluedaniel/Kakapo-app)
+[![Dependency Status](https://david-dm.org/bluedaniel/kakapo-app.svg)](https://david-dm.org/bluedaniel/kakapo-app) [![Build Status](https://travis-ci.org/bluedaniel/Kakapo-app.svg)](https://travis-ci.org/bluedaniel/Kakapo-app)
 
 <img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/icons/social/kakapo.png" width="128" height="128" align="right" />
 

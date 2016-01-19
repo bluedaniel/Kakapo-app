@@ -19,7 +19,7 @@ const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
 class Playlist extends Component {
   static contextTypes = {
-    history: PropTypes.object
+    router: PropTypes.object.isRequired
   };
 
   static propTypes = {
@@ -57,7 +57,7 @@ class Playlist extends Component {
         this.setState({ loadingPlaylist: false });
       });
 
-      this.context.history.push('/');
+      this.context.router.push('/');
     }
   };
 
@@ -70,7 +70,7 @@ class Playlist extends Component {
 
   resetSounds = () => {
     this.props.soundActions.resetSounds(false);
-    this.context.history.push('/');
+    this.context.router.push('/');
   };
 
   setSoundsToPlaylist = (playlist) => Object.keys(playlist).map(_p => {

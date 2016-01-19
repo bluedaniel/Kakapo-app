@@ -7,7 +7,7 @@ import { soundActions } from 'actions/';
 
 class YouTubeItem extends Component {
   static contextTypes = {
-    history: PropTypes.object
+    router: PropTypes.object
   };
 
   static propTypes = {
@@ -24,7 +24,7 @@ class YouTubeItem extends Component {
       source: 'youtubeStream',
       tags: this.props.sound.tags
     });
-    this.context.history.push('/');
+    this.context.router.push('/');
   };
 
   render() {
