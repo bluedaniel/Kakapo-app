@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import { Link } from 'react-router';
 
-class Options extends Component {
+export class Options extends Component {
   render() {
     return (
       <div className="modal-inner media">

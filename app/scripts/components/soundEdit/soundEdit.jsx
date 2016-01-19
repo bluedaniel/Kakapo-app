@@ -1,9 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
-import { bindActionCreators } from 'redux';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
-import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import { toasterInstance } from 'utils/';
 
@@ -16,7 +13,6 @@ class SoundEdit extends Component {
   };
 
   state = {
-    loading: false,
     focused: false,
     inputName: this.props.sound.name,
     inputTags: this.props.sound.tags
@@ -94,12 +90,4 @@ class SoundEdit extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  themes: state.themes
-});
-
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SoundEdit));
+export default injectIntl(SoundEdit);

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { searchActions } from 'actions/';
 import YoutubeListItem from './youtubeListItem';
 
-class YouTube extends Component {
+export class YouTube extends Component {
   static propTypes = {
     searchActions: PropTypes.object,
     search: PropTypes.object,

@@ -9,6 +9,12 @@ export function getFakeData(slice) {
   switch (slice) {
     case 'themes':
       return { themes: fromJS(kakapoAssets.theme) };
+    case 'search':
+      return { search: fromJS({
+        youtube: [],
+        soundcloud: [],
+        kakapofavs: []
+      }) };
     case 'sounds':
       return { sounds: new Map() };
     case 'settings':
@@ -38,6 +44,6 @@ export function getReactIntlContext() {
   const intlData = new IntlProvider({
     locale: 'en',
     messages: flatten(kakapoAssets.i18n.en.messages)
-  });
+  }, {});
   return intlData.getChildContext();
 }
