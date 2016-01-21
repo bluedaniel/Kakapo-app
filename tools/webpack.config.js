@@ -66,7 +66,7 @@ let config = {
       {
         test: /\.(js|jsx)?$/,
         include: path.resolve(__dirname, '../app'),
-        exclude: /node_modules/,
+        exclude: /(node_modules|app\/vendor)/,
         loaders: [ 'babel' ]
       },
       {
@@ -91,7 +91,6 @@ let config = {
       }
     ],
     noParse: [
-      /aws\-sdk/,
       /node_modules\/sinon\//,
       /node_modules\/json-schema\/lib\/validate\.js/
     ]
@@ -100,6 +99,8 @@ let config = {
     root: path.resolve(__dirname, '../app/scripts'),
     extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ],
     alias: {
+      // Custom AWS build (DynamoDB only) from https://sdk.amazonaws.com/builder/js/
+      'aws-custom-build': path.resolve(__dirname, '../app/vendor/aws-sdk-2.2.31.min'),
       rx: 'rx/dist/rx.lite',
       kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', platformDevice)
     }

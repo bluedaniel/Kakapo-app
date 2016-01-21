@@ -9,7 +9,7 @@ import kakapoAssets from 'kakapo-assets';
 import { soundActions } from 'actions/';
 import { toasterInstance } from 'utils/';
 import awsCredentials from '../../../../aws.json';
-import 'aws-sdk/dist/aws-sdk';
+import 'aws-custom-build';
 import './playlist.css';
 
 const AWS = window.AWS;

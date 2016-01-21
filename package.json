@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "animate.css": "^3.4.0",
-    "aws-sdk": "^2.2.28",
     "axios": "^0.9.0",
     "classnames": "^2.2.3",
     "clipboard": "^1.5.5",
