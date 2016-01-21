@@ -100,6 +100,7 @@ let config = {
     root: path.resolve(__dirname, '../app/scripts'),
     extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ],
     alias: {
+      rx: 'rx/dist/rx.lite',
       kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', platformDevice)
     }
   },

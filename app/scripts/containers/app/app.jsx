@@ -8,43 +8,35 @@ import Dropzone from 'react-dropzone';
 import classNames from 'classnames';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
-import { konami, pathConfig, toasterInstance } from 'utils/';
+import { pathConfig, toasterInstance } from 'utils/';
 import 'styles/base.css';
 import './app.css';
 
 let autoUpdater;
 if (__DESKTOP__) autoUpdater = remote.autoUpdater;
 
+let gradients;
+if (__DESKTOP__) gradients = fs.readJsonSync(pathConfig.gradientFile);
+
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { konami: false };
-
-    if (__DESKTOP__) {
-      const gradients = fs.readJsonSync(pathConfig.gradientFile);
-      this.state = { ...this.state, ...{
-        updateAvailable: false,
-        gradient: gradients[Math.floor(Math.random() * gradients.length)]
-      } };
-    }
-  }
-
   static propTypes = {
     children: PropTypes.object,
     soundActions: PropTypes.object
   };
 
+  state = __DESKTOP__ ? {
+    updateAvailable: false,
+    gradient: gradients[Math.floor(Math.random() * gradients.length)]
+  } : {};
+
   componentDidMount() {
     this.props.soundActions.soundsInit();
-    konami.subscribe(this.konamiEntered);
 
     if (__DESKTOP__) {
       ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
       autoUpdater.checkForUpdates();
     }
   }
-
-  konamiEntered = () => this.setState({ konami: !this.state.konami });
 
   onDrop = (files) => { // Desktop only
     if (__DESKTOP__) {
