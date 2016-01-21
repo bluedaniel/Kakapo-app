@@ -11,6 +11,10 @@ export default async function build() {
     await run(require('./css')); // External CSS for downloads.css
   }
 
+  if (argv.production) {
+    await run(require('./bundle')); // Bundle production JS
+  }
+
   if (argv.platform === 'desktop' && argv.production) {
     await run(require('./pkg')); // Package app into asar format
   }
