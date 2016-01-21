@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import fs from 'fs-extra';
 import config from './webpack.config';
 
 export default async function bundle() {
@@ -12,8 +13,12 @@ export default async function bundle() {
 
       console.log(stats.toString(config.stats));
 
-      // Upload stats.json to `http://webpack.github.io/analyse` for analysis.
-      // fs.writeFile("stats.json", JSON.stringify(stats.toJson(), null, 4));
+      if (!global.WATCH) {
+        // Upload stats.json to `http://webpack.github.io/analyse` for analysis.
+        // Also you can analyze size with `https://github.com/robertknight/webpack-bundle-size-analyzer`:
+        // `cat stats.json | analyze-bundle-size`
+        fs.writeFile('stats.json', JSON.stringify(stats.toJson(), null, 4));
+      }
 
       resolve();
     }
