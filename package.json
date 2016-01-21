@@ -20,7 +20,6 @@
     "intl": "^1.0.1",
     "kakapo-assets": "^5.8.0",
     "lodash": "^4.0.0",
-    "moment": "^2.11.1",
     "node-waves": "^0.7.2",
     "numeral": "^1.5.3",
     "react": "^0.14.6",

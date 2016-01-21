@@ -1,5 +1,4 @@
 import { List, fromJS } from 'immutable';
-import moment from 'moment';
 import numeral from 'numeral';
 import trimStart from 'lodash/trimStart';
 import constants from 'constants/';
@@ -17,11 +16,32 @@ const searchReducers = {
     return formatted.indexOf(':') === -1 ? `0:${formatted}` : formatted;
   },
 
+  // Convert YouTube ISO8061 duration string
+  parseDuration(duration) {
+    let seconds = 0;
+    duration.match(/[0-9]+[HMS]/g).forEach(part => {
+      let unit = part.charAt(part.length-1);
+      let amount = parseInt(part.slice(0,-1));
+      switch (unit) {
+        case 'H':
+          seconds += amount*60*60;
+          break;
+        case 'M':
+          seconds += amount*60;
+          break;
+        case 'S':
+          seconds += amount;
+          break;
+      }
+    });
+    return seconds;
+  },
+
   // YouTube Listeners
   mapYoutube(results) {
     return results.map(_y => ({
       desc: _y.snippet.description,
-      duration: this.formatDuration(moment.duration(_y.duration).asSeconds()),
+      duration: this.formatDuration(this.parseDuration(_y.duration)),
       img: _y.snippet.thumbnails.high.url,
       name: _y.snippet.title,
       tags: '',
