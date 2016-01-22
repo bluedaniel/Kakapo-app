@@ -4,6 +4,7 @@ import postcssPlugins from './postcss.plugins';
 import cssnano from 'cssnano';
 
 export default async function styles() {
+
   // Minify CSS files
   await Promise.all([ 'downloads', 'loading' ].map(file =>
     new Promise((resolve, reject) => {
@@ -24,10 +25,6 @@ export default async function styles() {
   ));
 
   // Inline some smaller CSS files into the HTML directly
-  await inlineCss();
-}
-
-async function inlineCss() {
   const inlineOpts = [ {
     html: './build/index.html',
     css: './build/css/loading.css',
@@ -35,10 +32,10 @@ async function inlineCss() {
     end: (cssData) => `<style type="text/css">${cssData}</style>`
   } ];
 
-  inlineOpts.map(opt => fs.readFile(opt.html, 'utf8', function (err, htmlData) {
-    fs.readFile(opt.css, 'utf8', function (err, cssData) {
+  await inlineOpts.map(opt => fs.readFile(opt.html, 'utf8', (err, htmlData) =>
+    fs.readFile(opt.css, 'utf8', (err, cssData) => {
       htmlData = htmlData.replace(opt.target, opt.end(cssData));
       fs.outputFile(opt.html, htmlData);
-    });
-  }));
+    })
+  ));
 }
