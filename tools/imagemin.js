@@ -1,7 +1,6 @@
 import { argv } from 'yargs';
 import fs from 'fs-extra';
 import Imagemin from 'imagemin';
-
 import Bluebird from 'bluebird';
 
 const fsPromise = Bluebird.promisifyAll(fs);
