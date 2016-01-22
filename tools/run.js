@@ -11,7 +11,8 @@ async function run(fn, options) {
   await fn.default(options);
   const end = new Date();
   const time = end.getTime() - start.getTime();
-  console.log(`[${format(end)}] Finished '${fn.default.name}' after ${time} ms`);
+  const timeStr = time < 1000 ? `${time} ms` : `${Math.floor(time / 1000)} seconds`;
+  console.log(`[${format(end)}] Finished '${fn.default.name}' after ${timeStr}`);
 }
 
 if (process.mainModule.children.length === 0 && process.argv.length > 2) {
