@@ -20,7 +20,8 @@ export default async function copy() {
   }
 
   if (argv.platform === 'web') {
-    await fs.copy('app/html/web', 'build', {});
+    await fs.copy(`app/html/web/${indexFile}.html`, 'build/index.html', {});
+    await fs.copy(`app/html/web/app.html`, 'build/app.html', {});
     await fs.copy('app/favicons', 'build/favicons', {});
   }
 }
