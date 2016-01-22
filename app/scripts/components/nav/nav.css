@@ -32,6 +32,7 @@
     }
   }
 }
+
 .topbar {
   color: #fff;
   font-size: 13px;
@@ -51,6 +52,7 @@
     left: 35px;
     position: absolute;
     width: calc(100% - 35px);
+
     @media (max-width: 568px) {
       display: none;
     }

@@ -18,7 +18,7 @@
     width: 44px;
   }
   .no-image {
-    background: linear-gradient(to left, #232526 , #414345);
+    background: linear-gradient(to left, #232526, #414345);
   }
   [type="range"] {
     display: none;
@@ -89,7 +89,7 @@
     img,
     .title,
     input {
-      opacity: .7;
+      opacity: 0.7;
     }
   }
   &.playing {
@@ -109,7 +109,7 @@
   }
   .youtube-video {
     left: 0;
-    opacity: .4;
+    opacity: 0.4;
     pointer-events: none;
     position: absolute;
     top: 0;

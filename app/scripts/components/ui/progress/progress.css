@@ -7,12 +7,14 @@
   position: absolute;
   top: 0;
 }
+
 .progress-text {
   margin: 13px 5px 12px;
   position: absolute;
   right: 0;
   top: 0;
 }
+
 @keyframes barberpole {
   from {
     background-position: 0 0;

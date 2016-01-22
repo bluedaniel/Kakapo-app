@@ -11,20 +11,25 @@ body {
   background: linear-gradient(90deg, #de6262 10%, #ffb88c 90%);
   color: #fff;
 }
+
 .pure-g {
   margin: 0 auto;
   max-width: 960px;
 }
+
 a,
 a:hover {
   color: #fff;
 }
+
 h1 {
   font-weight: 700;
 }
+
 .pure-button {
   border-radius: 100px;
 }
+
 .share {
   left: 0;
   margin: 15px;
@@ -40,6 +45,7 @@ h1 {
     top: -6px;
   }
 }
+
 .features {
   padding: 3rem 0;
   ul {
@@ -56,6 +62,7 @@ h1 {
     }
   }
 }
+
 .section {
   padding: 8rem 0 7rem;
   position: relative;
@@ -76,7 +83,7 @@ h1 {
     }
   }
   &.desktop {
-    background: linear-gradient(90deg, #E55D87 10%, #5FC3E4 90%);
+    background: linear-gradient(90deg, #e55d87 10%, #5fc3e4 90%);
   }
   &.chrome {
     background: linear-gradient(90deg, #70e1f5 10%, #ffd194 90%);
@@ -90,6 +97,7 @@ h1 {
     margin-bottom: 0;
   }
 }
+
 .intro {
   .pure-g {
     margin: 0 auto;
@@ -102,10 +110,12 @@ h1 {
     max-width: 48px;
   }
 }
+
 .section-heading,
 .section-description {
   margin-bottom: 1.2rem;
 }
+
 .apps-badge-wrap {
   align-items: center;
   display: flex;
@@ -122,32 +132,34 @@ h1 {
   }
 }
 
-@keyframes octocat-wave{
-  0%, 100% {
-    transform:rotate(0)
+@keyframes octocat-wave {
+  0%,
+  100% {
+    transform: rotate(0);
   }
-  20%, 60% {
-    transform:rotate(-25deg)
+  20%,
+  60% {
+    transform: rotate(-25deg);
   }
-  40%, 80% {
-    transform:rotate(10deg)
+  40%,
+  80% {
+    transform: rotate(10deg);
   }
 }
 
 .github-corner:hover .octo-arm {
-  animation:octocat-wave 560ms ease-in-out
+  animation: octocat-wave 560ms ease-in-out;
 }
 
-@media (max-width:500px) {
+@media (max-width: 500px) {
   .github-corner:hover .octo-arm {
-    animation:none
+    animation: none;
   }
   .github-corner .octo-arm {
-    animation:octocat-wave 560ms ease-in-out
+    animation: octocat-wave 560ms ease-in-out;
   }
 }
 
-/* Bigger than 568 */
 @media (min-width: 568px) {
   .section {
     padding: 12rem 0 11rem;
@@ -160,7 +172,6 @@ h1 {
   }
 }
 
-/* Bigger than 750 */
 @media (min-width: 750px) {
   .hero {
     padding: 8rem 0 5rem;
@@ -183,7 +194,6 @@ h1 {
   }
 }
 
-/* Bigger than 1000 */
 @media (min-width: 1000px) {
   .section {
     padding: 10rem 0;

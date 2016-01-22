@@ -5,7 +5,6 @@
 @import "purecss/build/buttons";
 @import "node-waves/dist/waves";
 @import "animate.css/animate";
-
 @import "./variables";
 @import "./animation";
 @import "./fonts";
@@ -24,14 +23,17 @@
 .initial-loading {
   display: none;
 }
+
 body {
   margin: 0 auto;
   max-width: 100%;
   padding-top: 105px;
+
   @media (min-width: 568px) {
     padding-top: 136px;
   }
 }
+
 .container {
   margin: 0 auto;
   max-width: 800px;

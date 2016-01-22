@@ -29,12 +29,11 @@
       }
     }
     .inactiveDrop {
-      .upload-files {
-      }
+
       &.activeDrop {
         .upload-files {
           animation-name: fadeInDown;
-          animation-duration: .25s;
+          animation-duration: 0.25s;
           animation-fill-mode: both;
           visibility: visible;
         }
