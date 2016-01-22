@@ -7,7 +7,7 @@
     position: absolute;
     right: 5px;
     top: 20px;
-    transition: opacity .5 ease;
+    transition: opacity 0.5 ease;
     width: 20px;
     &.active {
       opacity: 1;
@@ -43,7 +43,7 @@
       bottom: 0;
       color: #fff;
       font-size: 11px;
-      letter-spacing: .15px;
+      letter-spacing: 0.15px;
       padding: 3px 4px;
       position: absolute;
       right: 0;
@@ -62,6 +62,7 @@
   cursor: pointer;
   height: 40px;
   margin-bottom: 35px;
+
   @media (min-width: 568px) {
     float: left;
     width: 50%;
@@ -70,7 +71,7 @@
   &.disabled img {
     color: #bbb;
     cursor: default;
-    opacity: .5;
+    opacity: 0.5;
   }
   .thumbnail {
     height: 40px;

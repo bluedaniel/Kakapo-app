@@ -4,7 +4,7 @@
   color: #fff;
   cursor: pointer;
   display: block;
-  padding: .5em;
+  padding: 0.5em;
   text-align: center;
   &:hover {
     background-color: darken(#2ecc40, 5%);

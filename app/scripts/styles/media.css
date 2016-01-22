@@ -1,4 +1,3 @@
-
 .media {
   margin-top: 20px;
   .media-opts {
@@ -37,6 +36,7 @@
     &.options-soundcloud {
       margin-bottom: 0;
     }
+
     @media (min-width: 568px) {
       &.options-youtube {
         margin-bottom: 0;

@@ -3,6 +3,7 @@
   position: relative;
   width: 40px;
 }
+
 .double-bounce1,
 .double-bounce2 {
   animation: spinBounce 2s infinite ease-in-out;
@@ -10,15 +11,18 @@
   border-radius: 50%;
   height: 100%;
   left: 0;
-  opacity: .6;
+  opacity: 0.6;
   position: absolute;
   top: 0;
   width: 100%;
 }
+
 .double-bounce2 {
   animation-delay: -1s;
 }
+
 @keyframes spinBounce {
-  0%, 100% { transform: scale(0); }
+  0%,
+  100% { transform: scale(0); }
   50% { transform: scale(1); }
 }

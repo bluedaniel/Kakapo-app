@@ -1,4 +1,4 @@
-/* App clip circle intro */
+
 @keyframes clipCircle {
   0% { clip-path: circle(0% at 50% 50%); }
   10% { clip-path: circle(8% at 50% 50%); }
@@ -6,18 +6,16 @@
   100% { clip-path: circle(71% at 50% 50%); }
 }
 
-/* Scale and fade in */
 @keyframes scale-fade {
   0% {
     opacity: 0;
-    transform: scale(.8) rotateX(-40deg);
+    transform: scale(0.8) rotateX(-40deg);
   }
   50% { opacity: 1; }
   70% { transform: scale(1.05) rotateX(0); }
   100% { transform: scale(1) rotateX(0); }
 }
 
-/* Rotating the gear icon */
 @keyframes rotating {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -49,7 +47,7 @@
 
 .sound-list {
   > div {
-    transition: height var(--animationSpeed) cubic-bezier(.23, 1, .32, 1) 0ms;
+    transition: height var(--animationSpeed) cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   }
   .item {
     &.list-animation-enter {
@@ -76,7 +74,7 @@
 
 .modal {
   .media-opts {
-    transition: height var(--animationSpeed) cubic-bezier(.23, 1, .32, 1) 0ms;
+    transition: height var(--animationSpeed) cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   }
   .list-animation-enter {
     animation-duration: var(--animationSpeed);
@@ -105,11 +103,11 @@ body,
 .navbar,
 .navbar > div,
 .swatches a {
-  transition: all 450ms cubic-bezier(.23, 1, .32, 1) 0ms;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }
 
 /* Popup transitions */
 .color-picker {
-  animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
+  animation: scale-fade 300ms forwards cubic-bezier(0.8, 0.02, 0.45, 0.91);
   transform-origin: bottom center;
 }

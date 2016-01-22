@@ -1,7 +1,11 @@
-/* https://raw.githubusercontent.com/devinhunt/typebase.css */
-html, button, input, select, textarea,
+
+html,
+button,
+input,
+select,
+textarea,
 .pure-g [class *= "pure-u"] {
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
 }
 
 h1,
@@ -14,7 +18,6 @@ h6 {
   margin-top: 0;
 }
 
-/* Custom styling */
 a {
   color: inherit;
   text-decoration: none;
@@ -23,17 +26,20 @@ a {
     color: inherit;
   }
 }
+
 hr {
   clear: both;
   margin-bottom: 1.5rem;
   margin-top: 1.5rem;
 }
+
 .input-add-on {
   display: flex;
   .input-add-on-field {
     flex: 1;
   }
 }
+
 .pure-button {
   background-color: transparent;
   border-radius: 4px;

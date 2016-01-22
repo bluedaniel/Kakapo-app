@@ -8,12 +8,13 @@
   top: 0;
   z-index: 40;
 }
+
 .modal {
   background: #fff;
-  border-color: rgba(0,0,0,.2);
+  border-color: rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   border: 1px solid #ccc;
-  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   margin-top: -10px;
   min-height: 345px;
   outline: none;
@@ -21,15 +22,15 @@
   position: fixed;
   width: 300px;
   z-index: 50;
+
   @media (min-width: 568px) {
     margin-top: -10px;
   }
   .modal-inner {
-    animation: scale-fade 300ms forwards cubic-bezier(.8, .02, .45, .91);
+    animation: scale-fade 300ms forwards cubic-bezier(0.8, 0.02, 0.45, 0.91);
     background: #fff;
     margin: 0;
     min-height: 100px;
-    padding-right: 27px;
     padding: 28px;
     text-align: left;
     transform-origin: bottom center;
@@ -57,6 +58,7 @@
   }
   &.settings-pane {
     margin-left: 500px;
+
     @media (max-width: 800px) {
       margin-left: calc(100% - 310px);
     }

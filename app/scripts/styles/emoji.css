@@ -3,24 +3,29 @@
   display: inline-block;
   height: 1em;
   width: 1em;
-  margin: 0 .05em 0 .1em;
+  margin: 0 0.05em 0 0.1em;
   vertical-align: -0.1em;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: 1em 1em;
 }
+
 .twa-smiley {
   background-image: url("https://twemoji.maxcdn.com/svg/1f603.svg");
 }
+
 .twa-sunglasses {
   background-image: url("https://twemoji.maxcdn.com/svg/1f60e.svg");
 }
+
 .twa-heart-eyes {
   background-image: url("https://twemoji.maxcdn.com/svg/1f60d.svg");
 }
+
 .twa-relaxed {
   background-image: url("https://twemoji.maxcdn.com/svg/263a.svg");
 }
+
 .twa-hushed {
   background-image: url("https://twemoji.maxcdn.com/svg/1f62f.svg");
 }
