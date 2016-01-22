@@ -1,0 +1,33 @@
+.spinner {
+  height: 40px;
+  margin: 280px auto 0;
+  position: relative;
+  width: 40px;
+}
+
+.double-bounce1,
+.double-bounce2 {
+  animation: sk-bounce 2s infinite ease-in-out;
+  background-color: #9726ab;
+  border-radius: 50%;
+  height: 100%;
+  left: 0;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.double-bounce2 {
+  animation-delay: -1s;
+}
+
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+  }
+}

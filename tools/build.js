@@ -6,9 +6,10 @@ process.env.NODE_ENV = JSON.stringify(!argv.production ? 'development' : 'produc
 export default async function build() {
   await run(require('./clean'));
   await run(require('./copy'));
+  await run(require('./imagemin'));
 
   if (argv.platform === 'web') {
-    await run(require('./css')); // External CSS for downloads.css
+    await run(require('./styles')); // External CSS for downloads.css
   }
 
   if (argv.production) {
