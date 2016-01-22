@@ -13,7 +13,6 @@ export default function getHowlerObj(sound) {
     src: [ soundFile ],
     html5: true,
     loop: true,
-    volume: sound.volume,
-    autoplay: sound.playing
+    volume: sound.volume
   });
 }
