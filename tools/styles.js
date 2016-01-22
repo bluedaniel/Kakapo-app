@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import postcss from 'postcss';
-import postcssPlugins from './postcss.plugins';
+import postcssPlugins, { postcssImport } from './postcss.plugins';
 import cssnano from 'cssnano';
 
 export default async function styles() {
@@ -10,7 +10,7 @@ export default async function styles() {
     new Promise((resolve, reject) => {
       const source = fs.readFileSync(`./app/css/${file}.css`, 'utf8');
 
-      postcss(postcssPlugins).process(source, {
+      postcss(postcssPlugins.concat(postcssImport())).process(source, {
         from: './app/scripts/styles'
       })
       .catch(err => reject(console.error(err.stack)))

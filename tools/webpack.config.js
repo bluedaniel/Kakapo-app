@@ -3,7 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
-import postcssPlugins from './postcss.plugins';
+import postcssPlugins, { postcssImport } from './postcss.plugins';
 
 const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
 const ExternalsPlugin = webpack.ExternalsPlugin;
@@ -98,7 +98,10 @@ let config = {
     ]
   },
   resolve: {
-    root: path.resolve(__dirname, '../app/scripts'),
+    root: [
+      path.resolve(__dirname, '../app/scripts'), // You can do components/nav
+      path.resolve(__dirname, '../build') // For minified images
+    ],
     extensions: [ '', '.webpack.js', '.web.js', '.js', '.jsx' ],
     alias: {
       // Custom AWS build (DynamoDB only) from https://sdk.amazonaws.com/builder/js/
@@ -108,7 +111,11 @@ let config = {
     }
   },
   postcss: function plugins() {
-    return postcssPlugins;
+    return [
+      postcssImport({
+        onImport: files => files.forEach(this.addDependency)
+      })
+    ].concat(postcssPlugins);
   },
   stats: {
     colors: true,

@@ -9,81 +9,81 @@ i {
 }
 
 .icon-add {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/add.png");
+  background-image: url("/icons/light/add.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/add.png");
+    background-image: url("/icons/dark/add.png");
   }
 }
 .icon-download {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/download.png");
+  background-image: url("/icons/light/download.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/download.png");
+    background-image: url("/icons/dark/download.png");
   }
 }
 .icon-file {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/file.png");
+  background-image: url("/icons/light/file.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/file.png");
+    background-image: url("/icons/dark/file.png");
   }
 }
 .icon-pencil {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/pencil.png");
+  background-image: url("/icons/light/pencil.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/pencil.png");
+    background-image: url("/icons/dark/pencil.png");
   }
 }
 .icon-quit {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/quit.png");
+  background-image: url("/icons/light/quit.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/quit.png");
+    background-image: url("/icons/dark/quit.png");
   }
 }
 .icon-settings {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/settings.png");
+  background-image: url("/icons/light/settings.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/settings.png");
+    background-image: url("/icons/dark/settings.png");
   }
 }
 .icon-sound {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/sound.png");
+  background-image: url("/icons/light/sound.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/sound.png");
+    background-image: url("/icons/dark/sound.png");
   }
 }
 .icon-share {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/share.png");
+  background-image: url("/icons/light/share.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/share.png");
+    background-image: url("/icons/dark/share.png");
   }
 }
 .icon-tick {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/tick.png");
+  background-image: url("/icons/light/tick.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/tick.png");
+    background-image: url("/icons/dark/tick.png");
   }
 }
 .icon-trash {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/trash.png");
+  background-image: url("/icons/light/trash.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/trash.png");
+    background-image: url("/icons/dark/trash.png");
   }
 }
 .icon-playlist {
-  background-image: url("../../../node_modules/kakapo-assets/icons/light/playlist.png");
+  background-image: url("/icons/light/playlist.png");
   &.dark {
-    background-image: url("../../../node_modules/kakapo-assets/icons/dark/playlist.png");
+    background-image: url("/icons/dark/playlist.png");
   }
 }
 
 .icon-github {
-  background-image: url("../../../node_modules/kakapo-assets/icons/social/github.png");
+  background-image: url("/icons/social/github.png");
 }
 .icon-kakapo {
-  background-image: url("../../../node_modules/kakapo-assets/icons/social/kakapo.png");
+  background-image: url("/icons/social/kakapo.png");
 }
 .icon-soundcloud {
-  background-image: url("../../../node_modules/kakapo-assets/icons/social/soundcloud.png");
+  background-image: url("/icons/social/soundcloud.png");
 }
 .icon-youtube {
-  background-image: url("../../../node_modules/kakapo-assets/icons/social/youtube.png");
+  background-image: url("/icons/social/youtube.png");
 }
