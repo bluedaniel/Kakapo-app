@@ -7,6 +7,7 @@
 !.babelrc
 !.eslintignore
 !.travis.yml
+!.stylelintrc
 
 # Logs
 logs
