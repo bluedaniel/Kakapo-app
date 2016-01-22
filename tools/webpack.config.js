@@ -3,7 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
-import postcssPlugins, { postcssImport } from './postcss.plugins';
+import postcssPlugins, { postcssImport, stylelint } from './postcss.plugins';
 
 const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
 const ExternalsPlugin = webpack.ExternalsPlugin;
@@ -110,18 +110,18 @@ let config = {
       kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', platformDevice)
     }
   },
-  postcss: function plugins() {
-    return [
-      postcssImport({
-        onImport: files => files.forEach(this.addDependency)
-      })
-    ].concat(postcssPlugins);
-  },
+
+  postcss: (webpack) => [
+    postcssImport({ addDependencyTo: webpack }),
+    // stylelint({ ignoreFiles: 'node_modules/**/*' })
+  ].concat(postcssPlugins),
+
   stats: {
     colors: true,
     reasons: DEBUG,
     timings: true,
-    chunks: false
+    chunks: false,
+    assets: false
   }
 };
 

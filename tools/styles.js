@@ -4,9 +4,8 @@ import postcssPlugins, { postcssImport } from './postcss.plugins';
 import cssnano from 'cssnano';
 
 export default async function styles() {
-
   // Minify CSS files
-  await Promise.all([ 'downloads', 'loading' ].map(file =>
+  const cssMin = [ 'downloads', 'loading' ].map(file =>
     new Promise((resolve, reject) => {
       const source = fs.readFileSync(`./app/css/${file}.css`, 'utf8');
 
@@ -19,10 +18,13 @@ export default async function styles() {
           discardComments: { removeAll: true }
         };
         cssnano.process(data.css, minifyOpts).then(minified =>
-          resolve(fs.outputFile(`./build/css/${file}.css`, minified.css)));
+          fs.outputFile(`./build/css/${file}.css`, minified.css, err => {
+            if (err) return reject(err);
+            resolve();
+          }));
       });
     })
-  ));
+  );
 
   // Inline some smaller CSS files into the HTML directly
   const inlineOpts = [ {
@@ -32,10 +34,16 @@ export default async function styles() {
     end: (cssData) => `<style type="text/css">${cssData}</style>`
   } ];
 
-  await inlineOpts.map(opt => fs.readFile(opt.html, 'utf8', (err, htmlData) =>
-    fs.readFile(opt.css, 'utf8', (err, cssData) => {
-      htmlData = htmlData.replace(opt.target, opt.end(cssData));
-      fs.outputFile(opt.html, htmlData);
-    })
-  ));
+  const cssInline = inlineOpts.map(opt => new Promise((resolve, reject) =>
+    fs.readFile(opt.html, 'utf8', (err, htmlData) =>
+      fs.readFile(opt.css, 'utf8', (err, cssData) => {
+        htmlData = htmlData.replace(opt.target, opt.end(cssData));
+        fs.outputFile(opt.html, htmlData, (err) => {
+          if (err) return reject(err);
+          resolve();
+        });
+      })
+    )));
+
+  await Promise.all(cssMin.concat(cssInline));
 }

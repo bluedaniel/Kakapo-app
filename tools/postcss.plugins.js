@@ -5,9 +5,9 @@ import postcssReporter from 'postcss-reporter';
 import stylelint from 'stylelint';
 
 export { postcssImport as postcssImport };
+export { stylelint as stylelint };
 
 export default [
-  stylelint(),
   postcssNested(),
   postcssCssnext(),
   postcssReporter({ clearMessages: true })

@@ -1,12 +1,15 @@
 import fs from 'fs-extra';
+import Bluebird from 'bluebird';
+
+const fsPromise = Bluebird.promisifyAll(fs);
 
 export default async function clean() {
   await Promise.all([
-    fs.removeSync('release'),
-    fs.removeSync('.tmp'),
-    fs.removeSync('build/*')
+    fsPromise.removeAsync('release'),
+    fsPromise.removeAsync('.tmp'),
+    fsPromise.removeAsync('build/*')
   ]);
-  await fs.mkdirs('build');
-  await fs.mkdirs('.tmp/sounds');
-  await fs.mkdirs('.tmp/user-data');
+  await fsPromise.mkdirsAsync('build');
+  await fsPromise.mkdirsAsync('.tmp/sounds');
+  await fsPromise.mkdirsAsync('.tmp/user-data');
 }
