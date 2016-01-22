@@ -3,6 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
+import postcssPlugins from './postcss.plugins';
 
 const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
 const ExternalsPlugin = webpack.ExternalsPlugin;
@@ -106,18 +107,13 @@ let config = {
     }
   },
   postcss: function plugins() {
-    return [
-      require('postcss-import')({
-        onImport: files => files.forEach(this.addDependency)
-      }),
-      require('postcss-nested')(),
-      require('postcss-cssnext')()
-    ];
+    return postcssPlugins;
   },
   stats: {
     colors: true,
     reasons: DEBUG,
-    timings: true
+    timings: true,
+    chunks: false
   }
 };
 

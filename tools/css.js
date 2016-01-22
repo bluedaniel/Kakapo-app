@@ -1,19 +1,20 @@
 import fs from 'fs-extra';
 import postcss from 'postcss';
-import postcssImport from 'postcss-import';
-import postcssNested from 'postcss-nested';
-import postcssCssnext from 'postcss-cssnext';
+import postcssPlugins from './postcss.plugins';
+import cssnano from 'cssnano';
 
 export default async function css() {
-  const postcssProcessor = postcss()
-  .use(postcssImport())
-  .use(postcssNested())
-  .use(postcssCssnext());
-
   const source = fs.readFileSync('./app/css/downloads.css', 'utf8');
-  const output = postcssProcessor.process(source, {
+  const output = postcss(postcssPlugins).process(source, {
     from: './app/scripts/styles'
-  }).css;
+  })
+  .catch(err => console.error(err.stack));
 
-  await fs.outputFile('./build/css/downloads.css', output);
+  await output.then(data => {
+    const minifyOpts = {
+      discardComments: { removeAll: true }
+    };
+    cssnano.process(data.css, minifyOpts).then(minified =>
+      fs.outputFile('./build/css/downloads.css', minified.css));
+  });
 }
