@@ -6,9 +6,9 @@ export default {
   _fromSettings() {
     let appSettings = fs.readJsonSync(pathConfig.settingsFile, { throws: false });
     try {
-      appSettings = fs.readJsonSync(pathConfig.userSettingsFile, { throws: false });
+      appSettings = fs.readJsonSync(pathConfig.userSettingsFile);
     } catch (err) {
-      fs.writeFile(pathConfig.userSettingsFile, appSettings);
+      fs.writeJson(pathConfig.userSettingsFile, appSettings);
     }
     return {
       lang: appSettings.lang || 'en',
