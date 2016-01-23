@@ -60,7 +60,6 @@
     "cssnano": "^3.4.0",
     "electron-packager": "^5.2.0",
     "electron-prebuilt": "^0.36.3",
-    "electron-rebuild": "^1.1.1",
     "electron-windows-installer": "^1.2.2",
     "enzyme": "^1.2.0",
     "eslint": "^1.10.3",
