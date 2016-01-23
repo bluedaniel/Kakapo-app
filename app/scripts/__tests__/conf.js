@@ -41,15 +41,16 @@ export default (config) => {
       'karma-mocha-reporter',
       'karma-phantomjs-launcher',
       'karma-sourcemap-loader',
+      'karma-coveralls',
       'karma-webpack'
     ],
-    reporters: [ 'mocha', 'coverage' ],
+    reporters: [ 'mocha', 'coverage', 'coveralls' ],
     webpack: { ...webpackConfig, ...webpackTestConfig },
     webpackServer: {
       noInfo: true
     },
     coverageReporter: {
-      type: 'html',
+      type: 'lcov',
       dir: './coverage/'
     }
   });
