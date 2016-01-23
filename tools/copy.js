@@ -15,7 +15,7 @@ export default async function copy() {
     await fsPromise.copyAsync('./node_modules/kakapo-assets/sounds', 'build/sounds', {
       filter: /.ogg$/i
     });
-    await fs.copy('./node_modules/kakapo-assets/data', 'build/data', {});
+    await fsPromise.copyAsync('./node_modules/kakapo-assets/data', 'build/data', {});
   }
 
   if (argv.platform === 'web') {

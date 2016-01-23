@@ -72,12 +72,12 @@ let config = {
         loaders: [ 'babel' ]
       },
       {
-        test: /\.png$/,
-        loader: 'url-loader?limit=100000'
+        test: /\.css$/,
+        loader: 'style-loader!css-loader!postcss-loader'
       },
       {
-        test: /\.(jpg)$/,
-        loader: 'file-loader'
+        test: /\.(png|jpg|jpeg|gif)$/,
+        loader: 'url-loader'
       },
       {
         test: /\.(ttf|eot|svg|woff|woff2)$/,
@@ -86,10 +86,6 @@ let config = {
       {
         test: /\.json$/,
         loader: 'json-loader'
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
       }
     ],
     noParse: [
