@@ -8,7 +8,6 @@ const opts = {
   dir: 'build',
   icon: 'build/images/desktop/app',
   name: 'Kakapo',
-  version: '0.36.1',
   ignore: [
     '/user-data($|/)'
   ]
