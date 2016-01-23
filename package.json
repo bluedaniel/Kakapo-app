@@ -110,7 +110,7 @@
     "yargs": "^3.31.0"
   },
   "scripts": {
-    "test": "karma start",
+    "test": "babel-node tools/run imagemin && karma start",
     "lint": "eslint app/scripts tools",
     "build": "babel-node tools/run build",
     "pkg": "babel-node tools/run pkg",
