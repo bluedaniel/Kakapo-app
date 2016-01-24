@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import classNames from 'classnames';
 import { searchActions } from 'actions/';
-import YoutubeListItem from './youtubeListItem';
+import YoutubeItem from './youtubeItem';
 
 export class YouTube extends Component {
   static propTypes = {
@@ -75,7 +75,7 @@ export class YouTube extends Component {
         </span>
 
         <div className={classNames({ 'youtube-items': this.props.search.get('youtube').count() })}>
-          {this.props.search.get('youtube').map(_y => <YoutubeListItem key={_y.videoId} sound={_y}/>)}
+          {this.props.search.get('youtube').map(_y => <YoutubeItem key={_y.videoId} sound={_y}/>)}
         </div>
       </div>
     );

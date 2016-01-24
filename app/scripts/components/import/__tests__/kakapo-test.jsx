@@ -8,7 +8,7 @@ import mapValues from 'lodash/mapValues';
 import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import Kakapo from '../kakapo';
-import KakapoListItem from '../kakapoListItem';
+import KakapoItem from '../kakapoItem';
 
 function setup(props={}) {
   const storeData = { ...getFakeData('search'), soundActions: {}, ...props };
@@ -41,7 +41,7 @@ describe('<Kakapo/>', () => {
 
   it('renders correct number of SoudCloud items', () => {
     const { wrapper } = setup({ search: fromJS({ kakapofavs: randomSounds(5) }) });
-    expect(wrapper.find(KakapoListItem).length).to.eql(5);
+    expect(wrapper.find(KakapoItem).length).to.eql(5);
   });
 
   describe('When mounted', () => {

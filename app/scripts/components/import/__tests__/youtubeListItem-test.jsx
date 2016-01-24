@@ -7,7 +7,7 @@ import mapValues from 'lodash/mapValues';
 import { IntlProvider } from 'react-intl';
 import { getFakeStore, getReactIntlContext, getIntlProps } from '__tests__/helper';
 import { youtubeItemClass } from 'classes/';
-import YouTubeItem from '../youtubeListItem';
+import YouTubeItem from '../youtubeItem';
 
 function setup(enzymeMethod=shallow, props={}) {
   const storeData = { soundActions: {}, ...props };

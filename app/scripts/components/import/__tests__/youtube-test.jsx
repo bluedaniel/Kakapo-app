@@ -8,7 +8,7 @@ import mapValues from 'lodash/mapValues';
 import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
 import { youtubeItemClass } from 'classes/';
 import Youtube from '../youtube';
-import YoutubeListItem from '../youtubeListItem';
+import YoutubeItem from '../youtubeItem';
 
 function setup(props={}) {
   const storeData = { ...getFakeData('search'), soundActions: {}, ...props };
@@ -42,7 +42,7 @@ describe('<Youtube/>', () => {
 
   it('renders correct number of YouTube items', () => {
     const { wrapper } = setup({ search: fromJS({ youtube: randomSounds(5) }) });
-    expect(wrapper.find(YoutubeListItem).length).to.eql(5);
+    expect(wrapper.find(YoutubeItem).length).to.eql(5);
   });
 
   describe('When mounted', () => {

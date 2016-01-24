@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import classNames from 'classnames';
 import { searchActions } from 'actions/';
-import SoundCloudListItem from './soundcloudListItem';
+import SoundCloudItem from './soundcloudItem';
 
 class SoundCloud extends Component {
   static propTypes = {
@@ -75,7 +75,7 @@ class SoundCloud extends Component {
         </span>
 
         <div className={classNames({ 'soundcloud-items': this.props.search.get('soundcloud').count() })}>
-          {this.props.search.get('soundcloud').map(_y => <SoundCloudListItem key={_y.scId} sound={_y}/>)}
+          {this.props.search.get('soundcloud').map(_y => <SoundCloudItem key={_y.scId} sound={_y}/>)}
         </div>
       </div>
     );

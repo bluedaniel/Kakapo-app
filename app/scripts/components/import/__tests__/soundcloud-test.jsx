@@ -8,7 +8,7 @@ import mapValues from 'lodash/mapValues';
 import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
 import { soundcloudItemClass } from 'classes/';
 import Soundcloud from '../soundcloud';
-import SoundcloudListItem from '../soundcloudListItem';
+import SoundcloudItem from '../soundcloudItem';
 
 function setup(props={}) {
   const storeData = { ...getFakeData('search'), soundActions: {}, ...props };
@@ -42,7 +42,7 @@ describe('<Soundcloud/>', () => {
 
   it('renders correct number of SoudCloud items', () => {
     const { wrapper } = setup({ search: fromJS({ soundcloud: randomSounds(5) }) });
-    expect(wrapper.find(SoundcloudListItem).length).to.eql(5);
+    expect(wrapper.find(SoundcloudItem).length).to.eql(5);
   });
 
   describe('When mounted', () => {
