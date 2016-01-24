@@ -1,4 +1,3 @@
-import 'intl';
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
 import { flatten } from 'utils/';
@@ -38,12 +37,15 @@ export function getFakeStore(fakeData) {
   return self;
 }
 
+export function getIntlProps() {
+  return {
+    locale: 'en',
+    messages: flatten(kakapoAssets.i18n.en.messages)
+  };
+}
 
 // Setup the initial react-intl data
 export function getReactIntlContext() {
-  const intlData = new IntlProvider({
-    locale: 'en',
-    messages: flatten(kakapoAssets.i18n.en.messages)
-  }, {});
+  const intlData = new IntlProvider(getIntlProps(), {});
   return intlData.getChildContext();
 }

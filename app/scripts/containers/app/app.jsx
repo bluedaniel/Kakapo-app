@@ -13,10 +13,17 @@ import 'styles/base.css';
 import './app.css';
 
 let autoUpdater;
-if (__DESKTOP__) autoUpdater = remote.autoUpdater;
-
 let gradients;
-if (__DESKTOP__) gradients = fs.readJsonSync(pathConfig.gradientFile);
+let initialState = {};
+
+if (__DESKTOP__) {
+  autoUpdater = remote.autoUpdater;
+  gradients = fs.readJsonSync(pathConfig.gradientFile);
+  initialState = {
+    updateAvailable: false,
+    gradient: gradients[Math.floor(Math.random() * gradients.length)]
+  };
+}
 
 class App extends Component {
   static propTypes = {
@@ -24,10 +31,7 @@ class App extends Component {
     soundActions: PropTypes.object
   };
 
-  state = __DESKTOP__ ? {
-    updateAvailable: false,
-    gradient: gradients[Math.floor(Math.random() * gradients.length)]
-  } : {};
+  state = initialState;
 
   componentDidMount() {
     this.props.soundActions.soundsInit();
