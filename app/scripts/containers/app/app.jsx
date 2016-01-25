@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
@@ -8,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
+import { Subroutes } from 'components/ui';
 import { pathConfig, toasterInstance } from 'utils/';
 import 'styles/base.css';
 import './app.css';
@@ -57,7 +57,7 @@ class App extends Component {
   handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
 
   propsToChildren = () => {
-    let { settings, sounds, themes, intl, dispatch, children } = this.props;
+    let { intl } = this.props;
     return { intl };
   };
 
@@ -81,13 +81,9 @@ class App extends Component {
   }
 
   render() {
-    let { settings, sounds, themes, intl, dispatch, children } = this.props;
-    console.log(this.propsToChildren());
+    const { sounds, themes, intl, dispatch, location } = this.props;
     return (
-      <div className={classNames('app-container', {
-        web: __WEB__,
-        desktop: __DESKTOP__
-      })}>
+      <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
         <Dropzone
           activeClassName="activeDrop"
           className="inactiveDrop"
@@ -98,17 +94,13 @@ class App extends Component {
           {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
 
           <Nav {...{ themes, intl, dispatch }}/>
-          <Header {...{ themes, intl }}/>
+          <Header {...{ themes, location, intl }}/>
 
-          <div className="container">
-            {children && React.cloneElement(children, this.propsToChildren())}
-            {children ? (<Link className="modal-bg" to="/"/>) : null}
-          </div>
+          <Subroutes {...this.props}/>
 
           <SoundList {...{ sounds, themes, intl, dispatch }}/>
           <aside className="toast-view"></aside>
           <DownloadList {...{ sounds }}/>
-
         </Dropzone>
       </div>
     );

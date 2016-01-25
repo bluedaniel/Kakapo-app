@@ -81,4 +81,12 @@ header {
       float: right;
     }
   }
+  &.hideHint {
+    .hint::before,
+    [data-hint]::before,
+    .hint::after,
+    [data-hint]::after {
+      display: none;
+    }
+  }
 }

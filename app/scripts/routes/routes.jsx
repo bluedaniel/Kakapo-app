@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import { AddMedia, App, Playlist, Settings } from 'containers/';
+import { App, Playlist, Settings } from 'containers/';
 import { ImportOptions, ImportKakapo, ImportYouTube, ImportCustomUrl, ImportSoundCloud } from 'components/';
 
 export default (
   <Route component={App} path="/">
     <Route component={Playlist} path="playlist(/:playlistId)"/>
     <Route component={Settings} path="settings"/>
-    <Route component={AddMedia} path="downloads">
+    <Route path="downloads">
       <IndexRoute component={ImportOptions}/>
       <Route component={ImportKakapo} path="kakapo"/>
       <Route component={ImportYouTube} path="youtube"/>

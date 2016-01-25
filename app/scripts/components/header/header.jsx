@@ -1,12 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router';
+import camelCase from 'lodash/camelCase';
 import './header.css';
 
-export default ({ themes, intl }) => {
+export default ({ themes, intl, location }) => {
   const darkUI = { dark: themes.get('darkUI') };
   return (
-    <header className="header" style={themes.getIn([ 'header', 'titlebar' ]).toJS()}>
+    <header
+      className={classNames('header', { hideHint: camelCase(location.pathname).length })}
+      style={themes.getIn([ 'header', 'titlebar' ]).toJS()}
+    >
       <div className="container">
         <Link to="/downloads">
           <i className={classNames('icon-add', 'hint--bottom-right', darkUI)}

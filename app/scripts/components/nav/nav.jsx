@@ -28,7 +28,7 @@ export default class Nav extends Component {
   }
 
   render() {
-    let { themes, intl } = this.props;
+    let { themes } = this.props;
     return (
       <div className={classNames('topbar', {
         dark: themes.get('darkUI')

@@ -18,10 +18,12 @@ class Kakapo extends Component {
 
   render() {
     return (
-      <div className="modal-inner">
-        <h5><FormattedMessage id="import.kakapo.header"/></h5>
-        <div className={classNames({ 'kakapofavs-items': this.props.search.get('kakapofavs').count() })}>
-          {this.props.search.get('kakapofavs').map(_y => <KakapoItem key={_y.name} sound={_y}/>)}
+      <div className="modal kakapo">
+        <div className="modal-inner">
+          <h5><FormattedMessage id="import.kakapo.header"/></h5>
+          <div className={classNames({ 'kakapofavs-items': this.props.search.get('kakapofavs').count() })}>
+            {this.props.search.get('kakapofavs').map(_y => <KakapoItem key={_y.name} sound={_y}/>)}
+          </div>
         </div>
       </div>
     );

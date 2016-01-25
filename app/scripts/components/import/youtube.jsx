@@ -57,24 +57,26 @@ export class YouTube extends Component {
 
   render() {
     return (
-      <div className="modal-inner">
-        <span className={classNames('input', {
-          'input--filled': this.state.focused === 'input-yt' || this.state.inputYT
-        })}>
-          <input className="input__field" id="input-yt" onBlur={this.onBlur} onFocus={this.onFocus} ref="youtubeInput" type="text"/>
-          <label className="input__label" htmlFor="input-yt">
-            <span className="input__label-content">
-              <FormattedMessage id="import.youtube.search_placeholder"/>
-            </span>
-          </label>
-          <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
-            <div className="double-bounce1"></div>
-            <div className="double-bounce2"></div>
-          </div>
-        </span>
+      <div className="modal youtube">
+        <div className="modal-inner">
+          <span className={classNames('input', {
+            'input--filled': this.state.focused === 'input-yt' || this.state.inputYT
+          })}>
+            <input className="input__field" id="input-yt" onBlur={this.onBlur} onFocus={this.onFocus} ref="youtubeInput" type="text"/>
+            <label className="input__label" htmlFor="input-yt">
+              <span className="input__label-content">
+                <FormattedMessage id="import.youtube.search_placeholder"/>
+              </span>
+            </label>
+            <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
+              <div className="double-bounce1"></div>
+              <div className="double-bounce2"></div>
+            </div>
+          </span>
 
-        <div className={classNames({ 'youtube-items': this.props.search.get('youtube').count() })}>
-          {this.props.search.get('youtube').map(_y => <YoutubeItem key={_y.videoId} sound={_y}/>)}
+          <div className={classNames({ 'youtube-items': this.props.search.get('youtube').count() })}>
+            {this.props.search.get('youtube').map(_y => <YoutubeItem key={_y.videoId} sound={_y}/>)}
+          </div>
         </div>
       </div>
     );

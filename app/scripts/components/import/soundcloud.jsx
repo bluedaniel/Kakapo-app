@@ -58,24 +58,26 @@ class SoundCloud extends Component {
 
   render() {
     return (
-      <div className="modal-inner">
-        <span className={classNames('input', {
-          'input--filled': this.state.focused === 'input-sc' || this.state.inputYT
-        })}>
-          <input className="input__field" id="input-sc" onBlur={this.onBlur} onFocus={this.onFocus} ref="soundcloudInput" type="text"/>
-          <label className="input__label" htmlFor="input-sc">
-            <span className="input__label-content">
-              <FormattedMessage id="import.soundcloud.search_placeholder"/>
-            </span>
-          </label>
-          <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
-            <div className="double-bounce1"></div>
-            <div className="double-bounce2"></div>
-          </div>
-        </span>
+      <div className="modal soundcloud">
+        <div className="modal-inner">
+          <span className={classNames('input', {
+            'input--filled': this.state.focused === 'input-sc' || this.state.inputYT
+          })}>
+            <input className="input__field" id="input-sc" onBlur={this.onBlur} onFocus={this.onFocus} ref="soundcloudInput" type="text"/>
+            <label className="input__label" htmlFor="input-sc">
+              <span className="input__label-content">
+                <FormattedMessage id="import.soundcloud.search_placeholder"/>
+              </span>
+            </label>
+            <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
+              <div className="double-bounce1"></div>
+              <div className="double-bounce2"></div>
+            </div>
+          </span>
 
-        <div className={classNames({ 'soundcloud-items': this.props.search.get('soundcloud').count() })}>
-          {this.props.search.get('soundcloud').map(_y => <SoundCloudItem key={_y.scId} sound={_y}/>)}
+          <div className={classNames({ 'soundcloud-items': this.props.search.get('soundcloud').count() })}>
+            {this.props.search.get('soundcloud').map(_y => <SoundCloudItem key={_y.scId} sound={_y}/>)}
+          </div>
         </div>
       </div>
     );
