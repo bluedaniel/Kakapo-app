@@ -12,6 +12,7 @@
     "classnames": "^2.2.3",
     "clipboard": "^1.5.5",
     "color": "^0.11.1",
+    "hint.css": "^2.0.0",
     "history": "^2.0.0-rc2",
     "howler": "^2.0.0-beta6",
     "immutable": "^3.7.6",

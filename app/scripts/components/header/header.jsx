@@ -27,7 +27,7 @@ export default ({ themes, intl, location }) => {
           </h3>
         </Link>
         <Link to="/settings">
-          <i className={classNames('icon-settings', 'hint--bottom', darkUI)}
+          <i className={classNames('icon-settings', 'hint--bottom-left', darkUI)}
             data-hint={intl.formatMessage({ id: 'nav.settings' })} />
         </Link>
       </div>
