@@ -7,6 +7,14 @@ import classNames from 'classnames';
 import { searchActions } from 'actions/';
 import YoutubeItem from './youtubeItem';
 
+function observeAutocomplete(input) {
+  return Rx.Observable.fromEvent(input, 'keyup')
+    .map(el => el.target.value)
+    .filter(text => text.length > 2)
+    .throttle(350)
+    .distinctUntilChanged();
+}
+
 export class YouTube extends Component {
   static propTypes = {
     searchActions: PropTypes.object,
@@ -21,7 +29,7 @@ export class YouTube extends Component {
   };
 
   componentDidMount() {
-    const autocomplete = this.observeAutocomplete();
+    const autocomplete = observeAutocomplete(this.refs.youtubeInput);
     autocomplete
       .subscribe(() => this.toggleSpinner(true));
 
@@ -30,15 +38,6 @@ export class YouTube extends Component {
       .subscribe(() => this.toggleSpinner(false));
 
     this.refs.youtubeInput.focus();
-  }
-
-  observeAutocomplete() {
-    const input = this.refs.youtubeInput;
-    return Rx.Observable.fromEvent(input, 'keyup')
-      .map(el => el.target.value)
-      .filter(text => text.length > 2)
-      .throttle(350)
-      .distinctUntilChanged();
   }
 
   toggleSpinner(active) {

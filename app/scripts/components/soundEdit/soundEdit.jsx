@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
+import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import { toasterInstance } from 'utils/';
 
-class SoundEdit extends Component {
+export default class SoundEdit extends Component {
   static propTypes = {
     themes: PropTypes.object,
     intl: PropTypes.object,
@@ -20,7 +20,7 @@ class SoundEdit extends Component {
 
   handleCancel = (el) => {
     el.preventDefault();
-    this.props.soundActions.soundsEdit(this.props.sound, null);
+    this.props.dispatch(soundActions.soundsEdit(this.props.sound, null));
   };
 
   handleSave = (el) => {
@@ -28,10 +28,10 @@ class SoundEdit extends Component {
     if (!this.refs.name.value) {
       return toasterInstance().then(_t => _t.toast(this.props.intl.formatMessage({ id: 'import.error.empty' })));
     }
-    this.props.soundActions.soundsEdit(this.props.sound, {
+    this.props.dispatch(soundActions.soundsEdit(this.props.sound, {
       name: this.refs.name.value,
       tags: this.refs.tags.value
-    });
+    }));
   };
 
   onFocus = (e) => {
@@ -51,17 +51,18 @@ class SoundEdit extends Component {
   };
 
   render() {
+    let { sound, themes, intl } = this.props;
     return (
-      <div className="item editing" style={this.props.themes.getIn([ 'soundList', 'item' ]).toJS()}>
+      <div className="item editing" style={themes.getIn([ 'soundList', 'item' ]).toJS()}>
         <form onSubmit={this.handleSave}>
 
           <span className={classNames('input', {
             'input--filled': this.state.focused === 'input-name' || this.state.inputName
           })}>
-            <input className="input__field" id="input-name" defaultValue={this.props.sound.name} onBlur={this.onBlur} onFocus={this.onFocus} ref="name" type="text"/>
+            <input className="input__field" id="input-name" defaultValue={sound.name} onBlur={this.onBlur} onFocus={this.onFocus} ref="name" type="text"/>
             <label className="input__label" htmlFor="input-name">
               <span className="input__label-content">
-                <FormattedMessage id="list.editing_name"/>
+                {intl.formatMessage({ id: 'list.editing_name' })}
               </span>
             </label>
           </span>
@@ -69,25 +70,23 @@ class SoundEdit extends Component {
           <span className={classNames('input', {
             'input--filled': this.state.focused === 'input-tags' || this.state.inputTags
           })}>
-            <input className="input__field" id="input-tags" defaultValue={this.props.sound.tags} onBlur={this.onBlur} onFocus={this.onFocus} ref="tags" type="text"/>
+            <input className="input__field" id="input-tags" defaultValue={sound.tags} onBlur={this.onBlur} onFocus={this.onFocus} ref="tags" type="text"/>
             <label className="input__label" htmlFor="input-tags">
               <span className="input__label-content">
-                <FormattedMessage id="list.editing_tag"/>
+                {intl.formatMessage({ id: 'list.editing_tag' })}
               </span>
             </label>
           </span>
 
-          <a className="pure-button" onClick={this.handleCancel} style={this.props.themes.getIn([ 'base', 'btn' ]).toJS()}>
-            <FormattedMessage id="list.cancel"/>
+          <a className="pure-button" onClick={this.handleCancel} style={themes.getIn([ 'base', 'btn' ]).toJS()}>
+            {intl.formatMessage({ id: 'list.cancel' })}
           </a>
           <button
             className="pure-button pure-button-primary"
-            style={this.props.themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
-          ><FormattedMessage id="list.save"/></button>
+            style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
+          >{intl.formatMessage({ id: 'list.save' })}</button>
         </form>
       </div>
     );
   }
 }
-
-export default injectIntl(SoundEdit);

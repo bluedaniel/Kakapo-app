@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
+import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
@@ -34,7 +34,7 @@ class App extends Component {
   state = initialState;
 
   componentDidMount() {
-    this.props.soundActions.soundsInit();
+    this.props.dispatch(soundActions.soundsInit());
 
     if (__DESKTOP__) {
       ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
@@ -56,6 +56,11 @@ class App extends Component {
   // Desktop only
   handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
 
+  propsToChildren = () => {
+    let { settings, sounds, themes, intl, dispatch, children } = this.props;
+    return { intl };
+  };
+
   renderUpload() {
     return (
       <div
@@ -76,6 +81,8 @@ class App extends Component {
   }
 
   render() {
+    let { settings, sounds, themes, intl, dispatch, children } = this.props;
+    console.log(this.propsToChildren());
     return (
       <div className={classNames('app-container', {
         web: __WEB__,
@@ -89,23 +96,27 @@ class App extends Component {
         >
           {__DESKTOP__ ? this.renderUpload() : null}
           {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
-          <Nav/>
-          <Header/>
+
+          <Nav {...{ themes, intl, dispatch }}/>
+          <Header {...{ themes, intl }}/>
+
           <div className="container">
-            {this.props.children && React.cloneElement(this.props.children)}
-            {this.props.children ? (<Link className="modal-bg" to="/"/>) : null}
+            {children && React.cloneElement(children, this.propsToChildren())}
+            {children ? (<Link className="modal-bg" to="/"/>) : null}
           </div>
-          <SoundList/>
+
+          <SoundList {...{ sounds, themes, intl, dispatch }}/>
           <aside className="toast-view"></aside>
-          <DownloadList/>
+          <DownloadList {...{ sounds }}/>
+
         </Dropzone>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default connect(() => ({}), mapDispatchToProps)(App);
+export default injectIntl(connect(state => ({
+  settings: state.settings,
+  sounds: state.sounds,
+  themes: state.themes
+}))(App));

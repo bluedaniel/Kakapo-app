@@ -1,12 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { soundActions } from 'actions/';
 import './nav.css';
 
-class Nav extends Component {
+export default class Nav extends Component {
   static propTypes = {
     settings: PropTypes.object,
     soundActions: PropTypes.object,
@@ -16,7 +13,7 @@ class Nav extends Component {
   state = { mute: false };
 
   handleMute = () => {
-    this.setState({ mute: !this.state.mute }, () => this.props.soundActions.soundsMute(this.state.mute));
+    this.setState({ mute: !this.state.mute }, () => this.props.dispatch(soundActions.soundsMute(this.state.mute)));
   };
 
   renderDragOrDownload() {
@@ -25,21 +22,22 @@ class Nav extends Component {
     }
     return (
       <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank">
-        <FormattedMessage id="nav.app"/>
+        {this.props.intl.formatMessage({ id: 'nav.app' })}
       </a>
     );
   }
 
   render() {
+    let { themes, intl } = this.props;
     return (
       <div className={classNames('topbar', {
-        dark: this.props.themes.get('darkUI')
-      })} style={this.props.themes.getIn([ 'header', 'download' ]).toJS()}>
+        dark: themes.get('darkUI')
+      })} style={themes.getIn([ 'header', 'download' ]).toJS()}>
         <div className="container">
           <span
             className={classNames('mute', 'hint--right', {
               muted: this.state.mute,
-              dark: this.props.themes.get('darkUI')
+              dark: themes.get('darkUI')
             })}
             data-hint={this.state.mute ? 'Unmute' : 'Mute'}
             onClick={this.handleMute}
@@ -54,14 +52,3 @@ class Nav extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  settings: state.settings,
-  themes: state.themes
-});
-
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Nav));

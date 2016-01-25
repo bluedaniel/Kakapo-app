@@ -5,7 +5,7 @@ import { injectIntl, FormattedMessage, FormattedNumber } from 'react-intl';
 import { youtubeItemClass } from 'classes/';
 import { soundActions } from 'actions/';
 
-class YouTubeItem extends Component {
+export class YouTubeItem extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
