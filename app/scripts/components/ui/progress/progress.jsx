@@ -1,21 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import './progress.css';
 
-export default class Progress extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  static propTypes = {
-    progress: PropTypes.number
-  };
-
-  render() {
-    return (
-      <div className="progress">
-        <div className="progress-barberpole" style={{ width: `${Math.ceil(this.props.progress * 100)}%` }}/>
-        <div className="progress-text">{Math.ceil(this.props.progress * 100)}%</div>
-      </div>
-    );
-  }
-}
+export default ({ progress }) => (
+  <div className="progress">
+    <div className="progress-barberpole" style={{ width: `${Math.ceil(progress * 100)}%` }}/>
+    <div className="progress-text">{Math.ceil(progress * 100)}%</div>
+  </div>
+);
