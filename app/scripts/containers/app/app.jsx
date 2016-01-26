@@ -56,11 +56,6 @@ class App extends Component {
   // Desktop only
   handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
 
-  propsToChildren = () => {
-    let { intl } = this.props;
-    return { intl };
-  };
-
   renderUpload() {
     return (
       <div
@@ -110,5 +105,6 @@ class App extends Component {
 export default injectIntl(connect(state => ({
   settings: state.settings,
   sounds: state.sounds,
+  search: state.search,
   themes: state.themes
 }))(App));

@@ -12,5 +12,4 @@ export { default as DownloadItem } from './downloadItem/downloadItem';
 export { default as ImportOptions } from './import/options';
 export { default as ImportCustomUrl } from './import/customUrl';
 export { default as ImportKakapo } from './import/kakapo';
-export { default as ImportSoundCloud } from './import/soundcloud';
-export { default as ImportYouTube } from './import/youtube';
+export { default as ImportSearch } from './import/search';
