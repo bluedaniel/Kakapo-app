@@ -4,7 +4,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { fromJS, List } from 'immutable';
-import mapValues from 'lodash/mapValues';
+import { mapValues } from 'lodash';
 import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
 import { soundcloudItemClass } from 'classes/';
 import Soundcloud from '../soundcloud';

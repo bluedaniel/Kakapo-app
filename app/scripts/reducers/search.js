@@ -1,6 +1,6 @@
 import { List, fromJS } from 'immutable';
 import numeral from 'numeral';
-import trimStart from 'lodash/trimStart';
+import { trimStart } from 'lodash';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 

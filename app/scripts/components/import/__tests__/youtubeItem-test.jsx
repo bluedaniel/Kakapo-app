@@ -3,7 +3,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { expect } from 'chai';
-import mapValues from 'lodash/mapValues';
+import { mapValues } from 'lodash';
 import { IntlProvider } from 'react-intl';
 import { getFakeStore, getReactIntlContext, getIntlProps } from '__tests__/helper';
 import { youtubeItemClass } from 'classes/';

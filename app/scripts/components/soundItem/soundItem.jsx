@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import waves from 'node-waves';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash';
 import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import './soundItem.css';

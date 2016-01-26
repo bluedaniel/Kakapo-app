@@ -4,7 +4,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 import { fromJS, List } from 'immutable';
-import mapValues from 'lodash/mapValues';
+import { mapValues } from 'lodash';
 import { IntlProvider } from 'react-intl';
 import { getFakeData, getFakeStore, getReactIntlContext, getIntlProps } from '__tests__/helper';
 import { youtubeItemClass } from 'classes/';

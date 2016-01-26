@@ -4,7 +4,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { Map } from 'immutable';
-import mapValues from 'lodash/mapValues';
+import { mapValues } from 'lodash';
 import { getFakeStore, getFakeData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import DownloadList from '../downloadList';
