@@ -45,23 +45,27 @@ header {
     font-weight: 800;
     margin: 0;
     text-align: center;
-    span {
+    span.logo-text {
       margin-left: 8px;
       position: relative;
       top: -12px;
     }
-    img {
+    span.logo-bg {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
       height: 42px;
       width: 42px;
     }
 
     @media (min-width: 568px) {
       font-size: 2rem;
-      span {
+      span.logo-text {
         margin-left: 14px;
         top: -22px;
       }
-      img {
+      span.logo-bg {
         height: 62px;
         width: 62px;
       }

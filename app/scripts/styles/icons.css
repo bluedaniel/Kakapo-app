@@ -8,6 +8,10 @@ i {
   width: 32px;
 }
 
+.icon-logo {
+  background-image: url("../../../build/icons/social/kakapo.png");
+}
+
 .icon-add {
   background-image: url("../../../build/icons/light/add.png");
   &.dark {

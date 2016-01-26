@@ -22,8 +22,8 @@ export default ({ themes, intl, location }) => {
         </Link>
         <Link className="logo" to="/">
           <h3 style={themes.getIn([ 'header', 'h3' ]).toJS()}>
-            <img src={require('kakapo-assets/icons/social/kakapo.png')}/>
-            Kakapo
+            <span className="logo-bg icon-logo"></span>
+            <span className="logo-text">Kakapo</span>
           </h3>
         </Link>
         <Link to="/settings">
