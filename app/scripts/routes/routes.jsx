@@ -11,8 +11,8 @@ export default (
       <IndexRoute component={ImportOptions}/>
       <Route component={ImportKakapo} path="kakapo"/>
       <Route component={ImportSearch} path="youtube"/>
-      <Route component={ImportCustomUrl} path="custom"/>
       <Route component={ImportSearch} path="soundcloud"/>
+      <Route component={ImportCustomUrl} path="custom"/>
     </Route>
     <Route component="" path="*"/>
   </Route>
