@@ -3,8 +3,7 @@ import Rx from 'rx';
 import { intlShape } from 'react-intl';
 import classNames from 'classnames';
 import { searchActions } from 'actions/';
-import YoutubeItem from './youtubeItem';
-import SoundCloudItem from './soundcloudItem';
+import SearchResult from './searchResult';
 
 function observeAutocomplete(input) {
   return Rx.Observable.fromEvent(input, 'keyup')
@@ -61,7 +60,7 @@ export default class YouTube extends Component {
   });
 
   render() {
-    const { search, intl } = this.props;
+    const { search, intl, dispatch } = this.props;
     return (
       <div className="modal youtube">
         <div className="modal-inner">
@@ -82,12 +81,12 @@ export default class YouTube extends Component {
 
           <div className={`${this.state.service}-items`}>
             {search.get(this.state.service).map(_y => {
-              if (this.state.service === 'youtube') {
-                return <YoutubeItem key={_y.videoId} sound={_y}/>;
-              }
-              if (this.state.service === 'soundcloud') {
-                return <SoundCloudItem key={_y.scId} sound={_y}/>;
-              }
+              const itemProps = {
+                service: this.state.service,
+                sound: _y,
+                ...{ intl, dispatch }
+              };
+              return <SearchResult key={_y.videoId || _y.scId} {...itemProps}/>;
             })}
           </div>
         </div>

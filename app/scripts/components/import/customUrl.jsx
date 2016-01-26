@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import validator from 'validator';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { intlShape } from 'react-intl';
 import classNames from 'classnames';
 import { soundActions } from 'actions/';
 import { toasterInstance, validHowl } from 'utils/';
 
-class CustomUrl extends Component {
+export default class CustomUrl extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
@@ -39,11 +37,11 @@ class CustomUrl extends Component {
     if (!validator.isURL(data.url)) return this.handleError('import.error.url');
     if (!validHowl(data.url)) return this.handleError(validHowl(data.url, true), false);
 
-    this.props.soundActions.addSound('custom', {
+    this.props.dispatch(soundActions.addSound('custom', {
       name: data.name,
       file: data.url,
       source: 'customStream'
-    });
+    }));
     this.context.router.push('/');
   };
 
@@ -63,10 +61,11 @@ class CustomUrl extends Component {
   };
 
   render() {
+    const { themes, intl } = this.props;
     return (
       <div className="modal customurl">
         <div className="modal-inner">
-          <h5>{this.props.intl.formatMessage({ id: 'import.custom.header' })}</h5>
+          <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
           <form onSubmit={this.handleSubmit}>
             <div className="media-import">
               <span className={classNames('input', {
@@ -75,7 +74,7 @@ class CustomUrl extends Component {
                 <input className="input__field" id="input-name" onBlur={this.onBlur} onFocus={this.onFocus} ref="name" type="text"/>
                 <label className="input__label" htmlFor="input-name">
                   <span className="input__label-content">
-                    <FormattedMessage id="import.custom.name_placeholder"/>
+                    {intl.formatMessage({ id: 'import.custom.name_placeholder' })}
                   </span>
                 </label>
               </span>
@@ -85,15 +84,15 @@ class CustomUrl extends Component {
                 <input className="input__field" id="input-custom" onBlur={this.onBlur} onFocus={this.onFocus} ref="customInput" type="text"/>
                 <label className="input__label" htmlFor="input-custom">
                   <span className="input__label-content">
-                    <FormattedMessage id="import.custom.url_placeholder"/>
+                    {intl.formatMessage({ id: 'import.custom.url_placeholder' })}
                   </span>
                 </label>
               </span>
               <button
                 className="pure-button pure-button-primary"
                 ref="btn"
-                style={this.props.themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
-              ><FormattedMessage id="import.save"/></button>
+                style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
+              >{intl.formatMessage({ id: 'import.save' })}</button>
             </div>
           </form>
         </div>
@@ -101,13 +100,3 @@ class CustomUrl extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  themes: state.themes
-});
-
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CustomUrl));
