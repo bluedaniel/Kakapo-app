@@ -28,7 +28,6 @@ export default (config) => {
     singleRun: !argv.watch,
     frameworks: [ 'mocha', 'chai' ],
     files: [
-      './node_modules/phantomjs-polyfill/bind-polyfill.js',
       './app/scripts/__tests__/test-bundler.js'
     ],
     preprocessors: {
