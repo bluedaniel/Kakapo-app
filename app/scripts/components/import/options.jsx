@@ -5,7 +5,7 @@ export default ({ intl }) => (
   <div className="modal downloads">
     <div className="modal-inner media">
       <ul className="option-ul">
-        {[ 'kakapo', 'youtube', 'soundcloud' ].map(item => (
+        {[ 'kakapo', 'youtube', 'soundcloud', 'custom' ].map(item => (
           <li className={`option options-${item}`} key={item}>
             <Link to={`/downloads/${item}`}>
               <i className={`icon-${item}`}/>

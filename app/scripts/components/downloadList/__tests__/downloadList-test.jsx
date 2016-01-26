@@ -5,13 +5,13 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { Map } from 'immutable';
 import { mapValues } from 'lodash';
-import { getFakeStore, getFakeData } from '__tests__/helper';
+import { getData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import DownloadList from '../downloadList';
 
 function setup(props={}) {
-  const storeData = { ...getFakeData('sounds'), ...props };
-  const wrapper = shallow(<DownloadList store={getFakeStore(storeData)}/>).shallow();
+  const propData = { ...getData('sounds'), ...props };
+  const wrapper = shallow(<DownloadList {...propData}/>);
   return {
     props,
     wrapper
@@ -29,9 +29,9 @@ function randomSounds(count) {
 }
 
 describe('<DownloadList/>', () => {
-  it('renders null if no downloads', () => {
+  it('renders empty div if no downloads', () => {
     const { wrapper } = setup();
-    expect(wrapper.get(0)).to.eql(null);
+    expect(wrapper.html()).to.eql('<div></div>');
   });
 
   describe('When given props', () => {

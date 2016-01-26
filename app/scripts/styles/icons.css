@@ -26,7 +26,8 @@ i {
   }
 }
 
-.icon-file {
+.icon-file,
+.icon-custom {
   background-image: url("../../../build/icons/light/file.png");
   &.dark {
     background-image: url("../../../build/icons/dark/file.png");

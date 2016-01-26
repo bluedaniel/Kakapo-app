@@ -30,18 +30,15 @@ export default class CustomUrl extends Component {
     el.preventDefault();
     const data = {
       name: this.refs.name.value,
-      url: this.refs.customInput.value
+      file: this.refs.customInput.value,
+      source: 'customStream'
     };
 
-    if (!data.name || !data.url) return this.handleError('import.error.empty');
-    if (!validator.isURL(data.url)) return this.handleError('import.error.url');
-    if (!validHowl(data.url)) return this.handleError(validHowl(data.url, true), false);
+    if (!data.name || !data.file) return this.handleError('import.error.empty');
+    if (!validator.isURL(data.file)) return this.handleError('import.error.url');
+    if (!validHowl(data.file)) return this.handleError(validHowl(data.file, true), false);
 
-    this.props.dispatch(soundActions.addSound('custom', {
-      name: data.name,
-      file: data.url,
-      source: 'customStream'
-    }));
+    this.props.dispatch(soundActions.addSound('custom', data));
     this.context.router.push('/');
   };
 

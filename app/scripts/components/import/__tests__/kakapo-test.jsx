@@ -5,16 +5,20 @@ import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { fromJS, List } from 'immutable';
 import { mapValues } from 'lodash';
-import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
+import { getData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import Kakapo from '../kakapo';
 import KakapoItem from '../kakapoItem';
 
 function setup(props={}) {
-  const storeData = { ...getFakeData('search'), soundActions: {}, ...props };
-  const wrapper = shallow(<Kakapo store={getFakeStore(storeData)}/>, {
-    context: getReactIntlContext()
-  }).shallow().shallow();
+  const propData = {
+    ...getData('search'),
+    soundActions: {},
+    ...getData('intl'),
+    dispatch: (e) => e,
+    ...props
+  };
+  const wrapper = shallow(<Kakapo {...propData}/>);
   return {
     props,
     wrapper
@@ -36,7 +40,7 @@ describe('<Kakapo/>', () => {
   it('renders as a <div> with className equals `modal-inner`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('modal-inner');
+    expect(wrapper.prop('className')).to.eql('modal kakapo');
   });
 
   it('renders correct number of SoudCloud items', () => {

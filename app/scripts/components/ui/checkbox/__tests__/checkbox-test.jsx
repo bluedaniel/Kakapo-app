@@ -6,15 +6,16 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import Checkbox from '../checkbox';
 
-function setup(enzymeMethod=shallow, props={}) {
-  props = { ...{
+function setup(props={}, enzymeMethod=shallow) {
+  const propData = {
     checked: false,
+    dispatch: (e) => e,
     handleChange: () => console.log('checkbox changed!'),
     label: 'testLabel',
     name: 'testName',
-    value: 'testValue'
-  }, ...props };
-  const wrapper = enzymeMethod(<Checkbox {...props} />);
+    ...props
+  };
+  const wrapper = enzymeMethod(<Checkbox {...propData}/>);
   return {
     props,
     wrapper
@@ -31,9 +32,9 @@ describe('<Checkbox/>', () => {
   describe('When changed', () => {
     it('triggers handleChange fn', () => {
       const onInputChange = sinon.spy();
-      const { wrapper } = setup(mount, {
+      const { wrapper } = setup({
         handleChange: onInputChange
-      });
+      }, mount);
       wrapper.find('input').simulate('change');
       expect(onInputChange.calledOnce).to.equal(true);
     });

@@ -7,8 +7,8 @@ const actions = {
   },
   getCustomURL(data) {
     return new Promise((resolve, reject) => {
-      if (data.source !== 'file' && !validHowl(data.url)) {
-        return reject(new Error(validHowl(data.url, true)));
+      if (data.source !== 'file' && !validHowl(data.file)) {
+        return reject(new Error(validHowl(data.file, true)));
       }
 
       resolve({ ...newSoundClass, ...data });

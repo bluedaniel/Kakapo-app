@@ -6,21 +6,28 @@ import { expect } from 'chai';
 import { mapValues } from 'lodash';
 import { newSoundClass } from 'classes/';
 import SoundItem from '../soundItem';
-import { getFakeData } from '__tests__/helper';
+import { getData } from '__tests__/helper';
 
 function setup(props={}) {
-  const storeData = { ...getFakeData('themes'), soundActions: {} };
-  const wrapper = shallow(<SoundItem sound={props} { ...storeData }/>).shallow();
+  const propData = {
+    ...getData('themes'),
+    ...getData('intl'),
+    soundActions: {},
+    ...props
+  };
+  const wrapper = shallow(<SoundItem {...propData}/>);
   return {
     props,
     wrapper
   };
 }
 
-let soundProp = (props={}) => mapValues({ ...newSoundClass, ...{
-  source: 'file',
-  progress: 1
-}, ...props }, e => e === null ? `wind` : e);
+let soundProp = (props={}) => ({
+  sound: mapValues({ ...newSoundClass, ...{
+    source: 'file',
+    progress: 1
+  }, ...props }, e => e === null ? `wind` : e)
+});
 
 let defaultClassName = 'item waves-effect waves-block';
 let youtubeTestId = '7ccQyyCLtx8';
