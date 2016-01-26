@@ -1,8 +1,5 @@
 import { ipcRenderer, remote } from 'electron';
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { settingActions, themeActions } from 'actions/';
 import { ColorPicker, Checkbox } from 'components/ui/';
 import './settings.css';
@@ -15,11 +12,10 @@ if (__DESKTOP__) {
   autoUpdater = remote.autoUpdater;
 }
 
-class Settings extends Component {
+export default class Settings extends Component {
   static propTypes = {
     themes: PropTypes.object,
-    settingActions: PropTypes.object,
-    themeActions: PropTypes.object
+    settings: PropTypes.object
   };
 
   state = {
@@ -47,7 +43,7 @@ class Settings extends Component {
 
   handleSwatch = (swatch) => {
     this.setState({ colorPickerActive: false });
-    this.props.themeActions.themesChange(swatch, this.state.slotNo);
+    this.props.dispatch(themeActions.themesChange(swatch, this.state.slotNo));
   };
 
   setUpdateStatus = (opts) => this.setState(opts);
@@ -57,27 +53,25 @@ class Settings extends Component {
     if (this.state.updateStatus === 'downloaded') ipcRenderer.send('application:quit-install');
   };
 
-  toggleDockIcon = (value) => this.props.settingActions.toggleDock(value);
-
-  toggleDevTools = (value) => this.props.settingActions.toggleDevTools(value);
-
   renderDockOpt() {
     return (
       <div>
         <div className="opt">
           <Checkbox
             checked={this.props.settings.dockIcon}
-            handleChange={this.toggleDockIcon}
+            handleChange={settingActions.toggleDock}
             label="Show dock icon"
             name="toggle-dock"
+            dispatch={this.props.dispatch}
             />
         </div>
         <div className="opt">
           <Checkbox
             checked={this.props.settings.devTools}
-            handleChange={this.toggleDevTools}
+            handleChange={settingActions.toggleDevTools}
             label="Show developer tools"
             name="toggle-devtools"
+            dispatch={this.props.dispatch}
             />
         </div>
       </div>
@@ -123,7 +117,7 @@ class Settings extends Component {
       <div className="modal settings-pane">
         <div className="modal-inner">
           <div className="opt first">
-            <FormattedMessage id="settings.theme"/>
+            {this.props.intl.formatMessage({ id: 'settings.theme' })}
             <span className="swatches">
               <a onClick={() => this.changePaletteSlot(0)} style={{ backgroundColor: this.props.themes.get('palette').get(0) }}></a>
               <a onClick={() => this.changePaletteSlot(1)} style={{ backgroundColor: this.props.themes.get('palette').get(1) }}></a>
@@ -141,15 +135,3 @@ class Settings extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  themes: state.themes,
-  settings: state.settings
-});
-
-const mapDispatchToProps = dispatch => ({
-  settingActions: bindActionCreators(settingActions, dispatch),
-  themeActions: bindActionCreators(themeActions, dispatch)
-});
-
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Settings));
