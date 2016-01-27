@@ -7,12 +7,13 @@ const webpackTestConfig = {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true
   } },
+  devTool: 'inline-source-map',
   module: { ...webpackConfig.module, ...{
-    postLoaders: [ {
-      test: /\.(js|jsx)$/,
-      include: new RegExp('app/scripts'),
+    preLoaders: [ {
+      test: /\.(js|jsx)?$/,
+      include: /app\/scripts/,
       loader: 'isparta',
-      exclude: /(node_modules|__tests__)/
+      exclude: /(__tests__|node_modules)/
     } ]
   } },
   resolve: { ...webpackConfig.resolve, ...{
@@ -32,26 +33,20 @@ export default (config) => {
       './app/scripts/__tests__/test-bundler.js'
     ],
     preprocessors: {
-      './app/scripts/__tests__/test-bundler.js': [ 'webpack', 'sourcemap' ]
+      './app/scripts/__tests__/test-bundler.js': [ 'webpack', 'sourcemap', 'coverage' ]
     },
-    plugins: [
-      'karma-chai',
-      'karma-coverage',
-      'karma-mocha',
-      'karma-mocha-reporter',
-      'karma-phantomjs-launcher',
-      'karma-sourcemap-loader',
-      'karma-coveralls',
-      'karma-webpack'
-    ],
     reporters: [ 'mocha', 'coverage', 'coveralls' ],
     webpack: { ...webpackConfig, ...webpackTestConfig },
     webpackServer: {
       noInfo: true
     },
     coverageReporter: {
-      type: 'lcov',
-      dir: './coverage/'
+      reporters: [ {
+        type: 'text-summary'
+      }, {
+        type: 'lcov',
+        dir: './coverage/'
+      } ]
     }
   });
 };
