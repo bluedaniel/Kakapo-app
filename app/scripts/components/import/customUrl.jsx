@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import validator from 'validator';
 import { intlShape } from 'react-intl';
-import classNames from 'classnames';
 import { soundActions } from 'actions/';
 import { toasterInstance, validHowl } from 'utils/';
+import { TextInput } from 'components/ui';
 
 export default class CustomUrl extends Component {
   static contextTypes = {
@@ -16,21 +16,15 @@ export default class CustomUrl extends Component {
     intl: intlShape.isRequired
   };
 
-  state = {
-    focused: false,
-    inputName: false,
-    inputCustom: false
-  };
-
   componentDidMount() {
-    this.refs.name.focus();
+    this.refs.name.getElementsByTagName('input')[0].focus();
   }
 
   handleSubmit = (el) => {
     el.preventDefault();
     const data = {
-      name: this.refs.name.value,
-      file: this.refs.customInput.value,
+      name: this.refs.name.getElementsByTagName('input')[0].value,
+      file: this.refs.customInput.getElementsByTagName('input')[0].value,
       source: 'customStream'
     };
 
@@ -47,16 +41,6 @@ export default class CustomUrl extends Component {
     toasterInstance().then(_t => _t.toast(err));
   };
 
-  onFocus = (e) => this.setState({ focused: e.target.id });
-
-  onBlur = () => {
-    this.setState({
-      focused: false,
-      inputName: this.refs.name.value.length,
-      inputCustom: this.refs.customInput.value.length
-    });
-  };
-
   render() {
     const { themes, intl } = this.props;
     return (
@@ -65,26 +49,12 @@ export default class CustomUrl extends Component {
           <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
           <form onSubmit={this.handleSubmit}>
             <div className="media-import">
-              <span className={classNames('input', {
-                'input--filled': this.state.focused === 'input-name' || this.state.inputName
-              })}>
-                <input className="input__field" id="input-name" onBlur={this.onBlur} onFocus={this.onFocus} ref="name" type="text"/>
-                <label className="input__label" htmlFor="input-name">
-                  <span className="input__label-content">
-                    {intl.formatMessage({ id: 'import.custom.name_placeholder' })}
-                  </span>
-                </label>
-              </span>
-              <span className={classNames('input', {
-                'input--filled': this.state.focused === 'input-custom' || this.state.inputCustom
-              })}>
-                <input className="input__field" id="input-custom" onBlur={this.onBlur} onFocus={this.onFocus} ref="customInput" type="text"/>
-                <label className="input__label" htmlFor="input-custom">
-                  <span className="input__label-content">
-                    {intl.formatMessage({ id: 'import.custom.url_placeholder' })}
-                  </span>
-                </label>
-              </span>
+              <div ref="name">
+                <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl}/>
+              </div>
+              <div ref="customInput">
+                <TextInput placeholder="import.custom.url_placeholder" name="customInput" intl={intl}/>
+              </div>
               <button
                 className="pure-button pure-button-primary"
                 ref="btn"

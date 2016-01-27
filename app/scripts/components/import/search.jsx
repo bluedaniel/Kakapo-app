@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Rx from 'rx';
 import { intlShape } from 'react-intl';
-import classNames from 'classnames';
+import { TextInput } from 'components/ui';
 import { searchActions } from 'actions/';
 import SearchResult from './searchResult';
 
@@ -22,13 +22,12 @@ export default class YouTube extends Component {
 
   state = {
     service: this.props.location.pathname.split('/')[2],
-    loading: false,
-    focused: false,
-    input: false
+    loading: false
   };
 
   componentDidMount() {
-    const autocomplete = observeAutocomplete(this.refs.searchInput);
+    const searchInput = this.refs.searchInput.getElementsByTagName('input')[0];
+    const autocomplete = observeAutocomplete(searchInput);
     autocomplete
       .subscribe(() => this.toggleSpinner(true));
 
@@ -43,7 +42,7 @@ export default class YouTube extends Component {
       })
       .subscribe(() => this.toggleSpinner(false));
 
-    this.refs.searchInput.focus();
+    searchInput.focus();
   }
 
   toggleSpinner(active) {
@@ -52,33 +51,14 @@ export default class YouTube extends Component {
     }
   }
 
-  onFocus = (e) => this.setState({ focused: e.target.id });
-
-  onBlur = () => this.setState({
-    focused: false,
-    input: this.refs.searchInput.value.length
-  });
-
   render() {
     const { search, intl, dispatch } = this.props;
     return (
       <div className="modal youtube">
         <div className="modal-inner">
-          <span className={classNames('input', {
-            'input--filled': this.state.focused === 'input' || this.state.input
-          })}>
-            <input className="input__field" id="input" onBlur={this.onBlur} onFocus={this.onFocus} ref="searchInput" type="text"/>
-            <label className="input__label" htmlFor="input">
-              <span className="input__label-content">
-                {intl.formatMessage({ id: `import.${this.state.service}.search_placeholder` })}
-              </span>
-            </label>
-            <div className={classNames('input-add-on-item', 'spinner', { active: this.state.loading })}>
-              <div className="double-bounce1"></div>
-              <div className="double-bounce2"></div>
-            </div>
-          </span>
-
+          <div ref="searchInput">
+            <TextInput placeholder={`import.${this.state.service}.search_placeholder`} name="searchInput" spinner={this.state.loading} intl={intl}/>
+          </div>
           <div className={`${this.state.service}-items`}>
             {search.get(this.state.service).map(_y => {
               const itemProps = {

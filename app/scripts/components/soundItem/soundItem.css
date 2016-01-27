@@ -64,7 +64,7 @@
   }
   &.editing {
     background-color: #efefef;
-    padding: 20px 25px;
+    padding: 30px 20px 25px;
     form {
       margin-bottom: 0;
     }

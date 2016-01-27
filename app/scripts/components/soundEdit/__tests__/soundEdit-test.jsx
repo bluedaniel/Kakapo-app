@@ -7,6 +7,7 @@ import { mapValues } from 'lodash';
 import { getData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import SoundEdit from '../soundEdit';
+import { TextInput } from 'components/ui';
 
 function setup(props={}) {
   const propData = {
@@ -38,6 +39,6 @@ describe('<SoundEdit/>', () => {
 
   it('should render 2 inputs', () => {
     const { wrapper } = setup(soundProp());
-    expect(wrapper.find('.input')).to.have.length(2);
+    expect(wrapper.find(TextInput)).to.have.length(2);
   });
 });

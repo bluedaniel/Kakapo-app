@@ -1,6 +1,6 @@
 import 'intl';
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, useRouterHistory } from 'react-router';
 import { createHashHistory } from 'history';
@@ -21,4 +21,4 @@ const node = (
   </Provider>
 );
 
-ReactDOM.render(node, target);
+render(node, target);
