@@ -1,4 +1,3 @@
-import 'intl';
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
 import { flatten } from 'utils/';
