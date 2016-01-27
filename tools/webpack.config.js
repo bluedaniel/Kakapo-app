@@ -4,6 +4,7 @@ import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
 import postcssPlugins, { postcssImport, stylelint } from './postcss.plugins';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
 const ExternalsPlugin = webpack.ExternalsPlugin;
@@ -49,6 +50,7 @@ let config = {
       __WEB__: platformDevice === 'web',
       __DEV__: DEBUG
     }),
+    new ExtractTextPlugin('styles.css'),
     ...(!DEBUG ? [
       new webpack.optimize.DedupePlugin(),
       new webpack.optimize.UglifyJsPlugin({
@@ -73,7 +75,7 @@ let config = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader'
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
       },
       {
         test: /\.(png|jpg|jpeg|gif)$/,

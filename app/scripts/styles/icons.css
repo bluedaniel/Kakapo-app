@@ -8,6 +8,10 @@ i {
   width: 32px;
 }
 
+.icon-logo {
+  background-image: url("../../../build/icons/social/kakapo.png");
+}
+
 .icon-add {
   background-image: url("../../../build/icons/light/add.png");
   &.dark {
@@ -22,7 +26,8 @@ i {
   }
 }
 
-.icon-file {
+.icon-file,
+.icon-custom {
   background-image: url("../../../build/icons/light/file.png");
   &.dark {
     background-image: url("../../../build/icons/dark/file.png");

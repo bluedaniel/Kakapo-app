@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 import waves from 'node-waves';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash';
+import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import './soundItem.css';
 
@@ -18,21 +19,21 @@ export default class SoundItem extends Component {
 
   handleToggle = () => {
     waves.ripple(this.refs.item);
-    this.props.soundActions.soundsPlay(this.props.sound);
+    this.props.dispatch(soundActions.soundsPlay(this.props.sound));
   };
 
   handleDelete = (el) => {
     this.handleStopPropagation(el);
-    this.props.soundActions.soundsRemove(this.props.sound);
+    this.props.dispatch(soundActions.soundsRemove(this.props.sound));
   };
 
   handleEdit = (el) => {
     this.handleStopPropagation(el);
-    this.props.soundActions.soundsEdit(this.props.sound);
+    this.props.dispatch(soundActions.soundsEdit(this.props.sound));
   };
 
   handleVolume = throttle(() => {
-    this.props.soundActions.soundsVolume(this.props.sound, parseFloat(this.refs.volume.value));
+    this.props.dispatch(soundActions.soundsVolume(this.props.sound, parseFloat(this.refs.volume.value)));
   }, 250);
 
   handleStopPropagation(el) {
@@ -74,16 +75,17 @@ export default class SoundItem extends Component {
   }
 
   render() {
-    let objStyle = this.props.themes.getIn([ 'soundList', 'item' ]).toJS();
-    if (this.props.sound.playing) objStyle = { ...objStyle, ...this.props.themes.getIn([ 'soundList', 'itemPlaying' ]).toJS() };
+    let { themes, sound } = this.props;
+    let objStyle = themes.getIn([ 'soundList', 'item' ]).toJS();
+    if (sound.playing) objStyle = { ...objStyle, ...themes.getIn([ 'soundList', 'itemPlaying' ]).toJS() };
     const itemClass = classNames({
-      playing: this.props.sound.playing,
-      paused: !this.props.sound.playing,
-      'youtube-stream': this.props.sound.source === 'youtubeStream'
+      playing: sound.playing,
+      paused: !sound.playing,
+      'youtube-stream': sound.source === 'youtubeStream'
     });
-    let img = this.props.sound.img;
-    if (this.props.sound.source === 'file') {
-      img = 'http://data.kakapo.co/v2/images/' + (this.props.sound.playing ? 'light_' : 'dark_') + this.props.sound.img.replace(/^.*[\\\/]/, '') + '.png';
+    let img = sound.img;
+    if (sound.source === 'file') {
+      img = 'http://data.kakapo.co/v2/images/' + (sound.playing ? 'light_' : 'dark_') + sound.img.replace(/^.*[\\\/]/, '') + '.png';
     }
 
     return (
@@ -97,10 +99,10 @@ export default class SoundItem extends Component {
           {img ? <img src={img}/> : <div className="no-image"/>}
           {this.renderActions()}
           <span className="title">
-            {this.props.sound.name}
+            {sound.name}
           </span>
           <input
-            defaultValue={this.props.sound.volume}
+            defaultValue={sound.volume}
             max="1"
             min="0"
             onChange={this.handleVolume}

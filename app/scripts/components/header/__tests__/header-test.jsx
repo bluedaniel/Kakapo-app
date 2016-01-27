@@ -3,15 +3,19 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
+import { getData } from '__tests__/helper';
 import { Link } from 'react-router';
 import Header from '../header';
 
 function setup(props={}) {
-  const storeData = getFakeData('themes');
-  const wrapper = shallow(<Header {...props} store={getFakeStore(storeData)}/>, {
-    context: getReactIntlContext()
-  }).shallow().shallow();
+  const propData = {
+    ...getData('themes'),
+    ...getData('intl'),
+    location: { pathname: '' },
+    ...getData('location'),
+    ...props
+  };
+  const wrapper = shallow(<Header {...propData}/>);
   return {
     props,
     wrapper

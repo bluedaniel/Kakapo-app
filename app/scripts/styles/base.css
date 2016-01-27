@@ -5,11 +5,11 @@
 @import "purecss/build/buttons";
 @import "node-waves/dist/waves";
 @import "animate.css/animate";
+@import "hint.css/hint";
 @import "./variables";
 @import "./animation";
 @import "./fonts";
 @import "./type";
-@import "./hint";
 @import "./icons";
 @import "./input";
 @import "./switch";

@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import { browserHistory } from 'react-router';
 import createLogger from 'redux-logger';
 import rootReducer from 'reducers';
-import { syncHistory } from 'redux-simple-router';
+import { syncHistory } from 'react-router-redux';
 
 function configureStore(debug = false) {
   let middlewares = [ thunk, syncHistory(browserHistory) ];

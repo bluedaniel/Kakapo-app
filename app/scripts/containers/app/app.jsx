@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
+import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
+import { Subroutes } from 'components/ui';
 import { pathConfig, toasterInstance } from 'utils/';
 import 'styles/base.css';
 import './app.css';
@@ -34,7 +34,7 @@ class App extends Component {
   state = initialState;
 
   componentDidMount() {
-    this.props.soundActions.soundsInit();
+    this.props.dispatch(soundActions.soundsInit());
 
     if (__DESKTOP__) {
       ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
@@ -76,11 +76,9 @@ class App extends Component {
   }
 
   render() {
+    const { sounds, themes, intl, dispatch, location } = this.props;
     return (
-      <div className={classNames('app-container', {
-        web: __WEB__,
-        desktop: __DESKTOP__
-      })}>
+      <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
         <Dropzone
           activeClassName="activeDrop"
           className="inactiveDrop"
@@ -89,23 +87,24 @@ class App extends Component {
         >
           {__DESKTOP__ ? this.renderUpload() : null}
           {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
-          <Nav/>
-          <Header/>
-          <div className="container">
-            {this.props.children && React.cloneElement(this.props.children)}
-            {this.props.children ? (<Link className="modal-bg" to="/"/>) : null}
-          </div>
-          <SoundList/>
+
+          <Nav {...{ themes, intl, dispatch }}/>
+          <Header {...{ themes, location, intl }}/>
+
+          <Subroutes {...this.props}/>
+
+          <SoundList {...{ sounds, themes, intl, dispatch }}/>
           <aside className="toast-view"></aside>
-          <DownloadList/>
+          <DownloadList {...{ sounds }}/>
         </Dropzone>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default connect(() => ({}), mapDispatchToProps)(App);
+export default injectIntl(connect(state => ({
+  settings: state.settings,
+  sounds: state.sounds,
+  search: state.search,
+  themes: state.themes
+}))(App));

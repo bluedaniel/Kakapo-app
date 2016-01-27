@@ -3,14 +3,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { getFakeStore, getFakeData, getReactIntlContext } from '__tests__/helper';
+import { getData } from '__tests__/helper';
 import Nav from '../nav';
 
 function setup(props={}) {
-  const storeData = getFakeData('themes');
-  const wrapper = shallow(<Nav {...props} store={getFakeStore(storeData)}/>, {
-    context: getReactIntlContext()
-  }).shallow().shallow();
+  const propData = {
+    ...getData('themes'),
+    ...getData('intl'),
+    ...props
+  };
+  const wrapper = shallow(<Nav {...propData}/>);
   return {
     props,
     wrapper

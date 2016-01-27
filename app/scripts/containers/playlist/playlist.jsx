@@ -1,7 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
@@ -17,7 +14,7 @@ AWS.config.update(awsCredentials);
 
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
-class Playlist extends Component {
+export default class Playlist extends Component {
   static contextTypes = {
     router: PropTypes.object.isRequired
   };
@@ -69,21 +66,21 @@ class Playlist extends Component {
   };
 
   resetSounds = () => {
-    this.props.soundActions.resetSounds(false);
+    this.props.dispatch(soundActions.resetSounds(false));
     this.context.router.push('/');
   };
 
   setSoundsToPlaylist = (playlist) => Object.keys(playlist).map(_p => {
-    this.props.soundActions.resetSounds(true);
+    this.props.dispatch(soundActions.resetSounds(true));
     switch (playlist[_p].source) {
       case 'youtubeStream':
-        this.props.soundActions.addSound('youtube', playlist[_p], false);
+        this.props.dispatch(soundActions.addSound('youtube', playlist[_p], false));
         break;
       case 'soundcloudStream':
-        this.props.soundActions.addSound('soundcloud', playlist[_p].file, false);
+        this.props.dispatch(soundActions.addSound('soundcloud', playlist[_p].file, false));
         break;
       default:
-        this.props.soundActions.addSound('kakapo', playlist[_p], false);
+        this.props.dispatch(soundActions.addSound('kakapo', playlist[_p], false));
         break;
     }
   });
@@ -103,7 +100,7 @@ class Playlist extends Component {
       const url = location.hostname + (__DEV__ ? `:${location.port}` : '');
       return (
         <div>
-          <p><FormattedMessage id="playlist.share_created"/></p>
+          <p>{this.props.intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="pure-form">
             <input className="pure-input-1" id="copyClipboard" value={`${url}/playlist/${this.state.playlistUrl}`} readOnly/>
             <button className="copy-clipboard" data-clipboard-target="#copyClipboard" onClick={this.handleStopPropagation}>
@@ -115,7 +112,7 @@ class Playlist extends Component {
     }
     return (
       <a className="pure-button" onClick={this.createPlaylist}>
-        <FormattedMessage id="playlist.share"/>
+        {this.props.intl.formatMessage({ id: 'playlist.share' })}
       </a>
     );
   }
@@ -124,7 +121,7 @@ class Playlist extends Component {
     return (
       <div>
         <hr/>
-        <p><FormattedMessage id="playlist.input_playlist"/></p>
+        <p>{this.props.intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
         <form onSubmit={this.handleDesktopPlaylistInput} className="pure-form">
           <div className="InputAddOn">
             <span className="InputAddOn-item">kakapo.co/playlist/</span>
@@ -140,13 +137,13 @@ class Playlist extends Component {
     return (
       <div className="modal playlist-pane">
         <div className="modal-inner">
-          <h3><FormattedMessage id="playlist.header"/></h3>
+          <h3>{this.props.intl.formatMessage({ id: 'playlist.header' })}</h3>
           {this.renderShare()}
-          <p><FormattedMessage id="playlist.subheading"/></p>
-          <a className="pure-button" onClick={this.resetSounds}><FormattedMessage id="playlist.list_reset"/></a>
+          <p>{this.props.intl.formatMessage({ id: 'playlist.subheading' })}</p>
+          <a className="pure-button" onClick={this.resetSounds}>{this.props.intl.formatMessage({ id: 'playlist.list_reset' })}</a>
           {Object.keys(kakapoAssets.playlists).map(_e => (
             <Link to={`/playlist/${kakapoAssets.playlists[_e]}`} className="pure-button" key={_e}>
-              <FormattedMessage id={`playlist.list_${_e}`}/>
+              {this.props.intl.formatMessage({ id: `playlist.list_${_e}` })}
             </Link>
           ))}
           {__DESKTOP__ ? this.renderDesktopPlaylistInput() : null}
@@ -155,14 +152,3 @@ class Playlist extends Component {
     );
   }
 }
-
-const mapStateToProps = state => ({
-  sounds: state.sounds,
-  themes: state.themes
-});
-
-const mapDispatchToProps = dispatch => ({
-  soundActions: bindActionCreators(soundActions, dispatch)
-});
-
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Playlist));

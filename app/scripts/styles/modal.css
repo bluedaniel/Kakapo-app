@@ -1,9 +1,8 @@
 .modal-bg {
-  background: transparent;
   bottom: 0;
   cursor: default;
   left: 0;
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
   z-index: 40;
@@ -27,13 +26,11 @@
     margin-top: -10px;
   }
   .modal-inner {
-    animation: scale-fade 300ms forwards cubic-bezier(0.8, 0.02, 0.45, 0.91);
     background: #fff;
     margin: 0;
     min-height: 100px;
     padding: 28px;
     text-align: left;
-    transform-origin: bottom center;
     white-space: normal;
   }
   form,
@@ -53,7 +50,11 @@
       width: 100%;
     }
   }
-  &.downloads {
+  &.downloads,
+  &.youtube,
+  &.soundcloud,
+  &.kakapo,
+  &.customurl {
     margin-left: 10px;
   }
   &.settings-pane {

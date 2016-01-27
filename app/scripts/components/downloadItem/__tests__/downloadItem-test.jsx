@@ -3,7 +3,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import mapValues from 'lodash/mapValues';
+import { mapValues } from 'lodash';
 import { newSoundClass } from 'classes/';
 import DownloadItem from '../downloadItem';
 
