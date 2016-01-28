@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import nouislider from 'nouislider';
+import { throttle } from 'lodash';
 import classNames from 'classnames';
 import waves from 'node-waves';
-import { throttle } from 'lodash';
+import color from 'color';
 import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import './soundItem.css';
@@ -15,6 +17,21 @@ export default class SoundItem extends Component {
 
   componentWillMount() {
     this.handleVolume = throttle(this.handleVolume, 250);
+  }
+
+  componentDidMount() {
+    nouislider.create(this.refs.volume, {
+      start: this.props.sound.volume,
+      connect: 'lower',
+      range: {
+        min: 0,
+        max: 1
+      }
+    });
+
+    this.refs.volume.noUiSlider.on('update', this.handleVolume.bind(this));
+
+    this.colorSlider();
   }
 
   handleToggle = () => {
@@ -32,14 +49,19 @@ export default class SoundItem extends Component {
     this.props.dispatch(soundActions.soundsEdit(this.props.sound));
   };
 
-  handleVolume = throttle(() => {
-    this.props.dispatch(soundActions.soundsVolume(this.props.sound, parseFloat(this.refs.volume.value)));
+  handleVolume = throttle((data) => {
+    this.props.dispatch(soundActions.soundsVolume(this.props.sound, parseFloat(data[0])));
   }, 250);
 
   handleStopPropagation(el) {
     el.preventDefault();
     el.stopPropagation();
   }
+
+  colorSlider = () => {
+    const sliderColor = color(this.props.themes.get('palette').first()).darken(0.2).hexString();
+    this.refs.volume.getElementsByClassName('noUi-origin')[0].style.background = sliderColor;
+  };
 
   renderActions() {
     return (
@@ -75,6 +97,8 @@ export default class SoundItem extends Component {
   }
 
   render() {
+    if (this.refs.volume) this.colorSlider();
+
     let { themes, sound } = this.props;
     let objStyle = themes.getIn([ 'soundList', 'item' ]).toJS();
     if (sound.playing) objStyle = { ...objStyle, ...themes.getIn([ 'soundList', 'itemPlaying' ]).toJS() };
@@ -101,16 +125,7 @@ export default class SoundItem extends Component {
           <span className="title">
             {sound.name}
           </span>
-          <input
-            defaultValue={sound.volume}
-            max="1"
-            min="0"
-            onChange={this.handleVolume}
-            onClick={this.handleStopPropagation}
-            ref="volume"
-            step="0.001"
-            type="range"
-          />
+          <div ref="volume" onClick={this.handleStopPropagation}/>
         </div>
         {this.renderVideo()}
       </div>

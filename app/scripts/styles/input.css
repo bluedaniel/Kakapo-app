@@ -5,67 +5,67 @@
 .group {
   margin-bottom: 35px;
   position: relative;
-}
 
-input {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #757575;
-  display: block;
-  width: 100%;
-  &:focus ~ label,
-  &:valid ~ label {
-    color: #5264ae;
-    font-size: 0.7em;
-    top: -20px;
-  }
-
-  &:focus ~ {
-    &.bar::before,
-    &.bar::after {
-      width: 50%;
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #757575;
+    display: block;
+    width: 100%;
+    &:focus ~ label,
+    &:valid ~ label {
+      color: #5264ae;
+      font-size: 0.7em;
+      top: -20px;
     }
 
-    &.highlight {
-      animation: inputHighlighter 0.3s ease;
+    &:focus ~ {
+      &.bar::before,
+      &.bar::after {
+        width: 50%;
+      }
+
+      &.highlight {
+        animation: inputHighlighter 0.3s ease;
+      }
     }
   }
-}
 
-input,
-label {
-  font-size: 0.9em;
-  padding: 7px 0;
-}
+  input,
+  label {
+    font-size: 0.9em;
+    padding: 7px 0;
+  }
 
-label {
-  color: #999;
-  font-weight: normal;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  transition: 0.2s ease all;
-}
-
-.bar {
-  position: relative;
-  display: block;
-  &::before,
-  &::after {
-    content: "";
-    background: #5264ae;
-    bottom: 1px;
-    height: 1px;
+  label {
+    color: #999;
+    font-weight: normal;
+    left: 0;
+    pointer-events: none;
     position: absolute;
+    top: 0;
     transition: 0.2s ease all;
-    width: 0;
   }
-  &::before {
-    left: 50%;
-  }
-  &::after {
-    right: 50%;
+
+  .bar {
+    position: relative;
+    display: block;
+    &::before,
+    &::after {
+      content: "";
+      background: #5264ae;
+      bottom: 1px;
+      height: 1px;
+      position: absolute;
+      transition: 0.2s ease all;
+      width: 0;
+    }
+    &::before {
+      left: 50%;
+    }
+    &::after {
+      right: 50%;
+    }
   }
 }
 

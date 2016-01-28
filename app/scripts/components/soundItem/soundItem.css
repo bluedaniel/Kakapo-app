@@ -4,7 +4,7 @@
   cursor: pointer;
   height: auto;
   margin: 0;
-  min-height: 47px;
+  min-height: 54px;
   opacity: 1;
   padding: 20px 25px 20px 75px;
   position: relative;
@@ -20,7 +20,7 @@
   .no-image {
     background: linear-gradient(to left, #232526, #414345);
   }
-  [type="range"] {
+  .noUi-target {
     display: none;
     margin: 0;
     width: 100%;
@@ -93,7 +93,7 @@
     }
   }
   &.playing {
-    [type=range] {
+    .noUi-target {
       display: block;
     }
   }
@@ -118,71 +118,34 @@
   }
 }
 
-:root {
-  --volumeColor: #fff;
-}
-
-[type=range] {
-  -webkit-appearance: none;
-  margin: 7px 0;
-  width: 100%;
-  &:focus {
-    outline: none;
-    &::-webkit-slider-runnable-track {
-      background: var(--volumeColor);
+/* Slider styles */
+.item.playing {
+  .noUi-connect {
+    background: #fff;
+  }
+  .noUi-target {
+    border: none;
+    box-shadow: none;
+  }
+  .noUi-origin {
+    background: color(#e8175d alpha(-60%));
+    box-shadow: none;
+  }
+  .noUi-horizontal {
+    height: 8px;
+    margin: 15px 0 3px;
+    opacity: 0.9;
+    .noUi-handle {
+      border-radius: 50%;
+      border: none;
+      box-shadow: none;
+      left: -14px;
+      top: -10px;
+      width: 28px;
+      &::after,
+      &::before {
+        display: none;
+      }
     }
-    &::-ms-fill-lower {
-      background: var(--volumeColor);
-    }
-    &::-ms-fill-upper {
-      background: var(--volumeColor);
-    }
-  }
-  &::-webkit-slider-runnable-track {
-    background: var(--volumeColor);
-    cursor: pointer;
-    height: 2px;
-    width: 100%;
-  }
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    background: var(--volumeColor);
-    cursor: pointer;
-    height: 14px;
-    margin-top: -6px;
-    width: 3px;
-  }
-  &::-moz-range-track {
-    background: var(--volumeColor);
-    cursor: pointer;
-    height: 3px;
-    width: 100%;
-  }
-  &::-moz-range-thumb {
-    background: var(--volumeColor);
-    cursor: pointer;
-    height: 17px;
-    width: 5px;
-  }
-  &::-ms-track {
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-    cursor: pointer;
-    height: 3px;
-    width: 100%;
-  }
-  &::-ms-fill-lower {
-    background: var(--volumeColor);
-  }
-  &::-ms-fill-upper {
-    background: var(--volumeColor);
-  }
-  &::-ms-thumb {
-    background: var(--volumeColor);
-    border: 0 solid var(--volumeColor);
-    cursor: pointer;
-    height: 3px;
-    width: 5px;
   }
 }
