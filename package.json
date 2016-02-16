@@ -17,7 +17,7 @@
     "howler": "^2.0.0-beta7",
     "immutable": "^3.7.6",
     "intl": "^1.1.0",
-    "kakapo-assets": "^5.9.0",
+    "kakapo-assets": "^5.10.0",
     "lodash": "^4.4.0",
     "node-waves": "^0.7.2",
     "numeral": "^1.5.3",
