@@ -28,7 +28,9 @@
   .modal-inner {
     background: #fff;
     margin: 0;
+    max-height: 410px;
     min-height: 100px;
+    overflow: scroll;
     padding: 28px;
     text-align: left;
     white-space: normal;
