@@ -21,7 +21,7 @@ export default async function styles() {
           discardComments: { removeAll: true }
         };
         cssnano.process(data.css, minifyOpts).then(minified =>
-          fs.outputFile(`./build/css/${file}.css`, minified.css, err => {
+          fs.outputFile(`./build/css/${file}`, minified.css, err => {
             if (err) return reject(err);
             resolve();
           }));
