@@ -21,9 +21,9 @@ export default async function bundle() {
         fs.writeFile('stats.json', JSON.stringify(stats.toJson(), null, 4));
 
         // Compress js with Gzip
-        [ 'index' ].map(file => fs.createReadStream(`./build/${file}.js`)
+        [ 'index.js', 'styles.css' ].map(file => fs.createReadStream(`./build/${file}`)
           .pipe(zlib.createGzip({ level: 9 }))
-          .pipe(fs.createWriteStream(`./build/${file}.js.gz`)));
+          .pipe(fs.createWriteStream(`./build/${file}.gz`)));
       }
 
       resolve();

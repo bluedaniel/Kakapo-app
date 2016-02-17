@@ -5,6 +5,7 @@ import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
+import color from 'color';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import { Subroutes } from 'components/ui';
@@ -75,6 +76,29 @@ class App extends Component {
     );
   }
 
+  renderLoading() {
+    return (
+      <div className="loading" style={{
+        background: color(this.props.themes.get('palette').first()).alpha(0.5).rgbaString()
+      }}>
+        <div className="sk-fading-circle">
+          <div className="sk-circle1 sk-circle"/>
+          <div className="sk-circle2 sk-circle"/>
+          <div className="sk-circle3 sk-circle"/>
+          <div className="sk-circle4 sk-circle"/>
+          <div className="sk-circle5 sk-circle"/>
+          <div className="sk-circle6 sk-circle"/>
+          <div className="sk-circle7 sk-circle"/>
+          <div className="sk-circle8 sk-circle"/>
+          <div className="sk-circle9 sk-circle"/>
+          <div className="sk-circle10 sk-circle"/>
+          <div className="sk-circle11 sk-circle"/>
+          <div className="sk-circle12 sk-circle"/>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { sounds, themes, intl, dispatch, location } = this.props;
     return (
@@ -93,7 +117,8 @@ class App extends Component {
 
           <Subroutes {...this.props}/>
 
-          <SoundList {...{ sounds, themes, intl, dispatch }}/>
+          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }}/> : this.renderLoading()}
+
           <aside className="toast-view"></aside>
           <DownloadList {...{ sounds }}/>
         </Dropzone>
