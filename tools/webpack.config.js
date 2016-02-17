@@ -3,7 +3,7 @@ import path from 'path';
 import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
-import postcssPlugins, { postcssImport, stylelint } from './postcss.plugins';
+import postcssPlugins, { postcssImport } from './postcss.plugins';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
@@ -26,7 +26,7 @@ let config = {
   entry: {
     index: [
       './app/scripts/index',
-      ...(DEBUG ? [ `webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr` ] : [])
+      ...(DEBUG ? [ 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr' ] : [])
     ]
   },
   output: {
@@ -110,8 +110,7 @@ let config = {
   },
 
   postcss: (webpack) => [
-    postcssImport({ addDependencyTo: webpack }),
-    // stylelint({ ignoreFiles: 'node_modules/**/*' })
+    postcssImport({ addDependencyTo: webpack })
   ].concat(postcssPlugins),
 
   stats: {

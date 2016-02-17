@@ -5,23 +5,29 @@ import { fromJS, Map } from 'immutable';
 
 export function getData(slice) {
   switch (slice) {
-    case 'themes':
+    case 'themes': {
       return { themes: fromJS(kakapoAssets.theme) };
-    case 'search':
+    }
+    case 'search': {
       return { search: fromJS({
         youtube: [],
         soundcloud: [],
         kakapofavs: []
       }) };
-    case 'sounds':
+    }
+    case 'sounds': {
       return { sounds: new Map() };
-    case 'settings':
+    }
+    case 'settings': {
       return { settings: new Map() };
-    case 'location':
+    }
+    case 'location': {
       return { location: { pathname: '' } };
-    case 'intl':
+    }
+    case 'intl': {
       const intlData = new IntlProvider(getIntlProps(), {});
       return intlData.getChildContext();
+    }
   }
 }
 

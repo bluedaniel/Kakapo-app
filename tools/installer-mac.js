@@ -13,8 +13,8 @@ export default async function installerMac() {
     `codesign -v -f -s '${opts.identity}' ${opts.file}`,
     `codesign -vvv --display ${opts.file}`,
     `codesign -v --verify ${opts.file}`,
-    `mkdir -p release`,
-    `chmod +x release`,
+    'mkdir -p release',
+    'chmod +x release',
     `ditto -c -k --sequesterRsrc --keepParent ${opts.file} release/${opts.name}-${opts.v}-Mac.zip`
   ].forEach(_p => proc.execSync(_p));
 }
