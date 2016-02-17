@@ -118,7 +118,8 @@ let config = {
     reasons: DEBUG,
     timings: true,
     chunks: false,
-    assets: false
+    assets: false,
+    children: false
   }
 };
 
