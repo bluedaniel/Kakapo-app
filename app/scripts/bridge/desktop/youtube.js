@@ -1,7 +1,7 @@
 import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
-import uuid from 'uuid';
+import shortid from 'shortid';
 import { pathConfig } from 'utils/';
 import { newSoundClass } from 'classes/';
 import { EventEmitter } from 'events';
@@ -35,7 +35,7 @@ const actions = {
 
     const ee = new EventEmitter();
 
-    const tmpFile = path.join(pathConfig.userSoundDir, uuid());
+    const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
     ytdl(`https://www.youtube.com/watch?v=${data.file}`, {
       format: 'audioonly',
@@ -43,7 +43,7 @@ const actions = {
     })
     .on('response', res => fileSize = res.headers['content-length'])
     .on('info', (info, format) => newSound = { ...newSoundClass, ...{
-      file: path.join(pathConfig.userSoundDir, `${uuid()}.${format.container}`),
+      file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${format.container}`),
       img: info.thumbnail_url,
       link: `https://www.youtube.com/watch?v=${info.video_id}`,
       name: info.title,

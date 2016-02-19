@@ -1,7 +1,7 @@
 import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
-import uuid from 'uuid';
+import shortid from 'shortid';
 import { pathConfig, validHowl } from 'utils/';
 import { newSoundClass } from 'classes/';
 import { EventEmitter } from 'events';
@@ -25,7 +25,7 @@ function downloadProgress(ee, data) {
 const actions = {
   getCustomFile(name, filePath) {
     newSound = { ...newSoundClass, ... {
-      file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(filePath).substring(1)}`),
+      file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${path.extname(filePath).substring(1)}`),
       img: '',
       name: name,
       source: 'customFile'
@@ -48,7 +48,7 @@ const actions = {
     }
 
     if (data.source !== 'file') {
-      const tmpFile = path.join(pathConfig.userSoundDir, uuid());
+      const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
       if (!validHowl(data.file)) {
         ee.emit('error', validHowl(data.file, true));
@@ -56,7 +56,7 @@ const actions = {
       }
 
       newSound = { ...newSoundClass, ...data, ... {
-        file: path.join(pathConfig.userSoundDir, `${uuid()}.${path.extname(data.file).substring(1)}`)
+        file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${path.extname(data.file).substring(1)}`)
       } };
 
       request(data.file)

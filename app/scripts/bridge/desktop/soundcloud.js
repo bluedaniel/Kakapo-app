@@ -2,7 +2,7 @@ import axios from 'axios';
 import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
-import uuid from 'uuid';
+import shortid from 'shortid';
 import { pathConfig } from 'utils/';
 import { newSoundClass } from 'classes/';
 import { EventEmitter } from 'events';
@@ -52,7 +52,7 @@ const actions = {
 
     const ee = new EventEmitter();
 
-    const tmpFile = path.join(pathConfig.userSoundDir, uuid());
+    const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
     axios
     .get(`${SCAPI_TRACKS}/${soundcloudID}`, { params: { client_id: SOUNDCLOUD_KEY } })
@@ -63,7 +63,7 @@ const actions = {
       }
 
       newSound = { ...newSoundClass, ...{
-        file: path.join(pathConfig.userSoundDir, `${uuid()}.mp3`),
+        file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.mp3`),
         source: 'soundcloudStream',
         name: response.data.title,
         tags: response.data.tag_list,
