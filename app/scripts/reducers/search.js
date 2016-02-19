@@ -1,33 +1,37 @@
 import { List, fromJS } from 'immutable';
-import numeral from 'numeral';
-import { trimStart } from 'lodash';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 
-const initialState = new fromJS({
+const initialState = fromJS({
   youtube: [],
   soundcloud: [],
   kakapofavs: []
 });
 
 const searchReducers = {
-  formatDuration(seconds) {
-    const formatted = trimStart(numeral(seconds).format('00:00:00'), '0:');
-    return formatted.indexOf(':') === -1 ? `0:${formatted}` : formatted;
+  formatDuration(timestamp) {
+    const hours = Math.floor(timestamp / 3600);
+    const minutes = Math.floor((timestamp - (hours * 3600)) / 60);
+    const seconds = timestamp - (hours * 3600) - (minutes * 60);
+    let time = '';
+
+    if (hours !== 0) time += `${hours}:`;
+    time += minutes < 10 ? `0${minutes}:` : `${String(minutes)}:`;
+    return !time ? seconds : time + ((seconds < 10) ? `0${seconds}` : seconds);
   },
 
   // Convert YouTube ISO8061 duration string
   parseDuration(duration) {
     let seconds = 0;
     duration.match(/[0-9]+[HMS]/g).forEach(part => {
-      let unit = part.charAt(part.length-1);
-      let amount = parseInt(part.slice(0,-1));
+      let unit = part.charAt(part.length - 1);
+      let amount = parseInt(part.slice(0, -1), 0);
       switch (unit) {
         case 'H':
-          seconds += amount*60*60;
+          seconds += amount * 60 * 60;
           break;
         case 'M':
-          seconds += amount*60;
+          seconds += amount * 60;
           break;
         case 'S':
           seconds += amount;
@@ -54,7 +58,7 @@ const searchReducers = {
   mapSoundcloud(results) {
     return results.map(_y => ({
       desc: _y.description,
-      duration: this.formatDuration(numeral(_y.duration / 1000)),
+      duration: this.formatDuration(_y.duration / 1000),
       img: 'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
       name: _y.title,
       tags: _y.tag_list,

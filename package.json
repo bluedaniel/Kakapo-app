@@ -19,7 +19,6 @@
     "kakapo-assets": "^5.10.0",
     "lodash": "^4.4.0",
     "node-waves": "^0.7.2",
-    "numeral": "^1.5.3",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "^0.14.7",
     "react-dom": "^0.14.7",
