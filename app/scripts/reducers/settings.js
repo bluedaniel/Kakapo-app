@@ -1,12 +1,12 @@
 import kakapoAssets from 'kakapo-assets';
 import { bridgedSettings } from 'kakapoBridge';
 import constants from 'constants/';
-import { createReducer, flatten } from 'utils/';
+import { createReducer, flatteni18n } from 'utils/';
 
 let initialState = {
   lang: bridgedSettings.getItem('lang'),
   intlData: { ...kakapoAssets.i18n.en, ...{
-    messages: flatten(kakapoAssets.i18n.en.messages)
+    messages: flatteni18n(kakapoAssets.i18n.en.messages)
   } }
 };
 

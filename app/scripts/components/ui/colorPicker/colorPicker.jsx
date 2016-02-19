@@ -1,6 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
-import { swatches } from 'utils/';
+import { swatches, classNames } from 'utils/';
 import './colorPicker.css';
 
 export default ({ active, handleSwatch }) => (

@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import { searchActions } from 'actions/';
+import { classNames } from 'utils/';
 import KakapoItem from './kakapoItem';
 
 export default ({ sounds, search, intl, dispatch }) => {

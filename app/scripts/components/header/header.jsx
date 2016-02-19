@@ -1,7 +1,7 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Link } from 'react-router';
 import { camelCase } from 'lodash';
+import { classNames } from 'utils/';
 import './header.css';
 
 export default ({ themes, intl, location }) => {

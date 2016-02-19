@@ -4,12 +4,11 @@ import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
 import { injectIntl } from 'react-intl';
-import classNames from 'classnames';
 import color from 'color';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import { Subroutes } from 'components/ui';
-import { pathConfig, toasterInstance } from 'utils/';
+import { classNames, pathConfig, toasterInstance } from 'utils/';
 import 'styles/base.css';
 import './app.css';
 

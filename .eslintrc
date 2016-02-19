@@ -1,5 +1,5 @@
 {
-  "extends": "rackt",
+  "extends": "reactjs",
   "globals": {
     "__DEV__": true,
     "__DESKTOP__": true,

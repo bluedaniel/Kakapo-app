@@ -1,39 +1,15 @@
-// https://github.com/hughsk/flat
-export default function flatten(target, opts) {
-  opts = opts || {};
+import { reduce } from 'lodash';
 
-  const delimiter = opts.delimiter || '.';
-  let maxDepth = opts.maxDepth;
-  let currentDepth = 1;
-  let output = {};
+export const flatten = a => Array.isArray(a) ? [].concat(...a.map(flatten)) : a;
 
-  function step(object, prev) {
-    Object.keys(object).forEach(function (key) {
-      const value = object[key];
-      const isarray = opts.safe && Array.isArray(value);
-      const type = Object.prototype.toString.call(value);
-      const isbuffer = isBuffer(value);
-      const isobject = (type === '[object Object]' || type === '[object Array]');
-
-      const newKey = prev ? prev + delimiter + key : key;
-
-      if (!opts.maxDepth) maxDepth = currentDepth + 1;
-
-      if (!isarray && !isbuffer && isobject && Object.keys(value).length && currentDepth < maxDepth) {
-        ++currentDepth;
-        return step(value, newKey);
-      }
-
-      output[newKey] = value;
+export const flatteni18n = (obj) => reduce(obj, (_r, _v, _k) => {
+  if (typeof _v === 'object') {
+    const flatObject = flatteni18n(_v);
+    Object.keys(flatObject).map(_f => {
+      _r[_k + (!!isNaN(_f) ? '.' + (_f) : '')] = flatObject[_f];
     });
+  } else {
+    _r[_k] = obj[_k];
   }
-
-  step(target);
-
-  return output;
-}
-
-function isBuffer(value) {
-  if (typeof Buffer === 'undefined') return false;
-  return Buffer.isBuffer(value);
-}
+  return _r;
+}, {});

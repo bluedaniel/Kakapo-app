@@ -1,7 +1,7 @@
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
-import { flatten } from 'utils/';
 import { fromJS, Map } from 'immutable';
+import { flatteni18n } from 'utils/';
 
 export function getData(slice) {
   switch (slice) {
@@ -34,6 +34,6 @@ export function getData(slice) {
 export function getIntlProps() {
   return {
     locale: 'en',
-    messages: flatten(kakapoAssets.i18n.en.messages)
+    messages: flatteni18n(kakapoAssets.i18n.en.messages)
   };
 }

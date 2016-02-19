@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import classNames from 'classnames';
 import { soundActions } from 'actions/';
+import { classNames } from 'utils/';
 
 export default function KakapoItem({ sounds, sound, intl, dispatch }) {
   function alreadyAdded() {
