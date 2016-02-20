@@ -27,11 +27,10 @@ async function winRcedit() {
 async function winZip() {
   return await new Promise((resolve, reject) => {
     console.log(`[${new Date()}] Starting winZip ...`);
-    const output = fs.createWriteStream('./release/Kakapo-' + packagejson.version + '-Win.zip');
+    const output = fs.createWriteStream(`./release/Kakapo-${packagejson.version}-Win.zip`);
     const archive = archiver('zip');
 
-    output.on('close', () =>
-      resolve(console.log(`[${new Date()}] Finished winZip, size is ${(archive.pointer() / 1000000).toFixed(1)}mb`)));
+    output.on('close', () => resolve(console.log(`[${new Date()}] Finished winZip`)));
 
     archive.on('error', err => reject(err));
     archive.pipe(output);
@@ -59,7 +58,7 @@ async function winSetupExe() {
         title: 'Kakapo',
         exe: 'Kakapo.exe',
         version: packagejson.version,
-        setupExe: 'KakapoSetup-' + packagejson.version + '-Win.exe'
+        setupExe: `KakapoSetup-${packagejson.version}-Win.exe`
       }).then(resolve(console.log(`[${new Date()}] Finished winSetupExe`)));
     } else {
       reject(console.log('Error: `winSetupExe` can only be run on a Windows machine!'));

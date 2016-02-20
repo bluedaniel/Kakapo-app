@@ -30,6 +30,6 @@ const settingReducers = {
 
 export default createReducer(initialState, {
   [constants.SETTINGS_LANGUAGE]: state => state,
-  [constants.SETTINGS_DOCK]: (state, action) => settingReducers.toggleDock(state, action.bool),
-  [constants.SETTINGS_DEVTOOLS]: (state, action) => settingReducers.toggleDevTools(state, action.bool)
+  [constants.SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
+  [constants.SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool)
 });

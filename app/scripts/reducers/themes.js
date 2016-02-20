@@ -6,7 +6,7 @@ import constants from 'constants/';
 import { createReducer, swatches } from 'utils/';
 import { observableStore } from 'stores/configureStore';
 
-let initialState = new fromJS(bridgedThemes.fromStorage() || kakapoAssets.theme);
+let initialState = fromJS(bridgedThemes.fromStorage() || kakapoAssets.theme);
 
 const themeReducers = {
   colorVars(hex) {
@@ -25,7 +25,7 @@ const themeReducers = {
     const darkUI = swatches.light.indexOf(state.get('palette').get(0)) !== -1; // DarkUI switch
 
     return state.mergeDeep(fromJS({
-      darkUI: darkUI,
+      darkUI,
       colorPickerActive: false, // Close the color picker
       base: {
         btnPrimary: {

@@ -24,8 +24,8 @@ const searchReducers = {
   parseDuration(duration) {
     let seconds = 0;
     duration.match(/[0-9]+[HMS]/g).forEach(part => {
-      let unit = part.charAt(part.length - 1);
-      let amount = parseInt(part.slice(0, -1), 0);
+      const unit = part.charAt(part.length - 1);
+      const amount = parseInt(part.slice(0, -1), 0);
       switch (unit) {
         case 'H':
           seconds += amount * 60 * 60;
@@ -36,6 +36,8 @@ const searchReducers = {
         case 'S':
           seconds += amount;
           break;
+        default:
+          seconds += 0;
       }
     });
     return seconds;
@@ -81,13 +83,10 @@ const searchReducers = {
 };
 
 export default createReducer(initialState, {
-  [constants.SEARCH_YOUTUBE]: (state, action) => {
-    return state.update('youtube', () => List(searchReducers.mapYoutube(action.items)));
-  },
-  [constants.SEARCH_SOUNDCLOUD]: (state, action) => {
-    return state.update('soundcloud', () => List(searchReducers.mapSoundcloud(action.items)));
-  },
-  [constants.SEARCH_KAKAPO]: (state, action) => {
-    return state.update('kakapofavs', () => List(searchReducers.mapKakapo(action.items)));
-  }
+  [constants.SEARCH_YOUTUBE]: (state, action) =>
+    state.update('youtube', () => new List(searchReducers.mapYoutube(action.items))),
+  [constants.SEARCH_SOUNDCLOUD]: (state, action) =>
+    state.update('soundcloud', () => new List(searchReducers.mapSoundcloud(action.items))),
+  [constants.SEARCH_KAKAPO]: (state, action) =>
+    state.update('kakapofavs', () => new List(searchReducers.mapKakapo(action.items)))
 });

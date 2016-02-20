@@ -1,5 +1,6 @@
 {
-  "extends": "reactjs",
+  "extends": "airbnb",
+  "parser": "babel-eslint",
   "globals": {
     "__DEV__": true,
     "__DESKTOP__": true,
@@ -10,7 +11,11 @@
     "react/jsx-uses-react": 1,
     "react/jsx-no-undef": 2,
     "react/wrap-multilines": 2,
-    "semi": [2, "always"]
+    "array-bracket-spacing": [2, "always"],
+    "semi": [2, "always"],
+    "comma-dangle": [2, "never"],
+    "no-shadow": 0,
+    "no-param-reassign": 0
   },
   "plugins": [
     "react"

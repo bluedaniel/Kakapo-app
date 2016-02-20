@@ -6,7 +6,6 @@ import cssnano from 'cssnano';
 const cssDir = './app/css';
 
 export default async function styles() {
-
   // Minify external CSS files
   const cssMin = fs.readdirSync(`${cssDir}/external`).map(file =>
     new Promise((resolve, reject) => {

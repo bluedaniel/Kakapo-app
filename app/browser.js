@@ -73,7 +73,7 @@ app.on('ready', () => {
     ipcMain.on('toggle-devtools', (event, arg) => toggleDevTools(appIcon.window, arg));
   }
 
-  appIcon.on('clicked', function clicked(_e, bounds) {
+  appIcon.on('clicked', (_e, bounds) => {
     if (appIcon.window && appIcon.window.isVisible()) {
       if (appIcon.window) appIcon.window.hide();
     } else {
@@ -91,7 +91,8 @@ app.on('ready', () => {
     app.on('window-all-closed', () => app.quit());
   }
 
-  ipcMain.on('update-icon', (event, arg) => appIcon.setImage(arg === 'TrayActive' ? iconActive : iconIdle));
+  ipcMain.on('update-icon', (event, arg) =>
+    appIcon.setImage(arg === 'TrayActive' ? iconActive : iconIdle));
 
   ipcMain.on('app-quit', () => app.quit());
 

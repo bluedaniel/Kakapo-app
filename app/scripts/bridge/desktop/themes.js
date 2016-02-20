@@ -6,7 +6,7 @@ export default {
     let themeData;
     try {
       themeData = fs.readJsonSync(pathConfig.userThemeFile, { throws: false });
-    } catch(e) {
+    } catch (e) {
       themeData = null;
     }
     return themeData;

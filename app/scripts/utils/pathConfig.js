@@ -8,7 +8,8 @@ if (__DESKTOP__) {
   const app = remote.app;
 
   // Setup directories
-  [ 'user-sounds', 'user-data' ].forEach(_d => fs.ensureDir(path.join(app.getPath('userData'), _d)));
+  [ 'user-sounds', 'user-data' ].forEach(_d =>
+    fs.ensureDir(path.join(app.getPath('userData'), _d)));
 
   exportData = {
     // Default json objects & dirs

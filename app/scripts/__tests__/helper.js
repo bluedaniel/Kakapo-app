@@ -3,6 +3,13 @@ import kakapoAssets from 'kakapo-assets';
 import { fromJS, Map } from 'immutable';
 import { flatteni18n } from 'utils/';
 
+export function getIntlProps() {
+  return {
+    locale: 'en',
+    messages: flatteni18n(kakapoAssets.i18n.en.messages)
+  };
+}
+
 export function getData(slice) {
   switch (slice) {
     case 'themes': {
@@ -28,12 +35,8 @@ export function getData(slice) {
       const intlData = new IntlProvider(getIntlProps(), {});
       return intlData.getChildContext();
     }
+    default: {
+      return {};
+    }
   }
-}
-
-export function getIntlProps() {
-  return {
-    locale: 'en',
-    messages: flatteni18n(kakapoAssets.i18n.en.messages)
-  };
 }

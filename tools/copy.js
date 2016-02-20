@@ -9,7 +9,7 @@ export default async function copy() {
   const indexFile = argv.production ? 'index' : 'index-dev';
 
   if (argv.platform === 'desktop') {
-    proc.execSync('babel app/browser.js --out-file build/browser.js'),
+    proc.execSync('babel app/browser.js --out-file build/browser.js');
     await fsPromise.copyAsync('package.json', 'build/package.json', {});
     await fsPromise.copyAsync(`app/html/desktop/${indexFile}.html`, 'build/index.html', {});
     await fsPromise.copySync('./node_modules/kakapo-assets/sounds', 'build/sounds', {

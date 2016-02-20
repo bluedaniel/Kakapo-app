@@ -18,7 +18,7 @@ export function getDefaultSounds() {
     }));
   }
 
-  let defaultSounds = axios.get('http://data.kakapo.co/v2/data/sounds.json');
+  const defaultSounds = axios.get('http://data.kakapo.co/v2/data/sounds.json');
 
   return new Promise(resolve => {
     new Promise(res => window.onYouTubeIframeAPIReady = res(true)).then(resolve(defaultSounds));

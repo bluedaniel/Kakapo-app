@@ -16,9 +16,7 @@ function downloadProgress(ee, data) {
   const progress = (dataRead += data.length) / fileSize;
   if (progress > (currentProgress + 0.05) || progress === 1) {
     currentProgress = progress;
-    ee.emit('progress', { ...newSound, ...{
-      progress: progress
-    } });
+    ee.emit('progress', { ...newSound, progress });
   }
 }
 
@@ -50,7 +48,7 @@ const actions = {
       source: 'youtubeStream',
       tags: info.keywords ? info.keywords.join(' ') : ''
     } })
-    .on('error', e => ee.emit('error', 'problem with request: ' + e.message))
+    .on('error', e => ee.emit('error', `Error: ${e.message}`))
     .on('data', downloadProgress.bind(this, ee))
     .on('finish', () => {
       fs.rename(tmpFile, newSound.file);

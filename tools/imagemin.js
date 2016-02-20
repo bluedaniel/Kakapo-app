@@ -5,7 +5,8 @@ import Bluebird from 'bluebird';
 
 const fsPromise = Bluebird.promisifyAll(fs);
 
-const copyFiles = file => fsPromise.copyAsync(`node_modules/kakapo-assets/${file}`, `build/${file}`, {});
+const copyFiles = file =>
+  fsPromise.copyAsync(`node_modules/kakapo-assets/${file}`, `build/${file}`, {});
 
 const minifyFiles = file => new Promise((resolve, reject) => new Imagemin()
   .src(`node_modules/kakapo-assets/${file}/**/*.{gif,jpg,png,svg,ico,icns}`)

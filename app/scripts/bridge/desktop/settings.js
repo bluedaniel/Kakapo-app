@@ -21,7 +21,7 @@ export default {
     return data[option];
   },
   setItem(option, value) {
-    let data = this._fromSettings();
+    const data = this._fromSettings();
     data[option] = value;
     fs.writeJson(pathConfig.userSettingsFile, data);
 

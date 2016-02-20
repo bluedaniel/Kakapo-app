@@ -22,7 +22,7 @@ if (platformDevice === 'web') {
   }, {});
 }
 
-let config = {
+const config = {
   entry: {
     index: [
       './app/scripts/index',
@@ -35,7 +35,7 @@ let config = {
     publicPath: '/'
   },
   target: platformDevice === 'web' ? 'web' : 'electron',
-  externals: externals,
+  externals,
   cache: DEBUG,
   debug: DEBUG,
   devtool: DEBUG ? '#eval' : false,
@@ -124,7 +124,7 @@ let config = {
 };
 
 if (platformDevice === 'desktop') {
-  config.target = function (compiler) {
+  config.target = (compiler) => {
     compiler.apply(
       new JsonpTemplatePlugin(config.output),
       new FunctionModulePlugin(config.output),

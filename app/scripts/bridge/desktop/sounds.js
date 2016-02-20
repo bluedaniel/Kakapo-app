@@ -20,7 +20,7 @@ export default {
         if (err) return [];
         return data;
       });
-    } catch(e) {
+    } catch (e) {
       initialState = [];
     }
 
@@ -33,13 +33,14 @@ export default {
 
     try {
       appDetails = fs.readJsonSync(pathConfig.userInstallFile, { throws: false });
-    } catch(e) {
+    } catch (e) {
       appDetails = {};
     }
 
     if (semver.lt(appDetails.version || '0.0.1', packageJson.version)) {
       this.setVersion();
-      initialState = initialState.filterNot(_s => _s.source === 'file').toArray().concat(defaultSounds);
+      initialState = initialState.filterNot(_s => _s.source === 'file')
+        .toArray().concat(defaultSounds);
     }
 
     return initialState;

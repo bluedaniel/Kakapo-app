@@ -40,7 +40,7 @@ const soundReducers = {
 
   resetSounds(state, clear) {
     state.map(_s => this._getHowl(_s).then(howl => {
-      if(howl) howl.unload(); // Remove sound object
+      if (howl) howl.unload(); // Remove sound object
     }));
     howls = howls.clear();
     if (clear) return state.clear();
@@ -67,7 +67,7 @@ const soundReducers = {
   },
 
   changeVolume(state, sound, volume) {
-    state = state.update(sound.file, _s => ({ ..._s, ...{ volume: volume } }));
+    state = state.update(sound.file, _s => ({ ..._s, volume }));
     this._getHowl(sound).then(howl => howl.volume(volume));
     return state;
   },
@@ -124,14 +124,17 @@ const soundReducers = {
 };
 
 export default createReducer(initialState, {
-  [constants.SOUNDS_RECEIVED]: (state, action) => soundReducers.init(state, action.resp),
-  [constants.SOUNDS_MUTE]: (state, action) => soundReducers.toggleMute(state, action.mute),
-  [constants.SOUNDS_PLAY]: (state, action) => soundReducers.togglePlay(state, action.sound),
-  [constants.SOUNDS_VOLUME]: (state, action) => soundReducers.changeVolume(state, action.sound, action.volume),
-  [constants.SOUNDS_EDIT]: (state, action) => soundReducers.editSound(state, action.sound, action.data),
-  [constants.SOUNDS_REMOVE]: (state, action) => soundReducers.removeSound(state, action.sound),
-  [constants.SOUNDS_DOWNLOADING]: (state, action) => soundReducers.soundDownloading(state, action.sound),
-  [constants.SOUNDS_DOWNLOADED]: (state, action) => soundReducers.soundDownloaded(state, action.sound, action.notify),
-  [constants.SOUNDS_ERROR]: (state, action) => soundReducers.soundError(state, action.err),
-  [constants.SOUNDS_RESET]: (state, action) => soundReducers.resetSounds(state, action.clear)
+  [constants.SOUNDS_RECEIVED]: (state, { resp }) => soundReducers.init(state, resp),
+  [constants.SOUNDS_MUTE]: (state, { mute }) => soundReducers.toggleMute(state, mute),
+  [constants.SOUNDS_PLAY]: (state, { sound }) => soundReducers.togglePlay(state, sound),
+  [constants.SOUNDS_VOLUME]: (state, { sound, volume }) =>
+    soundReducers.changeVolume(state, sound, volume),
+  [constants.SOUNDS_EDIT]: (state, { sound, data }) => soundReducers.editSound(state, sound, data),
+  [constants.SOUNDS_REMOVE]: (state, { sound }) => soundReducers.removeSound(state, sound),
+  [constants.SOUNDS_DOWNLOADING]: (state, { sound }) =>
+    soundReducers.soundDownloading(state, sound),
+  [constants.SOUNDS_DOWNLOADED]: (state, { sound, notify }) =>
+    soundReducers.soundDownloaded(state, sound, notify),
+  [constants.SOUNDS_ERROR]: (state, { err }) => soundReducers.soundError(state, err),
+  [constants.SOUNDS_RESET]: (state, { clear }) => soundReducers.resetSounds(state, clear)
 });

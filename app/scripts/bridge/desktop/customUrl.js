@@ -16,18 +16,17 @@ function downloadProgress(ee, data) {
   const progress = (dataRead += data.length) / fileSize;
   if (progress > (currentProgress + 0.05) || progress === 1) {
     currentProgress = progress;
-    ee.emit('progress', { ...newSound, ...{
-      progress: progress
-    } });
+    ee.emit('progress', { ...newSound, progress });
   }
 }
 
 const actions = {
   getCustomFile(name, filePath) {
+    const file = `${shortid.generate()}.${path.extname(filePath).substring(1)}`;
     newSound = { ...newSoundClass, ... {
-      file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${path.extname(filePath).substring(1)}`),
+      file: path.join(pathConfig.userSoundDir, file),
       img: '',
-      name: name,
+      name,
       source: 'customFile'
     } };
 
@@ -55,8 +54,9 @@ const actions = {
         return ee;
       }
 
+      const file = `${shortid.generate()}.${path.extname(data.file).substring(1)}`;
       newSound = { ...newSoundClass, ...data, ... {
-        file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${path.extname(data.file).substring(1)}`)
+        file: path.join(pathConfig.userSoundDir, file)
       } };
 
       request(data.file)
@@ -66,7 +66,7 @@ const actions = {
           ee.emit('error', 'Error: Could not access file.');
         } else {
           res.on('data', downloadProgress.bind(this, ee))
-          .on('error', e => ee.emit('error', 'Error: ' + e.message))
+          .on('error', e => ee.emit('error', `Error: ${e.message}`))
           .on('end', () => {
             fs.rename(tmpFile, newSound.file);
             ee.emit('finish', newSound); // Completed download

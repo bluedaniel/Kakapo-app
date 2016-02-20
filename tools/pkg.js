@@ -20,7 +20,7 @@ export default async function pkg() {
       packager({ ...opts, ... {
         platform: plat,
         arch: 'x64',
-        out: './release/' + plat
+        out: `./release/${plat}`
       } }, (err, path) => {
         if (err) reject(err);
         resolve(path);
