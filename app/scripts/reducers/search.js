@@ -83,10 +83,10 @@ const searchReducers = {
 };
 
 export default createReducer(initialState, {
-  [constants.SEARCH_YOUTUBE]: (state, action) =>
-    state.update('youtube', () => new List(searchReducers.mapYoutube(action.items))),
-  [constants.SEARCH_SOUNDCLOUD]: (state, action) =>
-    state.update('soundcloud', () => new List(searchReducers.mapSoundcloud(action.items))),
-  [constants.SEARCH_KAKAPO]: (state, action) =>
-    state.update('kakapofavs', () => new List(searchReducers.mapKakapo(action.items)))
+  [constants.SEARCH_YOUTUBE]: (state, { items }) =>
+    state.update('youtube', () => new List(searchReducers.mapYoutube(items))),
+  [constants.SEARCH_SOUNDCLOUD]: (state, { items }) =>
+    state.update('soundcloud', () => new List(searchReducers.mapSoundcloud(items))),
+  [constants.SEARCH_KAKAPO]: (state, { items }) =>
+    state.update('kakapofavs', () => new List(searchReducers.mapKakapo(items)))
 });

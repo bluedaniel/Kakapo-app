@@ -6,14 +6,15 @@ import { toasterInstance, validHowl } from 'utils/';
 import { TextInput } from 'components/ui';
 
 export default class CustomUrl extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   static propTypes = {
     themes: PropTypes.object,
     soundActions: PropTypes.object,
-    intl: intlShape.isRequired
+    dispatch: PropTypes.func,
+    intl: intlShape
+  };
+
+  static contextTypes = {
+    router: PropTypes.object
   };
 
   componentDidMount() {
@@ -36,7 +37,7 @@ export default class CustomUrl extends Component {
     this.context.router.push('/');
   };
 
-  handleError = (msg, intl=true) => {
+  handleError = (msg, intl = true) => {
     const err = intl ? this.props.intl.formatMessage({ id: msg }) : msg;
     toasterInstance().then(_t => _t.toast(err));
   };
@@ -53,7 +54,9 @@ export default class CustomUrl extends Component {
                 <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl}/>
               </div>
               <div ref="customInput">
-                <TextInput placeholder="import.custom.url_placeholder" name="customInput" intl={intl}/>
+                <TextInput placeholder="import.custom.url_placeholder"
+                  name="customInput" intl={intl}
+                />
               </div>
               <button
                 className="pure-button pure-button-primary"

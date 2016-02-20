@@ -17,6 +17,8 @@ export default class YouTube extends Component {
   static propTypes = {
     searchActions: PropTypes.object,
     search: PropTypes.object,
+    location: PropTypes.object,
+    dispatch: PropTypes.func,
     intl: intlShape
   };
 
@@ -53,16 +55,19 @@ export default class YouTube extends Component {
 
   render() {
     const { search, intl, dispatch } = this.props;
+    const { service, loading } = this.state;
     return (
       <div className="modal youtube">
         <div className="modal-inner">
           <div ref="searchInput">
-            <TextInput placeholder={`import.${this.state.service}.search_placeholder`} name="searchInput" spinner={this.state.loading} intl={intl}/>
+            <TextInput placeholder={`import.${service}.search_placeholder`}
+              name="searchInput" spinner={loading} intl={intl}
+            />
           </div>
-          <div className={`${this.state.service}-items`}>
-            {search.get(this.state.service).map(_y => {
+          <div className={`${service}-items`}>
+            {search.get(service).map(_y => {
               const itemProps = {
-                service: this.state.service,
+                service,
                 sound: _y,
                 ...{ intl, dispatch }
               };

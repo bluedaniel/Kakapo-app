@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ipcRenderer, remote } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
-import { injectIntl } from 'react-intl';
+import { intlShape, injectIntl } from 'react-intl';
 import color from 'color';
 import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
@@ -28,7 +28,12 @@ if (__DESKTOP__) {
 class App extends Component {
   static propTypes = {
     children: PropTypes.object,
-    soundActions: PropTypes.object
+    soundActions: PropTypes.object,
+    themes: PropTypes.object,
+    sounds: PropTypes.object,
+    location: PropTypes.object,
+    intl: intlShape,
+    dispatch: PropTypes.func
   };
 
   state = initialState;
@@ -46,7 +51,8 @@ class App extends Component {
     if (__DESKTOP__) {
       files.map(_f => this.props.soundActions.addLocalSound(_f.name, _f.path));
     } else {
-      toasterInstance().then(_t => _t.toast('You can only add desktop files with the Kakapo desktop app.'));
+      toasterInstance().then(_t =>
+        _t.toast('You can only add desktop files with the Kakapo desktop app.'));
     }
   };
 
@@ -57,18 +63,19 @@ class App extends Component {
   handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
 
   renderUpload() {
+    const { gradient } = this.state;
     return (
       <div
         className="upload-files"
         style={{
-          background: `linear-gradient(90deg, ${this.state.gradient.colors[0]} 10%, ${this.state.gradient.colors[1]} 90%)`
+          background: `linear-gradient(90deg, ${gradient.colors[0]} 10%, ${gradient.colors[1]} 90%)`
         }}
       >
         <div className="inner">
           <h3><i className="icon-add"></i></h3>
           <p className="text">Drop files to upload</p>
           <a className="gradient-name" href="http://uigradients.com" target="_blank">
-            Gradient: {this.state.gradient.name}
+            Gradient: {gradient.name}
           </a>
         </div>
       </div>
@@ -76,10 +83,12 @@ class App extends Component {
   }
 
   renderLoading() {
+    const { themes } = this.props;
     return (
       <div className="loading" style={{
-        background: color(this.props.themes.get('palette').first()).alpha(0.5).rgbaString()
-      }}>
+        background: color(themes.get('palette').first()).alpha(0.5).rgbaString()
+      }}
+      >
         <div className="sk-fading-circle">
           <div className="sk-circle1 sk-circle"/>
           <div className="sk-circle2 sk-circle"/>
@@ -109,14 +118,17 @@ class App extends Component {
           onDrop={this.onDrop}
         >
           {__DESKTOP__ ? this.renderUpload() : null}
-          {this.state.updateAvailable ? <a className="update-now" onClick={this.handleAutoUpdateClick}>Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
+          {this.state.updateAvailable ?
+            <a className="update-now" onClick={this.handleAutoUpdateClick}>
+            Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
 
           <Nav {...{ themes, intl, dispatch }}/>
           <Header {...{ themes, location, intl }}/>
 
           <Subroutes {...this.props}/>
 
-          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }}/> : this.renderLoading()}
+          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }}/> :
+            this.renderLoading()}
 
           <aside className="toast-view"></aside>
           <DownloadList {...{ sounds }}/>

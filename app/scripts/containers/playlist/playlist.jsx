@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
+import { intlShape } from 'react-intl';
 import { soundActions } from 'actions/';
 import { toasterInstance } from 'utils/';
 import awsCredentials from '../../../../aws.json';
@@ -15,12 +16,16 @@ AWS.config.update(awsCredentials);
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
 export default class Playlist extends Component {
-  static contextTypes = {
-    router: PropTypes.object.isRequired
+  static propTypes = {
+    themes: PropTypes.object,
+    params: PropTypes.object,
+    sounds: PropTypes.object,
+    dispatch: PropTypes.func,
+    intl: intlShape
   };
 
-  static propTypes = {
-    themes: PropTypes.object
+  static contextTypes = {
+    router: PropTypes.object.isRequired
   };
 
   state = {
@@ -29,7 +34,7 @@ export default class Playlist extends Component {
   };
 
   componentDidMount() {
-    var clipboard = new Clipboard('.copy-clipboard');
+    const clipboard = new Clipboard('.copy-clipboard');
     clipboard.on('success', () => toasterInstance().then(_t => _t.toast('Playlist link copied!')));
     this.getParam(this.props.params.playlistId);
   }
@@ -58,18 +63,6 @@ export default class Playlist extends Component {
     }
   };
 
-  createPlaylist = () => {
-    const currentPlaylistHash = btoa(JSON.stringify(this.props.sounds));
-    let shareID = shortid.generate();
-    let putItem = { Item: { shareID: { S: shareID }, playlistID: { S: currentPlaylistHash } } };
-    table.putItem(putItem, () => this.setState({ playlistUrl: shareID }));
-  };
-
-  resetSounds = () => {
-    this.props.dispatch(soundActions.resetSounds(false));
-    this.context.router.push('/');
-  };
-
   setSoundsToPlaylist = (playlist) => Object.keys(playlist).map(_p => {
     this.props.dispatch(soundActions.resetSounds(true));
     switch (playlist[_p].source) {
@@ -84,6 +77,18 @@ export default class Playlist extends Component {
         break;
     }
   });
+
+  resetSounds = () => {
+    this.props.dispatch(soundActions.resetSounds(false));
+    this.context.router.push('/');
+  };
+
+  createPlaylist = () => {
+    const currentPlaylistHash = btoa(JSON.stringify(this.props.sounds));
+    const shareID = shortid.generate();
+    const putItem = { Item: { shareID: { S: shareID }, playlistID: { S: currentPlaylistHash } } };
+    table.putItem(putItem, () => this.setState({ playlistUrl: shareID }));
+  };
 
   handleDesktopPlaylistInput = (el) => {
     this.getParam(this.refs.desktopPlaylist.value);
@@ -102,8 +107,12 @@ export default class Playlist extends Component {
         <div>
           <p>{this.props.intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="pure-form">
-            <input className="pure-input-1" id="copyClipboard" value={`${url}/playlist/${this.state.playlistUrl}`} readOnly/>
-            <button className="copy-clipboard" data-clipboard-target="#copyClipboard" onClick={this.handleStopPropagation}>
+            <input className="pure-input-1" id="copyClipboard"
+              value={`${url}/playlist/${this.state.playlistUrl}`} readOnly
+            />
+            <button className="copy-clipboard" data-clipboard-target="#copyClipboard"
+              onClick={this.handleStopPropagation}
+            >
               <span title="Copy to clipboard"/>
             </button>
           </form>
@@ -140,7 +149,9 @@ export default class Playlist extends Component {
           <h3>{this.props.intl.formatMessage({ id: 'playlist.header' })}</h3>
           {this.renderShare()}
           <p>{this.props.intl.formatMessage({ id: 'playlist.subheading' })}</p>
-          <a className="pure-button" onClick={this.resetSounds}>{this.props.intl.formatMessage({ id: 'playlist.list_reset' })}</a>
+          <a className="pure-button" onClick={this.resetSounds}>
+            {this.props.intl.formatMessage({ id: 'playlist.list_reset' })}
+          </a>
           {Object.keys(kakapoAssets.playlists).map(_e => (
             <Link to={`/playlist/${kakapoAssets.playlists[_e]}`} className="pure-button" key={_e}>
               {this.props.intl.formatMessage({ id: `playlist.list_${_e}` })}

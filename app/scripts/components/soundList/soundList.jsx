@@ -8,11 +8,11 @@ export default ({ sounds, themes, intl, dispatch }) => {
   if (!sounds.length) return (<div/>);
 
   sounds = sounds.map(_s => {
-    let soundProps = { themes, sound: { ..._s }, intl, dispatch };
+    const soundProps = { themes, sound: { ..._s }, intl, dispatch };
 
     let item = <SoundItem key={_s.file} { ...soundProps }/>;
     if (_s.editing) {
-      item = <SoundEdit key={_s.file + 'editing'} { ...soundProps }/>;
+      item = <SoundEdit key={`${_s.file}editing`} { ...soundProps }/>;
     }
 
     return (
@@ -20,7 +20,8 @@ export default ({ sounds, themes, intl, dispatch }) => {
         <CSSTransitionGroup
           transitionEnterTimeout={450}
           transitionLeaveTimeout={450}
-          transitionName="list-animation">
+          transitionName="list-animation"
+        >
           {item}
         </CSSTransitionGroup>
       </div>

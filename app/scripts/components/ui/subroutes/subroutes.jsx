@@ -1,10 +1,10 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import color from 'color';
 import { omit, camelCase } from 'lodash';
 
-export default (props) => {
+export default function Subroutes(props) {
   const { themes, children, location } = props;
   const modalTransitions = {
     component: 'div',
@@ -25,10 +25,16 @@ export default (props) => {
 
       <CSSTransitionGroup transitionName="modalBg" { ...modalTransitions }>
         {children ? (<Link className="modal-bg" style={{
-          background: color(themes.get('palette').first()).alpha(0.5).rgbaString()
-        }} to="/"/>) : null}
+          background: color(themes.get('palette').first()).alpha(0.5).rgbaString() }} to="/"
+        />) : null}
       </CSSTransitionGroup>
 
     </div>
   );
+}
+
+Subroutes.propTypes = {
+  themes: PropTypes.object,
+  children: PropTypes.object,
+  location: PropTypes.object
 };

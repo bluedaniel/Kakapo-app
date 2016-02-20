@@ -14,11 +14,13 @@ export default ({ themes, intl, location }) => {
       <div className="container">
         <Link to="/downloads">
           <i className={classNames('icon-add', 'hint--bottom-right', darkUI)}
-            data-hint={intl.formatMessage({ id: 'nav.downloads' })} />
+            data-hint={intl.formatMessage({ id: 'nav.downloads' })}
+          />
         </Link>
         <Link to="/playlist">
           <i className={classNames('icon-playlist', 'hint--bottom-right', darkUI)}
-            data-hint={intl.formatMessage({ id: 'nav.playlist' })} />
+            data-hint={intl.formatMessage({ id: 'nav.playlist' })}
+          />
         </Link>
         <Link className="logo" to="/">
           <h3 style={themes.getIn([ 'header', 'h3' ]).toJS()}>
@@ -28,7 +30,8 @@ export default ({ themes, intl, location }) => {
         </Link>
         <Link to="/settings">
           <i className={classNames('icon-settings', 'hint--bottom-left', darkUI)}
-            data-hint={intl.formatMessage({ id: 'nav.settings' })} />
+            data-hint={intl.formatMessage({ id: 'nav.settings' })}
+          />
         </Link>
       </div>
     </header>

@@ -66,8 +66,8 @@ const themeReducers = {
 };
 
 export default createReducer(initialState, {
-  [constants.THEMES_CHANGE]: (state, action) => {
+  [constants.THEMES_CHANGE]: (state, { swatch, slotNo }) => {
     themeReducers.saveToStorage();
-    return themeReducers.generateStyles(state, action.swatch, action.slotNo);
+    return themeReducers.generateStyles(state, swatch, slotNo);
   }
 });

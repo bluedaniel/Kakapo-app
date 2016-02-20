@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { intlShape } from 'react-intl';
 import { soundActions } from 'actions/';
 import { classNames } from 'utils/';
 import './nav.css';
@@ -7,13 +8,16 @@ export default class Nav extends Component {
   static propTypes = {
     settings: PropTypes.object,
     soundActions: PropTypes.object,
-    themes: PropTypes.object
+    themes: PropTypes.object,
+    dispatch: PropTypes.func,
+    intl: intlShape
   };
 
   state = { mute: false };
 
   handleMute = () => {
-    this.setState({ mute: !this.state.mute }, () => this.props.dispatch(soundActions.soundsMute(this.state.mute)));
+    this.setState({ mute: !this.state.mute }, () =>
+      this.props.dispatch(soundActions.soundsMute(this.state.mute)));
   };
 
   renderDragOrDownload() {
@@ -28,11 +32,11 @@ export default class Nav extends Component {
   }
 
   render() {
-    let { themes } = this.props;
+    const { themes } = this.props;
     return (
-      <div className={classNames('topbar', {
-        dark: themes.get('darkUI')
-      })} style={themes.getIn([ 'header', 'download' ]).toJS()}>
+      <div className={classNames('topbar', { dark: themes.get('darkUI') })}
+        style={themes.getIn([ 'header', 'download' ]).toJS()}
+      >
         <div className="container">
           <span
             className={classNames('mute', 'hint--right', {

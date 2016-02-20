@@ -15,8 +15,8 @@ const GAPI_OPTS_LIST = {
 
 export function getStatistics(resolve, reject, videos) {
   let _it = 0;
-  const paramObjV = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
-  axios.get(`${GAPI_URL}/videos`, { params: paramObjV })
+  const params = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
+  axios.get(`${GAPI_URL}/videos`, { params })
     .then(response => resolve(response.data.items.map(_v =>
       ({ ...videos[_it++], ...{
         duration: _v.contentDetails.duration,
@@ -24,10 +24,10 @@ export function getStatistics(resolve, reject, videos) {
     .catch(response => reject(response));
 }
 
-export function getYoutubeSearch(term) {
+export function getYoutubeSearch(q) {
   return new Promise((resolve, reject) => {
-    const paramObj = { ...GAPI_OPTS_SEARCH, ...{ q: term } };
-    axios.get(`${GAPI_URL}/search`, { params: paramObj })
+    const params = { ...GAPI_OPTS_SEARCH, q };
+    axios.get(`${GAPI_URL}/search`, { params })
       .then(response => getStatistics(resolve, reject, response.data.items))
       .catch(response => reject(response));
   });

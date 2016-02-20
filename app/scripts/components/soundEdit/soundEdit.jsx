@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { intlShape } from 'react-intl';
 import { TextInput } from 'components/ui';
 import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
@@ -7,9 +8,10 @@ import { toasterInstance } from 'utils/';
 export default class SoundEdit extends Component {
   static propTypes = {
     themes: PropTypes.object,
-    intl: PropTypes.object,
     soundActions: PropTypes.object,
-    sound: PropTypes.shape(soundClass)
+    sound: PropTypes.shape(soundClass),
+    dispatch: PropTypes.func,
+    intl: intlShape
   };
 
   handleCancel = (el) => {
@@ -25,13 +27,14 @@ export default class SoundEdit extends Component {
     };
 
     if (!data.name) {
-      return toasterInstance().then(_t => _t.toast(this.props.intl.formatMessage({ id: 'import.error.empty' })));
+      return toasterInstance().then(_t =>
+        _t.toast(this.props.intl.formatMessage({ id: 'import.error.empty' })));
     }
     this.props.dispatch(soundActions.soundsEdit(this.props.sound, data));
   };
 
   render() {
-    let { sound, themes, intl } = this.props;
+    const { sound, themes, intl } = this.props;
     return (
       <div className="item editing" style={themes.getIn([ 'soundList', 'item' ]).toJS()}>
         <form onSubmit={this.handleSave}>
@@ -41,7 +44,9 @@ export default class SoundEdit extends Component {
           <div ref="tags">
             <TextInput placeholder="list.editing_tag" name="tags" value={sound.tags} intl={intl}/>
           </div>
-          <a className="pure-button" onClick={this.handleCancel} style={themes.getIn([ 'base', 'btn' ]).toJS()}>
+          <a className="pure-button" onClick={this.handleCancel}
+            style={themes.getIn([ 'base', 'btn' ]).toJS()}
+          >
             {intl.formatMessage({ id: 'list.cancel' })}
           </a>
           <button

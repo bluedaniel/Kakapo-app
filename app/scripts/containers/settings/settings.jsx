@@ -1,5 +1,6 @@
 import { ipcRenderer, remote } from 'electron';
 import React, { Component, PropTypes } from 'react';
+import { intlShape } from 'react-intl';
 import { settingActions, themeActions } from 'actions/';
 import { ColorPicker, Checkbox } from 'components/ui/';
 import './settings.css';
@@ -15,7 +16,9 @@ if (__DESKTOP__) {
 export default class Settings extends Component {
   static propTypes = {
     themes: PropTypes.object,
-    settings: PropTypes.object
+    settings: PropTypes.object,
+    dispatch: PropTypes.func,
+    intl: intlShape
   };
 
   state = {
@@ -33,20 +36,20 @@ export default class Settings extends Component {
     }
   }
 
-  changePaletteSlot = (slotNo) => {
-    this.setState({
-      colorPickerActive: true,
-      slotNo: slotNo,
-      defaultColor: this.props.themes.get('palette').get(slotNo)
-    });
-  };
+  setUpdateStatus = (opts) => this.setState(opts);
 
   handleSwatch = (swatch) => {
     this.setState({ colorPickerActive: false });
     this.props.dispatch(themeActions.themesChange(swatch, this.state.slotNo));
   };
 
-  setUpdateStatus = (opts) => this.setState(opts);
+  changePaletteSlot = (slotNo) => {
+    this.setState({
+      colorPickerActive: true,
+      slotNo,
+      defaultColor: this.props.themes.get('palette').get(slotNo)
+    });
+  };
 
   checkForUpdates = () => {
     if (!this.state.updateStatus) autoUpdater.checkForUpdates();
@@ -63,7 +66,7 @@ export default class Settings extends Component {
             label="Show dock icon"
             name="toggle-dock"
             dispatch={this.props.dispatch}
-            />
+          />
         </div>
         <div className="opt">
           <Checkbox
@@ -72,7 +75,7 @@ export default class Settings extends Component {
             label="Show developer tools"
             name="toggle-devtools"
             dispatch={this.props.dispatch}
-            />
+          />
         </div>
       </div>
     );
@@ -119,14 +122,18 @@ export default class Settings extends Component {
           <div className="opt first">
             {this.props.intl.formatMessage({ id: 'settings.theme' })}
             <span className="swatches">
-              <a onClick={() => this.changePaletteSlot(0)} style={{ backgroundColor: this.props.themes.get('palette').get(0) }}></a>
-              <a onClick={() => this.changePaletteSlot(1)} style={{ backgroundColor: this.props.themes.get('palette').get(1) }}></a>
+              <a onClick={() => this.changePaletteSlot(0)}
+                style={{ backgroundColor: this.props.themes.get('palette').get(0) }}
+              />
+              <a onClick={() => this.changePaletteSlot(1)}
+                style={{ backgroundColor: this.props.themes.get('palette').get(1) }}
+              />
             </span>
             <ColorPicker
               active={this.state.colorPickerActive}
               color={this.state.defaultColor}
               handleSwatch={this.handleSwatch}
-              />
+            />
           </div>
           {__DESKTOP__ ? this.renderDesktopOpts() : null}
           {this.renderGitRepo()}
