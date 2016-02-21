@@ -6,4 +6,8 @@ const filterObj = obj => Object.keys(obj)
 // For creating classes from strings, arrays and objects
 // classNames('one', { two: true, three: false }) = 'one two'
 export default (...args) =>
-  flatten(args.map(_a => typeof _a === 'object' ? filterObj(_a) : _a)).join(' ');
+  flatten(args.map(_a => {
+    if (Array.isArray(_a)) return flatten(_a).join(' ');
+    if (typeof _a === 'object') return filterObj(_a);
+    return _a;
+  })).join(' ');
