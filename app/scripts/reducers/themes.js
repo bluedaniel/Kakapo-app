@@ -6,7 +6,7 @@ import constants from 'constants/';
 import { createReducer, swatches } from 'utils/';
 import { observableStore } from 'stores/configureStore';
 
-let initialState = fromJS(bridgedThemes.fromStorage() || kakapoAssets.theme);
+export let initialState = fromJS(bridgedThemes.fromStorage() || kakapoAssets.theme);
 
 const themeReducers = {
   colorVars(hex) {
