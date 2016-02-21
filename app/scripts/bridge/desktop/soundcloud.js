@@ -1,9 +1,8 @@
-import axios from 'axios';
 import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig } from 'utils/';
+import { pathConfig, serialize } from 'utils/';
 import { newSoundClass } from 'classes/';
 import { EventEmitter } from 'events';
 
@@ -30,13 +29,9 @@ const actions = {
     return null;
   },
 
-  getSoundCloudSearch(_q) {
-    return new Promise((resolve, reject) => axios
-    .get(`${SCAPI}/tracks`, { params: {
-      q: _q,
-      client_id: SOUNDCLOUD_KEY,
-      filter: 'downloadable'
-    } })
+  getSoundCloudSearch(q) {
+    const params = { q, client_id: SOUNDCLOUD_KEY, filter: 'downloadable' };
+    return new Promise((resolve, reject) => fetch(`${SCAPI}/tracks${serialize(params)}`)
     .then(res => resolve(res.data))
     .catch(response => reject(response)));
   },
@@ -51,8 +46,7 @@ const actions = {
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
-    axios
-    .get(`${SCAPI_TRACKS}/${soundcloudID}`, { params: { client_id: SOUNDCLOUD_KEY } })
+    fetch(`${SCAPI_TRACKS}/${soundcloudID}${serialize({ client_id: SOUNDCLOUD_KEY })}`)
     .then(response => {
       if (!response.data.download_url) {
         ee.emit('error', 'Sorry, that SoundCloud track cannot be downloaded.');

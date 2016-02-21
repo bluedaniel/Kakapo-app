@@ -1,5 +1,5 @@
-import axios from 'axios';
 import { newSoundClass } from 'classes/';
+import { serialize } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
@@ -35,8 +35,9 @@ export default {
   },
 
   getSoundCloudURL(id) {
-    return new Promise((resolve, reject) => axios
-    .get(`${SCAPI_TRACKS}/${id}`, { params: { client_id: SOUNDCLOUD_KEY } })
+    const url = `${SCAPI_TRACKS}/${id}${serialize({ client_id: SOUNDCLOUD_KEY })}`;
+    return new Promise((resolve, reject) => fetch(url)
+    .then(response => response.json())
     .then(({ data }) => resolve({ ...newSoundClass, ...{
       file: data.stream_url,
       img: data.artwork_url,

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { serialize } from 'utils/';
 
 const GAPI_URL = 'https://www.googleapis.com/youtube/v3';
 const GAPI_KEY = 'AIzaSyArV70XKUil3cEj4nKn1yuMXCHiuK2AytI';
@@ -16,9 +16,9 @@ const GAPI_OPTS_LIST = {
 export function getStatistics(resolve, reject, videos) {
   let _it = 0;
   const params = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
-  axios
-  .get(`${GAPI_URL}/videos`, { params })
-  .then(({ data }) => resolve(data.items.map(_v =>
+  fetch(`${GAPI_URL}/videos${serialize(params)}`)
+  .then(resp => resp.json())
+  .then(({ items }) => resolve(items.map(_v =>
     ({ ...videos[_it++], ...{
       duration: _v.contentDetails.duration,
       viewCount: _v.statistics.viewCount } }))))
@@ -26,8 +26,9 @@ export function getStatistics(resolve, reject, videos) {
 }
 
 export function getYoutubeSearch(q) {
-  return new Promise((resolve, reject) => axios
-    .get(`${GAPI_URL}/search`, { ...GAPI_OPTS_SEARCH, q })
-    .then(({ data }) => getStatistics(resolve, reject, data.items))
-    .catch(response => reject(response)));
+  const params = { ...GAPI_OPTS_SEARCH, q };
+  return new Promise((resolve, reject) => fetch(`${GAPI_URL}/search${serialize(params)}`)
+    .then(resp => resp.json())
+    .then(({ items }) => getStatistics(resolve, reject, items))
+    .catch(err => reject(err)));
 }

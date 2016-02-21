@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "animate.css": "^3.5.1",
-    "axios": "^0.9.1",
     "clipboard": "^1.5.8",
     "color": "^0.11.1",
     "hint.css": "^2.0.0",
@@ -33,6 +32,7 @@
     "semver": "^5.1.0",
     "shortid": "^2.2.4",
     "validator": "^4.8.0",
+    "whatwg-fetch": "^0.11.0",
     "ytdl-core": "^0.7.10"
   },
   "devDependencies": {
@@ -64,12 +64,14 @@
     "eslint-config-airbnb": "^6.0.0",
     "eslint-plugin-objects": "^1.1.1",
     "eslint-plugin-react": "^4.0.0",
+    "exports-loader": "^0.6.3",
     "express": "^4.13.3",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "fs": "0.0.2",
     "fs-extra": "^0.26.5",
     "imagemin": "^4.0.0",
+    "imports-loader": "^0.6.5",
     "isparta-loader": "^2.0.0",
     "istanbul": "^0.4.2",
     "json-loader": "^0.5.3",

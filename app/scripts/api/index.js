@@ -1,4 +1,3 @@
-import axios from 'axios';
 import fs from 'fs-extra';
 import { bridgedYoutube, bridgedSoundcloud, bridgedCustom } from 'kakapoBridge';
 import getHowlerObj from './howler';
@@ -18,7 +17,7 @@ export function getDefaultSounds() {
     }));
   }
 
-  const defaultSounds = axios.get('http://data.kakapo.co/v2/data/sounds.json');
+  const defaultSounds = fetch('http://data.kakapo.co/v2/data/sounds.json');
 
   return new Promise(resolve => new Promise(res => {
     window.onYouTubeIframeAPIReady = res(true);
