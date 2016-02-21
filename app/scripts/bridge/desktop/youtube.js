@@ -1,3 +1,4 @@
+/* eslint camelcase:0 */
 import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
@@ -39,15 +40,19 @@ const actions = {
       format: 'audioonly',
       debug: true
     })
-    .on('response', res => fileSize = res.headers['content-length'])
-    .on('info', (info, format) => newSound = { ...newSoundClass, ...{
-      file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${format.container}`),
-      img: info.thumbnail_url,
-      link: `https://www.youtube.com/watch?v=${info.video_id}`,
-      name: info.title,
-      source: 'youtubeStream',
-      tags: info.keywords ? info.keywords.join(' ') : ''
-    } })
+    .on('response', ({ headers }) => {
+      fileSize = headers['content-length'];
+    })
+    .on('info', ({ title, keywords, thumbnail_url, video_id }, { container }) => {
+      newSound = { ...newSoundClass, ...{
+        file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${container}`),
+        img: thumbnail_url,
+        link: `https://www.youtube.com/watch?v=${video_id}`,
+        name: title,
+        source: 'youtubeStream',
+        tags: keywords ? keywords.join(' ') : ''
+      } };
+    })
     .on('error', e => ee.emit('error', `Error: ${e.message}`))
     .on('data', downloadProgress.bind(this, ee))
     .on('finish', () => {

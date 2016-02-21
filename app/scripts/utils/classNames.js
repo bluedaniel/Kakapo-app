@@ -1,7 +1,12 @@
 import { flatten } from 'utils/';
 
-const filterObj = obj => Object.keys(obj)
-  .map(_k => obj[_k] ? _k : false).filter(_v => _v);
+const filterObj = obj => Object
+  .keys(obj)
+  .map(_k => {
+    if (obj[_k]) return _k;
+    return false;
+  })
+  .filter(_v => _v);
 
 // For creating classes from strings, arrays and objects
 // classNames('one', { two: true, three: false }) = 'one two'

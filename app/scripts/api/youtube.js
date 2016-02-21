@@ -16,19 +16,18 @@ const GAPI_OPTS_LIST = {
 export function getStatistics(resolve, reject, videos) {
   let _it = 0;
   const params = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
-  axios.get(`${GAPI_URL}/videos`, { params })
-    .then(response => resolve(response.data.items.map(_v =>
-      ({ ...videos[_it++], ...{
-        duration: _v.contentDetails.duration,
-        viewCount: _v.statistics.viewCount } }))))
-    .catch(response => reject(response));
+  axios
+  .get(`${GAPI_URL}/videos`, { params })
+  .then(({ data }) => resolve(data.items.map(_v =>
+    ({ ...videos[_it++], ...{
+      duration: _v.contentDetails.duration,
+      viewCount: _v.statistics.viewCount } }))))
+  .catch(response => reject(response));
 }
 
 export function getYoutubeSearch(q) {
-  return new Promise((resolve, reject) => {
-    const params = { ...GAPI_OPTS_SEARCH, q };
-    axios.get(`${GAPI_URL}/search`, { params })
-      .then(response => getStatistics(resolve, reject, response.data.items))
-      .catch(response => reject(response));
-  });
+  return new Promise((resolve, reject) => axios
+    .get(`${GAPI_URL}/search`, { ...GAPI_OPTS_SEARCH, q })
+    .then(({ data }) => getStatistics(resolve, reject, data.items))
+    .catch(response => reject(response)));
 }

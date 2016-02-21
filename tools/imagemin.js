@@ -15,7 +15,7 @@ const minifyFiles = file => new Promise((resolve, reject) => new Imagemin()
   .use(Imagemin.optipng({ optimizationLevel: 3 }))
   .run((err, files) => {
     if (err) return reject(console.log(err));
-    resolve(files);
+    return resolve(files);
   })
 );
 

@@ -9,13 +9,19 @@ class Toaster {
 
   toast(message) {
     this.view.textContent = message;
-    this.view.classList.add('toast-view--visible');
+    this
+    .view
+    .classList
+    .add('toast-view--visible');
     clearTimeout(this.hideTimeout);
     this.hideTimeout = setTimeout(this.hideBound, 3000);
   }
 
   hide() {
-    this.view.classList.remove('toast-view--visible');
+    this.
+    view.
+    classList.
+    remove('toast-view--visible');
   }
 }
 

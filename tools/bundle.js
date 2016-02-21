@@ -8,9 +8,7 @@ export default async function bundle() {
     const bundler = webpack(config);
 
     function onComplete(err, stats) {
-      if (err) {
-        return reject(err);
-      }
+      if (err) return reject(err);
 
       console.log(stats.toString(config.stats));
 
@@ -21,12 +19,13 @@ export default async function bundle() {
         fs.writeFile('stats.json', JSON.stringify(stats.toJson(), null, 4));
 
         // Compress js with Gzip
-        [ 'index.js', 'styles.css' ].map(file => fs.createReadStream(`./build/${file}`)
+        [ 'index.js', 'styles.css' ].map(file => fs
+          .createReadStream(`./build/${file}`)
           .pipe(zlib.createGzip({ level: 9 }))
           .pipe(fs.createWriteStream(`./build/${file}.gz`)));
       }
 
-      resolve();
+      return resolve();
     }
 
     if (global.WATCH) {

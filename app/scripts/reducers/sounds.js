@@ -22,9 +22,11 @@ const soundReducers = {
     return new Promise(resolve => {
       const currentHowl = howls.get(_s.file);
       if (currentHowl) return resolve(currentHowl);
-      createSoundObj(_s)
-        .then(res => howls = howls.set(_s.file, res))
-        .then(() => resolve(howls.get(_s.file)));
+      return createSoundObj(_s)
+      .then(res => {
+        howls = howls.set(_s.file, res);
+      })
+      .then(() => resolve(howls.get(_s.file)));
     });
   },
 
@@ -33,6 +35,7 @@ const soundReducers = {
     data.map(_s => {
       if (_s.playing) this._getHowl(_s).then(howl => howl.play()); // Autoplay
       newState = newState.set(_s.file, { ..._s, ...{ recentlyDownloaded: false } });
+      return newState;
     });
     if (mute) this.toggleMute(newState, mute); // Auto mute
     return newState;
@@ -116,7 +119,10 @@ const soundReducers = {
     observableStore.subscribe(_x => {
       if (initialState === _x.sounds) return; // Still the same state
       let obj = new Map();
-      _x.sounds.map(_s => obj = obj.set(_s.file, { ..._s }));
+      _x.sounds.map(_s => {
+        obj = obj.set(_s.file, { ..._s });
+        return _s;
+      });
       bridgedSounds.saveToStorage(JSON.stringify(obj));
       initialState = _x.sounds;
     });

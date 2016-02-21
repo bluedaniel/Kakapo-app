@@ -65,7 +65,8 @@ const actions = {
         if (!fileSize) {
           ee.emit('error', 'Error: Could not access file.');
         } else {
-          res.on('data', downloadProgress.bind(this, ee))
+          res
+          .on('data', downloadProgress.bind(this, ee))
           .on('error', e => ee.emit('error', `Error: ${e.message}`))
           .on('end', () => {
             fs.rename(tmpFile, newSound.file);

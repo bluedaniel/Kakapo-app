@@ -31,15 +31,14 @@ const actions = {
   },
 
   getSoundCloudSearch(_q) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${SCAPI}/tracks`, { params: {
-        q: _q,
-        client_id: SOUNDCLOUD_KEY,
-        filter: 'downloadable'
-      } })
-      .then(res => resolve(res.data))
-      .catch(response => reject(response));
-    });
+    return new Promise((resolve, reject) => axios
+    .get(`${SCAPI}/tracks`, { params: {
+      q: _q,
+      client_id: SOUNDCLOUD_KEY,
+      filter: 'downloadable'
+    } })
+    .then(res => resolve(res.data))
+    .catch(response => reject(response)));
   },
 
   getSoundCloudURL(soundcloudID) {
@@ -69,13 +68,14 @@ const actions = {
         link: response.data.permalink_url
       } };
 
-      request(`${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`)
+      return request(`${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`)
       .on('response', res => {
         fileSize = res.headers['content-length'];
         if (!fileSize) {
           ee.emit('error', 'Error: Could not access file.');
         } else {
-          res.on('data', downloadProgress.bind(this, ee))
+          res
+          .on('data', downloadProgress.bind(this, ee))
           .on('error', e => ee.emit('error', `Error: ${e.message}`))
           .on('end', () => {
             fs.rename(tmpFile, newSound.file);

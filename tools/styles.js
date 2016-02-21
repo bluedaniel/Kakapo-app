@@ -11,7 +11,8 @@ export default async function styles() {
     new Promise((resolve, reject) => {
       const source = fs.readFileSync(`${cssDir}/external/${file}`, 'utf8');
 
-      postcss(postcssPlugins.concat(postcssImport())).process(source, {
+      postcss(postcssPlugins.concat(postcssImport()))
+      .process(source, {
         from: './app/scripts/styles'
       })
       .catch(err => reject(console.error(err.stack)))
@@ -22,7 +23,7 @@ export default async function styles() {
         cssnano.process(data.css, minifyOpts).then(minified =>
           fs.outputFile(`./build/css/${file}`, minified.css, err => {
             if (err) return reject(err);
-            resolve();
+            return resolve();
           }));
       });
     })

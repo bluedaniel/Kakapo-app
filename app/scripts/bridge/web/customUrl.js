@@ -11,7 +11,7 @@ const actions = {
         return reject(new Error(validHowl(data.file, true)));
       }
 
-      resolve({ ...newSoundClass, ...data });
+      return resolve({ ...newSoundClass, ...data });
     });
   }
 };

@@ -1,40 +1,38 @@
 import { newSoundClass } from 'classes/';
 
 export default {
-  getYoutubeObj(video) {
+  getYoutubeObj({ file, playing }) {
     return new Promise(resolve => {
-      const elID = `video-${video.file}`;
-      setInterval(() => {
-        if (document.getElementById(elID)) {
-          return new window.YT.Player(elID, {
-            videoId: video.file,
-            height: 225,
-            width: 400,
-            playerVars: {
-              iv_load_policy: 3,
-              autoplay: video.playing ? 1 : 0,
-              controls: 0,
-              loop: 1,
-              playlist: video.file,
-              showinfo: 0
-            },
-            events: {
-              onReady: (el) => {
-                resolve({
-                  play: () => el.target.playVideo(),
-                  pause: () => el.target.pauseVideo(),
-                  volume: vol => el.target.setVolume(vol * 100),
-                  mute: toggle => {
-                    if (toggle) return el.target.mute();
-                    el.target.unMute();
-                  },
-                  unload: () => el.target.destroy()
-                });
-              }
+      const elID = `video-${file}`;
+      if (document.getElementById(elID)) {
+        setInterval(() => new window.YT.Player(elID, {
+          videoId: file,
+          height: 225,
+          width: 400,
+          playerVars: {
+            iv_load_policy: 3,
+            autoplay: playing ? 1 : 0,
+            controls: 0,
+            loop: 1,
+            playlist: file,
+            showinfo: 0
+          },
+          events: {
+            onReady: ({ target }) => {
+              resolve({
+                play: () => target.playVideo(),
+                pause: () => target.pauseVideo(),
+                volume: vol => target.setVolume(vol * 100),
+                mute: toggle => {
+                  if (toggle) return target.mute();
+                  return target.unMute();
+                },
+                unload: () => target.destroy()
+              });
             }
-          });
-        }
-      }, 100); // iFrame wont exist until after render
+          }
+        }), 100); // iFrame wont exist until after render
+      }
     });
   },
 

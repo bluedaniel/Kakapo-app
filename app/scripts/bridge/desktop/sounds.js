@@ -39,8 +39,10 @@ export default {
 
     if (semver.lt(appDetails.version || '0.0.1', packageJson.version)) {
       this.setVersion();
-      initialState = initialState.filterNot(_s => _s.source === 'file')
-        .toArray().concat(defaultSounds);
+      return initialState
+      .filterNot(_s => _s.source === 'file')
+      .toArray()
+      .concat(defaultSounds);
     }
 
     return initialState;

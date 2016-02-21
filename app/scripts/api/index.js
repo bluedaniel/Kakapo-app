@@ -20,9 +20,9 @@ export function getDefaultSounds() {
 
   const defaultSounds = axios.get('http://data.kakapo.co/v2/data/sounds.json');
 
-  return new Promise(resolve => {
-    new Promise(res => window.onYouTubeIframeAPIReady = res(true)).then(resolve(defaultSounds));
-  });
+  return new Promise(resolve => new Promise(res => {
+    window.onYouTubeIframeAPIReady = res(true);
+  }).then(resolve(defaultSounds)));
 }
 
 export function createSoundObj(sound) {
@@ -30,13 +30,11 @@ export function createSoundObj(sound) {
     if (__DESKTOP__) return resolve(getHowlerObj(sound));
     switch (sound.source) {
       case 'soundcloudStream':
-        resolve(getSoundCloudObj(sound));
-        break;
+        return resolve(getSoundCloudObj(sound));
       case 'youtubeStream':
-        resolve(getYoutubeObj(sound));
-        break;
+        return resolve(getYoutubeObj(sound));
       default:
-        resolve(getHowlerObj(sound));
+        return resolve(getHowlerObj(sound));
     }
   });
 }
