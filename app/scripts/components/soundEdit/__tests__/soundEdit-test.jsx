@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -9,7 +9,7 @@ import { newSoundClass } from 'classes/';
 import SoundEdit from '../soundEdit';
 import { TextInput } from 'components/ui';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = {
     ...getData('themes'),
     ...getData('intl'),
@@ -23,7 +23,7 @@ function setup(props={}) {
   };
 }
 
-let soundProp = (props={}) => ({
+const soundProp = (props = {}) => ({
   sound: mapValues({ ...newSoundClass, ...{
     source: 'file',
     progress: 1

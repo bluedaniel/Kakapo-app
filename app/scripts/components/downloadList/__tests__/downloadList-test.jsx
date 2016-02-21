@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -9,7 +9,7 @@ import { getData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import DownloadList from '../downloadList';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = { ...getData('sounds'), ...props };
   const wrapper = shallow(<DownloadList {...propData}/>);
   return {

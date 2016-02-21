@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -8,7 +8,7 @@ import { newSoundClass } from 'classes/';
 import SoundItem from '../soundItem';
 import { getData } from '__tests__/helper';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = {
     ...getData('themes'),
     ...getData('intl'),
@@ -22,15 +22,15 @@ function setup(props={}) {
   };
 }
 
-let soundProp = (props={}) => ({
+const soundProp = (props = {}) => ({
   sound: mapValues({ ...newSoundClass, ...{
     source: 'file',
     progress: 1
   }, ...props }, e => e === null ? `wind` : e)
 });
 
-let defaultClassName = 'item waves-effect waves-block';
-let youtubeTestId = '7ccQyyCLtx8';
+const defaultClassName = 'item waves-effect waves-block';
+const youtubeTestId = '7ccQyyCLtx8';
 
 describe('<SoundItem/>', () => {
   it('renders as a <div> with className equals `item waves-effect waves-block paused`', () => {
@@ -63,7 +63,7 @@ describe('<SoundItem/>', () => {
       expect(wrapper.find('.icon-trash')).to.have.length(1);
     });
 
-    it('video container with className `youtube-video` and id `video-' + youtubeTestId + '` is added', () => {
+    it(`video container with className 'youtube-video' and id 'video-${youtubeTestId}' is added`, () => {
       const { wrapper } = setup(soundProp({ file: youtubeTestId, source: 'youtubeStream' }));
       expect(wrapper.find('.youtube-video')).to.have.length(1);
       expect(wrapper.find('.youtube-video').prop('id')).to.eql(`video-${youtubeTestId}`);
@@ -76,5 +76,4 @@ describe('<SoundItem/>', () => {
       expect(wrapper.prop('className')).to.eql(`${defaultClassName} playing`);
     });
   });
-
 });

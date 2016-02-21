@@ -1,12 +1,12 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import Checkbox from '../checkbox';
 
-function setup(props={}, enzymeMethod=shallow) {
+function setup(props = {}, enzymeMethod = shallow) {
   const propData = {
     checked: false,
     dispatch: (e) => e,

@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -10,7 +10,7 @@ import { newSoundClass } from 'classes/';
 import Kakapo from '../kakapo';
 import KakapoItem from '../kakapoItem';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = {
     ...getData('search'),
     soundActions: {},

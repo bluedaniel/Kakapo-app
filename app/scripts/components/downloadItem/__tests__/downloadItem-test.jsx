@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -7,7 +7,7 @@ import { mapValues } from 'lodash';
 import { newSoundClass } from 'classes/';
 import DownloadItem from '../downloadItem';
 
-function setup(props={}) {
+function setup(props = {}) {
   const wrapper = shallow(<DownloadItem sound={props}/>).shallow();
   return {
     props,
@@ -15,7 +15,7 @@ function setup(props={}) {
   };
 }
 
-let soundProp = (props={}) => mapValues({ ...newSoundClass, ...{
+const soundProp = (props = {}) => mapValues({ ...newSoundClass, ...{
   source: 'file',
   progress: 0.8
 }, ...props }, e => e === null ? `wind` : e);

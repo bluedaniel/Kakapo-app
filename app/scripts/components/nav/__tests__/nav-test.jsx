@@ -1,12 +1,12 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { getData } from '__tests__/helper';
 import Nav from '../nav';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = {
     ...getData('themes'),
     ...getData('intl'),

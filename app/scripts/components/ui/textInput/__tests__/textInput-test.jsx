@@ -1,12 +1,12 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { getData } from '__tests__/helper';
 import TextInput from '../textInput';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = {
     name: 'test',
     placeholder: 'without.translation',

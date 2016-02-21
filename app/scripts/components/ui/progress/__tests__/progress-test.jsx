@@ -1,11 +1,11 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import Progress from '../progress';
 
-function setup(props={}) {
+function setup(props = {}) {
   const wrapper = shallow(<Progress {...props} />);
   return {
     props,

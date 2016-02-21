@@ -1,5 +1,5 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
@@ -7,7 +7,7 @@ import { getData } from '__tests__/helper';
 import { Link } from 'react-router';
 import Options from '../options';
 
-function setup(props={}) {
+function setup(props = {}) {
   const propData = {
     ...getData('intl'),
     ...props

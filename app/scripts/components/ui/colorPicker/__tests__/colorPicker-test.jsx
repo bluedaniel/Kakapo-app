@@ -1,12 +1,12 @@
-/*eslint-env mocha */
-/*eslint no-console:0 */
+/* eslint-env mocha */
+/* eslint no-console:0 */
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import ColorPicker from '../colorPicker';
 
-function setup(enzymeMethod=shallow, props={}) {
+function setup(enzymeMethod = shallow, props = {}) {
   props = { ...{
     active: false,
     handleSwatch: () => console.log('checkbox changed!')
