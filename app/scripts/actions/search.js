@@ -16,9 +16,9 @@ const actions = {
       opts = { provider: getSoundCloudSearch, type: constants.SEARCH_SOUNDCLOUD };
     }
     opts
-      .provider(term)
-      .catch(err => reject(dispatch(actions.fetchServiceError(err))))
-      .then(resp => resolve(dispatch(actions.fetchServiceComplete(resp, opts.type))));
+    .provider(term)
+    .catch(err => reject(dispatch(actions.fetchServiceError(err))))
+    .then(resp => resolve(dispatch(actions.fetchServiceComplete(resp, opts.type))));
   }),
 
   fetchServiceComplete: (items, type) => ({ type, items }),

@@ -2,7 +2,7 @@ import { List, fromJS } from 'immutable';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 
-const initialState = fromJS({
+export const initialState = fromJS({
   youtube: [],
   soundcloud: [],
   kakapofavs: []

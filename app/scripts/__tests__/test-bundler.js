@@ -1,3 +1,4 @@
+require('es6-promise').polyfill();
 
 if (!global.Intl) {
   global.Intl = require('intl'); // Intl polyfill
