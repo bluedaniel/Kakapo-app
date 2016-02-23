@@ -31,7 +31,8 @@ const actions = {
 
   getSoundCloudSearch(q) {
     const params = { q, client_id: SOUNDCLOUD_KEY, filter: 'downloadable' };
-    return new Promise((resolve, reject) => fetch(`${SCAPI}/tracks${serialize(params)}`)
+    return new Promise((resolve, reject) => window.
+    fetch(`${SCAPI}/tracks${serialize(params)}`)
     .then(res => resolve(res.data))
     .catch(response => reject(response)));
   },
@@ -46,7 +47,8 @@ const actions = {
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
-    fetch(`${SCAPI_TRACKS}/${soundcloudID}${serialize({ client_id: SOUNDCLOUD_KEY })}`)
+    window
+    .fetch(`${SCAPI_TRACKS}/${soundcloudID}${serialize({ client_id: SOUNDCLOUD_KEY })}`)
     .then(response => {
       if (!response.data.download_url) {
         ee.emit('error', 'Sorry, that SoundCloud track cannot be downloaded.');

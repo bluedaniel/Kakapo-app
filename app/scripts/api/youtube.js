@@ -16,7 +16,8 @@ const GAPI_OPTS_LIST = {
 export function getStatistics(resolve, reject, videos) {
   let _it = 0;
   const params = { ...GAPI_OPTS_LIST, ...{ id: videos.map(_i => _i.id.videoId).join(',') } };
-  fetch(`${GAPI_URL}/videos${serialize(params)}`)
+  window
+  .fetch(`${GAPI_URL}/videos${serialize(params)}`)
   .then(resp => resp.json())
   .then(({ items }) => resolve(items.map(_v =>
     ({ ...videos[_it++], ...{
@@ -27,8 +28,9 @@ export function getStatistics(resolve, reject, videos) {
 
 export function getYoutubeSearch(q) {
   const params = { ...GAPI_OPTS_SEARCH, q };
-  return new Promise((resolve, reject) => fetch(`${GAPI_URL}/search${serialize(params)}`)
-    .then(resp => resp.json())
-    .then(({ items }) => getStatistics(resolve, reject, items))
-    .catch(err => reject(err)));
+  return new Promise((resolve, reject) => window
+  .fetch(`${GAPI_URL}/search${serialize(params)}`)
+  .then(resp => resp.json())
+  .then(({ items }) => getStatistics(resolve, reject, items))
+  .catch(err => reject(err)));
 }
