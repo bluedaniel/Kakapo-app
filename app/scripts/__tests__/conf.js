@@ -10,7 +10,7 @@ if (!argv.watch) {
     test: /\.(js|jsx)?$/,
     include: /app\/scripts/,
     loader: 'isparta',
-    exclude: /(__tests__|node_modules)/
+    exclude: /(__tests__|desktop|node_modules)/
   });
 }
 
