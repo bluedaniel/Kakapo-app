@@ -21,6 +21,7 @@ export default class Nav extends Component {
   };
 
   renderDragOrDownload() {
+    /* istanbul ignore if */
     if (__DESKTOP__) {
       return (<span className="drag"/>);
     }

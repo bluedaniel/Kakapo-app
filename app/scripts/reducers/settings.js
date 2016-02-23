@@ -10,6 +10,7 @@ let initialState = {
   } }
 };
 
+/* istanbul ignore if */
 if (__DESKTOP__) {
   initialState = { ...initialState, ...{
     dockIcon: bridgedSettings.getItem('dockIcon'),

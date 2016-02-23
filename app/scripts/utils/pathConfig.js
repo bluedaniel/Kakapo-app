@@ -4,6 +4,7 @@ import { remote } from 'electron';
 
 let exportData;
 
+/* istanbul ignore if */
 if (__DESKTOP__) {
   const app = remote.app;
 

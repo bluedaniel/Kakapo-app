@@ -16,6 +16,7 @@ let autoUpdater;
 let gradients;
 let initialState = {};
 
+/* istanbul ignore if */
 if (__DESKTOP__) {
   autoUpdater = remote.autoUpdater;
   gradients = fs.readJsonSync(pathConfig.gradientFile);
@@ -40,7 +41,7 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(soundActions.soundsInit());
-
+    /* istanbul ignore if */
     if (__DESKTOP__) {
       ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
       autoUpdater.checkForUpdates();
@@ -48,6 +49,7 @@ class App extends Component {
   }
 
   onDrop = (files) => { // Desktop only
+    /* istanbul ignore if */
     if (__DESKTOP__) {
       files.map(_f => this.props.soundActions.addLocalSound(_f.name, _f.path));
     } else {

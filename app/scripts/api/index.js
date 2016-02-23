@@ -10,6 +10,7 @@ const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
 const { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } = bridgedSoundcloud;
 
 export function getDefaultSounds() {
+  /* istanbul ignore if */
   if (__DESKTOP__) {
     return new Promise((resolve, reject) => fs.readJson(pathConfig.soundFile, (err, data) => {
       if (err) reject(err);
@@ -28,6 +29,7 @@ export function getDefaultSounds() {
 
 export function createSoundObj(sound) {
   return new Promise(resolve => {
+    /* istanbul ignore if */
     if (__DESKTOP__) return resolve(getHowlerObj(sound));
     switch (sound.source) {
       case 'soundcloudStream':

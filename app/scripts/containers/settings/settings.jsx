@@ -8,6 +8,7 @@ import './settings.css';
 let app;
 let autoUpdater;
 
+/* istanbul ignore if */
 if (__DESKTOP__) {
   app = remote.app;
   autoUpdater = remote.autoUpdater;
@@ -27,6 +28,7 @@ export default class Settings extends Component {
   };
 
   componentDidMount() {
+    /* istanbul ignore if */
     if (__DESKTOP__) {
       autoUpdater
       .on('checking-for-update', () => this.setUpdateStatus({ updateStatus: 'checking' }))
