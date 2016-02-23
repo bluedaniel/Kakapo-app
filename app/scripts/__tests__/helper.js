@@ -40,3 +40,37 @@ export function getData(slice) {
     }
   }
 }
+
+export const stubFetchWith = data => {
+  const res = {};
+  res.json = () => (data);
+  return res;
+};
+
+export const kakapoRes = kakapoAssets.sounds;
+
+export const youtubeRes = {
+  videos: {
+    items: [ {
+      id: { videoId: 'YTg7fpGLsKE' },
+      snippet: {
+        description: '',
+        title: '',
+        thumbnails: { high: { url: '' } }
+      }
+    }, {
+      id: { videoId: 'vWyDDn2-5Gk' },
+      snippet: {
+        description: '',
+        title: '',
+        thumbnails: { high: { url: '' } }
+      }
+    } ]
+  },
+  statistics: {
+    items: [
+      { contentDetails: { duration: 'PT3M28S' }, statistics: { viewCount: 10000 } },
+      { contentDetails: { duration: 'PT3M28S' }, statistics: { viewCount: 1000 } }
+    ]
+  }
+};

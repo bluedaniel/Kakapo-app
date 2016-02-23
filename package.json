@@ -86,7 +86,6 @@
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
-    "nock": "^7.2.2",
     "nouislider": "^8.2.1",
     "open": "0.0.5",
     "phantomjs-prebuilt": "^2.1.4",
