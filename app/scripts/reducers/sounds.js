@@ -5,10 +5,10 @@ import constants from 'constants/';
 import { createReducer, toasterInstance } from 'utils/';
 import { observableStore } from 'stores/configureStore';
 
-let initialState = new Map();
+export let initialState = new Map();
 let defaultSounds = new Map();
 let howls = new Map();
-let mute = false;
+export let mute = false;
 
 const soundReducers = {
   init(state, initSounds) {

@@ -12,7 +12,8 @@
     "semi": [2, "always"],
     "comma-dangle": [2, "never"],
     "no-shadow": 0,
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "newline-per-chained-call": 0
   },
   "plugins": [
     "react"

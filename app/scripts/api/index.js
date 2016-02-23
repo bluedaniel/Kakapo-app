@@ -17,7 +17,9 @@ export function getDefaultSounds() {
     }));
   }
 
-  const defaultSounds = window.fetch('http://data.kakapo.co/v2/data/sounds.json');
+  const defaultSounds = window
+  .fetch('http://data.kakapo.co/v2/data/sounds.json')
+  .then(resp => resp.json());
 
   return new Promise(resolve => new Promise(res => {
     window.onYouTubeIframeAPIReady = res(true);
