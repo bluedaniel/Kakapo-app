@@ -1,8 +1,7 @@
 /* eslint-env mocha */
 /* eslint no-console:0 */
 import { expect } from 'chai';
-import createReducer from '../createReducer';
-import createConstants from '../createConstants';
+import { createReducer, createConstants } from 'utils/';
 
 const initialState = 'testingVal';
 

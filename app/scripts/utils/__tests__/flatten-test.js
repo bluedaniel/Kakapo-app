@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* eslint no-console:0 */
 import { expect } from 'chai';
-import { flatten, flatteni18n } from '../flatten';
+import { flatten, flatteni18n } from 'utils/';
 
 describe('Utility `flatten`', () => {
   it('returns an already flat array', () => {

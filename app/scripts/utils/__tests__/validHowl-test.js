@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* eslint no-console:0 */
 import { expect } from 'chai';
-import validHowl from '../validHowl';
+import { validHowl } from 'utils/';
 
 describe('Utility `validHowl`', () => {
   it('rejects `.invalidExtension`', () => {

@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* eslint no-console:0 */
 import { expect } from 'chai';
-import createConstants from '../createConstants';
+import { createConstants } from 'utils/';
 
 describe('Utility `createConstants`', () => {
   it('returns key/value object', () => {

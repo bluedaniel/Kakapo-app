@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* eslint no-console:0 */
 import { expect } from 'chai';
-import classNames from '../classNames';
+import { classNames } from 'utils/';
 
 describe('Utility `classNames`', () => {
   it('takes multiple arguments', () => {
