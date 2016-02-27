@@ -16,7 +16,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<SoundList {...propData}/>);
+  const wrapper = shallow(<SoundList {...propData} />);
   return {
     props,
     wrapper

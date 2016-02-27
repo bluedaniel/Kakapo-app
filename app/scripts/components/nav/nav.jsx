@@ -23,7 +23,7 @@ export default class Nav extends Component {
   renderDragOrDownload() {
     /* istanbul ignore if */
     if (__DESKTOP__) {
-      return (<span className="drag"/>);
+      return <span className="drag" />;
     }
     return (
       <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank">
@@ -49,7 +49,7 @@ export default class Nav extends Component {
           />
           {this.renderDragOrDownload()}
           <div className="share">
-            {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count"/> : null}
+            {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count" /> : null}
             <a href="https://twitter.com/share" className="twitter-share-button" data-url="http://www.kakapo.co">Tweet</a>
           </div>
         </div>

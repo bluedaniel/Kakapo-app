@@ -18,7 +18,7 @@ function setup(props = {}) {
     dispatch: (e) => e,
     ...props
   };
-  const wrapper = shallow(<Kakapo {...propData}/>);
+  const wrapper = shallow(<Kakapo {...propData} />);
   return {
     props,
     wrapper

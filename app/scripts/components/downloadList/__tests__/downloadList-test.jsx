@@ -11,7 +11,7 @@ import DownloadList from '../downloadList';
 
 function setup(props = {}) {
   const propData = { ...getData('sounds'), ...props };
-  const wrapper = shallow(<DownloadList {...propData}/>);
+  const wrapper = shallow(<DownloadList {...propData} />);
   return {
     props,
     wrapper

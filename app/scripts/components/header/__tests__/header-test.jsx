@@ -15,7 +15,7 @@ function setup(props = {}) {
     ...getData('location'),
     ...props
   };
-  const wrapper = shallow(<Header {...propData}/>);
+  const wrapper = shallow(<Header {...propData} />);
   return {
     props,
     wrapper

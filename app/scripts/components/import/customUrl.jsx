@@ -34,7 +34,7 @@ export default class CustomUrl extends Component {
     if (!validHowl(data.file)) return this.handleError(validHowl(data.file, true), false);
 
     this.props.dispatch(soundActions.addSound('custom', data));
-    this.context.router.push('/');
+    return this.context.router.push('/');
   };
 
   handleError = (msg, intl = true) => {
@@ -51,7 +51,7 @@ export default class CustomUrl extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className="media-import">
               <div ref="name">
-                <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl}/>
+                <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl} />
               </div>
               <div ref="customInput">
                 <TextInput placeholder="import.custom.url_placeholder"

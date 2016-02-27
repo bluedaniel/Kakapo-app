@@ -67,14 +67,11 @@ export default class Playlist extends Component {
     this.props.dispatch(soundActions.resetSounds(true));
     switch (playlist[_p].source) {
       case 'youtubeStream':
-        this.props.dispatch(soundActions.addSound('youtube', playlist[_p], false));
-        break;
+        return this.props.dispatch(soundActions.addSound('youtube', playlist[_p], false));
       case 'soundcloudStream':
-        this.props.dispatch(soundActions.addSound('soundcloud', playlist[_p].file, false));
-        break;
+        return this.props.dispatch(soundActions.addSound('soundcloud', playlist[_p].file, false));
       default:
-        this.props.dispatch(soundActions.addSound('kakapo', playlist[_p], false));
-        break;
+        return this.props.dispatch(soundActions.addSound('kakapo', playlist[_p], false));
     }
   });
 
@@ -113,7 +110,7 @@ export default class Playlist extends Component {
             <button className="copy-clipboard" data-clipboard-target="#copyClipboard"
               onClick={this.handleStopPropagation}
             >
-              <span title="Copy to clipboard"/>
+              <span title="Copy to clipboard" />
             </button>
           </form>
         </div>
@@ -129,12 +126,12 @@ export default class Playlist extends Component {
   renderDesktopPlaylistInput() {
     return (
       <div>
-        <hr/>
+        <hr />
         <p>{this.props.intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
         <form onSubmit={this.handleDesktopPlaylistInput} className="pure-form">
           <div className="InputAddOn">
             <span className="InputAddOn-item">kakapo.co/playlist/</span>
-            <input className="pure-input-1 InputAddOn-field" ref="desktopPlaylist" type="text"/>
+            <input className="pure-input-1 InputAddOn-field" ref="desktopPlaylist" type="text" />
           </div>
         </form>
       </div>

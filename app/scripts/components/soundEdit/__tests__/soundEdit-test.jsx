@@ -16,7 +16,7 @@ function setup(props = {}) {
     soundActions: {},
     ...props
   };
-  const wrapper = shallow(<SoundEdit {...propData}/>);
+  const wrapper = shallow(<SoundEdit {...propData} />);
   return {
     props,
     wrapper
@@ -27,14 +27,14 @@ const soundProp = (props = {}) => ({
   sound: mapValues({ ...newSoundClass, ...{
     source: 'file',
     progress: 1
-  }, ...props }, e => e === null ? `wind` : e)
+  }, ...props }, e => e === null ? 'wind' : e)
 });
 
 describe('<SoundEdit/>', () => {
   it('renders as a <div> with className equals `item editing`', () => {
     const { wrapper } = setup(soundProp());
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql(`item editing`);
+    expect(wrapper.prop('className')).to.eql('item editing');
   });
 
   it('should render 2 inputs', () => {

@@ -114,7 +114,7 @@
   },
   "scripts": {
     "test": "babel-node tools/run imagemin && karma start",
-    "lint": "stylelint app/scripts/**/*.css && eslint app/scripts tools",
+    "lint": "stylelint app/scripts/**/*.css && eslint --ext .jsx --ext .js app/scripts tools",
     "build": "npm run lint && babel-node tools/run build",
     "pkg": "babel-node tools/run pkg",
     "installer-mac": "babel-node tools/run installer-mac",

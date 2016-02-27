@@ -15,7 +15,7 @@ function setup(props = {}) {
     soundActions: {},
     ...props
   };
-  const wrapper = shallow(<SoundItem {...propData}/>);
+  const wrapper = shallow(<SoundItem {...propData} />);
   return {
     props,
     wrapper
@@ -26,7 +26,7 @@ const soundProp = (props = {}) => ({
   sound: mapValues({ ...newSoundClass, ...{
     source: 'file',
     progress: 1
-  }, ...props }, e => e === null ? `wind` : e)
+  }, ...props }, e => e === null ? 'wind' : e)
 });
 
 const defaultClassName = 'item waves-effect waves-block';
@@ -63,7 +63,7 @@ describe('<SoundItem/>', () => {
       expect(wrapper.find('.icon-trash')).to.have.length(1);
     });
 
-    it(`video container with className 'youtube-video' and id 'video-${youtubeTestId}' is added`, () => {
+    it(`video container '#video-${youtubeTestId}.youtube-video' is added`, () => {
       const { wrapper } = setup(soundProp({ file: youtubeTestId, source: 'youtubeStream' }));
       expect(wrapper.find('.youtube-video')).to.have.length(1);
       expect(wrapper.find('.youtube-video').prop('id')).to.eql(`video-${youtubeTestId}`);

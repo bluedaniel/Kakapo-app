@@ -5,14 +5,14 @@ import './soundList.css';
 
 export default ({ sounds, themes, intl, dispatch }) => {
   sounds = sounds.toArray().filter(_s => _s.progress === 1);
-  if (!sounds.length) return (<div/>);
+  if (!sounds.length) return <div />;
 
   sounds = sounds.map(_s => {
     const soundProps = { themes, sound: { ..._s }, intl, dispatch };
 
-    let item = <SoundItem key={_s.file} { ...soundProps }/>;
+    let item = <SoundItem key={_s.file} { ...soundProps } />;
     if (_s.editing) {
-      item = <SoundEdit key={`${_s.file}editing`} { ...soundProps }/>;
+      item = <SoundEdit key={`${_s.file}editing`} { ...soundProps } />;
     }
 
     return (

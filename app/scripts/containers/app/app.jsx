@@ -13,13 +13,12 @@ import 'styles/base.css';
 import './app.css';
 
 let autoUpdater;
-let gradients;
 let initialState = {};
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
   autoUpdater = remote.autoUpdater;
-  gradients = fs.readJsonSync(pathConfig.gradientFile);
+  const gradients = fs.readJsonSync(pathConfig.gradientFile);
   initialState = {
     updateAvailable: false,
     gradient: gradients[Math.floor(Math.random() * gradients.length)]
@@ -92,18 +91,9 @@ class App extends Component {
       }}
       >
         <div className="sk-fading-circle">
-          <div className="sk-circle1 sk-circle"/>
-          <div className="sk-circle2 sk-circle"/>
-          <div className="sk-circle3 sk-circle"/>
-          <div className="sk-circle4 sk-circle"/>
-          <div className="sk-circle5 sk-circle"/>
-          <div className="sk-circle6 sk-circle"/>
-          <div className="sk-circle7 sk-circle"/>
-          <div className="sk-circle8 sk-circle"/>
-          <div className="sk-circle9 sk-circle"/>
-          <div className="sk-circle10 sk-circle"/>
-          <div className="sk-circle11 sk-circle"/>
-          <div className="sk-circle12 sk-circle"/>
+          {Array.from(new Array(12), (x, i) => i + 1).map(a => (
+            <div className={`sk-circle${a} sk-circle`} key={`sk-circle${a}`} />
+          ))}
         </div>
       </div>
     );
@@ -122,18 +112,18 @@ class App extends Component {
           {__DESKTOP__ ? this.renderUpload() : null}
           {this.state.updateAvailable ?
             <a className="update-now" onClick={this.handleAutoUpdateClick}>
-            Hi, there is a new version of Kakapo!<br/>Click here to update</a> : null}
+            Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 
-          <Nav {...{ themes, intl, dispatch }}/>
-          <Header {...{ themes, location, intl }}/>
+          <Nav {...{ themes, intl, dispatch }} />
+          <Header {...{ themes, location, intl }} />
 
-          <Subroutes {...this.props}/>
+          <Subroutes {...this.props} />
 
-          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }}/> :
+          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
             this.renderLoading()}
 
           <aside className="toast-view"></aside>
-          <DownloadList {...{ sounds }}/>
+          <DownloadList {...{ sounds }} />
         </Dropzone>
       </div>
     );

@@ -8,7 +8,7 @@ import { newSoundClass } from 'classes/';
 import DownloadItem from '../downloadItem';
 
 function setup(props = {}) {
-  const wrapper = shallow(<DownloadItem sound={props}/>).shallow();
+  const wrapper = shallow(<DownloadItem sound={props} />).shallow();
   return {
     props,
     wrapper
@@ -18,7 +18,7 @@ function setup(props = {}) {
 const soundProp = (props = {}) => mapValues({ ...newSoundClass, ...{
   source: 'file',
   progress: 0.8
-}, ...props }, e => e === null ? `wind` : e);
+}, ...props }, e => e === null ? 'wind' : e);
 
 describe('<DownloadItem/>', () => {
   it('renders as a <div> with className equals `download active`', () => {

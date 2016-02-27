@@ -13,7 +13,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<TextInput {...propData}/>);
+  const wrapper = shallow(<TextInput {...propData} />);
   return {
     props,
     wrapper

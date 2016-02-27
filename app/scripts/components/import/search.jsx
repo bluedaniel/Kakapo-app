@@ -38,9 +38,7 @@ export default class YouTube extends Component {
         if (this.state.service === 'youtube') {
           return this.props.dispatch(searchActions.searchYoutube(_s));
         }
-        if (this.state.service === 'soundcloud') {
-          return this.props.dispatch(searchActions.searchSoundCloud(_s));
-        }
+        return this.props.dispatch(searchActions.searchSoundCloud(_s));
       })
       .subscribe(() => this.toggleSpinner(false));
 
@@ -71,7 +69,7 @@ export default class YouTube extends Component {
                 sound: _y,
                 ...{ intl, dispatch }
               };
-              return <SearchResult key={_y.videoId || _y.scId} {...itemProps}/>;
+              return <SearchResult key={_y.videoId || _y.scId} {...itemProps} />;
             })}
           </div>
         </div>

@@ -14,7 +14,7 @@ export default function KakapoItem({ sounds, sound, intl, dispatch }) {
   return (
     <div className={classNames('kakapo-item', { disabled: alreadyAdded() })} onClick={handleClick}>
       <div className="thumbnail">
-        <img src={`http://data.kakapo.co/v2/images/dark_${sound.img}.png`}/>
+        <img src={`http://data.kakapo.co/v2/images/dark_${sound.img}.png`} />
       </div>
       <span className="title">
         {intl.formatMessage({ id: (`sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`) })}

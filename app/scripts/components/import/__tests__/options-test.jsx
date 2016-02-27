@@ -12,7 +12,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<Options {...propData}/>);
+  const wrapper = shallow(<Options {...propData} />);
   return {
     props,
     wrapper
@@ -23,7 +23,7 @@ describe('<Options/>', () => {
   it('renders as a <div> with className equals `modal-inner media`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql(`modal downloads`);
+    expect(wrapper.prop('className')).to.eql('modal downloads');
   });
 
   it('contains 4 links', () => {

@@ -15,7 +15,7 @@ export default ({ sounds, search, intl, dispatch }) => {
         <div className={classNames({ 'kakapofavs-items': search.get('kakapofavs').count() })}>
           {search.get('kakapofavs').map(_y => {
             const itemProps = { ...{ sounds, intl, dispatch } };
-            return <KakapoItem key={_y.name} sound={_y} {...itemProps}/>;
+            return <KakapoItem key={_y.name} sound={_y} {...itemProps} />;
           })}
         </div>
       </div>

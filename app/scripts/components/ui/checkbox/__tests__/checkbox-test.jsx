@@ -15,7 +15,7 @@ function setup(props = {}, enzymeMethod = shallow) {
     name: 'testName',
     ...props
   };
-  const wrapper = enzymeMethod(<Checkbox {...propData}/>);
+  const wrapper = enzymeMethod(<Checkbox {...propData} />);
   return {
     props,
     wrapper

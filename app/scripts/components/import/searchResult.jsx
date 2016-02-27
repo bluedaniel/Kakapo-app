@@ -26,7 +26,7 @@ export default function SearchResult({ service, sound, intl, dispatch }, { route
   return (
     <div className={`${service}-item`} onClick={handleClick}>
       <div className="thumbnail">
-        <img src={sound.img}/>
+        <img src={sound.img} />
         <span className="duration">
           {sound.duration}
         </span>

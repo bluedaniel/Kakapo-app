@@ -70,15 +70,15 @@ export default class SoundItem extends Component {
         {this.props.sound.link ? (
           <li>
             <a href={this.props.sound.link} target="_blank">
-              <i className={classNames('icon-share', { dark: !this.props.sound.playing })}/>
+              <i className={classNames('icon-share', { dark: !this.props.sound.playing })} />
             </a>
           </li>) : ''}
         {this.props.sound.source !== 'youtubeStream' ? (
           <li onClick={this.handleEdit}>
-            <i className={classNames('icon-pencil', { dark: !this.props.sound.playing })}/>
+            <i className={classNames('icon-pencil', { dark: !this.props.sound.playing })} />
             </li>) : ''}
         <li onClick={this.handleDelete}>
-          <i className={classNames('icon-trash', { dark: !this.props.sound.playing })}/>
+          <i className={classNames('icon-trash', { dark: !this.props.sound.playing })} />
         </li>
       </ul>
     );
@@ -86,10 +86,9 @@ export default class SoundItem extends Component {
 
   renderVideo() {
     if (this.props.sound.source === 'youtubeStream') {
-      return (
-        <div className="youtube-video" id={`video-${this.props.sound.file}`}></div>
-      );
+      return <div className="youtube-video" id={`video-${this.props.sound.file}`}></div>;
     }
+    return <div />;
   }
 
   render() {
@@ -119,12 +118,12 @@ export default class SoundItem extends Component {
         style={objStyle}
       >
         <div className="inner">
-          {img ? <img src={img}/> : <div className="no-image"/>}
+          {img ? <img src={img} /> : <div className="no-image" />}
           {this.renderActions()}
           <span className="title">
             {sound.name}
           </span>
-          <div ref="volume" onClick={this.handleStopPropagation}/>
+          <div ref="volume" onClick={this.handleStopPropagation} />
         </div>
         {this.renderVideo()}
       </div>
