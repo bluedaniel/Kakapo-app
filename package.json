@@ -18,6 +18,7 @@
     "kakapo-assets": "^5.10.0",
     "node-waves": "^0.7.2",
     "nouislider": "^8.3.0",
+    "purecss": "^0.6.0",
     "react": "^0.14.7",
     "react-addons-css-transition-group": "^0.14.7",
     "react-dom": "^0.14.7",
