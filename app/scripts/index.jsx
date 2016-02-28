@@ -2,13 +2,13 @@ import 'intl';
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, useRouterHistory } from 'react-router';
-import { createHashHistory } from 'history';
+import { Router, browserHistory } from 'react-router';
 import { IntlProvider } from 'react-intl';
 import routes from 'routes/routes';
+import { syncHistoryWithStore } from 'react-router-redux';
 import { store } from 'stores/configureStore';
 
-const appHistory = useRouterHistory(createHashHistory)({ queryKey: false });
+const appHistory = syncHistoryWithStore(browserHistory, store);
 
 const state = store.getState();
 const target = document.getElementById('app');

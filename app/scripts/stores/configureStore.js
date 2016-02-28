@@ -1,13 +1,11 @@
 import { Observable } from 'rx';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import { browserHistory } from 'react-router';
 import createLogger from 'redux-logger';
 import rootReducer from 'reducers';
-import { syncHistory } from 'react-router-redux';
 
 function configureStore(debug = false) {
-  const middlewares = [ thunk, syncHistory(browserHistory) ];
+  const middlewares = [ thunk ];
 
   if (debug) {
     middlewares.push(createLogger());
