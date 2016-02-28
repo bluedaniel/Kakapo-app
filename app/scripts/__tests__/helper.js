@@ -10,7 +10,7 @@ export function getIntlProps() {
   };
 }
 
-export function getData(slice) {
+export function getData(slice, opts = {}) {
   switch (slice) {
     case 'themes': {
       return { themes: fromJS(kakapoAssets.theme) };
@@ -23,7 +23,14 @@ export function getData(slice) {
       }) };
     }
     case 'sounds': {
-      return { sounds: new Map() };
+      let sounds = new Map();
+      if (opts.full) {
+        kakapoAssets.sounds.map(_s => {
+          sounds = sounds.set(_s.file, { ..._s });
+          return sounds;
+        });
+      }
+      return { sounds };
     }
     case 'settings': {
       return { settings: new Map() };

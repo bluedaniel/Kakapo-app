@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { soundActions } from 'actions/';
 
 export default function SearchResult({ service, sound, intl, dispatch }, { router }) {
-  function handleClick() {
+  const handleClick = () => {
     let actionParams;
     if (service === 'youtube') {
       actionParams = {
@@ -19,7 +19,7 @@ export default function SearchResult({ service, sound, intl, dispatch }, { route
     }
     dispatch(soundActions.addSound(service, actionParams));
     router.push('/');
-  }
+  };
 
   const viewCountId = service === 'youtube' ? 'youtube.views' : 'soundcloud.plays';
 
