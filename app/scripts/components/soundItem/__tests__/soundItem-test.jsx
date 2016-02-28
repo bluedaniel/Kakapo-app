@@ -3,7 +3,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { mapValues } from 'lodash';
 import { newSoundClass } from 'classes/';
 import SoundItem from '../soundItem';
 import { getData } from '__tests__/helper';
@@ -22,12 +21,13 @@ function setup(props = {}) {
   };
 }
 
-const soundProp = (props = {}) => ({
-  sound: mapValues({ ...newSoundClass, ...{
-    source: 'file',
-    progress: 1
-  }, ...props }, e => e === null ? 'wind' : e)
-});
+const soundProp = (props = {}) => {
+  const obj = { ...newSoundClass, source: 'file', progress: 1, ...props };
+  return { sound: Object.keys(obj).reduce((newObj, _e) => {
+    newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
+    return newObj;
+  }, {}) };
+};
 
 const defaultClassName = 'item waves-effect waves-block';
 const youtubeTestId = '7ccQyyCLtx8';

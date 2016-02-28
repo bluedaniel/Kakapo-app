@@ -17,6 +17,22 @@ export const createReducer = (initialState, handlers) => (state = initialState, 
   return state;
 };
 
+// hyphen-name-format -> hyphenNameFormat
+export const camelCase = str => str.replace(/^([A-Z])|[\s-_](\w)/g, (match, p1, p2) =>
+    p2 ? p2.toUpperCase() : p1.toLowerCase());
+
+export const toArray = x => Array.isArray(x) ? x : [ x ];
+
+// (['a'], {a: 1, b: 2, c: 3}) -> {a: 1}
+export const pluck = (props, x) => toArray(props).reduce((acc, prop) => {
+  if (typeof x[prop] !== 'undefined') acc[prop] = x[prop];
+  return acc;
+}, {});
+
+// (['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) -> {b: 2, c: 3}
+export const omit = (props, x) => pluck(Object.keys(x).filter(k =>
+  typeof toArray(props).filter(p => p === k)[0] === 'undefined'), x);
+
 // [1, [2, [3, [4]], 5]] → [1, 2, 3, 4, 5]
 export const flatten = a => Array.isArray(a) ? [].concat(...a.map(flatten)) : a;
 
@@ -50,6 +66,20 @@ export const serialize = obj => {
     return a;
   }, []);
   return `?${encodedObj.join('&')}`;
+};
+
+export const throttle = (func, ms = 50, context = window) => {
+  let wait = false;
+  return (...args) => {
+    const later = () => func.apply(context, args);
+    if (!wait) {
+      later();
+      wait = true;
+      setTimeout(() => {
+        wait = false;
+      }, ms);
+    }
+  };
 };
 
 // Konami keycode

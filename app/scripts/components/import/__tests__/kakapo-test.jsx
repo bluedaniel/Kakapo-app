@@ -4,7 +4,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { fromJS, List } from 'immutable';
-import { mapValues } from 'lodash';
 import { getData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import Kakapo from '../kakapo';
@@ -28,10 +27,11 @@ function setup(props = {}) {
 function randomSounds(count) {
   let arr = new List();
   for (let i = 0; i < count; i++) {
-    arr = arr.set(i, mapValues({ ...newSoundClass, ...{
-      source: 'file',
-      progress: 1
-    } }, e => typeof e === 'function' ? `test${i}` : e));
+    const obj = { ...newSoundClass, source: 'file', progress: 1 };
+    arr = arr.set(i, Object.keys(obj).reduce((newObj, _e) => {
+      newObj[_e] = typeof obj[_e] === 'function' ? `test${i}` : obj[_e];
+      return newObj;
+    }, {}));
   }
   return arr;
 }

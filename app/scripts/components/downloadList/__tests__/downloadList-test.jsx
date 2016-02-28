@@ -4,7 +4,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { Map } from 'immutable';
-import { mapValues } from 'lodash';
 import { getData } from '__tests__/helper';
 import { newSoundClass } from 'classes/';
 import DownloadList from '../downloadList';
@@ -21,9 +20,11 @@ function setup(props = {}) {
 function randomSounds(count) {
   let arr = new Map();
   for (let i = 0; i < count; i++) {
-    arr = arr.set(i, mapValues({ ...newSoundClass, ...{
-      progress: i > 2 ? 1 : 0.5
-    } }, e => e === null ? `test${i}` : e));
+    const obj = { ...newSoundClass, progress: i > 2 ? 1 : 0.5 };
+    arr = arr.set(i, Object.keys(obj).reduce((newObj, _e) => {
+      newObj[_e] = obj[_e] === null ? `test${i}` : obj[_e];
+      return newObj;
+    }, {}));
   }
   return arr;
 }

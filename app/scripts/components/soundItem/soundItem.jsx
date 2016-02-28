@@ -1,11 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import nouislider from 'nouislider';
-import { throttle } from 'lodash';
 import waves from 'node-waves';
 import color from 'color';
 import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
-import { classNames } from 'utils/';
+import { classNames, throttle } from 'utils/';
 import './soundItem.css';
 
 export default class SoundItem extends Component {

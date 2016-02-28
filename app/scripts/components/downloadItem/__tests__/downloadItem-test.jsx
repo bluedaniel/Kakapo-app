@@ -3,7 +3,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
-import { mapValues } from 'lodash';
 import { newSoundClass } from 'classes/';
 import DownloadItem from '../downloadItem';
 
@@ -15,10 +14,13 @@ function setup(props = {}) {
   };
 }
 
-const soundProp = (props = {}) => mapValues({ ...newSoundClass, ...{
-  source: 'file',
-  progress: 0.8
-}, ...props }, e => e === null ? 'wind' : e);
+const soundProp = (props = {}) => {
+  const obj = { ...newSoundClass, source: 'file', progress: 0.8, ...props };
+  return Object.keys(obj).reduce((newObj, _e) => {
+    newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
+    return newObj;
+  }, {});
+};
 
 describe('<DownloadItem/>', () => {
   it('renders as a <div> with className equals `download active`', () => {

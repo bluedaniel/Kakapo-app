@@ -1,4 +1,5 @@
 import { argv } from 'yargs';
+import webpack from 'webpack';
 import webpackConfig from '../../../tools/webpack.config';
 
 const preLoaders = [ ...webpackConfig.module.loaders ];
@@ -29,7 +30,11 @@ const webpackTestConfig = {
     alias: { ...webpackConfig.resolve.alias, ...{
       sinon: 'sinon/pkg/sinon'
     } }
-  } }
+  } },
+  plugins: [ ...webpackConfig.plugins, new webpack.DefinePlugin({
+    __TEST__: true
+  })
+]
 };
 
 export default (config) => {

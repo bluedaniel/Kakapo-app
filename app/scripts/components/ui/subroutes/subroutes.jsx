@@ -2,7 +2,7 @@ import React, { cloneElement, PropTypes } from 'react';
 import { Link } from 'react-router';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import color from 'color';
-import { omit, camelCase } from 'lodash';
+import { camelCase, omit } from 'utils/';
 
 export default function Subroutes(props) {
   const { themes, children, location } = props;

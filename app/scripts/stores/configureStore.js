@@ -29,7 +29,7 @@ function configureStore(debug = false) {
   return store;
 }
 
-export const store = configureStore(__DEV__);
+export const store = configureStore(__DEV__ && !__TEST__);
 
 export const observableStore = Observable.fromEventPattern(
   handler => store.subscribe(handler),

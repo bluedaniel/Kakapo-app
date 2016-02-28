@@ -51,7 +51,8 @@ const config = {
       },
       __DESKTOP__: platformDevice === 'desktop',
       __WEB__: platformDevice === 'web',
-      __DEV__: DEBUG
+      __DEV__: DEBUG,
+      __TEST__: false
     }),
     new ExtractTextPlugin('styles.css'),
     ...(!DEBUG ? [
