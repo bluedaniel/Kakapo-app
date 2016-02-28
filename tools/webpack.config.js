@@ -6,11 +6,8 @@ import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
 import postcssPlugins, { postcssImport } from './postcss.plugins';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-const JsonpTemplatePlugin = webpack.JsonpTemplatePlugin;
-const ExternalsPlugin = webpack.ExternalsPlugin;
-const LoaderTargetPlugin = webpack.LoaderTargetPlugin;
-
 const DEBUG = !argv.production;
+const TEST = process.env.NODE_ENV === 'test';
 const platformDevice = argv.platform || 'web';
 
 let externals = {};
@@ -26,7 +23,7 @@ const config = {
   entry: {
     index: [
       './app/scripts/index',
-      ...(DEBUG ? [ 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr' ] : [])
+      ...(DEBUG && !TEST ? [ 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr' ] : [])
     ]
   },
   output: {
@@ -52,7 +49,7 @@ const config = {
       __DESKTOP__: platformDevice === 'desktop',
       __WEB__: platformDevice === 'web',
       __DEV__: DEBUG,
-      __TEST__: false
+      __TEST__: TEST
     }),
     new ExtractTextPlugin('styles.css'),
     ...(!DEBUG ? [
@@ -65,9 +62,9 @@ const config = {
       }),
       new webpack.optimize.AggressiveMergingPlugin()
     ] : [
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
-    ])
+    ]),
+    ...(!TEST ? [ new webpack.HotModuleReplacementPlugin() ] : [])
   ],
   module: {
     loaders: [
@@ -113,9 +110,7 @@ const config = {
     }
   },
 
-  postcss: (webpack) => [
-    postcssImport({ addDependencyTo: webpack })
-  ].concat(postcssPlugins),
+  postcss: (webpack) => [ postcssImport({ addDependencyTo: webpack }) ].concat(postcssPlugins),
 
   stats: {
     colors: true,
@@ -130,10 +125,10 @@ const config = {
 if (platformDevice === 'desktop') {
   config.target = (compiler) => {
     compiler.apply(
-      new JsonpTemplatePlugin(config.output),
+      new webpack.JsonpTemplatePlugin(config.output),
       new FunctionModulePlugin(config.output),
       new NodeTargetPlugin(),
-      new ExternalsPlugin('commonjs', [
+      new webpack.ExternalsPlugin('commonjs', [
         'app',
         'auto-updater',
         'browser-window',
@@ -160,7 +155,7 @@ if (platformDevice === 'desktop') {
         'session',
         'shell'
       ]),
-      new LoaderTargetPlugin(config.target)
+      new webpack.LoaderTargetPlugin(config.target)
     );
   };
 }

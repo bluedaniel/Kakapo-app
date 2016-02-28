@@ -1,19 +1,5 @@
 import { argv } from 'yargs';
-import webpack from 'webpack';
 import webpackConfig from '../../../tools/webpack.config';
-
-const preLoaders = [ ...webpackConfig.module.loaders ];
-const preprocessors = [ 'webpack', 'sourcemap' ];
-
-if (!argv.watch) {
-  preprocessors.push('coverage');
-  preLoaders.push({
-    test: /\.(js|jsx)?$/,
-    include: /app\/scripts/,
-    loader: 'isparta',
-    exclude: /(__tests__|desktop|node_modules)/
-  });
-}
 
 const webpackTestConfig = {
   externals: { ...webpackConfig.externals, ...{
@@ -23,18 +9,20 @@ const webpackTestConfig = {
   } },
   devTool: 'inline-source-map',
   module: {
-    preLoaders,
+    preLoaders: [ {
+      test: /\.(js|jsx)?$/,
+      include: /app\/scripts/,
+      loader: 'isparta',
+      exclude: /(test|__tests__|node_modules|bridge)\//
+    } ],
+    loaders: webpackConfig.module.loaders,
     noParse: webpackConfig.module.noParse
   },
   resolve: { ...webpackConfig.resolve, ...{
     alias: { ...webpackConfig.resolve.alias, ...{
       sinon: 'sinon/pkg/sinon'
     } }
-  } },
-  plugins: [ ...webpackConfig.plugins, new webpack.DefinePlugin({
-    __TEST__: true
-  })
-]
+  } }
 };
 
 export default (config) => {
@@ -46,7 +34,8 @@ export default (config) => {
       './app/scripts/__tests__/test-bundler.js'
     ],
     preprocessors: {
-      './app/scripts/__tests__/test-bundler.js': preprocessors
+      './app/scripts/__tests__/test-bundler.js': [ 'webpack', 'sourcemap' ],
+      './app/scripts/**/*.(js|jsx)': [ 'coverage' ]
     },
     reporters: [ 'mocha', 'coverage', 'coveralls' ],
     webpack: { ...webpackConfig, ...webpackTestConfig },

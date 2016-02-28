@@ -112,7 +112,7 @@
     "yargs": "^4.2.0"
   },
   "scripts": {
-    "test": "babel-node tools/run imagemin && karma start",
+    "test": "babel-node tools/run imagemin && NODE_ENV=test karma start",
     "lint": "stylelint app/scripts/**/*.css && eslint --ext .jsx --ext .js app/scripts tools",
     "build": "npm run lint && babel-node tools/run build",
     "pkg": "babel-node tools/run pkg",

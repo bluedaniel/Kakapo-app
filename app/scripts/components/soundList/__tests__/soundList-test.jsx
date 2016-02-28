@@ -25,7 +25,7 @@ function setup(props = {}) {
 function randomSounds(count) {
   let arr = new Map();
   for (let i = 0; i < count; i++) {
-    const obj = { ...newSoundClass, progress: i > 2 ? 1 : 0.5 };
+    const obj = { ...newSoundClass, progress: i > 2 ? 1 : 0.5, editing: i > 2 };
     arr = arr.set(i, Object.keys(obj).reduce((newObj, _e) => {
       newObj[_e] = obj[_e] === null ? `test${i}` : obj[_e];
       return newObj;
