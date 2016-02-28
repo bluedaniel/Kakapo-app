@@ -12,7 +12,7 @@ export default function Subroutes(props) {
     transitionLeaveTimeout: 300
   };
   const newProps = {
-    ...omit(props, 'children'),
+    ...omit('children', props),
     key: camelCase(location.pathname)
   };
 
