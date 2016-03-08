@@ -62,7 +62,7 @@
     "electron-windows-installer": "^1.2.4",
     "enzyme": "^2.0.0",
     "es6-promise": "^3.1.2",
-    "eslint": "^2.3.0",
+    "eslint": "2.2.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-objects": "^1.1.1",
     "eslint-plugin-react": "^4.2.1",

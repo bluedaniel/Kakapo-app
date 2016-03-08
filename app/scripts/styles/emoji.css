@@ -1,4 +1,3 @@
-/* https://github.com/ellekasai/twemoji-awesome */
 .twa {
   display: inline-block;
   height: 1em;
@@ -11,21 +10,21 @@
 }
 
 .twa-smiley {
-  background-image: url("https://twemoji.maxcdn.com/svg/1f603.svg");
+  background-image: url("https:\/\/twemoji.maxcdn.com/svg/1f603.svg");
 }
 
 .twa-sunglasses {
-  background-image: url("https://twemoji.maxcdn.com/svg/1f60e.svg");
+  background-image: url("https:\/\/twemoji.maxcdn.com/svg/1f60e.svg");
 }
 
 .twa-heart-eyes {
-  background-image: url("https://twemoji.maxcdn.com/svg/1f60d.svg");
+  background-image: url("https:\/\/twemoji.maxcdn.com/svg/1f60d.svg");
 }
 
 .twa-relaxed {
-  background-image: url("https://twemoji.maxcdn.com/svg/263a.svg");
+  background-image: url("https:\/\/twemoji.maxcdn.com/svg/263a.svg");
 }
 
 .twa-hushed {
-  background-image: url("https://twemoji.maxcdn.com/svg/1f62f.svg");
+  background-image: url("https:\/\/twemoji.maxcdn.com/svg/1f62f.svg");
 }
