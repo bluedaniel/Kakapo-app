@@ -39,7 +39,7 @@ describe('<SearchResult/>', () => {
 
     it('renders the view count in correct locale', () => {
       const { wrapper } = setup({ sound });
-      expect(wrapper.find('.view-count').text()).to.eql('319,609 views');
+      expect(wrapper.find('.view-count').text()).to.eql('319609 views');
     });
   });
 
@@ -52,7 +52,7 @@ describe('<SearchResult/>', () => {
 
     it('renders the view count in correct locale', () => {
       const { wrapper } = setup({ service: 'soundcloud', sound });
-      expect(wrapper.find('.view-count').text()).to.eql('319,609 plays');
+      expect(wrapper.find('.view-count').text()).to.eql('319609 plays');
     });
   });
 });
