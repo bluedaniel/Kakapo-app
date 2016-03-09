@@ -7,6 +7,7 @@
     "soundsVersion": "1.2.0"
   },
   "dependencies": {
+    "@rxjs/rx": "^4.1.0",
     "animate.css": "^3.5.1",
     "clipboard": "^1.5.9",
     "color": "^0.11.1",
@@ -29,7 +30,6 @@
     "react-router-redux": "^4.0.0",
     "redux": "^3.3.1",
     "redux-thunk": "^2.0.1",
-    "rx": "^4.1.0",
     "semver": "^5.1.0",
     "shortid": "^2.2.4",
     "validator": "^5.1.0",

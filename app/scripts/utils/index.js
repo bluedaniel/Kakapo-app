@@ -1,14 +1,18 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { remote } from 'electron';
-import Rx from 'rx';
+import Observable from '@rxjs/rx/observable';
 import { Howler } from 'howler';
 export { default as toasterInstance } from './toaster';
 
-export const createConstants = (...constants) => constants.reduce((acc, constant) => {
-  acc[constant] = constant;
-  return acc;
-}, {});
+const rxChain = [ 'map', 'filter', 'flatMap', 'windowCount' ]
+  .reduce((acc, a) => ({ ...acc, [a]: require(`@rxjs/rx/observable/${a.toLowerCase()}`) }), {});
+
+Observable.addToObject({ fromEvent: require('@rxjs/rx/observable/fromevent') });
+Observable.addToPrototype(rxChain);
+
+export const createConstants = (...constants) => constants.reduce((acc, constant) =>
+  ({ ...acc, [constant]: constant }), {});
 
 export const createReducer = (initialState, handlers) => (state = initialState, action) => {
   if (handlers.hasOwnProperty(action.type)) {
@@ -61,10 +65,8 @@ export const classNames = (...args) => flatten(args.map(_a => {
 
 // [1, [2, [3, [4]], 5]] → [1, 2, 3, 4, 5]
 export const serialize = obj => {
-  const encodedObj = Object.keys(obj).reduce((a, k) => {
-    a.push(`${k}=${encodeURIComponent(obj[k])}`);
-    return a;
-  }, []);
+  const encodedObj = Object.keys(obj).reduce((acc, k) =>
+    ([ ...acc, `${k}=${encodeURIComponent(obj[k])}` ]), []);
   return `?${encodedObj.join('&')}`;
 };
 
@@ -83,10 +85,10 @@ export const throttle = (func, ms = 50, context = window) => {
 };
 
 // Konami keycode
-export const Konami = () => Rx.Observable.fromEvent(window, 'keyup')
+export const Konami = () => Observable.fromEvent(window, 'keyup')
   .map(el => el.keyCode)
   .windowWithCount(10, 1)
-  .selectMany(_x => _x.toArray())
+  .flatMap(_x => _x.toArray())
   .filter(seq => seq.toString() === [ 38, 38, 40, 40, 37, 39, 37, 39, 66, 65 ].toString());
 
 // file.mp6 -> invalid

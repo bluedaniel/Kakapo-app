@@ -105,7 +105,6 @@ const config = {
     alias: {
       // Custom AWS build (DynamoDB only) from https://sdk.amazonaws.com/builder/js/
       'aws-custom-build': path.resolve(__dirname, '../app/vendor/aws-sdk-2.2.31.min'),
-      rx: 'rx/dist/rx.lite',
       kakapoBridge: path.resolve(__dirname, '../app/scripts/bridge', platformDevice)
     }
   },

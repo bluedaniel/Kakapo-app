@@ -1,4 +1,4 @@
-import { Observable } from 'rx';
+import fromEventPattern from '@rxjs/rx/observable/fromeventpattern';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
@@ -7,6 +7,7 @@ import rootReducer from 'reducers';
 function configureStore(debug = false) {
   const middlewares = [ thunk ];
 
+  /* istanbul ignore if */
   if (debug) {
     middlewares.push(createLogger());
   }
@@ -16,6 +17,7 @@ function configureStore(debug = false) {
     window.__INITIAL_STATE__
   );
 
+  /* istanbul ignore if */
   if (module.hot) {
     module.hot.accept('../reducers', () => {
       const nextRootReducer = require('../reducers/index');
@@ -29,7 +31,7 @@ function configureStore(debug = false) {
 
 export const store = configureStore(__DEV__ && !__TEST__);
 
-export const observableStore = Observable.fromEventPattern(
+export const observableStore = fromEventPattern(
   handler => store.subscribe(handler),
   (handler, unsubscribe) => unsubscribe(),
   () => store.getState());

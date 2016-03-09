@@ -1,12 +1,19 @@
 import React, { Component, PropTypes } from 'react';
-import Rx from 'rx';
+import Observable from '@rxjs/rx/observable';
 import { intlShape } from 'react-intl';
 import { TextInput } from 'components/ui';
 import { searchActions } from 'actions/';
 import SearchResult from './searchResult';
 
+Observable.addToObject({ fromEvent: require('@rxjs/rx/observable/fromevent') });
+
+const rxChain = [ 'map', 'filter', 'throttle', 'distinctUntilChanged', 'flatMapLatest' ]
+  .reduce((acc, a) => ({ ...acc, [a]: require(`@rxjs/rx/observable/${a.toLowerCase()}`) }), {});
+
+Observable.addToPrototype(rxChain);
+
 function observeAutocomplete(input) {
-  return Rx.Observable.fromEvent(input, 'keyup')
+  return Observable.fromEvent(input, 'keyup')
     .map(el => el.target.value)
     .filter(text => text.length > 2)
     .throttle(350)
