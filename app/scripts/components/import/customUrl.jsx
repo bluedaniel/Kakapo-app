@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import validator from 'validator';
 import { intlShape } from 'react-intl';
 import { soundActions } from 'actions/';
-import { toasterInstance, validHowl } from 'utils/';
+import { toasterInstance, validHowl, validUrl } from 'utils/';
 import { TextInput } from 'components/ui';
 
 export default class CustomUrl extends Component {
@@ -30,7 +29,7 @@ export default class CustomUrl extends Component {
     };
 
     if (!data.name || !data.file) return this.handleError('import.error.empty');
-    if (!validator.isURL(data.file)) return this.handleError('import.error.url');
+    if (!validUrl(data.file)) return this.handleError('import.error.url');
     if (!validHowl(data.file)) return this.handleError(validHowl(data.file, true), false);
 
     this.props.dispatch(soundActions.addSound('custom', data));

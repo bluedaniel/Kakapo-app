@@ -32,7 +32,6 @@
     "redux-thunk": "^2.0.1",
     "semver": "^5.1.0",
     "shortid": "^2.2.4",
-    "validator": "^5.1.0",
     "whatwg-fetch": "^0.11.0",
     "ytdl-core": "^0.7.10"
   },

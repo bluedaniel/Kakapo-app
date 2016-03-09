@@ -101,6 +101,26 @@ export const validHowl = (url, msg) => {
   return msg && !valid ? `File is ${ext}, but must be one of ${supported.join(', ')}` : valid;
 };
 
+// https://gist.github.com/dperini/729294
+export const validUrl = (str) => {
+  const reWeburl = new RegExp(
+    '^' +
+      // protocol identifier (optional) + //
+      '(?:(?:https?:)?//)?' +
+      // user:pass authentication (optional)
+      '(?:\\S+(?::\\S*)?@)?' +
+      // host (optional) + domain + tld
+      '(?:(?!-)[-a-z0-9\\u00a1-\\uffff]*[a-z0-9\\u00a1-\\uffff]+(?!./|\\.$)\\.?){2,}' +
+      // server port number (optional)
+      '(?::\\d{2,5})?' +
+      // resource path (optional)
+      '(?:/\\S*)?' +
+    '$', 'i'
+  );
+  return str.match(reWeburl);
+};
+
+
 let desktopPathConfig = {};
 
 /* istanbul ignore if */
