@@ -1,10 +1,6 @@
 {
-  "presets": ["es2015", "stage-0", "react"],
+  "presets": ["es2015", "stage-2", "react"],
   "plugins": [
-    "syntax-async-functions",
-    "transform-async-functions",
-    "transform-async-to-generator",
-    "transform-regenerator",
     "transform-class-properties"
   ],
   "env": {
