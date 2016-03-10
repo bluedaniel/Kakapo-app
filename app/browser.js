@@ -42,12 +42,12 @@ if (process.platform === 'win32') {
 
 function toggleDock(app, bool) {
   if (bool) return app.dock.show();
-  app.dock.hide();
+  return app.dock.hide();
 }
 
 function toggleDevTools(app, bool) {
   if (bool) return app.openDevTools({ detach: true });
-  app.closeDevTools();
+  return app.closeDevTools();
 }
 
 app.on('ready', () => {
