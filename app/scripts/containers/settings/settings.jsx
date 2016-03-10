@@ -94,7 +94,7 @@ export default class Settings extends Component {
         >
           <i className="icon-github" />
         </a>
-        {__DESKTOP__ ? (
+        {__DESKTOP__ && !__DEV__ ? (
         <p className="version" onClick={this.checkForUpdates}>
           {!this.state.updateStatus && `Check for update - v${app.getVersion()}`}
           {this.state.updateStatus === 'checking' && 'Checking for updates ...'}
