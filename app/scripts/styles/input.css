@@ -78,17 +78,6 @@
   top: 25%;
 }
 
-@keyframes inputHighlighter {
-  from {
-    background: #5264ae;
-  }
-
-  to {
-    background: transparent;
-    width: 0;
-  }
-}
-
 .InputAddOn {
   display: flex;
   margin-bottom: 1.5em;
@@ -119,20 +108,5 @@
   .InputAddOn-field:last-child,
   .InputAddOn-item:last-child {
     border-radius: 0 4px 4px 0;
-  }
-}
-
-@keyframes inputAnimation {
-  50% {
-    opacity: 0;
-    transform: translate3d(1em, 0, 0);
-  }
-  51% {
-    opacity: 0;
-    transform: translate3d(-1em, -40%, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: translate3d(0, -40%, 0);
   }
 }

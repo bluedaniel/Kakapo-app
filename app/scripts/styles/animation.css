@@ -9,10 +9,66 @@
   100% { transform: scale(1) rotateX(0); }
 }
 
-/* Barberpole for loading effect */
 @keyframes barberpole {
   from { background-position: 0 0; }
   to { background-position: 60px 30px; }
+}
+
+@keyframes spinBounce {
+  0%,
+  100% { transform: scale(0); }
+  50% { transform: scale(1); }
+}
+
+@keyframes inputHighlighter {
+  from { background: #5264ae; }
+  to {
+    background: transparent;
+    width: 0;
+  }
+}
+
+@keyframes inputAnimation {
+  50% {
+    opacity: 0;
+    transform: translate3d(1em, 0, 0);
+  }
+  51% {
+    opacity: 0;
+    transform: translate3d(-1em, -40%, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, -40%, 0);
+  }
+}
+
+@keyframes sk-circleFadeDelay {
+  0%,
+  39%,
+  100% {
+    opacity: 0;
+  }
+  40% { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fadeOutDown {
+  from { opacity: 1; }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
 }
 
 .sound-list {

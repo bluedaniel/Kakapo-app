@@ -20,9 +20,3 @@
 .double-bounce2 {
   animation-delay: -1s;
 }
-
-@keyframes spinBounce {
-  0%,
-  100% { transform: scale(0); }
-  50% { transform: scale(1); }
-}

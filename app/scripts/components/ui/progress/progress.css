@@ -14,12 +14,3 @@
   right: 0;
   top: 0;
 }
-
-@keyframes barberpole {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 60px 30px;
-  }
-}
