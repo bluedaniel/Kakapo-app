@@ -87,7 +87,7 @@
     "rcedit": "^0.4.0",
     "react-addons-test-utils": "^0.14.7",
     "react-transform-hmr": "^1.0.4",
-    "redux-logger": "^2.6.1",
+    "remote-redux-devtools": "^0.1.4",
     "request": "^2.69.0",
     "sinon": "^1.17.3",
     "style-loader": "^0.13.0",

@@ -1,18 +1,16 @@
 import fromEventPattern from '@rxjs/rx/observable/fromeventpattern';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import createLogger from 'redux-logger';
+import devTools from 'remote-redux-devtools';
 import rootReducer from 'reducers';
 
 function configureStore(debug = false) {
-  const middlewares = [ thunk ];
+  const enhancer = [ applyMiddleware(thunk) ];
 
   /* istanbul ignore if */
-  if (debug) {
-    middlewares.push(createLogger());
-  }
+  if (debug) enhancer.push(devTools());
 
-  const store = compose(applyMiddleware(...middlewares))(createStore)(
+  const store = compose(...enhancer)(createStore)(
     rootReducer,
     window.__INITIAL_STATE__
   );
