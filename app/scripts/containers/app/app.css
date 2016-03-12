@@ -1,4 +1,10 @@
 .app-container {
+
+  .main-panel {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+  }
+
   &.desktop {
     .upload-files {
       align-items: center;

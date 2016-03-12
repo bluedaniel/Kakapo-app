@@ -5,15 +5,13 @@ import { ImportOptions, ImportKakapo, ImportSearch, ImportCustomUrl } from 'comp
 
 export default (
   <Route component={App} path="/">
+    <IndexRoute component={ImportOptions} />
     <Route component={Playlist} path="playlist(/:playlistId)" />
     <Route component={Settings} path="settings" />
-    <Route path="downloads">
-      <IndexRoute component={ImportOptions} />
-      <Route component={ImportKakapo} path="kakapo" />
-      <Route component={ImportSearch} path="youtube" />
-      <Route component={ImportSearch} path="soundcloud" />
-      <Route component={ImportCustomUrl} path="custom" />
-    </Route>
+    <Route component={ImportKakapo} path="kakapo" />
+    <Route component={ImportSearch} path="youtube" />
+    <Route component={ImportSearch} path="soundcloud" />
+    <Route component={ImportCustomUrl} path="custom" />
     <Route component="" path="*" />
   </Route>
 );

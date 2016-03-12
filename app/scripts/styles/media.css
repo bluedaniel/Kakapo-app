@@ -1,5 +1,4 @@
 .media {
-  margin-top: 20px;
   .media-opts {
     background: #fff;
     overflow: hidden;
@@ -8,39 +7,20 @@
   .option-ul {
     margin: 0;
     padding: 0;
+    list-style: none;
   }
   .option {
-    display: inline-block;
-    height: 98px;
+    display: block;
     margin-bottom: 1em;
     padding: 1px;
-    text-align: center;
-    vertical-align: top;
-    width: 49%;
-    z-index: 999;
     span.text {
-      display: block;
       font-size: 14px;
       line-height: 20px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
     i {
-      display: block;
-      height: 65%;
-      margin: 10px auto;
-      vertical-align: top;
-      width: 65%;
-    }
-    &.options-soundcloud {
-      margin-bottom: 0;
-    }
-
-    @media (min-width: 568px) {
-      &.options-youtube {
-        margin-bottom: 0;
-      }
+      margin-right: 14px;
+      width: 42px;
+      height: 42px;
     }
   }
 }

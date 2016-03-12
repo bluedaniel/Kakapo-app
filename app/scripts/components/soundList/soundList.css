@@ -1,8 +1,7 @@
 
 .sound-list {
-  margin: 0;
+  lost-column: 1/2;
   overflow: hidden;
-  padding: 0;
   &:first-child {
     border-top: none;
   }

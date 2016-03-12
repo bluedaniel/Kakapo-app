@@ -16,6 +16,7 @@
     "immutable": "^3.7.6",
     "intl": "^1.1.0",
     "kakapo-assets": "^5.10.0",
+    "lost": "^6.7.2",
     "node-waves": "^0.7.5",
     "nouislider": "^8.3.0",
     "purecss": "^0.6.0",

@@ -2,42 +2,18 @@ header {
   height: 46px;
   margin: 0 auto;
   padding: 12px 0;
-  position: fixed;
-  top: 35px;
-  width: 100%;
   z-index: 40;
 
   @media screen and (min-width: 35.5em) {
     height: 77px;
   }
-  .container {
-    align-items: flex-start;
-    display: flex;
-  }
-  .logo,
-  a {
+  .logo {
     color: #fff;
-    flex: 1;
-    float: left;
     font-size: 0.8em;
     text-align: center;
 
     @media (min-width: 568px) {
       padding-top: 15px;
-    }
-  }
-  .logo {
-    flex: none;
-    margin-right: 35px;
-    padding-top: 0;
-    position: relative;
-    top: 3px;
-    width: 50%;
-
-    @media (min-width: 568px) {
-      margin-right: 35px;
-      top: 10px;
-      width: 70%;
     }
   }
   h3 {
@@ -69,28 +45,6 @@ header {
         height: 62px;
         width: 62px;
       }
-    }
-  }
-  i {
-    display: block;
-    margin: 7px;
-    width: 27px;
-
-    @media (min-width: 568px) {
-      height: 32px;
-      margin: 10px;
-      width: 32px;
-    }
-    &.icon-settings {
-      float: right;
-    }
-  }
-  &.hideHint {
-    .hint::before,
-    [data-hint]::before,
-    .hint::after,
-    [data-hint]::after {
-      display: none;
     }
   }
 }

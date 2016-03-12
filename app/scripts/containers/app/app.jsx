@@ -109,21 +109,24 @@ class App extends Component {
           disableClick
           onDrop={this.onDrop}
         >
-          {__DESKTOP__ ? this.renderUpload() : null}
-          {this.state.updateAvailable ?
-            <a className="update-now" onClick={this.handleAutoUpdateClick}>
-            Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
-
           <Nav {...{ themes, intl, dispatch }} />
-          <Header {...{ themes, location, intl }} />
 
           <Subroutes {...this.props} />
 
-          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
-            this.renderLoading()}
+          <div className="main-panel">
+            {__DESKTOP__ ? this.renderUpload() : null}
+            {this.state.updateAvailable ?
+              <a className="update-now" onClick={this.handleAutoUpdateClick}>
+              Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 
-          <aside className="toast-view"></aside>
-          <DownloadList {...{ sounds }} />
+            <Header {...{ themes, location, intl }} />
+
+            {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
+              this.renderLoading()}
+
+            <aside className="toast-view"></aside>
+            <DownloadList {...{ sounds }} />
+          </div>
         </Dropzone>
       </div>
     );

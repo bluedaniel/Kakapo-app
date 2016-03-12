@@ -30,7 +30,7 @@ export default class YouTube extends Component {
   };
 
   state = {
-    service: this.props.location.pathname.split('/')[2],
+    service: this.props.location.pathname.split('/')[1],
     loading: false
   };
 
@@ -62,23 +62,21 @@ export default class YouTube extends Component {
     const { search, intl, dispatch } = this.props;
     const { service, loading } = this.state;
     return (
-      <div className="modal youtube">
-        <div className="modal-inner">
-          <div ref="searchInput">
-            <TextInput placeholder={`import.${service}.search_placeholder`}
-              name="searchInput" spinner={loading} intl={intl}
-            />
-          </div>
-          <div className={`${service}-items`}>
-            {search.get(service).map(_y => {
-              const itemProps = {
-                service,
-                sound: _y,
-                ...{ intl, dispatch }
-              };
-              return <SearchResult key={_y.videoId || _y.scId} {...itemProps} />;
-            })}
-          </div>
+      <div className="youtube">
+        <div ref="searchInput">
+          <TextInput placeholder={`import.${service}.search_placeholder`}
+            name="searchInput" spinner={loading} intl={intl}
+          />
+        </div>
+        <div className={`${service}-items`}>
+          {search.get(service).map(_y => {
+            const itemProps = {
+              service,
+              sound: _y,
+              ...{ intl, dispatch }
+            };
+            return <SearchResult key={_y.videoId || _y.scId} {...itemProps} />;
+          })}
         </div>
       </div>
     );

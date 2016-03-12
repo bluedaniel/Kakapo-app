@@ -1,0 +1,11 @@
+.secondary-panel {
+  position: fixed;
+  width: 300px;
+  top: 35px;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(to right, #fff 0, #fafafa 100%);
+  .inner {
+    padding: 20px;
+  }
+}

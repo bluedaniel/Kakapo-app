@@ -29,13 +29,13 @@ export default ({ sounds, themes, intl, dispatch }) => {
   });
 
   return (
-    <div className="container pure-g">
-      <div className="pure-u-1 pure-u-sm-1-2 sound-list">
+    <section>
+      <div className="sound-list">
         {sounds.slice(0, Math.floor(sounds.length / 2))}
       </div>
-      <div className="pure-u-1 pure-u-sm-1-2 sound-list">
+      <div className="sound-list">
         {sounds.slice(Math.floor(sounds.length / 2), sounds.length)}
       </div>
-    </div>
+    </section>
   );
 };

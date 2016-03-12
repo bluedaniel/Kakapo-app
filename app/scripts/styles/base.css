@@ -15,7 +15,6 @@
 @import "./switch";
 @import "./toast";
 @import "./spinner";
-@import "./modal";
 @import "./search";
 @import "./media";
 @import "./update";
@@ -27,11 +26,11 @@
 body {
   margin: 0 auto;
   max-width: 100%;
-  padding-top: 105px;
+  padding-top: 35px;
+}
 
-  @media (min-width: 568px) {
-    padding-top: 136px;
-  }
+section {
+  lost-utility: clearfix;
 }
 
 .container {

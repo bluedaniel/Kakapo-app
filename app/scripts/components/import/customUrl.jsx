@@ -44,27 +44,25 @@ export default class CustomUrl extends Component {
   render() {
     const { themes, intl } = this.props;
     return (
-      <div className="modal customurl">
-        <div className="modal-inner">
-          <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
-          <form onSubmit={this.handleSubmit}>
-            <div className="media-import">
-              <div ref="name">
-                <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl} />
-              </div>
-              <div ref="customInput">
-                <TextInput placeholder="import.custom.url_placeholder"
-                  name="customInput" intl={intl}
-                />
-              </div>
-              <button
-                className="pure-button pure-button-primary"
-                ref="btn"
-                style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
-              >{intl.formatMessage({ id: 'import.save' })}</button>
+      <div className="customurl">
+        <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
+        <form onSubmit={this.handleSubmit}>
+          <div className="media-import">
+            <div ref="name">
+              <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl} />
             </div>
-          </form>
-        </div>
+            <div ref="customInput">
+              <TextInput placeholder="import.custom.url_placeholder"
+                name="customInput" intl={intl}
+              />
+            </div>
+            <button
+              className="pure-button pure-button-primary"
+              ref="btn"
+              style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
+            >{intl.formatMessage({ id: 'import.save' })}</button>
+          </div>
+        </form>
       </div>
     );
   }
