@@ -4,18 +4,40 @@
     overflow: hidden;
     position: relative;
   }
+  .divider {
+    display: none;
+  }
+  .add-sounds-title {
+    display: none;
+    @media (min-width: 40.0rem) {
+      display: block;
+    }
+  }
   .option-ul {
     margin: 0;
     padding: 0;
     list-style: none;
+    display: inline-block;
+
+    @media (min-width: 40.0rem) {
+      display: block;
+    }
   }
   .option {
-    display: block;
-    margin-bottom: 1em;
-    padding: 1px;
+    display: inline-block;
+
+    @media (min-width: 40.0rem) {
+      margin-bottom: 1em;
+      display: block;
+    }
     span.text {
       font-size: 14px;
       line-height: 20px;
+      display: none;
+
+      @media (min-width: 40.0rem) {
+        display: inline-block;
+      }
     }
     i {
       margin-right: 14px;

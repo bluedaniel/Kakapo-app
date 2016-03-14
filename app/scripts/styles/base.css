@@ -1,8 +1,3 @@
-@import "purecss/build/base";
-@import "purecss/build/grids";
-@import "purecss/build/grids-responsive";
-@import "purecss/build/forms";
-@import "purecss/build/buttons";
 @import "node-waves/dist/waves";
 @import "hint.css/hint";
 @import "nouislider/src/nouislider";
@@ -10,6 +5,7 @@
 @import "./animation";
 @import "./fonts";
 @import "./type";
+@import "./buttons";
 @import "./icons";
 @import "./input";
 @import "./switch";
@@ -27,15 +23,9 @@ body {
   margin: 0 auto;
   max-width: 100%;
   padding-top: 35px;
+  color: #333;
 }
 
 section {
   lost-utility: clearfix;
-}
-
-.container {
-  margin: 0 auto;
-  max-width: 800px;
-  padding-left: 0;
-  padding-right: 0;
 }

@@ -42,7 +42,6 @@ const themeReducers = {
         h3: { color: darkUI ? '#121212' : '#fff' }
       },
       nav: {
-        navbar: { backgroundColor: _c.primary },
         tab: { color: darkUI ? '#121212' : '#fff' },
         tabActive: { backgroundColor: _c.darkPrimary }
       },

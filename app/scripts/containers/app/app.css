@@ -1,8 +1,13 @@
 .app-container {
 
   .main-panel {
-    width: calc(100% - 300px);
-    margin-left: 300px;
+    padding-bottom: 80px;
+    transition: width, padding, margin-left 0.25s ease;
+    @media (min-width: 40.0rem) {
+      padding-bottom: 0;
+      width: calc(100% - 300px);
+      margin-left: 300px;
+    }
   }
 
   &.desktop {

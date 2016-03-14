@@ -3,8 +3,7 @@ html,
 button,
 input,
 select,
-textarea,
-.pure-g [class *= "pure-u"] {
+textarea {
   font-family: "PT Sans", sans-serif;
 }
 
@@ -40,7 +39,7 @@ hr {
   }
 }
 
-.pure-button {
+button {
   background-color: transparent;
   border-radius: 4px;
   border: 1px solid #bbb;

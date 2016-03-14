@@ -44,13 +44,13 @@ export default class SoundEdit extends Component {
           <div ref="tags">
             <TextInput placeholder="list.editing_tag" name="tags" value={sound.tags} intl={intl} />
           </div>
-          <a className="pure-button" onClick={this.handleCancel}
+          <a className="button" onClick={this.handleCancel}
             style={themes.getIn([ 'base', 'btn' ]).toJS()}
           >
             {intl.formatMessage({ id: 'list.cancel' })}
           </a>
           <button
-            className="pure-button pure-button-primary"
+            className="button"
             style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
           >{intl.formatMessage({ id: 'list.save' })}</button>
         </form>

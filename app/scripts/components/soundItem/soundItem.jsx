@@ -74,10 +74,10 @@ export default class SoundItem extends Component {
           </li>) : ''}
         {this.props.sound.source !== 'youtubeStream' ? (
           <li onClick={this.handleEdit}>
-            <i className={classNames('icon-pencil', { dark: !this.props.sound.playing })} />
+            <i className={classNames('icon-edit', { dark: !this.props.sound.playing })} />
             </li>) : ''}
         <li onClick={this.handleDelete}>
-          <i className={classNames('icon-trash', { dark: !this.props.sound.playing })} />
+          <i className={classNames('icon-delete', { dark: !this.props.sound.playing })} />
         </li>
       </ul>
     );

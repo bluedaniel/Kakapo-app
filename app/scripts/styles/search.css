@@ -60,11 +60,6 @@
   cursor: pointer;
   height: 40px;
   margin-bottom: 35px;
-
-  @media (min-width: 568px) {
-    float: left;
-    width: 50%;
-  }
   &.disabled,
   &.disabled img {
     color: #bbb;

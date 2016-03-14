@@ -21,7 +21,6 @@ const minifyFiles = file => new Promise((resolve, reject) => new Imagemin()
 
 export default async function imagemin() {
   await Promise.all([
-    'icons',
     'images'
   ].map(argv.production ? minifyFiles : copyFiles));
 }

@@ -1,30 +1,42 @@
 import React from 'react';
+import { classNames } from 'utils/';
 import { Link } from 'react-router';
 
 export default ({ intl }) => (
   <div className="downloads">
     <div className="media">
-      <h4>{intl.formatMessage({ id: 'import.downloads.header' })}</h4>
+      <h4 className="add-sounds-title">{intl.formatMessage({
+        id: 'import.downloads.header',
+        defaultMessage: 'Add a sound'
+      })}</h4>
       <ul className="option-ul">
         {[ 'kakapo', 'youtube', 'soundcloud', 'custom' ].map(item => (
           <li className={`option options-${item}`} key={item}>
             <Link to={`/${item}`}>
-              <i className={`icon-${item} dark`} />
+              <i className={classNames(`icon-img-${item}`, {
+                'icon-add': item === 'custom'
+              })}
+              />
               <span className="text">{intl.formatMessage({ id: `import.options.${item}` })}</span>
             </Link>
           </li>
         ))}
       </ul>
-      <Link to="/playlist">
-        <i className="icon-playlist hint--bottom-right"
-          data-hint={intl.formatMessage({ id: 'nav.playlist' })}
-        />
-      </Link>
-      <Link to="/settings">
-        <i className="icon-setting hint--bottom-left"
-          data-hint={intl.formatMessage({ id: 'nav.settings' })}
-        />
-      </Link>
+      <div className="divider" />
+      <ul className="option-ul">
+        <li className="option" key="playlist">
+          <Link to="/playlist">
+            <i className="icon-playlist" />
+            <span className="text">{intl.formatMessage({ id: 'nav.playlist' })}</span>
+          </Link>
+        </li>
+        <li className="option" key="settings">
+          <Link to="/settings">
+            <i className="icon-settings" />
+            <span className="text">{intl.formatMessage({ id: 'nav.settings' })}</span>
+          </Link>
+        </li>
+      </ul>
     </div>
   </div>
 );

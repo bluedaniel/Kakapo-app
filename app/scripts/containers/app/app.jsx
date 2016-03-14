@@ -9,7 +9,6 @@ import { soundActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import { Subroutes } from 'components/ui';
 import { classNames, pathConfig, toasterInstance } from 'utils/';
-import 'styles/base.css';
 import './app.css';
 
 let autoUpdater;
@@ -100,7 +99,7 @@ class App extends Component {
   }
 
   render() {
-    const { sounds, themes, intl, dispatch, location } = this.props;
+    const { settings, sounds, themes, intl, dispatch } = this.props;
     return (
       <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
         <Dropzone
@@ -109,7 +108,7 @@ class App extends Component {
           disableClick
           onDrop={this.onDrop}
         >
-          <Nav {...{ themes, intl, dispatch }} />
+          <Nav {...{ themes, intl }} />
 
           <Subroutes {...this.props} />
 
@@ -119,7 +118,7 @@ class App extends Component {
               <a className="update-now" onClick={this.handleAutoUpdateClick}>
               Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 
-            <Header {...{ themes, location, intl }} />
+            <Header {...{ settings, themes, intl, dispatch }} />
 
             {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
               this.renderLoading()}

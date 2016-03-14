@@ -8,6 +8,7 @@ import { IntlProvider } from 'react-intl';
 import routes from 'routes/routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { store } from 'stores/configureStore';
+import 'styles/base.css';
 
 const hashHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 const appHistory = syncHistoryWithStore(hashHistory, store);

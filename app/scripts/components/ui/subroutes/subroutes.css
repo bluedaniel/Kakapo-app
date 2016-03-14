@@ -1,11 +1,36 @@
 .secondary-panel {
   position: fixed;
-  width: 300px;
-  top: 35px;
+  width: 100%;
   left: 0;
   bottom: 0;
-  background: linear-gradient(to right, #fff 0, #fafafa 100%);
+  background: #f5f5f5;
+  overflow-y: scroll;
+  transition: width, top, height 0.2s ease;
+  z-index: 1;
+  min-height: 82px;
+
+  @media (min-width: 40.0rem) {
+    width: 300px;
+    top: 35px;
+  }
+
   .inner {
     padding: 20px;
+    transition: padding 0.2s ease;
+  }
+  &.with-close {
+    height: 400px;
+    @media (min-width: 40.0rem) {
+      height: auto;
+    }
+    .inner {
+      padding-top: 40px;
+    }
+  }
+  .icon-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 25px;
   }
 }

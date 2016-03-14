@@ -19,6 +19,7 @@ export default async function copy() {
   }
 
   if (argv.platform === 'web') {
+    await fsPromise.copyAsync('./node_modules/kakapo-assets/icomoon/fonts', 'build/fonts', {});
     await fsPromise.copyAsync(`app/html/web/${indexFile}.html`, 'build/index.html', {});
     await fsPromise.copyAsync('app/html/web/app.html', 'build/app.html', {});
   }

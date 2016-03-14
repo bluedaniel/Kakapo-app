@@ -92,7 +92,7 @@ export default class Settings extends Component {
           href="https://github.com/bluedaniel/kakapo-app"
           target="_blank"
         >
-          <i className="icon-github" />
+          <i className="icon-img-github" />
         </a>
         {__DESKTOP__ && !__DEV__ ? (
         <p className="version" onClick={this.checkForUpdates}>

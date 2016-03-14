@@ -103,8 +103,8 @@ export default class Playlist extends Component {
       return (
         <div>
           <p>{this.props.intl.formatMessage({ id: 'playlist.share_created' })}</p>
-          <form className="pure-form">
-            <input className="pure-input-1" id="copyClipboard"
+          <form className="form">
+            <input className="input-1" id="copyClipboard"
               value={`${url}/playlist/${this.state.playlistUrl}`} readOnly
             />
             <button className="copy-clipboard" data-clipboard-target="#copyClipboard"
@@ -117,7 +117,7 @@ export default class Playlist extends Component {
       );
     }
     return (
-      <a className="pure-button" onClick={this.createPlaylist}>
+      <a className="button" onClick={this.createPlaylist}>
         {this.props.intl.formatMessage({ id: 'playlist.share' })}
       </a>
     );
@@ -128,10 +128,10 @@ export default class Playlist extends Component {
       <div>
         <hr />
         <p>{this.props.intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
-        <form onSubmit={this.handleDesktopPlaylistInput} className="pure-form">
+        <form onSubmit={this.handleDesktopPlaylistInput} className="form">
           <div className="InputAddOn">
             <span className="InputAddOn-item">kakapo.co/playlist/</span>
-            <input className="pure-input-1 InputAddOn-field" ref="desktopPlaylist" type="text" />
+            <input className="input-1 InputAddOn-field" ref="desktopPlaylist" type="text" />
           </div>
         </form>
       </div>
@@ -146,11 +146,11 @@ export default class Playlist extends Component {
           <h3>{this.props.intl.formatMessage({ id: 'playlist.header' })}</h3>
           {this.renderShare()}
           <p>{this.props.intl.formatMessage({ id: 'playlist.subheading' })}</p>
-          <a className="pure-button" onClick={this.resetSounds}>
+          <a className="button" onClick={this.resetSounds}>
             {this.props.intl.formatMessage({ id: 'playlist.list_reset' })}
           </a>
           {Object.keys(kakapoAssets.playlists).map(_e => (
-            <Link to={`/playlist/${kakapoAssets.playlists[_e]}`} className="pure-button" key={_e}>
+            <Link to={`/playlist/${kakapoAssets.playlists[_e]}`} className="button" key={_e}>
               {this.props.intl.formatMessage({ id: `playlist.list_${_e}` })}
             </Link>
           ))}

@@ -1,10 +1,12 @@
 import React, { cloneElement } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { camelCase, omit } from 'utils/';
+import { Link } from 'react-router';
+import { camelCase, omit, classNames } from 'utils/';
 import './subroutes.css';
 
 export default (props) => {
   const { children, location } = props;
+
   const transitions = {
     component: 'div',
     transitionEnterTimeout: 500,
@@ -16,7 +18,11 @@ export default (props) => {
   };
 
   return (
-    <div className="secondary-panel">
+    <div className={classNames('secondary-panel', {
+      'with-close': newProps.key !== '/'
+    })}
+    >
+      {newProps.key !== '/' ? <Link className="icon-close" to="/" /> : null}
       <div className="inner">
         <CSSTransitionGroup transitionName="panel" { ...transitions }>
           {children ? cloneElement(children, newProps) : null}

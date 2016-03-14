@@ -57,7 +57,7 @@ export default class CustomUrl extends Component {
               />
             </div>
             <button
-              className="pure-button pure-button-primary"
+              className="button"
               ref="btn"
               style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
             >{intl.formatMessage({ id: 'import.save' })}</button>
