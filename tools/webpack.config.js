@@ -37,11 +37,6 @@ const config = {
   debug: DEBUG,
   devtool: DEBUG ? '#eval' : false,
   plugins: [
-    new webpack.ProvidePlugin({
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-    }),
-    new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
-    new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(DEBUG ? 'development' : 'production')
@@ -51,6 +46,11 @@ const config = {
       __DEV__: DEBUG,
       __TEST__: TEST
     }),
+    new webpack.ProvidePlugin({
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+    }),
+    new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
+    new webpack.optimize.OccurenceOrderPlugin(),
     new ExtractTextPlugin('styles.css'),
     ...(!DEBUG ? [
       new webpack.optimize.DedupePlugin(),
@@ -61,9 +61,7 @@ const config = {
         }
       }),
       new webpack.optimize.AggressiveMergingPlugin()
-    ] : [
-      new webpack.NoErrorsPlugin()
-    ]),
+    ] : []),
     ...(!TEST ? [ new webpack.HotModuleReplacementPlugin() ] : [])
   ],
   module: {

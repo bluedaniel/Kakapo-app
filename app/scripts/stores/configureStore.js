@@ -10,21 +10,10 @@ function configureStore(debug = false) {
   /* istanbul ignore if */
   if (debug) enhancer.push(devTools());
 
-  const store = compose(...enhancer)(createStore)(
+  return compose(...enhancer)(createStore)(
     rootReducer,
     window.__INITIAL_STATE__
   );
-
-  /* istanbul ignore if */
-  if (module.hot) {
-    module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers/index');
-
-      store.replaceReducer(nextRootReducer);
-    });
-  }
-
-  return store;
 }
 
 export const store = configureStore(__DEV__ && !__TEST__);
