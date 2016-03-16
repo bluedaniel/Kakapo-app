@@ -16,8 +16,8 @@ export default ({ themes, intl }) => {
   };
 
   return (
-    <div className={classNames('topbar', { dark: themes.get('darkUI') })}
-      style={themes.getIn([ 'header', 'download' ]).toJS()}
+    <div className={classNames('topbar', { darkUI: themes.get('darkUI') })}
+      style={{ backgroundColor: themes.get('darkPrimary') }}
     >
       {renderDragOrDownload()}
       <div className="share">

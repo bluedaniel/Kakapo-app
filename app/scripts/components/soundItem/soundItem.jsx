@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import nouislider from 'nouislider';
 import waves from 'node-waves';
-import color from 'color';
 import { soundActions } from 'actions/';
 import { soundClass } from 'classes/';
 import { classNames, throttle } from 'utils/';
@@ -59,25 +58,25 @@ export default class SoundItem extends Component {
   }
 
   colorSlider = () => {
-    const sliderColor = color(this.props.themes.get('palette').first()).darken(0.2).hexString();
+    const sliderColor = this.props.themes.get('darkPrimary');
     this.refs.volume.getElementsByClassName('noUi-origin')[0].style.background = sliderColor;
   };
 
   renderActions() {
     return (
-      <ul className="actions" >
+      <ul className={classNames('actions', { dark: !this.props.sound.playing })}>
         {this.props.sound.link ? (
           <li>
             <a href={this.props.sound.link} target="_blank">
-              <i className={classNames('icon-share', { dark: !this.props.sound.playing })} />
+              <i className="icon-share" />
             </a>
           </li>) : ''}
         {this.props.sound.source !== 'youtubeStream' ? (
           <li onClick={this.handleEdit}>
-            <i className={classNames('icon-edit', { dark: !this.props.sound.playing })} />
+            <i className="icon-edit" />
             </li>) : ''}
         <li onClick={this.handleDelete}>
-          <i className={classNames('icon-delete', { dark: !this.props.sound.playing })} />
+          <i className="icon-delete" />
         </li>
       </ul>
     );
@@ -94,9 +93,9 @@ export default class SoundItem extends Component {
     if (this.refs.volume) this.colorSlider();
 
     const { themes, sound } = this.props;
-    let objStyle = themes.getIn([ 'soundList', 'item' ]).toJS();
+    let objStyle = { color: '#121212' };
     if (sound.playing) {
-      objStyle = { ...objStyle, ...themes.getIn([ 'soundList', 'itemPlaying' ]).toJS() };
+      objStyle = { ...objStyle, backgroundColor: themes.get('primary'), color: '#fff' };
     }
 
     const itemClass = classNames({

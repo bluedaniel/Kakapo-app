@@ -11,6 +11,7 @@ export default {
       fs.writeJson(pathConfig.userSettingsFile, appSettings);
     }
     return {
+      mute: false,
       lang: appSettings.lang || 'en',
       devTools: appSettings.devTools || false,
       dockIcon: appSettings.dockIcon

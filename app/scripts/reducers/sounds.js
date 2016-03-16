@@ -3,12 +3,13 @@ import { bridgedSounds } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
 import constants from 'constants/';
 import { createReducer, toasterInstance } from 'utils/';
-import { observableStore } from 'stores/configureStore';
+import { observableStore, store } from 'stores/configureStore';
 
 export let initialState = new Map();
 let defaultSounds = new Map();
 let howls = new Map();
-export let mute = false;
+
+const muteStatus = () => store.getState().settings.mute;
 
 const soundReducers = {
   init(state, initSounds) {
@@ -34,10 +35,10 @@ const soundReducers = {
     let newState = new Map();
     data.map(_s => {
       if (_s.playing) this._getHowl(_s).then(howl => howl.play()); // Autoplay
-      newState = newState.set(_s.file, { ..._s, ...{ recentlyDownloaded: false } });
+      newState = newState.set(_s.file, { ..._s, recentlyDownloaded: false });
       return newState;
     });
-    if (mute) this.toggleMute(newState, mute); // Auto mute
+    this.toggleMute(newState); // Auto mute
     return newState;
   },
 
@@ -51,21 +52,20 @@ const soundReducers = {
   },
 
   togglePlay(state, sound) {
-    state = state.update(sound.file, _s => ({ ..._s, ...{ playing: !_s.playing } }));
+    state = state.update(sound.file, _s => ({ ..._s, playing: !_s.playing }));
     this._getHowl(sound).then(howl => {
       if (sound.playing) {
         howl.pause();
       } else {
         howl.play();
-        if (mute) toasterInstance().then(_t => _t.toast('Kakapo is currently muted!'));
+        if (muteStatus()) toasterInstance().then(_t => _t.toast('Kakapo is currently muted!'));
       }
     });
     return state;
   },
 
-  toggleMute(state, muteToggle) {
-    mute = muteToggle;
-    state.map(_s => this._getHowl(_s).then(howl => howl.mute(muteToggle)));
+  toggleMute(state) {
+    state.map(_s => this._getHowl(_s).then(howl => howl.mute(muteStatus())));
     return state;
   },
 
@@ -90,18 +90,14 @@ const soundReducers = {
   },
 
   soundDownloaded(state, sound, notify) {
-    sound = { ...sound, ...{
-      progress: 1
-    } };
+    sound = { ...sound, progress: 1 };
     if (notify) {
-      sound = { ...sound, ...{
-        playing: true
-      } };
+      sound = { ...sound, playing: true };
       toasterInstance().then(_t => _t.toast(`${sound.name} has been added.`));
     }
     state = state.set(sound.file, sound);
     howls = howls.set(sound.file, createSoundObj(sound));
-    if (mute) this.toggleMute(state, mute);
+    this.toggleMute(state);
     return state;
   },
 
@@ -131,7 +127,7 @@ const soundReducers = {
 
 export default createReducer(initialState, {
   [constants.SOUNDS_RECEIVED]: (state, { resp }) => soundReducers.init(state, resp),
-  [constants.SOUNDS_MUTE]: (state, { mute }) => soundReducers.toggleMute(state, mute),
+  [constants.SOUNDS_MUTE]: (state) => soundReducers.toggleMute(state),
   [constants.SOUNDS_PLAY]: (state, { sound }) => soundReducers.togglePlay(state, sound),
   [constants.SOUNDS_VOLUME]: (state, { sound, volume }) =>
     soundReducers.changeVolume(state, sound, volume),

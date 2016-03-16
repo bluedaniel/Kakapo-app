@@ -3,6 +3,7 @@ import { createConstants } from '../utils';
 export default createConstants(
   'SETTINGS_LANGUAGE',
   'SETTINGS_DOCK',
+  'SETTINGS_MUTE',
   'SETTINGS_DEVTOOLS',
 
   'THEMES_CHANGE',

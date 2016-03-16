@@ -1,59 +1,27 @@
 import { fromJS } from 'immutable';
 import color from 'color';
-import kakapoAssets from 'kakapo-assets';
 import { bridgedThemes } from 'kakapoBridge';
 import constants from 'constants/';
 import { createReducer, swatches } from 'utils/';
 import { observableStore } from 'stores/configureStore';
+import packageJson from '../../../package.json';
 
-export let initialState = fromJS(bridgedThemes.fromStorage() || kakapoAssets.theme);
+const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
+  version: packageJson.config.themeVersion,
+  darkUI: swatches('light').indexOf(palette1) !== -1,
+  colorPickerActive: false, // Close the color picker
+  btn: palette2,
+  darkPrimary: color(palette1).darken(0.2).hexString(),
+  primary: palette1
+});
+
+export let initialState = fromJS(bridgedThemes.fromStorage() || createTheme());
 
 const themeReducers = {
-  colorVars(hex) {
-    const chosenColor = color(hex);
-    return {
-      darkPrimary: chosenColor.darken(0.2).hexString(),
-      primary: chosenColor.hexString(),
-      lightPrimary: chosenColor.lighten(0.2).hexString(),
-      verylightPrimary: chosenColor.lighten(0.4).hexString()
-    };
-  },
-
   generateStyles(state, swatch, slotNo) {
-    state = state.updateIn([ 'palette', slotNo ], () => swatch); // Update swatch
-    const _c = this.colorVars(state.get('palette').get(0)); // Get color vals
-    const darkUI = swatches('light').indexOf(state.get('palette').get(0)) !== -1; // DarkUI switch
-
-    return state.mergeDeep(fromJS({
-      darkUI,
-      colorPickerActive: false, // Close the color picker
-      base: {
-        btnPrimary: {
-          borderColor: state.get('palette').get(1),
-          backgroundColor: state.get('palette').get(1)
-        }
-      },
-      header: {
-        download: {
-          backgroundColor: _c.lightPrimary,
-          color: darkUI ? '#121212' : '#fff'
-        },
-        titlebar: { backgroundColor: _c.darkPrimary },
-        h3: { color: darkUI ? '#121212' : '#fff' }
-      },
-      nav: {
-        tab: { color: darkUI ? '#121212' : '#fff' },
-        tabActive: { backgroundColor: _c.darkPrimary }
-      },
-      soundList: {
-        itemPlaying: {
-          color: darkUI ? '#121212' : '#fff',
-          backgroundColor: _c.lightPrimary
-        },
-        title: { color: !darkUI ? '#121212' : '#fff' },
-        actions: { color: !darkUI ? '#121212' : '#fff' }
-      }
-    }));
+    state = state.update(slotNo ? 'btn' : 'primary', () => swatch); // Update swatch
+    const newTheme = createTheme(state.get('primary'), state.get('btn'));
+    return fromJS(newTheme);
   },
   saveToStorage() {
     observableStore.subscribe(_x => {

@@ -4,7 +4,8 @@
   "description": "A background noise app",
   "main": "browser.js",
   "config": {
-    "soundsVersion": "1.2.0"
+    "soundsVersion": "1.2.0",
+    "themeVersion": "1.0.0"
   },
   "dependencies": {
     "@rxjs/rx": "^4.1.0",

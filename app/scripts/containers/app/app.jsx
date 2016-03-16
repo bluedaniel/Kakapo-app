@@ -86,7 +86,7 @@ class App extends Component {
     const { themes } = this.props;
     return (
       <div className="loading" style={{
-        background: color(themes.get('palette').first()).alpha(0.5).rgbaString()
+        background: color(themes.get('primary')).alpha(0.5).rgbaString()
       }}
       >
         <div className="sk-fading-circle">

@@ -1,19 +1,23 @@
 import constants from 'constants/';
 import { getYoutubeSearch, getSoundCloudSearch, getKakapoFavourites } from 'api/';
 
+const {
+  SEARCH_INPUT, SEARCH_KAKAPO, SEARCH_YOUTUBE, SEARCH_SOUNDCLOUD, SEARCH_ERROR
+} = constants;
+
 const actions = {
-  searchInput: input => ({ type: constants.SEARCH_INPUT, input }),
+  searchInput: input => ({ type: SEARCH_INPUT, input }),
   searchKakapo: () => dispatch => dispatch(actions.fetchService('kakapo')),
   searchYoutube: term => dispatch => dispatch(actions.fetchService('youtube', term)),
   searchSoundCloud: term => dispatch => dispatch(actions.fetchService('soundcloud', term)),
 
   fetchService: (service, term) => dispatch => new Promise((resolve, reject) => {
-    let opts = { provider: getKakapoFavourites, type: constants.SEARCH_KAKAPO }; // Kakapo default
+    let opts = { provider: getKakapoFavourites, type: SEARCH_KAKAPO }; // Kakapo default
     if (service === 'youtube') {
-      opts = { provider: getYoutubeSearch, type: constants.SEARCH_YOUTUBE };
+      opts = { provider: getYoutubeSearch, type: SEARCH_YOUTUBE };
     }
     if (service === 'soundcloud') {
-      opts = { provider: getSoundCloudSearch, type: constants.SEARCH_SOUNDCLOUD };
+      opts = { provider: getSoundCloudSearch, type: SEARCH_SOUNDCLOUD };
     }
     opts
     .provider(term)
@@ -22,7 +26,7 @@ const actions = {
   }),
 
   fetchServiceComplete: (items, type) => ({ type, items }),
-  fetchServiceError: err => ({ type: constants.SEARCH_ERROR, err })
+  fetchServiceError: err => ({ type: SEARCH_ERROR, err })
 };
 
 export default actions;

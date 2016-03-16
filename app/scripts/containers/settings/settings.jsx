@@ -49,7 +49,7 @@ export default class Settings extends Component {
     this.setState({
       colorPickerActive: true,
       slotNo,
-      defaultColor: this.props.themes.get('palette').get(slotNo)
+      defaultColor: slotNo ? this.props.themes.get('primary') : this.props.themes.get('btn')
     });
   };
 
@@ -125,10 +125,10 @@ export default class Settings extends Component {
             {this.props.intl.formatMessage({ id: 'settings.theme' })}
             <span className="swatches">
               <a onClick={() => this.changePaletteSlot(0)}
-                style={{ backgroundColor: this.props.themes.get('palette').get(0) }}
+                style={{ backgroundColor: this.props.themes.get('primary') }}
               />
               <a onClick={() => this.changePaletteSlot(1)}
-                style={{ backgroundColor: this.props.themes.get('palette').get(1) }}
+                style={{ backgroundColor: this.props.themes.get('btn') }}
               />
             </span>
             <ColorPicker

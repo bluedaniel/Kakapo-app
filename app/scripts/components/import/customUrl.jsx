@@ -59,7 +59,7 @@ export default class CustomUrl extends Component {
             <button
               className="button"
               ref="btn"
-              style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
+              style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}
             >{intl.formatMessage({ id: 'import.save' })}</button>
           </div>
         </form>

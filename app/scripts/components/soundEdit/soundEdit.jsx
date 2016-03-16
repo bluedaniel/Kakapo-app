@@ -36,7 +36,7 @@ export default class SoundEdit extends Component {
   render() {
     const { sound, themes, intl } = this.props;
     return (
-      <div className="item editing" style={themes.getIn([ 'soundList', 'item' ]).toJS()}>
+      <div className="item editing">
         <form onSubmit={this.handleSave}>
           <div ref="name">
             <TextInput placeholder="list.editing_name" name="name" value={sound.name} intl={intl} />
@@ -44,14 +44,12 @@ export default class SoundEdit extends Component {
           <div ref="tags">
             <TextInput placeholder="list.editing_tag" name="tags" value={sound.tags} intl={intl} />
           </div>
-          <a className="button" onClick={this.handleCancel}
-            style={themes.getIn([ 'base', 'btn' ]).toJS()}
-          >
+          <a className="button" onClick={this.handleCancel}>
             {intl.formatMessage({ id: 'list.cancel' })}
           </a>
           <button
             className="button"
-            style={themes.getIn([ 'base', 'btnPrimary' ]).toJS()}
+            style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}
           >{intl.formatMessage({ id: 'list.save' })}</button>
         </form>
       </div>
