@@ -9,10 +9,10 @@ export default {
     try {
       themeData = fs.readJsonSync(pathConfig.userThemeFile, { throws: false });
       if (semver.lt(themeData.version || '0.0.1', packageJson.config.themeVersion)) {
-        themeData = null;
+        themeData = {};
       }
     } catch (e) {
-      themeData = null;
+      themeData = {};
     }
     return themeData;
   },

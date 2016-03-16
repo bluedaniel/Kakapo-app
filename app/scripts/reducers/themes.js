@@ -15,7 +15,10 @@ const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
   primary: palette1
 });
 
-export let initialState = fromJS(bridgedThemes.fromStorage() || createTheme());
+const themeFromStore = bridgedThemes.fromStorage();
+
+export let initialState = fromJS(Object.keys(themeFromStore).length ?
+  themeFromStore : createTheme());
 
 const themeReducers = {
   generateStyles(state, swatch, slotNo) {
