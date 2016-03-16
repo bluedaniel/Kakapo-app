@@ -20,22 +20,24 @@ function setup(props = {}) {
 }
 
 describe('<Options/>', () => {
-  it('renders as a <div> with className equals `modal-inner media`', () => {
+  it('renders as a <div> with className equals `downloads`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('modal downloads');
+    expect(wrapper.prop('className')).to.eql('downloads');
   });
 
-  it('contains 4 links', () => {
+  it('contains 6 links', () => {
     const { wrapper } = setup();
-    expect(wrapper.find(Link)).to.have.length(4);
+    expect(wrapper.find(Link)).to.have.length(6);
   });
 
-  it('should render 4 icons', () => {
+  it('should render 6 icons', () => {
     const { wrapper } = setup();
-    expect(wrapper.find('.icon-kakapo')).to.have.length(1);
-    expect(wrapper.find('.icon-youtube')).to.have.length(1);
-    expect(wrapper.find('.icon-soundcloud')).to.have.length(1);
-    expect(wrapper.find('.icon-custom')).to.have.length(1);
+    expect(wrapper.find('.icon-img-kakapo')).to.have.length(1);
+    expect(wrapper.find('.icon-img-youtube')).to.have.length(1);
+    expect(wrapper.find('.icon-img-soundcloud')).to.have.length(1);
+    expect(wrapper.find('.icon-img-custom')).to.have.length(1);
+    expect(wrapper.find('.icon-settings')).to.have.length(1);
+    expect(wrapper.find('.icon-playlist')).to.have.length(1);
   });
 });

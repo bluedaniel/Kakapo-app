@@ -21,10 +21,10 @@ function setup(props = {}, method = shallow) {
 }
 
 describe('<CustomUrl/>', () => {
-  it('renders as a <div> with className equals `modal customurl`', () => {
+  it('renders as a <div> with className equals `customurl`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('modal customurl');
+    expect(wrapper.prop('className')).to.eql('customurl');
   });
 
   it('call componentDidMount', () => {

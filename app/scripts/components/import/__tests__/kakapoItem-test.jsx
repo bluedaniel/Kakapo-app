@@ -21,7 +21,6 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  console.log(propData);
   const wrapper = shallow(<KakapoItem {...propData} />);
   return {
     props,

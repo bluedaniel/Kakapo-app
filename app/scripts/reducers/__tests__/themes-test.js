@@ -7,13 +7,13 @@ import { themeActions } from 'actions/';
 describe('Reducer `themes`', () => {
   it('change primary color to `#E91E63`', () => {
     const setup = themes(initialState, themeActions.themesChange('#E91E63', 0));
-    expect(setup.get('primary')).to.eql('#C3134E');
-    expect(setup.get('btn')).to.eql('#fff');
+    expect(setup.get('primary')).to.eql('#E91E63');
+    expect(setup.get('btn')).to.eql('#4CAF50');
   });
 
   it('change primary color to `#03A9F4`', () => {
     const setup = themes(initialState, themeActions.themesChange('#03A9F4', 0));
-    expect(setup.get('primary')).to.eql('#0284C0');
+    expect(setup.get('primary')).to.eql('#03A9F4');
   });
 
   it('change secondary color to `#9C27B0`', () => {
@@ -28,7 +28,7 @@ describe('Reducer `themes`', () => {
 
   it('change primary color to a dark theme color `#FFEB3B`', () => {
     const setup = themes(initialState, themeActions.themesChange('#FFEB3B', 0));
-    expect(setup.get('primary')).to.eql('#FFE500');
+    expect(setup.get('primary')).to.eql('#FFEB3B');
     expect(setup.get('darkUI')).to.eql(true);
   });
 });

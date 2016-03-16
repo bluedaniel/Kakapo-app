@@ -3,7 +3,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { store } from 'stores/configureStore';
-import { mute } from '../sounds';
 import { soundActions } from 'actions/';
 import { stubFetchWith, kakapoRes } from '__tests__/helper';
 
@@ -47,13 +46,6 @@ describe('Reducer `sounds`', () => {
       const action = store.dispatch(soundActions.soundsPlay(currState().get('wind')));
       expect(action.type).to.eql('SOUNDS_PLAY');
       expect(currState().get('wind').playing).to.eql(false);
-    });
-
-    it('toggle mute', () => {
-      expect(mute).to.eql(false);
-      const action = store.dispatch(soundActions.soundsMute(true));
-      expect(action.type).to.eql('SOUNDS_MUTE');
-      expect(mute).to.eql(true);
     });
 
     it('change volume', () => {

@@ -37,10 +37,10 @@ function randomSounds(count) {
 }
 
 describe('<Kakapo/>', () => {
-  it('renders as a <div> with className equals `modal-inner`', () => {
+  it('renders as a <div> with className equals `kakapo`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('modal kakapo');
+    expect(wrapper.prop('className')).to.eql('kakapo');
   });
 
   it('renders correct number of SoudCloud items', () => {

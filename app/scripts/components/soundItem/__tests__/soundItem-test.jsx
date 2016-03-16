@@ -47,8 +47,8 @@ describe('<SoundItem/>', () => {
   it('should render 3 icons', () => {
     const { wrapper } = setup(soundProp());
     expect(wrapper.find('.icon-share')).to.have.length(1);
-    expect(wrapper.find('.icon-pencil')).to.have.length(1);
-    expect(wrapper.find('.icon-trash')).to.have.length(1);
+    expect(wrapper.find('.icon-edit')).to.have.length(1);
+    expect(wrapper.find('.icon-delete')).to.have.length(1);
   });
 
   describe('When YouTube added', () => {
@@ -59,8 +59,7 @@ describe('<SoundItem/>', () => {
 
     it('should render only 2 icons', () => {
       const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
-      expect(wrapper.find('.icon-share')).to.have.length(1);
-      expect(wrapper.find('.icon-trash')).to.have.length(1);
+      expect(wrapper.find('.icon-edit')).to.have.length(0);
     });
 
     it(`video container '#video-${youtubeTestId}.youtube-video' is added`, () => {

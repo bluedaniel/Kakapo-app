@@ -41,10 +41,9 @@ describe('<SoundList/>', () => {
   });
 
   describe('When given props', () => {
-    it('renders as a <div> with className equals `container pure-g`', () => {
+    it('renders as a <section>', () => {
       const { wrapper } = setup({ sounds: randomSounds(4) });
-      expect(wrapper.type()).to.eql('div');
-      expect(wrapper.prop('className')).to.eql('container pure-g');
+      expect(wrapper.type()).to.eql('section');
     });
 
     it('should only render sounds with `progress` === 1', () => {

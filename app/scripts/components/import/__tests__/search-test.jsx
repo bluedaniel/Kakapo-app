@@ -9,7 +9,7 @@ import Search from '../search';
 
 function setup(props = {}, method = shallow) {
   const propData = {
-    location: { pathname: '/downloads/youtube' },
+    location: { pathname: '/youtube' },
     ...getData('intl'),
     ...getData('search'),
     ...props
@@ -22,10 +22,10 @@ function setup(props = {}, method = shallow) {
 }
 
 describe('<Search/>', () => {
-  it('renders as a <div> with className equals `modal youtube`', () => {
+  it('renders as a <div> with className equals `youtube`', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('modal youtube');
+    expect(wrapper.prop('className')).to.eql('youtube');
   });
 
   it('call componentDidMount', () => {
@@ -42,7 +42,7 @@ describe('<Search/>', () => {
   });
 
   it('contains correct refs and state for soundcloud', () => {
-    const { wrapper } = setup({ location: { pathname: '/downloads/soundcloud' } }, mount);
+    const { wrapper } = setup({ location: { pathname: '/soundcloud' } }, mount);
     expect(wrapper.ref('searchInput').length).to.equal(1);
     expect(wrapper.state()).to.eql({ service: 'soundcloud', loading: false });
   });
