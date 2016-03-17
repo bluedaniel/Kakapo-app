@@ -12,7 +12,7 @@ const hashHistory = useRouterHistory(createHashHistory)({ queryKey: false });
 const appHistory = syncHistoryWithStore(hashHistory, store);
 
 const state = store.getState();
-const target = document.getElementById('app');
+const target = document.querySelector('[app]');
 
 let render = () => {
   const Root = require('./root').default;

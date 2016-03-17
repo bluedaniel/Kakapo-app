@@ -12,10 +12,7 @@ const platformDevice = argv.platform || 'web';
 let externals = {};
 if (platformDevice === 'web') {
   const voidModules = [ 'electron', 'request', 'fs', 'fs-extra' ];
-  externals = voidModules.reduce((a, b) => {
-    a[b] = 'void 0';
-    return a;
-  }, {});
+  externals = voidModules.reduce((a, b) => ({ ...a, [b]: 'void 0' }), {});
 }
 
 const config = {
@@ -40,7 +37,7 @@ const config = {
       __TEST__: TEST
     }),
     new webpack.ProvidePlugin({
-      fetch: 'exports?self.fetch!whatwg-fetch'
+      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
     new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
     new webpack.optimize.OccurenceOrderPlugin()

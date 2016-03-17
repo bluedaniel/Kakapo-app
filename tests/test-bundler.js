@@ -1,7 +1,9 @@
-// needed for regenerator-runtime
-// (ES7 generator support is required by redux-saga)
+require('es6-promise').polyfill();
 
-// Include all .js files under `app`, except app.js
-// This is for isparta code coverage
-const context = require.context('../app/scripts', true, /^((?!app).)*\.(js|jsx)$/);
+if (!global.Intl) {
+  global.Intl = require('intl'); // Intl polyfill
+  require('react-intl/locale-data/en');
+}
+
+const context = require.context('../app/scripts', true, /^((?!index).)*\.(js|jsx)$/);
 context.keys().forEach(context);

@@ -1,3 +1,4 @@
+import webpack from 'webpack';
 import baseConfig from './webpack.config.base';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
@@ -9,18 +10,18 @@ const config = {
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
     ]
   },
+  plugins: [ ...baseConfig.plugins, [
+    new webpack.HotModuleReplacementPlugin()
+  ] ],
   module: {
-    loaders: baseConfig.module.loaders.concat([ {
+    loaders: [ ...baseConfig.module.loaders, [ {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
     }, {
       test: /\.(png|jpg|jpeg|gif)$/,
       loader: 'url-loader'
-    } ]),
-    noParse: [
-      /node_modules\/sinon\//,
-      /node_modules\/json-schema\/lib\/validate\.js/
-    ]
+    } ] ],
+    noParse: baseConfig.module.noParse
   }
 };
 
