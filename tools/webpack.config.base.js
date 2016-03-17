@@ -4,7 +4,6 @@ import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
 import postcssPlugins, { postcssImport } from './postcss.plugins';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 const DEBUG = !argv.production;
 const TEST = process.env.NODE_ENV === 'test';
@@ -20,12 +19,6 @@ if (platformDevice === 'web') {
 }
 
 const config = {
-  entry: {
-    index: [
-      './app/scripts/index',
-      ...(DEBUG && !TEST ? [ 'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr' ] : [])
-    ]
-  },
   output: {
     filename: '[name].js',
     path: path.join(__dirname, '../build'),
@@ -47,48 +40,24 @@ const config = {
       __TEST__: TEST
     }),
     new webpack.ProvidePlugin({
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      fetch: 'exports?self.fetch!whatwg-fetch'
     }),
     new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new ExtractTextPlugin('styles.css'),
-    ...(!DEBUG ? [
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          screw_ie8: true,
-          warnings: false
-        }
-      }),
-      new webpack.optimize.AggressiveMergingPlugin()
-    ] : []),
-    ...(!TEST ? [ new webpack.HotModuleReplacementPlugin() ] : [])
+    new webpack.optimize.OccurenceOrderPlugin()
   ],
   module: {
-    loaders: [
-      {
-        test: /\.(js|jsx)?$/,
-        include: path.resolve(__dirname, '../app'),
-        exclude: /(node_modules|app\/vendor)/,
-        loaders: [ 'babel' ]
-      },
-      {
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
-      },
-      {
-        test: /\.(png|jpg|jpeg|gif)$/,
-        loader: 'url-loader'
-      },
-      {
-        test: /\.(ttf|eot|svg|woff|woff2)$/,
-        loader: 'file-loader?name=fonts/[hash].[ext]'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      }
-    ],
+    loaders: [ {
+      test: /\.(js|jsx)?$/,
+      include: path.resolve(__dirname, '../app'),
+      exclude: /(node_modules|app\/vendor)/,
+      loader: 'babel'
+    }, {
+      test: /\.(ttf|eot|svg|woff|woff2)$/,
+      loader: 'file-loader?name=fonts/[hash].[ext]'
+    }, {
+      test: /\.json$/,
+      loader: 'json-loader'
+    } ],
     noParse: [
       /node_modules\/sinon\//,
       /node_modules\/json-schema\/lib\/validate\.js/
@@ -126,31 +95,12 @@ if (platformDevice === 'desktop') {
       new FunctionModulePlugin(config.output),
       new NodeTargetPlugin(),
       new webpack.ExternalsPlugin('commonjs', [
-        'app',
-        'auto-updater',
-        'browser-window',
-        'content-tracing',
-        'desktop-capturer',
-        'dialog',
-        'electron',
-        'global-shortcut',
-        'ipc',
-        'ipc-main',
-        'ipc-renderer',
-        'menu',
-        'menu-item',
-        'native-image',
-        'power-monitor',
-        'power-save-blocker',
-        'protocol',
-        'tray',
-        'remote',
-        'web-frame',
-        'clipboard',
-        'crash-reporter',
-        'screen',
-        'session',
-        'shell'
+        'app', 'auto-updater',
+        'browser-window', 'content-tracing', 'desktop-capturer', 'dialog',
+        'electron', 'global-shortcut', 'ipc', 'ipc-main', 'ipc-renderer',
+        'menu', 'menu-item', 'native-image', 'power-monitor',
+        'power-save-blocker', 'protocol', 'tray', 'remote', 'web-frame',
+        'clipboard', 'crash-reporter', 'screen', 'session', 'shell'
       ]),
       new webpack.LoaderTargetPlugin(config.target)
     );

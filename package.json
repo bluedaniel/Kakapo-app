@@ -78,6 +78,7 @@
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
+    "null-loader": "^0.1.1",
     "open": "0.0.5",
     "phantomjs-prebuilt": "^2.1.5",
     "postcss": "^5.0.19",
@@ -101,7 +102,7 @@
     "yargs": "^4.2.0"
   },
   "scripts": {
-    "test": "babel-node tools/run imagemin && NODE_ENV=test karma start",
+    "test": "NODE_ENV=test karma start",
     "styles": "babel-node tools/run styles",
     "lint": "stylelint app/scripts/**/*.css && eslint --ext .jsx --ext .js app/scripts tools",
     "build": "npm run lint && babel-node tools/run build",
