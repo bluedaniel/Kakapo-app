@@ -13,3 +13,6 @@ export { default as ImportOptions } from './import/options';
 export { default as ImportCustomUrl } from './import/customUrl';
 export { default as ImportKakapo } from './import/kakapo';
 export { default as ImportSearch } from './import/search';
+
+export { default as ImportKakapoItem } from './import/kakapoItem';
+export { default as ImportSearchResult } from './import/searchResult';

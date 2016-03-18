@@ -1,14 +1,19 @@
 import baseConfig from './webpack.config.base';
+import path from 'path';
 
 const config = {
   ...baseConfig,
   devtool: 'inline-source-map',
   module: {
     preLoaders: [ {
-      test: /\.(js|jsx)?$/,
-      loader: 'isparta',
-      include: /app\/scripts/,
-      exclude: /(test|__tests__|node_modules|bridge)\//
+      test: /\.(js|jsx)$/,
+      exclude: /(node_modules|app\/scripts)/,
+      loader: 'babel'
+    }, {
+      test: /\.(js|jsx)$/,
+      include: path.resolve('app/scripts/'),
+      exclude: /(app\/bridge)/,
+      loader: 'isparta'
     } ],
     loaders: [ ...baseConfig.module.loaders, [ {
       test: /\.css$/,
