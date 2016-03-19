@@ -15,13 +15,13 @@ const config = {
       exclude: /(bridge)/,
       loader: 'isparta'
     } ],
-    loaders: [ ...baseConfig.module.loaders, [ {
+    loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: 'null-loader'
     }, {
       test: /\.(png|jpg|jpeg|gif)$/,
       loader: 'null-loader'
-    } ] ],
+    } ],
     noParse: baseConfig.module.noParse
   },
   node: {

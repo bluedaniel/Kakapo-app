@@ -6,7 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import proc from 'child_process';
 import electron from 'electron-prebuilt';
-import config from './webpack.config';
+import config from './webpack.config.development';
 import open from 'open';
 
 export default async function serve() {

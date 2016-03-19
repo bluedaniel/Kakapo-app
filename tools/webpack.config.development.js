@@ -10,17 +10,18 @@ const config = {
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
     ]
   },
-  plugins: [ ...baseConfig.plugins, [
+  plugins: [ ...baseConfig.plugins,
+    new ExtractTextPlugin('styles.css'),
     new webpack.HotModuleReplacementPlugin()
-  ] ],
+  ],
   module: {
-    loaders: [ ...baseConfig.module.loaders, [ {
+    loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
     }, {
       test: /\.(png|jpg|jpeg|gif)$/,
       loader: 'url-loader'
-    } ] ],
+    } ],
     noParse: baseConfig.module.noParse
   }
 };
