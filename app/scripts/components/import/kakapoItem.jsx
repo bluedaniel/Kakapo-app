@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { soundActions } from 'actions/';
 import { classNames } from 'utils/';
 
-export default function KakapoItem({ sounds, sound, intl, dispatch }) {
+export default ({ sounds, sound, intl, dispatch }) => {
   const disabled = sounds.filter(_s => sound.file === _s.file).count() === 1;
 
   const handleClick = () => {
@@ -19,6 +19,4 @@ export default function KakapoItem({ sounds, sound, intl, dispatch }) {
       </span>
     </div>
   );
-}
-
-KakapoItem.contextTypes = { router: PropTypes.object };
+};

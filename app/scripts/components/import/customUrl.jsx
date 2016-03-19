@@ -1,69 +1,46 @@
-import React, { Component, PropTypes } from 'react';
-import { intlShape } from 'react-intl';
+import React, { PropTypes } from 'react';
 import { soundActions } from 'actions/';
 import { toasterInstance, validHowl, validUrl } from 'utils/';
 import { TextInput } from 'components/ui';
 
-export default class CustomUrl extends Component {
-  static propTypes = {
-    themes: PropTypes.object,
-    soundActions: PropTypes.object,
-    dispatch: PropTypes.func,
-    intl: intlShape
-  };
-
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
-  componentDidMount() {
-    this.refs.name.getElementsByTagName('input')[0].focus();
-  }
-
-  handleSubmit = (el) => {
-    el.preventDefault();
-    const data = {
-      name: this.refs.name.getElementsByTagName('input')[0].value,
-      file: this.refs.customInput.getElementsByTagName('input')[0].value,
-      source: 'customStream'
-    };
-
-    if (!data.name || !data.file) return this.handleError('import.error.empty');
-    if (!validUrl(data.file)) return this.handleError('import.error.url');
-    if (!validHowl(data.file)) return this.handleError(validHowl(data.file, true), false);
-
-    this.props.dispatch(soundActions.addSound('custom', data));
-    return this.context.router.push('/');
-  };
-
-  handleError = (msg, intl = true) => {
-    const err = intl ? this.props.intl.formatMessage({ id: msg }) : msg;
+export default function CustomUrl({ themes, intl, dispatch }, { router }) {
+  const handleError = (msg, translateMsg = true) => {
+    const err = translateMsg ? intl.formatMessage({ id: msg }) : msg;
     toasterInstance().then(_t => _t.toast(err));
   };
 
-  render() {
-    const { themes, intl } = this.props;
-    return (
-      <div className="customurl">
-        <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
-        <form onSubmit={this.handleSubmit}>
-          <div className="media-import">
-            <div ref="name">
-              <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl} />
-            </div>
-            <div ref="customInput">
-              <TextInput placeholder="import.custom.url_placeholder"
-                name="customInput" intl={intl}
-              />
-            </div>
-            <button
-              className="button"
-              ref="btn"
-              style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}
-            >{intl.formatMessage({ id: 'import.save' })}</button>
-          </div>
-        </form>
-      </div>
-    );
-  }
+  const handleSubmit = (el) => {
+    el.preventDefault();
+    const inputs = el.target.getElementsByTagName('input');
+    const data = Array.from(inputs).reduce((acc, a) => ({
+      ...acc, [a.name]: a.value
+    }), { source: 'customStream' });
+
+    if (!data.name || !data.url) return handleError('import.error.empty');
+    if (!validUrl(data.url)) return handleError('import.error.url');
+    if (!validHowl(data.url)) return handleError(validHowl(data.url, true), false);
+
+    dispatch(soundActions.addSound('custom', data));
+    return router.push('/');
+  };
+
+  return (
+    <div className="customurl">
+      <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
+      <form onSubmit={handleSubmit}>
+        <div className="media-import">
+          <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl} />
+          <TextInput placeholder="import.custom.url_placeholder"
+            name="url" intl={intl}
+          />
+          <button
+            className="button"
+            style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}
+          >{intl.formatMessage({ id: 'import.save' })}</button>
+        </div>
+      </form>
+    </div>
+  );
 }
+
+CustomUrl.contextTypes = { router: PropTypes.object };
