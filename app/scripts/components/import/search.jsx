@@ -1,22 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import Observable from '@rxjs/rx/observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
 import { intlShape } from 'react-intl';
 import { TextInput } from 'components/ui';
 import { searchActions } from 'actions/';
 import SearchResult from './searchResult';
 
-Observable.addToObject({ fromEvent: require('@rxjs/rx/observable/fromevent') });
-
-const rxChain = [ 'map', 'filter', 'throttle', 'distinctUntilChanged', 'flatMapLatest' ]
-  .reduce((acc, a) => ({ ...acc, [a]: require(`@rxjs/rx/observable/${a.toLowerCase()}`) }), {});
-
-Observable.addToPrototype(rxChain);
-
 function observeAutocomplete(input) {
   return Observable.fromEvent(input, 'keyup')
     .map(el => el.target.value)
     .filter(text => text.length > 2)
-    .throttle(350)
+    .throttleTime(350)
     .distinctUntilChanged();
 }
 
@@ -41,7 +40,7 @@ export default class YouTube extends Component {
       .subscribe(() => this.toggleSpinner(true));
 
     autocomplete
-      .flatMapLatest(_s => {
+      .switchMap(_s => {
         if (this.state.service === 'youtube') {
           return this.props.dispatch(searchActions.searchYoutube(_s));
         }

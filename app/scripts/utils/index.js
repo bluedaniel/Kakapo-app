@@ -1,15 +1,14 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { remote } from 'electron';
-import Observable from '@rxjs/rx/observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/windowCount';
 import { Howler } from 'howler';
 export { default as toasterInstance } from './toaster';
-
-const rxChain = [ 'map', 'filter', 'flatMap', 'windowCount' ]
-  .reduce((acc, a) => ({ ...acc, [a]: require(`@rxjs/rx/observable/${a.toLowerCase()}`) }), {});
-
-Observable.addToObject({ fromEvent: require('@rxjs/rx/observable/fromevent') });
-Observable.addToPrototype(rxChain);
 
 export const createConstants = (...constants) => constants.reduce((acc, constant) =>
   ({ ...acc, [constant]: constant }), {});
@@ -88,7 +87,7 @@ export const throttle = (func, ms = 50, context = window) => {
 export const Konami = () => Observable.fromEvent(window, 'keyup')
   .map(el => el.keyCode)
   .windowWithCount(10, 1)
-  .flatMap(_x => _x.toArray())
+  .mergeMap(_x => _x.toArray())
   .filter(seq => seq.toString() === [ 38, 38, 40, 40, 37, 39, 37, 39, 66, 65 ].toString());
 
 // file.mp6 -> invalid

@@ -1,4 +1,6 @@
-import fromEventPattern from '@rxjs/rx/observable/fromeventpattern';
+import {
+  FromEventPatternObservable
+} from 'rxjs/observable/FromEventPatternObservable';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import devTools from 'remote-redux-devtools';
@@ -18,7 +20,7 @@ function configureStore(debug = false) {
 
 export const store = configureStore(__DEV__ && !__TEST__);
 
-export const observableStore = fromEventPattern(
+export const observableStore = new FromEventPatternObservable(
   handler => store.subscribe(handler),
   (handler, unsubscribe) => unsubscribe(),
   () => store.getState());
