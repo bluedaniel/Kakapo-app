@@ -12,7 +12,7 @@ const config = {
     }, {
       test: /\.(js|jsx)$/,
       include: path.resolve('app/scripts/'),
-      exclude: /(app\/bridge)/,
+      exclude: /(bridge)/,
       loader: 'isparta'
     } ],
     loaders: [ ...baseConfig.module.loaders, [ {

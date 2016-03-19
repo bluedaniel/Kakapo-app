@@ -6,7 +6,6 @@ import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
 import postcssPlugins, { postcssImport } from './postcss.plugins';
 
 const DEBUG = !argv.production;
-const TEST = process.env.NODE_ENV === 'test';
 const platformDevice = argv.platform || 'web';
 
 let externals = {};
@@ -34,7 +33,7 @@ const config = {
       __DESKTOP__: platformDevice === 'desktop',
       __WEB__: platformDevice === 'web',
       __DEV__: DEBUG,
-      __TEST__: TEST
+      __TEST__: process.env.NODE_ENV === 'test'
     }),
     new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
