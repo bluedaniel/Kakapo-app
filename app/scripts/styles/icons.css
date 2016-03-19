@@ -1,17 +1,14 @@
 @font-face {
-  font-family: "icomoon";
+  font-family: icomoon;
   src: url("/fonts/icomoon.eot?v4glf8");
-  src: url("/fonts/icomoon.eot?v4glf8#iefix") format("embedded-opentype"),
-      url("/fonts/icomoon.ttf?v4glf8") format("truetype"),
-      url("/fonts/icomoon.woff?v4glf8") format("woff"),
-      url("/fonts/icomoon.svg?v4glf8#icomoon") format("svg");
+  src: url("/fonts/icomoon.eot?v4glf8#iefix") format("embedded-opentype"), url("/fonts/icomoon.ttf?v4glf8") format("truetype"), url("/fonts/icomoon.woff?v4glf8") format("woff"), url("/fonts/icomoon.svg?v4glf8#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 [class^="icon-"],
 [class*=" icon-"] {
-  font-family: "icomoon" !important;
+  font-family: icomoon !important;
   speak: none;
   font-style: normal;
   font-weight: normal;
@@ -25,50 +22,49 @@
   }
 }
 
-.icon-soundcloud:before {
+.icon-soundcloud::before {
   content: "\e902";
 }
 
-.icon-add:before {
+.icon-add::before {
   content: "\e900";
 }
 
-.icon-youtube:before {
+.icon-youtube::before {
   content: "\e901";
 }
 
-.icon-close:before {
+.icon-close::before {
   content: "\e5cd";
 }
 
-.icon-edit:before {
+.icon-edit::before {
   content: "\e254";
 }
 
-.icon-delete:before {
+.icon-delete::before {
   content: "\e872";
 }
 
-.icon-exit:before {
+.icon-exit::before {
   content: "\e879";
 }
 
-.icon-share:before {
+.icon-share::before {
   content: "\e0e2";
 }
 
-.icon-settings:before {
+.icon-settings::before {
   content: "\e8b8";
 }
 
-.icon-volume_off:before {
+.icon-volume_off::before {
   content: "\e04f";
 }
 
-.icon-volume_up:before {
+.icon-volume_up::before {
   content: "\e050";
 }
-
 
 [class^="icon-img-"],
 [class*=" icon-img-"] {

@@ -9,7 +9,8 @@
   }
   .add-sounds-title {
     display: none;
-    @media (min-width: 40.0rem) {
+
+    @media (min-width: 40rem) {
       display: block;
     }
   }
@@ -19,14 +20,14 @@
     list-style: none;
     display: inline-block;
 
-    @media (min-width: 40.0rem) {
+    @media (min-width: 40rem) {
       display: block;
     }
   }
   .option {
     display: inline-block;
 
-    @media (min-width: 40.0rem) {
+    @media (min-width: 40rem) {
       margin-bottom: 1em;
       display: block;
     }
@@ -35,7 +36,7 @@
       line-height: 20px;
       display: none;
 
-      @media (min-width: 40.0rem) {
+      @media (min-width: 40rem) {
         display: inline-block;
       }
     }
