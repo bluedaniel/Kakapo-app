@@ -1,6 +1,4 @@
-@import "node-waves/dist/waves";
 @import "hint.css/hint";
-@import "nouislider/src/nouislider";
 @import "./variables";
 @import "./animation";
 @import "./fonts";

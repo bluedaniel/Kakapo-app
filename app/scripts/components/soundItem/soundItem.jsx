@@ -1,130 +1,98 @@
-import React, { Component, PropTypes } from 'react';
-import nouislider from 'nouislider';
-import waves from 'node-waves';
+import React from 'react';
+import { EventEmitter } from 'events';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/throttleTime';
 import { soundActions } from 'actions/';
-import { soundClass } from 'classes/';
-import { classNames, throttle } from 'utils/';
+import { classNames } from 'utils/';
 import './soundItem.css';
 
-export default class SoundItem extends Component {
-  static propTypes = {
-    themes: PropTypes.object,
-    soundActions: PropTypes.object,
-    sound: PropTypes.shape(soundClass),
-    dispatch: PropTypes.func
-  };
+function observeThrottleVolume(event, dispatch, sound) {
+  return Observable.fromEvent(event, 'data', (a) => a)
+    .throttleTime(500)
+    .subscribe(_s => dispatch(soundActions.soundsVolume(sound, _s)));
+}
 
-  componentWillMount() {
-    this.handleVolume = throttle(this.handleVolume, 250);
-  }
+export default ({ sound, themes, dispatch }) => {
+  const eventEmitter = new EventEmitter();
+  observeThrottleVolume(eventEmitter, dispatch, sound);
 
-  componentDidMount() {
-    nouislider.create(this.refs.volume, {
-      start: this.props.sound.volume,
-      connect: 'lower',
-      range: {
-        min: 0,
-        max: 1
-      }
-    });
-
-    this.refs.volume.noUiSlider.on('update', this.handleVolume.bind(this));
-
-    this.colorSlider();
-  }
-
-  handleToggle = () => {
-    waves.ripple(this.refs.item);
-    this.props.dispatch(soundActions.soundsPlay(this.props.sound));
-  };
-
-  handleDelete = (el) => {
-    this.handleStopPropagation(el);
-    this.props.dispatch(soundActions.soundsRemove(this.props.sound));
-  };
-
-  handleEdit = (el) => {
-    this.handleStopPropagation(el);
-    this.props.dispatch(soundActions.soundsEdit(this.props.sound));
-  };
-
-  handleVolume = throttle((data) => {
-    this.props.dispatch(soundActions.soundsVolume(this.props.sound, parseFloat(data[0])));
-  }, 250);
-
-  handleStopPropagation(el) {
+  const handleStopPropagation = (el) => {
     el.preventDefault();
     el.stopPropagation();
-  }
-
-  colorSlider = () => {
-    const sliderColor = this.props.themes.get('darkPrimary');
-    this.refs.volume.getElementsByClassName('noUi-origin')[0].style.background = sliderColor;
   };
 
-  renderActions() {
-    return (
-      <ul className={classNames('actions', { dark: !this.props.sound.playing })}>
-        {this.props.sound.link ? (
-          <li>
-            <a href={this.props.sound.link} target="_blank">
-              <i className="icon-share" />
-            </a>
+  const handleToggle = () => dispatch(soundActions.soundsPlay(sound));
+
+  const handleDelete = (el) => {
+    handleStopPropagation(el);
+    dispatch(soundActions.soundsRemove(sound));
+  };
+
+  const handleEdit = (el) => {
+    handleStopPropagation(el);
+    dispatch(soundActions.soundsEdit(sound));
+  };
+
+  const handleVolume = ({ target }) => eventEmitter.emit('data', parseFloat(target.value));
+
+  const renderActions = () => (
+    <ul className={classNames('actions', { dark: !sound.playing })}>
+      {sound.link ? (
+        <li>
+          <a href={sound.link} target="_blank">
+            <i className="icon-share" />
+          </a>
+        </li>) : ''}
+      {sound.source !== 'youtubeStream' ? (
+        <li onClick={handleEdit}>
+          <i className="icon-edit" />
           </li>) : ''}
-        {this.props.sound.source !== 'youtubeStream' ? (
-          <li onClick={this.handleEdit}>
-            <i className="icon-edit" />
-            </li>) : ''}
-        <li onClick={this.handleDelete}>
-          <i className="icon-delete" />
-        </li>
-      </ul>
-    );
+      <li onClick={handleDelete}>
+        <i className="icon-delete" />
+      </li>
+    </ul>
+  );
+
+  let objStyle = { color: '#121212' };
+  if (sound.playing) {
+    objStyle = { ...objStyle, backgroundColor: themes.get('primary'), color: '#fff' };
   }
 
-  renderVideo() {
-    if (this.props.sound.source === 'youtubeStream') {
-      return <div className="youtube-video" id={`video-${this.props.sound.file}`}></div>;
-    }
-    return <div />;
+  let img = sound.img;
+  if (sound.source === 'file') {
+    img = `http://data.kakapo.co/v2/images/${sound.playing ? 'light_' : 'dark_'}${sound.img.replace(/^.*[\\\/]/, '')}.png`;
   }
 
-  render() {
-    if (this.refs.volume) this.colorSlider();
-
-    const { themes, sound } = this.props;
-    let objStyle = { color: '#121212' };
-    if (sound.playing) {
-      objStyle = { ...objStyle, backgroundColor: themes.get('primary'), color: '#fff' };
-    }
-
-    const itemClass = classNames({
-      playing: sound.playing,
-      paused: !sound.playing,
-      'youtube-stream': sound.source === 'youtubeStream'
-    });
-    let img = sound.img;
-    if (sound.source === 'file') {
-      img = `http://data.kakapo.co/v2/images/${sound.playing ? 'light_' : 'dark_'}${sound.img.replace(/^.*[\\\/]/, '')}.png`;
-    }
-
-    return (
-      <div
-        className={classNames('item', 'waves-effect', 'waves-block', itemClass)}
-        onClick={this.handleToggle}
-        ref="item"
-        style={objStyle}
-      >
-        <div className="inner">
-          {img ? <img src={img} /> : <div className="no-image" />}
-          {this.renderActions()}
-          <span className="title">
-            {sound.name}
-          </span>
-          <div ref="volume" onClick={this.handleStopPropagation} />
-        </div>
-        {this.renderVideo()}
+  return (
+    <div
+      className={classNames('item', 'waves-effect', 'waves-block', {
+        playing: sound.playing,
+        paused: !sound.playing,
+        'youtube-stream': sound.source === 'youtubeStream'
+      })}
+      onClick={handleToggle}
+      style={objStyle}
+    >
+      <div className="inner">
+        {img ? <img src={img} /> : <div className="no-image" />}
+        {renderActions()}
+        <span className="title">
+          {sound.name}
+        </span>
+        <input
+          defaultValue={sound.volume}
+          max="1"
+          min="0"
+          onChange={handleVolume}
+          onClick={handleStopPropagation}
+          step="0.001"
+          type="range"
+        />
       </div>
-    );
-  }
-}
+      {sound.source === 'youtubeStream' ?
+        <div className="youtube-video" id={`video-${sound.file}`} /> : <div />}
+    </div>
+  );
+};
