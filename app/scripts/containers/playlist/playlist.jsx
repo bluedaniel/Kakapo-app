@@ -1,9 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { PropTypes } from 'react';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
-import { intlShape } from 'react-intl';
 import { soundActions } from 'actions/';
 import { toasterInstance } from 'utils/';
 import awsCredentials from '../../../../aws.json';
@@ -15,100 +13,74 @@ AWS.config.update(awsCredentials);
 
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
-export default class Playlist extends Component {
-  static propTypes = {
-    themes: PropTypes.object,
-    params: PropTypes.object,
-    sounds: PropTypes.object,
-    dispatch: PropTypes.func,
-    intl: intlShape
-  };
-
-  static contextTypes = {
-    router: PropTypes.object.isRequired
-  };
-
-  state = {
-    playlistUrl: null,
-    loadingPlaylist: false
-  };
-
-  componentDidMount() {
+export default function Playlist({ sounds, themes, params, intl, dispatch }, { router }) {
+  if (params.shareId) {
     const clipboard = new Clipboard('.copy-clipboard');
     clipboard.on('success', () => toasterInstance().then(_t => _t.toast('Playlist link copied!')));
-    this.getParam(this.props.params.playlistId);
   }
 
-  componentDidUpdate() {
-    this.getParam(this.props.params.playlistId);
-  }
-
-  getParam = (playlistId) => {
-    if (playlistId && !this.state.loadingPlaylist) {
-      this.setState({ loadingPlaylist: true });
-
-      toasterInstance().then(_t => _t.toast('Loading playlist ...'));
-
-      table.getItem({ Key: { shareID: { S: playlistId } } }, (err, data) => {
-        if (err) toasterInstance().then(_t => _t.toast(err));
-        if (data.Item) {
-          this.setSoundsToPlaylist(JSON.parse(atob(data.Item.playlistID.S)));
-        } else {
-          toasterInstance().then(_t => _t.toast('Error: Playlist not found'));
-        }
-        this.setState({ loadingPlaylist: false });
-      });
-
-      this.context.router.push('/');
-    }
+  const setSoundsToPlaylist = (playlist) => {
+    Object.keys(playlist).map(_p => {
+      dispatch(soundActions.resetSounds(true));
+      switch (playlist[_p].source) {
+        case 'youtubeStream':
+          return dispatch(soundActions.addSound('youtube', playlist[_p], false));
+        case 'soundcloudStream':
+          return dispatch(soundActions.addSound('soundcloud', playlist[_p].file, false));
+        default:
+          return dispatch(soundActions.addSound('kakapo', playlist[_p], false));
+      }
+    });
+    router.push('/');
   };
 
-  setSoundsToPlaylist = (playlist) => Object.keys(playlist).map(_p => {
-    this.props.dispatch(soundActions.resetSounds(true));
-    switch (playlist[_p].source) {
-      case 'youtubeStream':
-        return this.props.dispatch(soundActions.addSound('youtube', playlist[_p], false));
-      case 'soundcloudStream':
-        return this.props.dispatch(soundActions.addSound('soundcloud', playlist[_p].file, false));
-      default:
-        return this.props.dispatch(soundActions.addSound('kakapo', playlist[_p], false));
-    }
-  });
-
-  resetSounds = () => {
-    this.props.dispatch(soundActions.resetSounds(false));
-    this.context.router.push('/');
+  const getFromDynamo = (id) => {
+    table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
+      if (err) toasterInstance().then(_t => _t.toast(err));
+      if (data.Item) {
+        setSoundsToPlaylist(JSON.parse(atob(data.Item.playlistID.S)));
+      } else {
+        toasterInstance().then(_t => _t.toast('Error: Playlist not found'));
+      }
+    });
   };
 
-  createPlaylist = () => {
-    const currentPlaylistHash = btoa(JSON.stringify(this.props.sounds));
+  const resetSounds = () => {
+    dispatch(soundActions.resetSounds(false));
+    router.push('/');
+  };
+
+  const createPlaylist = () => {
+    const currentPlaylistHash = btoa(JSON.stringify(sounds));
     const shareID = shortid.generate();
     const putItem = { Item: { shareID: { S: shareID }, playlistID: { S: currentPlaylistHash } } };
-    table.putItem(putItem, () => this.setState({ playlistUrl: shareID }));
+    table.putItem(putItem, () => router.push(`/share-playlist/${shareID}`));
   };
 
-  handleDesktopPlaylistInput = (el) => {
-    this.getParam(this.refs.desktopPlaylist.value);
-    el.preventDefault();
+  const handleStopPropagation = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
-  handleStopPropagation(el) {
-    el.preventDefault();
-    el.stopPropagation();
-  }
+  const handleDesktopPlaylistInput = (e) => {
+    if (e.keyCode === 13) {
+      handleStopPropagation(e);
+      router.push('/playlist/${e.target.value}');
+    }
+  };
 
-  renderShare() {
-    if (this.state.playlistUrl) {
-      const url = location.hostname + (__DEV__ ? `:${location.port}` : '');
+  const renderShare = () => {
+    if (params.shareId) {
+      const url = location.hostname + (__DEV__ ? `:${location.port}` : 'kakapo.co/playlist/');
       return (
         <div>
-          <p>{this.props.intl.formatMessage({ id: 'playlist.share_created' })}</p>
+          <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="form">
             <input className="input-1" id="copyClipboard"
-              value={`${url}/playlist/${this.state.playlistUrl}`} readOnly
+              value={`${url}/playlist/${params.shareId}`} readOnly
             />
             <button className="copy-clipboard" data-clipboard-target="#copyClipboard"
-              onClick={this.handleStopPropagation}
+              onClick={handleStopPropagation}
             >
               <span title="Copy to clipboard" />
             </button>
@@ -117,46 +89,52 @@ export default class Playlist extends Component {
       );
     }
     return (
-      <a className="button" onClick={this.createPlaylist}>
-        {this.props.intl.formatMessage({ id: 'playlist.share' })}
+      <a className="button" onClick={createPlaylist}>
+        {intl.formatMessage({ id: 'playlist.share' })}
       </a>
     );
-  }
+  };
 
-  renderDesktopPlaylistInput() {
-    return (
-      <div>
-        <hr />
-        <p>{this.props.intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
-        <form onSubmit={this.handleDesktopPlaylistInput} className="form">
-          <div className="InputAddOn">
-            <span className="InputAddOn-item">kakapo.co/playlist/</span>
-            <input className="input-1 InputAddOn-field" ref="desktopPlaylist" type="text" />
-          </div>
-        </form>
-      </div>
-    );
-  }
-
-  render() {
-    if (this.state.loadingPlaylist) return null;
-    return (
-      <div className="modal playlist-pane">
-        <div className="modal-inner">
-          <h3>{this.props.intl.formatMessage({ id: 'playlist.header' })}</h3>
-          {this.renderShare()}
-          <p>{this.props.intl.formatMessage({ id: 'playlist.subheading' })}</p>
-          <a className="button" onClick={this.resetSounds}>
-            {this.props.intl.formatMessage({ id: 'playlist.list_reset' })}
-          </a>
-          {Object.keys(kakapoAssets.playlists).map(_e => (
-            <Link to={`/playlist/${kakapoAssets.playlists[_e]}`} className="button" key={_e}>
-              {this.props.intl.formatMessage({ id: `playlist.list_${_e}` })}
-            </Link>
-          ))}
-          {__DESKTOP__ ? this.renderDesktopPlaylistInput() : null}
+  const renderDesktopPlaylistInput = () => (
+    <div>
+      <hr />
+      <p>{intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
+      <form className="form">
+        <div className="InputAddOn">
+          <span className="InputAddOn-item">kakapo.co/playlist/</span>
+          <input onKeyDown={handleDesktopPlaylistInput}
+            className="input-1 InputAddOn-field" type="text"
+          />
         </div>
-      </div>
-    );
+      </form>
+    </div>
+  );
+
+  if (params.playlistId) { // Loading new playlist
+    toasterInstance().then(_t => _t.toast('Loading new playlist ...'));
+    getFromDynamo(params.playlistId);
   }
+
+  return (
+    <div className="modal playlist-pane">
+      <div className="modal-inner">
+        <h3>{intl.formatMessage({ id: 'playlist.header' })}</h3>
+        {renderShare()}
+        <p>{intl.formatMessage({ id: 'playlist.subheading' })}</p>
+        <a className="button" onClick={resetSounds}>
+          {intl.formatMessage({ id: 'playlist.list_reset' })}
+        </a>
+        {Object.keys(kakapoAssets.playlists).map(_e => (
+          <span onClick={() => getFromDynamo(kakapoAssets.playlists[_e])}
+            className="button" key={_e}
+          >
+            {intl.formatMessage({ id: `playlist.list_${_e}` })}
+          </span>
+        ))}
+        {__DESKTOP__ ? renderDesktopPlaylistInput() : null}
+      </div>
+    </div>
+  );
 }
+
+Playlist.contextTypes = { router: PropTypes.object };
