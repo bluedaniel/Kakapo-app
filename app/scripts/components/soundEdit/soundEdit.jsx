@@ -1,16 +1,16 @@
 import React from 'react';
 import { TextInput } from 'components/ui';
 import { soundActions } from 'actions/';
-import { toasterInstance } from 'utils/';
+import { toasterInstance, handleStopPropagation } from 'utils/';
 
 export default ({ sound, themes, intl, dispatch }) => {
   const handleCancel = (el) => {
-    el.preventDefault();
+    handleStopPropagation(el);
     dispatch(soundActions.soundsEdit(sound, null));
   };
 
   const handleSubmit = (el) => {
-    el.preventDefault();
+    handleStopPropagation(el);
     const inputs = el.target.getElementsByTagName('input');
     const data = Array.from(inputs).reduce((acc, a) => ({
       ...acc, [a.name]: a.value

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { soundActions } from 'actions/';
-import { toasterInstance, validHowl, validUrl } from 'utils/';
 import { TextInput } from 'components/ui';
+import { toasterInstance, validHowl, validUrl, handleStopPropagation } from 'utils/';
 
 export default function CustomUrl({ themes, intl, dispatch }, { router }) {
   const handleError = (msg, translateMsg = true) => {
@@ -10,7 +10,7 @@ export default function CustomUrl({ themes, intl, dispatch }, { router }) {
   };
 
   const handleSubmit = (el) => {
-    el.preventDefault();
+    handleStopPropagation(el);
     const inputs = el.target.getElementsByTagName('input');
     const data = Array.from(inputs).reduce((acc, a) => ({
       ...acc, [a.name]: a.value

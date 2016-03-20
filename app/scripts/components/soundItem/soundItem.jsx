@@ -5,7 +5,7 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/throttleTime';
 import { soundActions } from 'actions/';
-import { classNames } from 'utils/';
+import { classNames, handleStopPropagation } from 'utils/';
 import './soundItem.css';
 
 function observeThrottleVolume(event, dispatch, sound) {
@@ -17,11 +17,6 @@ function observeThrottleVolume(event, dispatch, sound) {
 export default ({ sound, themes, dispatch }) => {
   const eventEmitter = new EventEmitter();
   observeThrottleVolume(eventEmitter, dispatch, sound);
-
-  const handleStopPropagation = (el) => {
-    el.preventDefault();
-    el.stopPropagation();
-  };
 
   const handleToggle = () => dispatch(soundActions.soundsPlay(sound));
 

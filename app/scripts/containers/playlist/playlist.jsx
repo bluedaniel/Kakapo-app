@@ -3,7 +3,7 @@ import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
 import { soundActions } from 'actions/';
-import { toasterInstance } from 'utils/';
+import { toasterInstance, handleStopPropagation } from 'utils/';
 import awsCredentials from '../../../../aws.json';
 import 'aws-custom-build';
 import './playlist.css';
@@ -55,11 +55,6 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
     const shareID = shortid.generate();
     const putItem = { Item: { shareID: { S: shareID }, playlistID: { S: currentPlaylistHash } } };
     table.putItem(putItem, () => router.push(`/share-playlist/${shareID}`));
-  };
-
-  const handleStopPropagation = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
   };
 
   const handleDesktopPlaylistInput = (e) => {

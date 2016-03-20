@@ -83,6 +83,11 @@ export const throttle = (func, ms = 50, context = window) => {
   };
 };
 
+export const handleStopPropagation = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+};
+
 // Konami keycode
 export const Konami = () => Observable.fromEvent(window, 'keyup')
   .map(el => el.keyCode)
