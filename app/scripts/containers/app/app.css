@@ -3,16 +3,18 @@
   .main-panel {
     padding-bottom: 80px;
     transition: width, padding, margin-left 0.25s ease;
-    @media (min-width: 40.0rem) {
+
+    @media (min-width: 40rem) {
       padding-bottom: 0;
-      width: calc(100% - 300px);
+      width: calc(uploadFiles% - 300px);
       margin-left: 300px;
     }
   }
 
   &.desktop {
-    .upload-files {
+    .uploadFiles {
       align-items: center;
+      background: linear-gradient(to left, #348f50, #56b4d3);
       color: #fff;
       display: flex;
       font-size: 19px;
@@ -31,18 +33,11 @@
           margin-bottom: 15px;
         }
       }
-      .gradient-name {
-        bottom: 15px;
-        font-size: 14px;
-        font-style: italic;
-        position: absolute;
-        right: 15px;
-      }
     }
     .inactiveDrop {
 
       &.activeDrop {
-        .upload-files {
+        .uploadFiles {
           animation-name: fadeInDown;
           animation-duration: 0.25s;
           animation-fill-mode: both;
@@ -58,5 +53,6 @@
     background: #fff;
     right: 0;
     bottom: 0;
+    z-index: 1;
   }
 }

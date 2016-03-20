@@ -4,12 +4,15 @@ import constants from 'constants/';
 import { createReducer, flatteni18n } from 'utils/';
 
 const {
-  SETTINGS_LANGUAGE, SETTINGS_MUTE, SETTINGS_DOCK, SETTINGS_DEVTOOLS, SETTINGS_UPDATE
+  SETTINGS_INITIAL_RENDER, SETTINGS_LANGUAGE, SETTINGS_MUTE,
+  SETTINGS_DOCK, SETTINGS_DEVTOOLS, SETTINGS_UPDATE
 } = constants;
 
 let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
   ({ ...acc, [k]: bridgedSettings.getItem(k) }), {
-    intlData: { ...kakapoAssets.i18n.en, messages: flatteni18n(kakapoAssets.i18n.en.messages) }
+    intlData: { ...kakapoAssets.i18n.en, messages: flatteni18n(kakapoAssets.i18n.en.messages) },
+    initialRender: false,
+    updateStatus: false
   });
 
 /* istanbul ignore if */
@@ -21,10 +24,8 @@ if (__DESKTOP__) {
 }
 
 const settingReducers = {
-  toggleMute(state) {
-    const mute = !bridgedSettings.getItem('mute');
-    bridgedSettings.setItem('mute', mute);
-    return { ...state, mute };
+  initialRender(state) {
+    return { ...state, initialRender: true };
   },
   toggleDock(state, value) {
     bridgedSettings.setItem('dockIcon', value);
@@ -42,6 +43,7 @@ const settingReducers = {
 
 export default createReducer(initialState, {
   [SETTINGS_LANGUAGE]: state => state,
+  [SETTINGS_INITIAL_RENDER]: state => settingReducers.initialRender(state),
   [SETTINGS_MUTE]: (state) => settingReducers.toggleMute(state),
   [SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
   [SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool),
