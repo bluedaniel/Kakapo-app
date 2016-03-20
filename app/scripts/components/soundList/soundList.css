@@ -1,11 +1,17 @@
 
 .sound-list {
-  lost-column: 1/2;
+  lost-column: 1/2 0 0;
   overflow: hidden;
   &:first-child {
     border-top: none;
   }
   > div {
     position: relative;
+  }
+}
+
+.app-container.desktop {
+  .sound-list {
+    lost-column: 1 0 0;
   }
 }
