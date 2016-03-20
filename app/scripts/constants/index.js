@@ -24,6 +24,7 @@ export default createConstants(
   'SOUNDS_ERROR',
   'SOUNDS_RESET',
 
+  'SEARCH_REQUEST',
   'SEARCH_KAKAPO',
   'SEARCH_YOUTUBE',
   'SEARCH_SOUNDCLOUD',

@@ -6,6 +6,8 @@ import { createReducer, swatches } from 'utils/';
 import { observableStore } from 'stores/configureStore';
 import packageJson from '../../../package.json';
 
+const { THEMES_CHANGE } = constants;
+
 const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
   version: packageJson.config.themeVersion,
   darkUI: swatches('light').indexOf(palette1) !== -1,
@@ -36,7 +38,7 @@ const themeReducers = {
 };
 
 export default createReducer(initialState, {
-  [constants.THEMES_CHANGE]: (state, { swatch, slotNo }) => {
+  [THEMES_CHANGE]: (state, { swatch, slotNo }) => {
     themeReducers.saveToStorage();
     return themeReducers.generateStyles(state, swatch, slotNo);
   }

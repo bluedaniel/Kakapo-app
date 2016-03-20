@@ -3,6 +3,8 @@ import { bridgedSettings } from 'kakapoBridge';
 import constants from 'constants/';
 import { createReducer, flatteni18n } from 'utils/';
 
+const { SETTINGS_LANGUAGE, SETTINGS_MUTE, SETTINGS_DOCK, SETTINGS_DEVTOOLS } = constants;
+
 let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
   ({ ...acc, [k]: bridgedSettings.getItem(k) }), {
     intlData: { ...kakapoAssets.i18n.en, messages: flatteni18n(kakapoAssets.i18n.en.messages) }
@@ -33,8 +35,8 @@ const settingReducers = {
 };
 
 export default createReducer(initialState, {
-  [constants.SETTINGS_LANGUAGE]: state => state,
-  [constants.SETTINGS_MUTE]: (state) => settingReducers.toggleMute(state),
-  [constants.SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
-  [constants.SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool)
+  [SETTINGS_LANGUAGE]: state => state,
+  [SETTINGS_MUTE]: (state) => settingReducers.toggleMute(state),
+  [SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
+  [SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool)
 });

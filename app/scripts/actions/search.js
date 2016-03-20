@@ -2,7 +2,8 @@ import constants from 'constants/';
 import { getYoutubeSearch, getSoundCloudSearch, getKakapoFavourites } from 'api/';
 
 const {
-  SEARCH_INPUT, SEARCH_KAKAPO, SEARCH_YOUTUBE, SEARCH_SOUNDCLOUD, SEARCH_ERROR
+  SEARCH_REQUEST, SEARCH_INPUT, SEARCH_KAKAPO, SEARCH_YOUTUBE,
+  SEARCH_SOUNDCLOUD, SEARCH_ERROR
 } = constants;
 
 const actions = {
@@ -12,6 +13,7 @@ const actions = {
   searchSoundCloud: term => dispatch => dispatch(actions.fetchService('soundcloud', term)),
 
   fetchService: (service, term) => dispatch => new Promise((resolve, reject) => {
+    dispatch(actions.fetchServiceRequest());
     let opts = { provider: getKakapoFavourites, type: SEARCH_KAKAPO }; // Kakapo default
     if (service === 'youtube') {
       opts = { provider: getYoutubeSearch, type: SEARCH_YOUTUBE };
@@ -25,6 +27,7 @@ const actions = {
     .then(resp => resolve(dispatch(actions.fetchServiceComplete(resp, opts.type))));
   }),
 
+  fetchServiceRequest: () => ({ type: SEARCH_REQUEST }),
   fetchServiceComplete: (items, type) => ({ type, items }),
   fetchServiceError: err => ({ type: SEARCH_ERROR, err })
 };
