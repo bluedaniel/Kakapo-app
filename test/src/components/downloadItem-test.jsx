@@ -7,11 +7,7 @@ import { newSoundClass } from 'classes/';
 import { DownloadItem } from 'components/';
 
 function setup(props = {}) {
-  const wrapper = shallow(<DownloadItem sound={props} />).shallow();
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<DownloadItem sound={props} />).shallow() };
 }
 
 const soundProp = (props = {}) => {

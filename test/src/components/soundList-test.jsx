@@ -15,11 +15,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<SoundList {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<SoundList {...propData} />) };
 }
 
 function randomSounds(count) {

@@ -12,11 +12,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<Options {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<Options {...propData} />) };
 }
 
 describe('<Options/>', () => {

@@ -21,11 +21,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<KakapoItem {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<KakapoItem {...propData} />) };
 }
 
 describe('<KakapoItem/>', () => {

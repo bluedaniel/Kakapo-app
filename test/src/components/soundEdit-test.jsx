@@ -15,11 +15,7 @@ function setup(props = {}) {
     soundActions: {},
     ...props
   };
-  const wrapper = shallow(<SoundEdit {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<SoundEdit {...propData} />) };
 }
 
 const soundProp = (props = {}) => {

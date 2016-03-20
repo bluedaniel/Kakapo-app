@@ -6,11 +6,7 @@ import { expect } from 'chai';
 import { Progress } from 'components/ui/';
 
 function setup(props = {}) {
-  const wrapper = shallow(<Progress {...props} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<Progress {...props} />) };
 }
 
 describe('<Progress/>', () => {

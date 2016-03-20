@@ -12,11 +12,7 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  const wrapper = shallow(<SearchResult {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<SearchResult {...propData} />) };
 }
 
 const sound = {

@@ -16,11 +16,7 @@ function setup(props = {}) {
     dispatch: (e) => e,
     ...props
   };
-  const wrapper = shallow(<Kakapo {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<Kakapo {...propData} />) };
 }
 
 function randomSounds(count) {

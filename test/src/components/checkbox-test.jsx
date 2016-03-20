@@ -1,12 +1,12 @@
 /* eslint-env mocha */
 /* eslint no-console:0 */
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { Checkbox } from 'components/ui/';
 
-function setup(props = {}, enzymeMethod = shallow) {
+function setup(props = {}) {
   const propData = {
     checked: false,
     dispatch: (e) => e,
@@ -15,11 +15,7 @@ function setup(props = {}, enzymeMethod = shallow) {
     name: 'testName',
     ...props
   };
-  const wrapper = enzymeMethod(<Checkbox {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<Checkbox {...propData} />) };
 }
 
 describe('<Checkbox/>', () => {
@@ -27,16 +23,5 @@ describe('<Checkbox/>', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('label');
     expect(wrapper.prop('className')).to.eql('switch');
-  });
-
-  describe('When changed', () => {
-    it('triggers handleChange fn', () => {
-      const onInputChange = sinon.spy();
-      const { wrapper } = setup({
-        handleChange: onInputChange
-      }, mount);
-      wrapper.find('input').simulate('change');
-      expect(onInputChange.calledOnce).to.equal(true);
-    });
   });
 });

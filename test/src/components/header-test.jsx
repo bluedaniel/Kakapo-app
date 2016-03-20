@@ -13,11 +13,7 @@ function setup(props = {}) {
     dispatch: (e) => e,
     ...props
   };
-  const wrapper = shallow(<Header {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<Header {...propData} />) };
 }
 
 describe('<Header/>', () => {

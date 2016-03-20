@@ -10,11 +10,7 @@ import { DownloadList } from 'components/';
 
 function setup(props = {}) {
   const propData = { ...getData('sounds'), ...props };
-  const wrapper = shallow(<DownloadList {...propData} />);
-  return {
-    props,
-    wrapper
-  };
+  return { props, wrapper: shallow(<DownloadList {...propData} />) };
 }
 
 function randomSounds(count) {

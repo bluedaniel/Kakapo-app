@@ -2,7 +2,7 @@
 /* eslint no-console:0 */
 import React from 'react';
 import { spy } from 'sinon';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { getData } from '../../helper';
 import { ImportSearch as Search } from 'components/';
@@ -26,24 +26,5 @@ describe('<Search/>', () => {
     const { wrapper } = setup();
     expect(wrapper.type()).to.eql('div');
     expect(wrapper.prop('className')).to.eql('youtube');
-  });
-
-  it('call componentDidMount', () => {
-    spy(Search.prototype, 'componentDidMount');
-    setup({}, mount);
-    expect(Search.prototype.componentDidMount.calledOnce).to.eql(true);
-    Search.prototype.componentDidMount.restore();
-  });
-
-  it('contains correct refs and state for youtube', () => {
-    const { wrapper } = setup({}, mount);
-    expect(wrapper.ref('searchInput').length).to.equal(1);
-    expect(wrapper.state()).to.eql({ service: 'youtube', loading: false });
-  });
-
-  it('contains correct refs and state for soundcloud', () => {
-    const { wrapper } = setup({ location: { pathname: '/soundcloud' } }, mount);
-    expect(wrapper.ref('searchInput').length).to.equal(1);
-    expect(wrapper.state()).to.eql({ service: 'soundcloud', loading: false });
   });
 });
