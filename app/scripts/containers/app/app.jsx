@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { ipcRenderer, remote } from 'electron';
+import { ipcRenderer } from 'electron';
 import fs from 'fs-extra';
 import Dropzone from 'react-dropzone';
 import { intlShape, injectIntl } from 'react-intl';
@@ -11,15 +11,12 @@ import { Subroutes } from 'components/ui';
 import { classNames, pathConfig, toasterInstance } from 'utils/';
 import './app.css';
 
-let autoUpdater;
 let initialState = {};
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
-  autoUpdater = remote.autoUpdater;
   const gradients = fs.readJsonSync(pathConfig.gradientFile);
   initialState = {
-    updateAvailable: false,
     gradient: gradients[Math.floor(Math.random() * gradients.length)]
   };
 }
@@ -39,11 +36,6 @@ class App extends Component {
 
   componentDidMount() {
     this.props.dispatch(soundActions.soundsInit());
-    /* istanbul ignore if */
-    if (__DESKTOP__) {
-      ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
-      autoUpdater.checkForUpdates();
-    }
   }
 
   onDrop = (files) => { // Desktop only
@@ -55,9 +47,6 @@ class App extends Component {
         _t.toast('You can only add desktop files with the Kakapo desktop app.'));
     }
   };
-
-  // Desktop only
-  handleUpdateAvailable = () => this.setState({ updateAvailable: true });
 
   // Desktop only
   handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
@@ -114,7 +103,8 @@ class App extends Component {
 
           <div className="main-panel">
             {__DESKTOP__ ? this.renderUpload() : null}
-            {this.state.updateAvailable ?
+
+            {settings.updateStatus === 'downloaded' ?
               <a className="update-now" onClick={this.handleAutoUpdateClick}>
               Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 

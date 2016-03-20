@@ -3,7 +3,9 @@ import { bridgedSettings } from 'kakapoBridge';
 import constants from 'constants/';
 import { createReducer, flatteni18n } from 'utils/';
 
-const { SETTINGS_LANGUAGE, SETTINGS_MUTE, SETTINGS_DOCK, SETTINGS_DEVTOOLS } = constants;
+const {
+  SETTINGS_LANGUAGE, SETTINGS_MUTE, SETTINGS_DOCK, SETTINGS_DEVTOOLS, SETTINGS_UPDATE
+} = constants;
 
 let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
   ({ ...acc, [k]: bridgedSettings.getItem(k) }), {
@@ -31,6 +33,10 @@ const settingReducers = {
   toggleDevTools(state, value) {
     bridgedSettings.setItem('devTools', value);
     return { ...state, devTools: value };
+  },
+  desktopUpdate(state, value) {
+    bridgedSettings.setItem('updateStatus', value);
+    return { ...state, updateStatus: value };
   }
 };
 
@@ -38,5 +44,6 @@ export default createReducer(initialState, {
   [SETTINGS_LANGUAGE]: state => state,
   [SETTINGS_MUTE]: (state) => settingReducers.toggleMute(state),
   [SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
-  [SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool)
+  [SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool),
+  [SETTINGS_UPDATE]: (state, { status }) => settingReducers.desktopUpdate(state, status)
 });

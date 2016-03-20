@@ -142,7 +142,8 @@ if (__DESKTOP__) {
     userSettingsFile: path.join(app.getPath('userData'), 'user-data/settings.json'),
     userSoundFile: path.join(app.getPath('userData'), 'user-data/sounds.json'),
     userThemeFile: path.join(app.getPath('userData'), 'user-data/theme.json'),
-    userInstallFile: path.join(app.getPath('userData'), 'user-data/app-details.json')
+    userInstallFile: path.join(app.getPath('userData'), 'user-data/app-details.json'),
+    tempDir: app.getPath('temp')
   };
 }
 

@@ -5,6 +5,7 @@ export default createConstants(
   'SETTINGS_DOCK',
   'SETTINGS_MUTE',
   'SETTINGS_DEVTOOLS',
+  'SETTINGS_UPDATE',
 
   'THEMES_CHANGE',
 

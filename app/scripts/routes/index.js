@@ -6,7 +6,9 @@ export default {
   component: App,
   indexRoute: { component: ImportOptions },
   childRoutes: [
-    { path: 'settings', component: Settings },
+    { path: 'settings', component: Settings, childRoutes: [
+      { path: 'theme(/:slotNo)', component: Settings }
+    ] },
     { path: 'kakapo', component: ImportKakapo },
     { path: 'youtube', component: ImportSearch },
     { path: 'soundcloud', component: ImportSearch },
