@@ -27,6 +27,11 @@ const settingReducers = {
   initialRender(state) {
     return { ...state, initialRender: true };
   },
+  toggleMute(state) {
+    const mute = bridgedSettings.getItem('mute');
+    bridgedSettings.setItem('mute', !mute);
+    return { ...state, mute: !mute };
+  },
   toggleDock(state, value) {
     bridgedSettings.setItem('dockIcon', value);
     return { ...state, dockIcon: value };

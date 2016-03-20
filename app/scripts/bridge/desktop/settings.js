@@ -23,7 +23,7 @@ export default {
     }
 
     return {
-      mute: false,
+      mute: appSettings.mute || false,
       lang: appSettings.lang || 'en',
       devTools: appSettings.devTools || false,
       dockIcon: appSettings.dockIcon,
