@@ -6,7 +6,7 @@ import './header.css';
 export default ({ settings, themes, dispatch }) => {
   const toggleMute = () => {
     dispatch(settingActions.toggleMute());
-    dispatch(soundActions.soundsMute(!settings.mute));
+    dispatch(soundActions.soundsMute());
   };
 
   return (

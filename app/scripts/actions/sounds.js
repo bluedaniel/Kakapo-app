@@ -11,7 +11,7 @@ const {
 
 const actions = {
   soundsInit: () => dispatch => dispatch(actions.fetchSounds()),
-  soundsMute: mute => ({ type: SOUNDS_MUTE, mute }),
+  soundsMute: () => ({ type: SOUNDS_MUTE }),
   soundsPlay: sound => ({ type: SOUNDS_PLAY, sound }),
   soundsVolume: (sound, volume) => ({ type: SOUNDS_VOLUME, sound, volume }),
   soundsEdit: (sound, data) => ({ type: SOUNDS_EDIT, sound, data }),
