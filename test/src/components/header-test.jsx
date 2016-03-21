@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-/* eslint no-console:0 */
 import React from 'react';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';

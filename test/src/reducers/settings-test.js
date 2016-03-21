@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-/* eslint no-console:0 */
 import { expect } from 'chai';
 import { settingActions } from 'actions/';
 import settings, { initialState } from 'reducers/settings';

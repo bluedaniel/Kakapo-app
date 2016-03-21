@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-/* eslint no-console:0 */
 import { expect } from 'chai';
 import { classNames } from 'utils/';
 

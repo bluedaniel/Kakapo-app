@@ -1,5 +1,3 @@
-/* eslint-env mocha */
-/* eslint no-console:0 */
 import { expect } from 'chai';
 import { themeActions } from 'actions/';
 import themes, { initialState } from 'reducers/themes';
