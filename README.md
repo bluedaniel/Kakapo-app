@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/bluedaniel/Kakapo-app.svg)](https://travis-ci.org/bluedaniel/Kakapo-app) [![Dependency Status](https://david-dm.org/bluedaniel/kakapo-app.svg)](https://david-dm.org/bluedaniel/kakapo-app)  [![Coverage Status](https://coveralls.io/repos/github/bluedaniel/Kakapo-app/badge.svg?branch=master)](https://coveralls.io/github/bluedaniel/Kakapo-app?branch=master)
 
-<img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/icons/social/kakapo.png" width="128" height="128" align="right" />
+<img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/images/kakapo_border.png" width="128" height="128" align="right" />
 
 [Kakapo](http://kakapo.co) is an open source ambient sound mixer for relaxation or productivity.
 
