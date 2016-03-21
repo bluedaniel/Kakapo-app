@@ -8,7 +8,7 @@ const {
   SETTINGS_DOCK, SETTINGS_DEVTOOLS, SETTINGS_UPDATE
 } = constants;
 
-let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
+export let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
   ({ ...acc, [k]: bridgedSettings.getItem(k) }), {
     intlData: { ...kakapoAssets.i18n.en, messages: flatteni18n(kakapoAssets.i18n.en.messages) },
     initialRender: false,

@@ -5,6 +5,8 @@ if (!global.Intl) {
   require('react-intl/locale-data/en');
 }
 
+localStorage.clear();
+
 // require all `test/components/**/index.js`
 const testsContext = require.context('./src', true, /-test\.(js|jsx)$/);
 testsContext.keys().forEach(testsContext);

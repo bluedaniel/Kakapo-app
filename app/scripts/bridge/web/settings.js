@@ -18,6 +18,7 @@ export default {
     return isJson(obj) ? JSON.parse(obj) : obj;
   },
   setItem(option, value) {
+    if (option === 'initialRender' || option === 'updateStatus') return;
     localStorage.setItem(option, JSON.stringify(value));
   }
 };
