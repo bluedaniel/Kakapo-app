@@ -22,6 +22,10 @@
   }
 }
 
+.icon-playlist::before {
+  content: "\e903";
+}
+
 .icon-soundcloud::before {
   content: "\e902";
 }

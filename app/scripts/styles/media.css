@@ -5,7 +5,20 @@
     position: relative;
   }
   .divider {
-    display: none;
+    background: black;
+
+    @media (max-width: 40rem) {
+      display: inline-block;
+      width: 1px;
+      margin: 0 1rem;
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    @media (min-width: 40rem) {
+      height: 1px;
+      margin: 1rem 0;
+    }
   }
   .add-sounds-title {
     display: none;
@@ -26,10 +39,17 @@
   }
   .option {
     display: inline-block;
+    vertical-align: middle;
+    margin-right: 1em;
 
     @media (min-width: 40rem) {
+      margin-right: 0;
       margin-bottom: 1em;
       display: block;
+    }
+    &:last-child {
+      margin-bottom: 0;
+      margin-right: 0;
     }
     span.text {
       font-size: 14px;
@@ -41,9 +61,27 @@
       }
     }
     i {
-      margin-right: 14px;
       width: 42px;
       height: 42px;
+      text-align: center;
+
+      @media (min-width: 40rem) {
+        margin-right: 14px;
+      }
+      &.icon-add {
+        top: 4px;
+        position: relative;
+
+        @media (min-width: 40rem) {
+          top: 0;
+        }
+      }
+      &.icon-add,
+      &.icon-settings,
+      &.icon-playlist {
+        font-size: 35px;
+        vertical-align: -webkit-baseline-middle;
+      }
     }
   }
 }
