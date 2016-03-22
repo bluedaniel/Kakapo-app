@@ -1,7 +1,9 @@
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
+import color from 'color';
 import { fromJS, Map } from 'immutable';
-import { flatteni18n } from 'utils/';
+import { flatteni18n, swatches } from 'utils/';
+import packageJson from '../package.json';
 
 export function getIntlProps() {
   return {
@@ -13,7 +15,14 @@ export function getIntlProps() {
 export function getData(slice, opts = {}) {
   switch (slice) {
     case 'themes': {
-      return { themes: fromJS(kakapoAssets.theme) };
+      return { themes: fromJS({
+        version: packageJson.config.themeVersion,
+        darkUI: swatches('light').indexOf('#673AB7') !== -1,
+        colorPickerActive: false, // Close the color picker
+        btn: '#4CAF50',
+        darkPrimary: color('#673AB7').darken(0.2).hexString(),
+        primary: '#673AB7'
+      }) };
     }
     case 'search': {
       return { search: fromJS({
