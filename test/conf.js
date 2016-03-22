@@ -5,7 +5,7 @@ import path from 'path';
 module.exports = (config) => {
   config.set({
     frameworks: [ 'mocha', 'chai' ],
-    reporters: [ 'coverage', 'mocha' ],
+    reporters: [ 'coverage', 'mocha', 'coveralls' ],
     browsers: [ 'PhantomJS' ],
     singleRun: !argv.watch,
     files: [
