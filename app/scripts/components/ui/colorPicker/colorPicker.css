@@ -1,11 +1,12 @@
 .color-picker {
   border: 1px solid #efefef;
   display: none;
-  left: 10px;
+  left: 50%;
   position: absolute;
   top: 75px;
   width: 280px;
   z-index: 60;
+  margin-left: -140px;
   &.active {
     display: block;
   }
