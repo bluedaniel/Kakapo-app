@@ -1,45 +1,86 @@
 .media {
-  margin-top: 20px;
   .media-opts {
     background: #fff;
     overflow: hidden;
     position: relative;
   }
+  .divider {
+    background: black;
+
+    @media (max-width: 40rem) {
+      display: inline-block;
+      width: 1px;
+      margin: 0 1rem;
+      height: 40px;
+      vertical-align: middle;
+    }
+
+    @media (min-width: 40rem) {
+      height: 1px;
+      margin: 1rem 0;
+    }
+  }
+  .add-sounds-title {
+    display: none;
+
+    @media (min-width: 40rem) {
+      display: block;
+    }
+  }
   .option-ul {
     margin: 0;
     padding: 0;
+    list-style: none;
+    display: inline-block;
+
+    @media (min-width: 40rem) {
+      display: block;
+    }
   }
   .option {
     display: inline-block;
-    height: 98px;
-    margin-bottom: 1em;
-    padding: 1px;
-    text-align: center;
-    vertical-align: top;
-    width: 49%;
-    z-index: 999;
-    span.text {
+    vertical-align: middle;
+    margin-right: 1em;
+
+    @media (min-width: 40rem) {
+      margin-right: 0;
+      margin-bottom: 1em;
       display: block;
+    }
+    &:last-child {
+      margin-bottom: 0;
+      margin-right: 0;
+    }
+    span.text {
       font-size: 14px;
       line-height: 20px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      display: none;
+
+      @media (min-width: 40rem) {
+        display: inline-block;
+      }
     }
     i {
-      display: block;
-      height: 65%;
-      margin: 10px auto;
-      vertical-align: top;
-      width: 65%;
-    }
-    &.options-soundcloud {
-      margin-bottom: 0;
-    }
+      width: 42px;
+      height: 42px;
+      text-align: center;
 
-    @media (min-width: 568px) {
-      &.options-youtube {
-        margin-bottom: 0;
+      @media (min-width: 40rem) {
+        margin-right: 14px;
+      }
+      &.icon-add {
+        top: 4px;
+        position: relative;
+
+        @media (min-width: 40rem) {
+          top: 0;
+        }
+      }
+      &.icon-add,
+      &.icon-settings,
+      &.icon-playlist {
+        font-size: 35px;
+        vertical-align: -webkit-baseline-middle;
       }
     }
   }

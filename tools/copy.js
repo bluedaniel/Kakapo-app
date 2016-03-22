@@ -8,6 +8,8 @@ const fsPromise = Bluebird.promisifyAll(fs);
 export default async function copy() {
   const indexFile = argv.production ? 'index' : 'index-dev';
 
+  await fsPromise.copyAsync('./node_modules/kakapo-assets/icomoon/fonts', 'build/fonts', {});
+
   if (argv.platform === 'desktop') {
     proc.execSync('babel app/browser.js --out-file build/browser.js');
     await fsPromise.copyAsync('package.json', 'build/package.json', {});

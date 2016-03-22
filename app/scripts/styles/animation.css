@@ -1,4 +1,3 @@
-
 @keyframes scaleFade {
   0% {
     opacity: 0;
@@ -98,42 +97,27 @@
   }
 }
 
-.modal-transitions {
-  /* Modal entering and leaving */
-  .modal-enter {
-    transform: scale(0.7);
-    opacity: 0;
-    transition: all 0.3s;
-    &.modal-enter-active {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-
-  .modal-leave {
+/* Modal entering and leaving */
+.panel-enter {
+  position: absolute;
+  width: calc(100% - 40px);
+  transform: scale(0.7);
+  opacity: 0;
+  transition: all 0.3s;
+  &.panel-enter-active {
     transform: scale(1);
     opacity: 1;
-    transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946), opacity 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
-    &.modal-leave-active {
-      transform: scale(1.15);
-      opacity: 0;
-    }
   }
+}
 
-  /* Modal background entering and leaving */
-  .modalBg-enter,
-  .modalBg-leave {
-    transition: all 0.3s;
-  }
-
-  .modalBg-enter {
-    opacity: 0;
-    &.modalBg-enter-active {
-      opacity: 1;
-    }
-  }
-
-  .modalBg-leave.modalBg-leave-active {
+.panel-leave {
+  position: absolute;
+  width: calc(100% - 40px);
+  transform: scale(1);
+  opacity: 1;
+  transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946), opacity 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+  &.panel-leave-active {
+    transform: scale(1.15);
     opacity: 0;
   }
 }
@@ -141,8 +125,6 @@
 /* Color transitions based on theme changes */
 body,
 .header,
-.navbar,
-.navbar > div,
 .swatches a {
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
 }

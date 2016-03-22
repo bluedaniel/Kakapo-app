@@ -1,134 +1,83 @@
-import React, { Component, PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { ipcRenderer, remote } from 'electron';
-import fs from 'fs-extra';
+import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
-import { intlShape, injectIntl } from 'react-intl';
+import { injectIntl } from 'react-intl';
 import color from 'color';
-import { soundActions } from 'actions/';
+import { soundActions, settingActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import { Subroutes } from 'components/ui';
-import { classNames, pathConfig, toasterInstance } from 'utils/';
-import 'styles/base.css';
+import { classNames, toasterInstance } from 'utils/';
 import './app.css';
 
-let autoUpdater;
-let initialState = {};
+const App = (props) => {
+  const { settings, sounds, themes, intl, dispatch } = props;
 
-/* istanbul ignore if */
-if (__DESKTOP__) {
-  autoUpdater = remote.autoUpdater;
-  const gradients = fs.readJsonSync(pathConfig.gradientFile);
-  initialState = {
-    updateAvailable: false,
-    gradient: gradients[Math.floor(Math.random() * gradients.length)]
-  };
-}
-
-class App extends Component {
-  static propTypes = {
-    children: PropTypes.object,
-    soundActions: PropTypes.object,
-    themes: PropTypes.object,
-    sounds: PropTypes.object,
-    location: PropTypes.object,
-    intl: intlShape,
-    dispatch: PropTypes.func
-  };
-
-  state = initialState;
-
-  componentDidMount() {
-    this.props.dispatch(soundActions.soundsInit());
-    /* istanbul ignore if */
-    if (__DESKTOP__) {
-      ipcRenderer.on('application:update-available', this.handleUpdateAvailable);
-      autoUpdater.checkForUpdates();
-    }
+  if (!settings.initialRender) {
+    dispatch(settingActions.initialRender());
+    dispatch(soundActions.soundsInit());
   }
 
-  onDrop = (files) => { // Desktop only
+  const onDrop = (files) => {
     /* istanbul ignore if */
     if (__DESKTOP__) {
-      files.map(_f => this.props.soundActions.addLocalSound(_f.name, _f.path));
+      files.map(_f => dispatch(soundActions.addLocalSound(_f.name, _f.path)));
     } else {
       toasterInstance().then(_t =>
         _t.toast('You can only add desktop files with the Kakapo desktop app.'));
     }
   };
 
-  // Desktop only
-  handleUpdateAvailable = () => this.setState({ updateAvailable: true });
-
-  // Desktop only
-  handleAutoUpdateClick = () => ipcRenderer.send('application:quit-install');
-
-  renderUpload() {
-    const { gradient } = this.state;
-    return (
-      <div
-        className="upload-files"
-        style={{
-          background: `linear-gradient(90deg, ${gradient.colors[0]} 10%, ${gradient.colors[1]} 90%)`
-        }}
-      >
-        <div className="inner">
-          <h3><i className="icon-add"></i></h3>
-          <p className="text">Drop files to upload</p>
-          <a className="gradient-name" href="http://uigradients.com" target="_blank">
-            Gradient: {gradient.name}
-          </a>
-        </div>
+  const renderUpload = () => (
+    <div className="uploadFiles">
+      <div className="inner">
+        <h3><i className="icon-add"></i></h3>
+        <p className="text">Drop files to upload</p>
       </div>
-    );
-  }
+    </div>
+  );
 
-  renderLoading() {
-    const { themes } = this.props;
-    return (
-      <div className="loading" style={{
-        background: color(themes.get('palette').first()).alpha(0.5).rgbaString()
-      }}
-      >
-        <div className="sk-fading-circle">
-          {Array.from(new Array(12), (x, i) => i + 1).map(a => (
-            <div className={`sk-circle${a} sk-circle`} key={`sk-circle${a}`} />
-          ))}
-        </div>
+  const renderLoading = () => (
+    <div className="loading" style={{
+      background: color(themes.get('primary')).alpha(0.5).rgbaString()
+    }}
+    >
+      <div className="sk-fading-circle">
+        {Array.from(new Array(12), (x, i) => i + 1).map(a => (
+          <div className={`sk-circle${a} sk-circle`} key={`sk-circle${a}`} />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 
-  render() {
-    const { sounds, themes, intl, dispatch, location } = this.props;
-    return (
-      <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
-        <Dropzone
-          activeClassName="activeDrop"
-          className="inactiveDrop"
-          disableClick
-          onDrop={this.onDrop}
-        >
-          {__DESKTOP__ ? this.renderUpload() : null}
-          {this.state.updateAvailable ?
-            <a className="update-now" onClick={this.handleAutoUpdateClick}>
+  return (
+    <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
+      <Dropzone activeClassName="activeDrop" className="inactiveDrop" disableClick
+        onDrop={onDrop}
+      >
+        <Nav {...{ themes, intl }} />
+
+        <Subroutes {...props} />
+
+        <div className="main-panel">
+          {__DESKTOP__ ? renderUpload() : null}
+
+          {settings.updateStatus === 'downloaded' ?
+            <a className="update-now" onClick={() => ipcRenderer.send('application:quit-install')}>
             Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 
-          <Nav {...{ themes, intl, dispatch }} />
-          <Header {...{ themes, location, intl }} />
-
-          <Subroutes {...this.props} />
+          <Header {...{ settings, themes, intl, dispatch }} />
 
           {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
-            this.renderLoading()}
+            renderLoading()}
 
           <aside className="toast-view"></aside>
           <DownloadList {...{ sounds }} />
-        </Dropzone>
-      </div>
-    );
-  }
-}
+        </div>
+      </Dropzone>
+    </div>
+  );
+};
 
 export default injectIntl(connect(state => ({
   settings: state.settings,

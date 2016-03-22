@@ -1,12 +1,13 @@
-import React, { cloneElement, PropTypes } from 'react';
-import { Link } from 'react-router';
+import React, { cloneElement } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import color from 'color';
-import { camelCase, omit } from 'utils/';
+import { Link } from 'react-router';
+import { camelCase, omit, classNames } from 'utils/';
+import './subroutes.css';
 
-export default function Subroutes(props) {
-  const { themes, children, location } = props;
-  const modalTransitions = {
+export default (props) => {
+  const { children, location } = props;
+
+  const transitions = {
     component: 'div',
     transitionEnterTimeout: 500,
     transitionLeaveTimeout: 300
@@ -17,24 +18,16 @@ export default function Subroutes(props) {
   };
 
   return (
-    <div className="container modal-transitions">
-
-      <CSSTransitionGroup transitionName="modal" { ...modalTransitions }>
-        {children ? cloneElement(children, newProps) : null}
-      </CSSTransitionGroup>
-
-      <CSSTransitionGroup transitionName="modalBg" { ...modalTransitions }>
-        {children ? (<Link className="modal-bg" style={{
-          background: color(themes.get('palette').first()).alpha(0.5).rgbaString() }} to="/"
-        />) : null}
-      </CSSTransitionGroup>
-
+    <div className={classNames('secondary-panel', {
+      'with-close': newProps.key !== '/'
+    })}
+    >
+      {newProps.key !== '/' ? <Link className="icon-close" to="/" /> : null}
+      <div className="inner">
+        <CSSTransitionGroup transitionName="panel" { ...transitions }>
+          {children ? cloneElement(children, newProps) : null}
+        </CSSTransitionGroup>
+      </div>
     </div>
   );
-}
-
-Subroutes.propTypes = {
-  themes: PropTypes.object,
-  children: PropTypes.object,
-  location: PropTypes.object
 };

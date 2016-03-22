@@ -2,10 +2,15 @@ import { List, fromJS } from 'immutable';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 
+const {
+  SEARCH_REQUEST, SEARCH_KAKAPO, SEARCH_YOUTUBE, SEARCH_SOUNDCLOUD
+} = constants;
+
 export const initialState = fromJS({
   youtube: [],
   soundcloud: [],
-  kakapofavs: []
+  kakapofavs: [],
+  loading: false
 });
 
 const searchReducers = {
@@ -79,14 +84,20 @@ const searchReducers = {
       tags: _y.tags,
       url: _y.url
     } }));
+  },
+
+  fetchComplete(state, service, list) {
+    const newState = state.update(service, () => new List(list));
+    return newState.update('loading', () => false);
   }
 };
 
 export default createReducer(initialState, {
-  [constants.SEARCH_YOUTUBE]: (state, { items }) =>
-    state.update('youtube', () => new List(searchReducers.mapYoutube(items))),
-  [constants.SEARCH_SOUNDCLOUD]: (state, { items }) =>
-    state.update('soundcloud', () => new List(searchReducers.mapSoundcloud(items))),
-  [constants.SEARCH_KAKAPO]: (state, { items }) =>
-    state.update('kakapofavs', () => new List(searchReducers.mapKakapo(items)))
+  [SEARCH_REQUEST]: (state) => state.update('loading', () => true),
+  [SEARCH_YOUTUBE]: (state, { items }) =>
+    searchReducers.fetchComplete(state, 'youtube', searchReducers.mapYoutube(items)),
+  [SEARCH_SOUNDCLOUD]: (state, { items }) =>
+    searchReducers.fetchComplete(state, 'soundcloud', searchReducers.mapSoundcloud(items)),
+  [SEARCH_KAKAPO]: (state, { items }) =>
+    searchReducers.fetchComplete(state, 'kakapofavs', searchReducers.mapKakapo(items))
 });

@@ -1,8 +1,25 @@
 import React from 'react';
 
-export default ({ name, placeholder, value, spinner, intl }) => (
+export default ({ name,
+  onChange = () => ({}),
+  onFocus = () => ({}),
+  onBlur = () => ({}),
+  placeholder,
+  value,
+  spinner,
+  intl
+}) => (
   <div className="group">
-    <input type="text" name={name} defaultValue={value} autoComplete="off" required />
+    <input
+      type="text"
+      name={name}
+      onChange={onChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      defaultValue={value}
+      autoComplete="off"
+      required
+    />
     <span className="highlight"></span>
     <span className="bar"></span>
     <label>{intl.formatMessage({ id: placeholder, defaultMessage: placeholder })}</label>

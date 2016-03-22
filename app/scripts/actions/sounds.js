@@ -3,28 +3,34 @@ import constants from 'constants/';
 import { getDefaultSounds, getYoutubeURL, getCustomFile,
   getCustomURL, getSoundCloudURL } from 'api/';
 
+const {
+  SOUNDS_MUTE, SOUNDS_PLAY, SOUNDS_VOLUME, SOUNDS_EDIT, SOUNDS_REMOVE,
+  SOUNDS_RECEIVED, SOUNDS_ADD_CUSTOM, SOUNDS_ADD_YOUTUBE, SOUNDS_ADD_SOUNDCLOUD,
+  SOUNDS_DOWNLOADING, SOUNDS_DOWNLOADED, SOUNDS_ERROR, SOUNDS_RESET
+} = constants;
+
 const actions = {
   soundsInit: () => dispatch => dispatch(actions.fetchSounds()),
-  soundsMute: mute => ({ type: constants.SOUNDS_MUTE, mute }),
-  soundsPlay: sound => ({ type: constants.SOUNDS_PLAY, sound }),
-  soundsVolume: (sound, volume) => ({ type: constants.SOUNDS_VOLUME, sound, volume }),
-  soundsEdit: (sound, data) => ({ type: constants.SOUNDS_EDIT, sound, data }),
-  soundsRemove: sound => ({ type: constants.SOUNDS_REMOVE, sound }),
+  soundsMute: () => ({ type: SOUNDS_MUTE }),
+  soundsPlay: sound => ({ type: SOUNDS_PLAY, sound }),
+  soundsVolume: (sound, volume) => ({ type: SOUNDS_VOLUME, sound, volume }),
+  soundsEdit: (sound, data) => ({ type: SOUNDS_EDIT, sound, data }),
+  soundsRemove: sound => ({ type: SOUNDS_REMOVE, sound }),
 
   fetchSounds: () => dispatch => getDefaultSounds()
     .then(resp => dispatch(actions.fetchSoundsComplete(resp))),
-  fetchSoundsComplete: resp => ({ type: constants.SOUNDS_RECEIVED, resp }),
+  fetchSoundsComplete: resp => ({ type: SOUNDS_RECEIVED, resp }),
 
   addLocalSound: (name, path) => dispatch =>
     dispatch(actions.addSoundComplete(getCustomFile(name, path))),
 
   addSound: (service, data, notify = true) => dispatch => {
-    let opts = { provider: getCustomURL, type: constants.SOUNDS_ADD_CUSTOM };
+    let opts = { provider: getCustomURL, type: SOUNDS_ADD_CUSTOM };
     if (service === 'youtube') {
-      opts = { provider: getYoutubeURL, type: constants.SOUNDS_ADD_YOUTUBE };
+      opts = { provider: getYoutubeURL, type: SOUNDS_ADD_YOUTUBE };
     }
     if (service === 'soundcloud') {
-      opts = { provider: getSoundCloudURL, type: constants.SOUNDS_ADD_SOUNDCLOUD };
+      opts = { provider: getSoundCloudURL, type: SOUNDS_ADD_SOUNDCLOUD };
     }
     const fetchFunc = opts.provider(data);
 
@@ -43,12 +49,12 @@ const actions = {
     }
   },
 
-  addSoundDownloading: sound => ({ type: constants.SOUNDS_DOWNLOADING, sound }),
+  addSoundDownloading: sound => ({ type: SOUNDS_DOWNLOADING, sound }),
   addSoundComplete: (sound, notify = true) =>
-    ({ type: constants.SOUNDS_DOWNLOADED, sound, notify }),
-  addSoundError: err => ({ type: constants.SOUNDS_ERROR, err }),
+    ({ type: SOUNDS_DOWNLOADED, sound, notify }),
+  addSoundError: err => ({ type: SOUNDS_ERROR, err }),
 
-  resetSounds: clear => ({ type: constants.SOUNDS_RESET, clear })
+  resetSounds: clear => ({ type: SOUNDS_RESET, clear })
 };
 
 export default actions;

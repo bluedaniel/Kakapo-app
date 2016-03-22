@@ -1,6 +1,10 @@
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { pathConfig } from 'utils/';
+import shortid from 'shortid';
+import path from 'path';
+import { pathConfig, omit } from 'utils/';
+
+const tmpUpdateStatus = path.join(pathConfig.tempDir, `kakapo-${shortid.generate()}`);
 
 export default {
   _fromSettings() {
@@ -10,10 +14,20 @@ export default {
     } catch (err) {
       fs.writeJson(pathConfig.userSettingsFile, appSettings);
     }
+
+    let updateStatus = false;
+    try {
+      updateStatus = fs.readJsonSync(tmpUpdateStatus, { throws: false });
+    } catch (err) {
+      fs.writeJson(tmpUpdateStatus, updateStatus);
+    }
+
     return {
+      mute: appSettings.mute || false,
       lang: appSettings.lang || 'en',
       devTools: appSettings.devTools || false,
-      dockIcon: appSettings.dockIcon
+      dockIcon: appSettings.dockIcon,
+      updateStatus
     };
   },
   getItem(option) {
@@ -23,13 +37,16 @@ export default {
   setItem(option, value) {
     const data = this._fromSettings();
     data[option] = value;
-    fs.writeJson(pathConfig.userSettingsFile, data);
+    fs.writeJson(pathConfig.userSettingsFile, omit('updateStatus', data));
 
     if (option === 'dockIcon') {
       ipcRenderer.send('toggle-dock', value);
     }
     if (option === 'devTools') {
       ipcRenderer.send('toggle-devtools', value);
+    }
+    if (option === 'updateStatus') {
+      fs.writeJson(tmpUpdateStatus, value);
     }
   }
 };

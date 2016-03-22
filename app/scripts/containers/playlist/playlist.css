@@ -1,7 +1,7 @@
 .playlist-pane {
   font-size: 90%;
   margin-left: 10px;
-  .pure-form {
+  .form {
     position: relative;
     input {
       margin: 0;
@@ -22,7 +22,7 @@
       }
     }
   }
-  .pure-button {
+  .button {
     margin-bottom: 8px;
     margin-right: 8px;
   }

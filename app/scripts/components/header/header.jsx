@@ -1,37 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { classNames, camelCase } from 'utils/';
+import { soundActions, settingActions } from 'actions/';
+import { classNames } from 'utils/';
 import './header.css';
 
-export default ({ themes, intl, location }) => {
-  const darkUI = { dark: themes.get('darkUI') };
+export default ({ settings, themes, dispatch }) => {
+  const toggleMute = () => {
+    dispatch(settingActions.toggleMute());
+    dispatch(soundActions.soundsMute());
+  };
+
   return (
-    <header
-      className={classNames('header', { hideHint: camelCase(location.pathname).length })}
-      style={themes.getIn([ 'header', 'titlebar' ]).toJS()}
-    >
-      <div className="container">
-        <Link to="/downloads">
-          <i className={classNames('icon-add', 'hint--bottom-right', darkUI)}
-            data-hint={intl.formatMessage({ id: 'nav.downloads' })}
-          />
-        </Link>
-        <Link to="/playlist">
-          <i className={classNames('icon-playlist', 'hint--bottom-right', darkUI)}
-            data-hint={intl.formatMessage({ id: 'nav.playlist' })}
-          />
-        </Link>
-        <Link className="logo" to="/">
-          <h3 style={themes.getIn([ 'header', 'h3' ]).toJS()}>
-            <span className="logo-bg icon-logo"></span>
-            <span className="logo-text">Kakapo</span>
-          </h3>
-        </Link>
-        <Link to="/settings">
-          <i className={classNames('icon-settings', 'hint--bottom-left', darkUI)}
-            data-hint={intl.formatMessage({ id: 'nav.settings' })}
-          />
-        </Link>
+    <header className="header" style={{ backgroundColor: themes.get('primary') }}>
+      <span
+        className="toggle-mute hint--right"
+        data-hint={settings.mute ? 'Unmute' : 'Mute'}
+        onClick={toggleMute}
+      >
+        <i className={classNames(settings.mute ? 'icon-volume_off' : 'icon-volume_up', {
+          dark: themes.get('darkUI')
+        })}
+        />
+    </span>
+      <div className="logo">
+        <h3 className={classNames({ darkUI: themes.get('darkUI') })}>
+          <span className="logo-bg icon-img-logo"></span>
+          <span className="logo-text">Kakapo</span>
+        </h3>
       </div>
     </header>
   );

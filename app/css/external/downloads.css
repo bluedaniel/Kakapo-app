@@ -2,10 +2,9 @@
 @import "purecss/build/grids";
 @import "purecss/build/grids-responsive";
 @import "purecss/build/buttons";
-@import "animate.css/animate";
-@import "../scripts/styles/fonts";
-@import "../scripts/styles/type";
-@import "../scripts/styles/emoji";
+@import "styles/fonts";
+@import "styles/type";
+@import "styles/emoji";
 
 body {
   background: linear-gradient(90deg, #de6262 10%, #ffb88c 90%);

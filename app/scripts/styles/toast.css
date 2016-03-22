@@ -10,13 +10,14 @@
   opacity: 0;
   padding: 16px;
   position: fixed;
-  top: 16px;
+  top: -1000em;
   transform: translateY(20px);
   transition: opacity 200ms, transform 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: transform;
 }
 
 .toast-view--visible {
+  top: 16px;
   opacity: 1;
   transform: translateY(0);
   z-index: 100;

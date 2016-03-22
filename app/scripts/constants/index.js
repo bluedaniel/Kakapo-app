@@ -1,9 +1,12 @@
 import { createConstants } from '../utils';
 
 export default createConstants(
+  'SETTINGS_INITIAL_RENDER',
   'SETTINGS_LANGUAGE',
   'SETTINGS_DOCK',
+  'SETTINGS_MUTE',
   'SETTINGS_DEVTOOLS',
+  'SETTINGS_UPDATE',
 
   'THEMES_CHANGE',
 
@@ -23,6 +26,7 @@ export default createConstants(
   'SOUNDS_ERROR',
   'SOUNDS_RESET',
 
+  'SEARCH_REQUEST',
   'SEARCH_KAKAPO',
   'SEARCH_YOUTUBE',
   'SEARCH_SOUNDCLOUD',
