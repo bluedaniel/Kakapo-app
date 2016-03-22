@@ -66,7 +66,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
 
   const renderShare = () => {
     if (params.shareId) {
-      const url = location.hostname + (__DEV__ ? `:${location.port}` : 'kakapo.co/playlist/');
+      const url = location.hostname + (__DEV__ ? `:${location.port}` : 'kakapo.co/#/playlist/');
       return (
         <div>
           <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
@@ -96,7 +96,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
       <p>{intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
       <form className="form">
         <div className="InputAddOn">
-          <span className="InputAddOn-item">kakapo.co/playlist/</span>
+          <span className="InputAddOn-item">kakapo.co/#/playlist/</span>
           <input onKeyDown={handleDesktopPlaylistInput}
             className="input-1 InputAddOn-field" type="text"
           />
