@@ -1,20 +1,21 @@
+import { Map } from 'immutable';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 
 const { NOTIFICATION_SEND, NOTIFICATION_CLEAR } = constants;
 
-const initialState = '';
+const initialState = new Map();
 
 const notifyReducers = {
-  send(state, msg) {
-    return msg;
+  send(state, id, msg) {
+    return state.set(id, msg);
   },
-  clear() {
-    return '';
+  clear(state, id) {
+    return state.delete(id);
   }
 };
 
 export default createReducer(initialState, {
-  [NOTIFICATION_SEND]: (state, { msg }) => notifyReducers.send(state, msg),
-  [NOTIFICATION_CLEAR]: () => notifyReducers.clear()
+  [NOTIFICATION_SEND]: (state, { id, msg }) => notifyReducers.send(state, id, msg),
+  [NOTIFICATION_CLEAR]: (state, { id }) => notifyReducers.clear(state, id)
 });
