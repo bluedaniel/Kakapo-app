@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
-import { soundActions } from 'actions/';
-import { toasterInstance, handleStopPropagation } from 'utils/';
+import { soundActions, notifyActions } from 'actions/';
+import { handleStopPropagation } from 'utils/';
 import awsCredentials from '../../../../aws.json';
 import 'aws-custom-build';
 import './playlist.css';
@@ -16,7 +16,7 @@ const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 export default function Playlist({ sounds, themes, params, intl, dispatch }, { router }) {
   if (params.shareId) {
     const clipboard = new Clipboard('.copy-clipboard');
-    clipboard.on('success', () => toasterInstance().then(_t => _t.toast('Playlist link copied!')));
+    clipboard.on('success', () => dispatch(notifyActions.send('Playlist link copied!')));
   }
 
   const setSoundsToPlaylist = (playlist) => {
@@ -36,11 +36,11 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
 
   const getFromDynamo = (id) => {
     table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
-      if (err) toasterInstance().then(_t => _t.toast(err));
+      if (err) dispatch(notifyActions.send(err));
       if (data.Item) {
         setSoundsToPlaylist(JSON.parse(atob(data.Item.playlistID.S)));
       } else {
-        toasterInstance().then(_t => _t.toast('Error: Playlist not found'));
+        dispatch(notifyActions.send('Error: Playlist not found'));
       }
     });
   };
@@ -106,7 +106,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
   );
 
   if (params.playlistId) { // Loading new playlist
-    toasterInstance().then(_t => _t.toast('Loading new playlist ...'));
+    dispatch(notifyActions.send('Loading new playlist ...'));
     getFromDynamo(params.playlistId);
   }
 

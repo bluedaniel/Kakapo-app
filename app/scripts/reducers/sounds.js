@@ -1,8 +1,9 @@
 import { Map } from 'immutable';
 import { bridgedSounds } from 'kakapoBridge';
+import { notifyActions } from 'actions/';
 import { createSoundObj } from 'api/';
 import constants from 'constants/';
-import { createReducer, toasterInstance } from 'utils/';
+import { createReducer } from 'utils/';
 import { observableStore, store } from 'stores/configureStore';
 
 const {
@@ -14,6 +15,7 @@ export let initialState = new Map();
 let defaultSounds = new Map();
 let howls = new Map();
 
+const dispatch = (fn) => store.dispatch(fn);
 const muteStatus = () => store.getState().settings.mute;
 
 const soundReducers = {
@@ -63,7 +65,9 @@ const soundReducers = {
         howl.pause();
       } else {
         howl.play();
-        if (muteStatus()) toasterInstance().then(_t => _t.toast('Kakapo is currently muted!'));
+        if (muteStatus()) {
+          dispatch(notifyActions.send('Kakapo is currently muted!'));
+        }
       }
     });
     return state;
@@ -98,7 +102,7 @@ const soundReducers = {
     sound = { ...sound, progress: 1 };
     if (notify) {
       sound = { ...sound, playing: true };
-      toasterInstance().then(_t => _t.toast(`${sound.name} has been added.`));
+      dispatch(notifyActions.send(`${sound.name} has been added.`));
     }
     state = state.set(sound.file, sound);
     howls = howls.set(sound.file, createSoundObj(sound));
@@ -112,7 +116,7 @@ const soundReducers = {
   },
 
   soundError(state, error) {
-    toasterInstance().then(_t => _t.toast(error));
+    dispatch(notifyActions.send(error));
     return state;
   },
 

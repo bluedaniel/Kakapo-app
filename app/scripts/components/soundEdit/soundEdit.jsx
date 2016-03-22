@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextInput } from 'components/ui';
-import { soundActions } from 'actions/';
-import { toasterInstance, handleStopPropagation } from 'utils/';
+import { soundActions, notifyActions } from 'actions/';
+import { handleStopPropagation } from 'utils/';
 
 export default ({ sound, themes, intl, dispatch }) => {
   const handleCancel = (el) => {
@@ -17,8 +17,7 @@ export default ({ sound, themes, intl, dispatch }) => {
     }), {});
 
     if (!data.name) {
-      return toasterInstance().then(_t =>
-        _t.toast(intl.formatMessage({ id: 'import.error.empty' })));
+      return dispatch(notifyActions.send(intl.formatMessage({ id: 'import.error.empty' })));
     }
     return dispatch(soundActions.soundsEdit(sound, data));
   };

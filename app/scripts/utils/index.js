@@ -8,7 +8,6 @@ import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/windowCount';
 import { Howler } from 'howler';
-export { default as toasterInstance } from './toaster';
 
 export const createConstants = (...constants) => constants.reduce((acc, constant) =>
   ({ ...acc, [constant]: constant }), {});

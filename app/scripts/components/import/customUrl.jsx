@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import { soundActions } from 'actions/';
+import { soundActions, notifyActions } from 'actions/';
 import { TextInput } from 'components/ui';
-import { toasterInstance, validHowl, validUrl, handleStopPropagation } from 'utils/';
+import { validHowl, validUrl, handleStopPropagation } from 'utils/';
 
 export default function CustomUrl({ themes, intl, dispatch }, { router }) {
   const handleError = (msg, translateMsg = true) => {
     const err = translateMsg ? intl.formatMessage({ id: msg }) : msg;
-    toasterInstance().then(_t => _t.toast(err));
+    dispatch(notifyActions.send(err));
   };
 
   const handleSubmit = (el) => {
