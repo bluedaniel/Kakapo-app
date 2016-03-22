@@ -4,14 +4,14 @@ import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
 import { injectIntl } from 'react-intl';
 import color from 'color';
-import { soundActions, settingActions } from 'actions/';
+import { soundActions, settingActions, notifyActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
-import { Subroutes } from 'components/ui';
-import { classNames, toasterInstance } from 'utils/';
+import { Notifications, Subroutes } from 'components/ui';
+import { classNames } from 'utils/';
 import './app.css';
 
 const App = (props) => {
-  const { settings, sounds, themes, intl, dispatch } = props;
+  const { notifications, settings, sounds, themes, intl, dispatch } = props;
 
   if (!settings.initialRender) {
     dispatch(settingActions.initialRender());
@@ -23,8 +23,7 @@ const App = (props) => {
     if (__DESKTOP__) {
       files.map(_f => dispatch(soundActions.addLocalSound(_f.name, _f.path)));
     } else {
-      toasterInstance().then(_t =>
-        _t.toast('You can only add desktop files with the Kakapo desktop app.'));
+      dispatch(notifyActions.send('You can only add desktop files with the Kakapo desktop app.'));
     }
   };
 
@@ -71,7 +70,7 @@ const App = (props) => {
           {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
             renderLoading()}
 
-          <aside className="toast-view"></aside>
+          <Notifications {...{ notifications }} />
           <DownloadList {...{ sounds }} />
         </div>
       </Dropzone>
@@ -80,6 +79,7 @@ const App = (props) => {
 };
 
 export default injectIntl(connect(state => ({
+  notifications: state.notifications,
   settings: state.settings,
   sounds: state.sounds,
   search: state.search,

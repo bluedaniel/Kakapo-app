@@ -8,6 +8,9 @@ export default createConstants(
   'SETTINGS_DEVTOOLS',
   'SETTINGS_UPDATE',
 
+  'NOTIFICATION_SEND',
+  'NOTIFICATION_CLEAR',
+
   'THEMES_CHANGE',
 
   'SOUNDS_MUTE',
