@@ -49,6 +49,9 @@ const App = (props) => {
     </div>
   );
 
+  const toggleMute = () =>
+    (dispatch(settingActions.toggleMute()), dispatch(soundActions.soundsMute()));
+
   return (
     <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
       <Dropzone activeClassName="activeDrop" className="inactiveDrop" disableClick
@@ -65,7 +68,7 @@ const App = (props) => {
             <a className="update-now" onClick={() => ipcRenderer.send('application:quit-install')}>
             Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 
-          <Header {...{ settings, themes, intl, dispatch }} />
+          <Header {...{ settings, themes, toggleMute }} />
 
           {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
             renderLoading()}
