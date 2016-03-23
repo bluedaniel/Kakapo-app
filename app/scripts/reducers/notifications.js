@@ -4,7 +4,7 @@ import { createReducer } from 'utils/';
 
 const { NOTIFICATION_SEND, NOTIFICATION_CLEAR } = constants;
 
-const initialState = new Map();
+export const initialState = new Map();
 
 const notifyReducers = {
   send(state, id, msg) {
