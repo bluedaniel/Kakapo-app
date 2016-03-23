@@ -12,6 +12,11 @@ export function getIntlProps() {
   };
 }
 
+export const mockEvent = {
+  preventDefault: () => ({}),
+  stopPropagation: () => ({})
+};
+
 export function getData(slice, opts = {}) {
   switch (slice) {
     case 'themes': {

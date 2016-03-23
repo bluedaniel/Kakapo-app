@@ -1,5 +1,4 @@
 import React from 'react';
-import { spy } from 'sinon';
 import { shallow } from 'enzyme';
 import { expect } from 'chai';
 import { getData } from '../../helper';
