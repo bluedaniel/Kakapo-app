@@ -40,24 +40,37 @@ describe('<SoundEdit/>', () => {
     expect(wrapper.find(TextInput)).to.have.length(2);
   });
 
-  it('dispatch `handleCancel` when cancel is clicked', () => {
-    const dispatch = spy();
-    const action = soundActions.soundsEdit(sound, null);
-    const { wrapper } = setup({ sound, dispatch });
-    wrapper.find('.button').at(0).simulate('click', mockEvent);
-    expect(dispatch.calledOnce).to.equal(true);
-    expect(dispatch.args[0][0].type).to.equal(action.type);
-    expect(dispatch.args[0][0].data).to.equal(action.data);
-  });
+  describe('When simulating clicks', () => {
+    let dispatch;
+    beforeEach(() => { dispatch = spy(); });
 
-  it.skip('dispatch `handleSubmit` when form is submitted', () => {
-    const dispatch = spy();
-    const { wrapper } = setup({ sound, dispatch });
-    wrapper.find('form').simulate('submit', { ...mockEvent,
-      target: { getElementsByTagName: () => ({}) }
+    it('for `handleCancel`', () => {
+      const action = soundActions.soundsEdit(sound, null);
+      const { wrapper } = setup({ sound, dispatch });
+      wrapper.find('.button').at(0).simulate('click', mockEvent);
+      expect(dispatch.calledOnce).to.equal(true);
+      expect(dispatch.args[0][0]).to.eql(action);
     });
-    console.log(dispatch.args[0][0]);
-    expect(dispatch.calledOnce).to.equal(true);
-    expect(dispatch.args[0][0]).to.equal(notifyActions.send('sd'));
+
+    it('for `handleSubmit` when form is empty', () => {
+      const action = notifyActions.send('Please fill out all fields');
+      const { wrapper } = setup({ sound, dispatch });
+      wrapper.find('form').simulate('submit', { ...mockEvent,
+        target: { getElementsByTagName: () => ({}) }
+      });
+      expect(dispatch.calledOnce).to.equal(true);
+      expect(dispatch.args[0][0].type).to.equal(action.type);
+      expect(dispatch.args[0][0].data).to.eql(action.data);
+    });
+
+    it('for `handleSubmit` when form is filled', () => {
+      const action = soundActions.soundsEdit(sound, { name: 'hi' });
+      const { wrapper } = setup({ sound, dispatch });
+      wrapper.find('form').simulate('submit', { ...mockEvent,
+        target: { getElementsByTagName: () => ([ { name: 'name', value: 'hi' } ]) }
+      });
+      expect(dispatch.calledOnce).to.equal(true);
+      expect(dispatch.args[0][0]).to.eql(action);
+    });
   });
 });
