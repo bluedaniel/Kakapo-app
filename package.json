@@ -8,6 +8,8 @@
     "themeVersion": "1.0.0"
   },
   "dependencies": {
+    "babel-core": "^6.7.4",
+    "babel-plugin-transform-async-to-generator": "^6.7.4",
     "clipboard": "^1.5.9",
     "color": "^0.11.1",
     "hint.css": "^2.2.0",
@@ -31,7 +33,7 @@
     "semver": "^5.1.0",
     "shortid": "^2.2.4",
     "whatwg-fetch": "^0.11.0",
-    "ytdl-core": "^0.7.12"
+    "ytdl-core": "^0.7.13"
   },
   "devDependencies": {
     "archiver": "^0.21.0",
@@ -50,7 +52,8 @@
     "electron-packager": "^5.2.0",
     "electron-prebuilt": "^0.37.2",
     "electron-windows-installer": "^1.2.5",
-    "enzyme": "^2.1.0",
+    "enzyme": "^2.2.0",
+    "es6-promise": "^3.1.2",
     "eslint": "2.2.0",
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-objects": "^1.1.1",
@@ -89,14 +92,14 @@
     "remote-redux-devtools": "^0.1.5",
     "request": "^2.69.0",
     "sinon": "^1.17.3",
-    "style-loader": "^0.13.0",
-    "stylelint": "^5.1.0",
+    "style-loader": "^0.13.1",
+    "stylelint": "^5.2.0",
     "stylelint-config-standard": "^4.0.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
     "webpack-dev-middleware": "^1.6.0",
     "webpack-hot-middleware": "^2.10.0",
-    "yargs": "^4.3.1"
+    "yargs": "^4.3.2"
   },
   "scripts": {
     "test": "npm run lint && NODE_ENV=test karma start",
