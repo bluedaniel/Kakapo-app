@@ -48,9 +48,6 @@ const config = {
       exclude: /(node_modules|app\/vendor)/,
       loader: 'babel'
     }, {
-      test: /\.(ttf|eot|svg|woff|woff2)$/,
-      loader: 'file-loader?name=fonts/[hash].[ext]'
-    }, {
       test: /\.json$/,
       loader: 'json-loader'
     } ],
@@ -72,7 +69,9 @@ const config = {
     }
   },
 
-  postcss: (webpack) => [ postcssImport({ addDependencyTo: webpack }) ].concat(postcssPlugins),
+  postcss: (webpack) => [
+    postcssImport({ addDependencyTo: webpack })
+  ].concat(postcssPlugins(!DEBUG && platformDevice === 'desktop')),
 
   stats: {
     colors: true,

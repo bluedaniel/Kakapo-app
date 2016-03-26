@@ -14,7 +14,7 @@ export default async function styles() {
     new Promise((resolve, reject) => {
       const source = fs.readFileSync(`${cssDir}/external/${file}`, 'utf8');
 
-      postcss(postcssPlugins.concat(postcssImport()))
+      postcss(postcssPlugins().concat(postcssImport()))
       .process(source, {
         from: './app/scripts/styles'
       })

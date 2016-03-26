@@ -8,9 +8,7 @@ const opts = {
   dir: 'build',
   icon: 'build/images/desktop/app',
   name: 'Kakapo',
-  ignore: [
-    '/user-data($|/)'
-  ]
+  ignore: []
 };
 
 export default async function pkg() {

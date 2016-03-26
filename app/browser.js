@@ -56,7 +56,7 @@ app.on('ready', () => {
     frame: false,
     height: 600,
     resizable: false,
-    width: 360
+    width: 400
   };
   appIcon.window = new BrowserWindow(defaults);
   appIcon.window.loadUrl(path.join('file://', app.getAppPath(), 'index.html'));

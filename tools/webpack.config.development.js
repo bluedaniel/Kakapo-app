@@ -18,9 +18,6 @@ const config = {
     loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
-    }, {
-      test: /\.(png|jpg|jpeg|gif)$/,
-      loader: 'url-loader'
     } ],
     noParse: baseConfig.module.noParse
   }
