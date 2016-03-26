@@ -1,8 +1,7 @@
 import archiver from 'archiver';
 import fs from 'fs-extra';
-import os from 'os';
 import rcedit from 'rcedit';
-import winInstaller from 'electron-windows-installer';
+import { createWindowsInstaller } from 'electron-winstaller';
 import packagejson from '../package.json';
 
 async function winRcedit() {
@@ -45,9 +44,9 @@ async function winZip() {
 
 async function winSetupExe() {
   return await new Promise((resolve, reject) => {
-    if (os.platform() === 'win32') {
-      console.log(`[${new Date()}] Starting winSetupExe ...`);
-      winInstaller({
+    console.log(`[${new Date()}] Starting winSetupExe ...`);
+    try {
+      createWindowsInstaller({
         appDirectory: 'release/win32/Kakapo-win32-x64',
         outputDirectory: 'release',
         authors: 'Daniel Levitt',
@@ -57,11 +56,13 @@ async function winSetupExe() {
         description: 'Kakapo',
         title: 'Kakapo',
         exe: 'Kakapo.exe',
-        version: packagejson.version,
-        setupExe: `KakapoSetup-${packagejson.version}-Win.exe`
-      }).then(resolve(console.log(`[${new Date()}] Finished winSetupExe`)));
-    } else {
-      reject(console.log('Error: `winSetupExe` can only be run on a Windows machine!'));
+        version: packagejson.version
+      }).then(
+        () => resolve(console.log(`[${new Date()}] Finished winSetupExe`)),
+        (e) => reject(console.log(`Error: ${e}`))
+      );
+    } catch (error) {
+      console.error(error);
     }
   });
 }

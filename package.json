@@ -51,7 +51,7 @@
     "cssnano": "^3.5.2",
     "electron-packager": "^5.2.0",
     "electron-prebuilt": "^0.37.2",
-    "electron-windows-installer": "^1.2.5",
+    "electron-winstaller": "^2.0.5",
     "enzyme": "^2.2.0",
     "es6-promise": "^3.1.2",
     "eslint": "2.2.0",
