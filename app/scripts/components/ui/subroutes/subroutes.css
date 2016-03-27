@@ -6,7 +6,7 @@
   background: #f5f5f5;
   overflow-y: scroll;
   transition: width, top, height 0.2s ease;
-  z-index: 1;
+  z-index: 3;
   min-height: 82px;
 
   @media (min-width: 40.0rem) {
