@@ -2,14 +2,12 @@
   margin: 0 auto;
   padding: 12px 0;
   z-index: 40;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  lost-column: 1;
   .logo {
+    lost-column: 3/5;
     color: #fff;
     font-size: 0.8em;
     text-align: center;
-    flex: 1;
   }
   h3 {
     font-size: 1.75rem;
@@ -30,6 +28,7 @@
   }
 
   .toggle-mute {
+    lost-column: 1/5;
     font-size: 28px;
     padding: 0 7px;
     margin: 0 7px;
