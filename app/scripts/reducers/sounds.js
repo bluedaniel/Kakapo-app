@@ -1,6 +1,5 @@
 import { Map } from 'immutable';
 import { bridgedSounds } from 'kakapoBridge';
-import { notifyActions } from 'actions/';
 import { createSoundObj } from 'api/';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
@@ -15,7 +14,6 @@ export let initialState = new Map();
 let defaultSounds = new Map();
 let howls = new Map();
 
-const dispatch = (fn) => store.dispatch(fn);
 const muteStatus = () => store.getState().settings.mute;
 
 const soundReducers = {
@@ -65,9 +63,6 @@ const soundReducers = {
         howl.pause();
       } else {
         howl.play();
-        if (muteStatus()) {
-          dispatch(notifyActions.send('Kakapo is currently muted!'));
-        }
       }
     });
     return state;
@@ -98,12 +93,8 @@ const soundReducers = {
     return state;
   },
 
-  soundDownloaded(state, sound, notify) {
-    sound = { ...sound, progress: 1 };
-    if (notify) {
-      sound = { ...sound, playing: true };
-      dispatch(notifyActions.send(`${sound.name} has been added.`));
-    }
+  soundDownloaded(state, sound) {
+    sound = { ...sound, progress: 1, playing: true };
     state = state.set(sound.file, sound);
     howls = howls.set(sound.file, createSoundObj(sound));
     this.toggleMute(state);
@@ -115,8 +106,7 @@ const soundReducers = {
     return state;
   },
 
-  soundError(state, error) {
-    dispatch(notifyActions.send(error));
+  soundError(state) {
     return state;
   },
 

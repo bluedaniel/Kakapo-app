@@ -23,7 +23,7 @@ const actions = {
   addLocalSound: (name, path) => dispatch =>
     dispatch(actions.addSoundComplete(getCustomFile(name, path))),
 
-  addSound: (service, data, notify = true) => dispatch => {
+  addSound: (service, data) => dispatch => {
     const subject = new Rx.Subject()
     .throttleTime(250)
     .distinctUntilChanged();
@@ -48,8 +48,8 @@ const actions = {
   },
 
   addSoundDownloading: sound => ({ type: SOUNDS_DOWNLOADING, sound }),
-  addSoundComplete: (sound, notify = true) =>
-    ({ type: SOUNDS_DOWNLOADED, sound, notify }),
+  addSoundComplete: (sound) =>
+    ({ type: SOUNDS_DOWNLOADED, sound }),
   addSoundError: err => ({ type: SOUNDS_ERROR, err }),
 
   resetSounds: clear => ({ type: SOUNDS_RESET, clear })
