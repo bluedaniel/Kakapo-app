@@ -1,22 +1,23 @@
 import React from 'react';
-import { EventEmitter } from 'events';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/throttleTime';
+import Rx from 'rxjs';
 import { soundActions } from 'actions/';
 import { classNames, handleStopPropagation } from 'utils/';
 import './soundItem.css';
 
-function observeThrottleVolume(event, dispatch, sound) {
-  return Observable.fromEvent(event, 'data', (a) => a)
-    .throttleTime(500)
-    .subscribe(_s => dispatch(soundActions.soundsVolume(sound, _s)));
+function observeThrottleVolume(dispatch, sound) {
+  const subject = new Rx.Subject()
+  .throttleTime(500)
+  .distinctUntilChanged();
+
+  subject.subscribe({
+    next: (_s) => dispatch(soundActions.soundsVolume(sound, _s))
+  });
+
+  return subject;
 }
 
 export default ({ sound, themes, dispatch }) => {
-  const eventEmitter = new EventEmitter();
-  observeThrottleVolume(eventEmitter, dispatch, sound);
+  const subject = observeThrottleVolume(dispatch, sound);
 
   const handleToggle = () => dispatch(soundActions.soundsPlay(sound));
 
@@ -29,8 +30,6 @@ export default ({ sound, themes, dispatch }) => {
     handleStopPropagation(el);
     dispatch(soundActions.soundsEdit(sound));
   };
-
-  const handleVolume = ({ target }) => eventEmitter.emit('data', parseFloat(target.value));
 
   const renderActions = () => (
     <ul className={classNames('actions', { dark: !sound.playing })}>
@@ -80,7 +79,7 @@ export default ({ sound, themes, dispatch }) => {
           defaultValue={sound.volume}
           max="1"
           min="0"
-          onChange={handleVolume}
+          onChange={({ target }) => subject.next(parseFloat(target.value))}
           onClick={handleStopPropagation}
           step="0.001"
           type="range"
