@@ -5,7 +5,7 @@
     position: relative;
   }
   .divider {
-    background: black;
+    background: color(#f5f5f5 blackness(30%));
 
     @media (max-width: 40rem) {
       display: inline-block;
