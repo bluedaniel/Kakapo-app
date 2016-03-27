@@ -4,21 +4,10 @@ import path from 'path';
 import shortid from 'shortid';
 import { pathConfig, validHowl } from 'utils/';
 import { newSoundClass } from 'classes/';
-import { EventEmitter } from 'events';
 
 let fileSize = 0;
-let currentProgress = 0;
 let dataRead = 0;
 let newSound = {};
-
-function downloadProgress(ee, data) {
-  if (!newSound) return;
-  const progress = (dataRead += data.length) / fileSize;
-  if (progress > (currentProgress + 0.05) || progress === 1) {
-    currentProgress = progress;
-    ee.emit('progress', { ...newSound, progress });
-  }
-}
 
 const actions = {
   getCustomFile(name, filePath) {
@@ -33,25 +22,22 @@ const actions = {
     fs.copySync(filePath, newSound.file);
     return newSound;
   },
-  getCustomURL(data) {
+
+  getCustomURL(subject, data) {
     fileSize = 0;
-    currentProgress = 0;
     dataRead = 0;
     newSound = {};
 
-    const ee = new EventEmitter();
-
     if (data.source === 'file') {
-      setTimeout(() => ee.emit('finish', data), 250);
-      return ee;
+      subject.next(data);
+      subject.complete();
     }
 
     if (data.source !== 'file') {
       const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
       if (!validHowl(data.file)) {
-        ee.emit('error', validHowl(data.file, true));
-        return ee;
+        subject.error(validHowl(data.file, true));
       }
 
       const file = `${shortid.generate()}.${path.extname(data.file).substring(1)}`;
@@ -63,21 +49,23 @@ const actions = {
       .on('response', res => {
         fileSize = res.headers['content-length'];
         if (!fileSize) {
-          ee.emit('error', 'Error: Could not access file.');
+          subject.error('Error: Could not access file.');
         } else {
           res
-          .on('data', downloadProgress.bind(this, ee))
-          .on('error', e => ee.emit('error', `Error: ${e.message}`))
+          .on('data', data => {
+            const progress = (dataRead += data.length) / fileSize;
+            subject.next({ ...newSound, progress });
+          })
+          .on('error', e => subject.error(`Error: ${e.message}`))
           .on('end', () => {
             fs.rename(tmpFile, newSound.file);
-            ee.emit('finish', newSound); // Completed download
+            subject.next(newSound);
+            subject.complete(); // Completed download
           });
         }
       })
       .pipe(fs.createWriteStream(tmpFile));
     }
-
-    return ee;
   }
 };
 

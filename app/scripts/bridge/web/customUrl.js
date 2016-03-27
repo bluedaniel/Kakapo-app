@@ -5,14 +5,13 @@ const actions = {
   getCustomFile() {
 
   },
-  getCustomURL(data) {
-    return new Promise((resolve, reject) => {
-      if (data.source !== 'file' && !validHowl(data.file)) {
-        return reject(new Error(validHowl(data.file, true)));
-      }
-
-      return resolve({ ...newSoundClass, ...data });
-    });
+  getCustomURL(subject, data) {
+    if (data.source !== 'file' && !validHowl(data.file)) {
+      subject.error(validHowl(data.file, true));
+    } else {
+      subject.next({ ...newSoundClass, ...data });
+      subject.complete();
+    }
   }
 };
 

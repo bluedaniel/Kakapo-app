@@ -1,5 +1,5 @@
 .download-list {
-  bottom: 0;
+  bottom: 80px;
   position: fixed;
   right: 10px;
   width: 300px;

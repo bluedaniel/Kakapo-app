@@ -5,34 +5,20 @@ import path from 'path';
 import shortid from 'shortid';
 import { pathConfig } from 'utils/';
 import { newSoundClass } from 'classes/';
-import { EventEmitter } from 'events';
 
 let fileSize = 0;
-let currentProgress = 0;
 let dataRead = 0;
 let newSound = {};
-
-function downloadProgress(ee, data) {
-  if (!newSound) return;
-  const progress = (dataRead += data.length) / fileSize;
-  if (progress > (currentProgress + 0.05) || progress === 1) {
-    currentProgress = progress;
-    ee.emit('progress', { ...newSound, progress });
-  }
-}
 
 const actions = {
   getYoutubeObj() {
     return null;
   },
 
-  getYoutubeURL(data) {
+  getYoutubeURL(subject, data) {
     fileSize = 0;
-    currentProgress = 0;
     dataRead = 0;
     newSound = {};
-
-    const ee = new EventEmitter();
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
@@ -53,15 +39,17 @@ const actions = {
         tags: keywords ? keywords.join(' ') : ''
       } };
     })
-    .on('error', e => ee.emit('error', `Error: ${e.message}`))
-    .on('data', downloadProgress.bind(this, ee))
+    .on('error', e => subject.error(`Error: ${e.message}`))
+    .on('data', data => {
+      const progress = (dataRead += data.length) / fileSize;
+      subject.next({ ...newSound, progress });
+    })
     .on('finish', () => {
       fs.rename(tmpFile, newSound.file);
-      ee.emit('finish', newSound); // Completed download
+      subject.next(newSound);
+      subject.complete(); // Completed download
     })
     .pipe(fs.createWriteStream(tmpFile));
-
-    return ee;
   }
 };
 

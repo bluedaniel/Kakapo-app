@@ -34,19 +34,21 @@ export default {
       window.SC.get('/tracks', { q }, tracks => resolve(tracks)));
   },
 
-  getSoundCloudURL(id) {
+  getSoundCloudURL(subject, id) {
     const url = `${SCAPI_TRACKS}/${id}${serialize({ client_id: SOUNDCLOUD_KEY })}`;
-    return new Promise((resolve, reject) => fetch(url)
+    fetch(url)
     .then(response => response.json())
-    .then(({ data }) => resolve({ ...newSoundClass, ...{
-      file: data.stream_url,
-      img: data.artwork_url,
-      link: data.permalink_url,
-      name: data.title,
-      progress: 0,
-      source: 'soundcloudStream',
-      tags: data.tag_list
-    } }))
-    .catch(({ data }) => reject(data.errors[0].error_message)));
+    .then(({ data }) => {
+      subject.next({ ...newSoundClass, ...{
+        file: data.stream_url,
+        img: data.artwork_url,
+        link: data.permalink_url,
+        name: data.title,
+        progress: 0,
+        source: 'soundcloudStream',
+        tags: data.tag_list
+      } });
+    })
+    .catch(({ data }) => subject.error(data.errors[0].error_message));
   }
 };

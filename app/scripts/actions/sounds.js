@@ -1,12 +1,11 @@
-import { EventEmitter } from 'events';
+import Rx from 'rxjs';
 import constants from 'constants/';
 import { getDefaultSounds, getYoutubeURL, getCustomFile,
   getCustomURL, getSoundCloudURL } from 'api/';
 
 const {
   SOUNDS_MUTE, SOUNDS_PLAY, SOUNDS_VOLUME, SOUNDS_EDIT, SOUNDS_REMOVE,
-  SOUNDS_RECEIVED, SOUNDS_ADD_CUSTOM, SOUNDS_ADD_YOUTUBE, SOUNDS_ADD_SOUNDCLOUD,
-  SOUNDS_DOWNLOADING, SOUNDS_DOWNLOADED, SOUNDS_ERROR, SOUNDS_RESET
+  SOUNDS_RECEIVED, SOUNDS_DOWNLOADING, SOUNDS_DOWNLOADED, SOUNDS_ERROR, SOUNDS_RESET
 } = constants;
 
 const actions = {
@@ -25,27 +24,26 @@ const actions = {
     dispatch(actions.addSoundComplete(getCustomFile(name, path))),
 
   addSound: (service, data, notify = true) => dispatch => {
-    let opts = { provider: getCustomURL, type: SOUNDS_ADD_CUSTOM };
-    if (service === 'youtube') {
-      opts = { provider: getYoutubeURL, type: SOUNDS_ADD_YOUTUBE };
-    }
-    if (service === 'soundcloud') {
-      opts = { provider: getSoundCloudURL, type: SOUNDS_ADD_SOUNDCLOUD };
-    }
-    const fetchFunc = opts.provider(data);
+    const subject = new Rx.Subject()
+    .throttleTime(250)
+    .distinctUntilChanged();
 
-    if (fetchFunc instanceof Promise) {
-      fetchFunc
-      .catch(err => dispatch(actions.addSoundError(err)))
-      .then(resp => {
-        if (resp.err) return;
-        dispatch(actions.addSoundComplete(resp, notify));
-      });
-    } else if (fetchFunc instanceof EventEmitter) {
-      fetchFunc
-      .on('error', err => dispatch(actions.addSoundError(err)))
-      .on('progress', resp => dispatch(actions.addSoundDownloading(resp)))
-      .on('finish', resp => dispatch(actions.addSoundComplete(resp, notify)));
+    let rxData;
+    subject.subscribe({
+      next: resp => {
+        rxData = resp;
+        dispatch(actions.addSoundDownloading(resp));
+      },
+      error: err => dispatch(actions.addSoundError(err)),
+      complete: () => dispatch(actions.addSoundComplete(rxData, false))
+    });
+
+    if (service === 'youtube') {
+      getYoutubeURL(subject, data);
+    } else if (service === 'soundcloud') {
+      getSoundCloudURL(subject, data);
+    } else {
+      getCustomURL(subject, data);
     }
   },
 

@@ -4,25 +4,14 @@ import path from 'path';
 import shortid from 'shortid';
 import { pathConfig, serialize } from 'utils/';
 import { newSoundClass } from 'classes/';
-import { EventEmitter } from 'events';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
 const SOUNDCLOUD_KEY = '733c506264b8a0b6b05c85d9f1615567';
 
 let fileSize = 0;
-let currentProgress = 0;
 let dataRead = 0;
 let newSound = {};
-
-function downloadProgress(ee, data) {
-  if (!newSound) return;
-  const progress = (dataRead += data.length) / fileSize;
-  if (progress > (currentProgress + 0.05) || progress === 1) {
-    currentProgress = progress;
-    ee.emit('progress', { ...newSound, progress });
-  }
-}
 
 const actions = {
   getSoundCloudObj() {
@@ -37,13 +26,10 @@ const actions = {
     .catch(response => reject(response)));
   },
 
-  getSoundCloudURL(soundcloudID) {
+  getSoundCloudURL(subject, soundcloudID) {
     fileSize = 0;
-    currentProgress = 0;
     dataRead = 0;
     newSound = {};
-
-    const ee = new EventEmitter();
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
@@ -51,8 +37,7 @@ const actions = {
     .fetch(`${SCAPI_TRACKS}/${soundcloudID}${serialize({ client_id: SOUNDCLOUD_KEY })}`)
     .then(response => {
       if (!response.data.download_url) {
-        ee.emit('error', 'Sorry, that SoundCloud track cannot be downloaded.');
-        return ee;
+        subject.error('Sorry, that SoundCloud track cannot be downloaded.');
       }
 
       newSound = { ...newSoundClass, ...{
@@ -68,22 +53,24 @@ const actions = {
       .on('response', res => {
         fileSize = res.headers['content-length'];
         if (!fileSize) {
-          ee.emit('error', 'Error: Could not access file.');
+          subject.error('Error: Could not access file.');
         } else {
           res
-          .on('data', downloadProgress.bind(this, ee))
-          .on('error', e => ee.emit('error', `Error: ${e.message}`))
+          .on('data', data => {
+            const progress = (dataRead += data.length) / fileSize;
+            subject.next({ ...newSound, progress });
+          })
+          .on('error', e => subject.error(`Error: ${e.message}`))
           .on('end', () => {
             fs.rename(tmpFile, newSound.file);
-            ee.emit('finish', newSound); // Completed download
+            subject.next(newSound);
+            subject.complete(); // Completed download
           });
         }
       })
       .pipe(fs.createWriteStream(tmpFile));
     })
-    .catch(response => ee.emit('error', response.data.errors[0].error_message));
-
-    return ee;
+    .catch(response => subject.error(response.data.errors[0].error_message));
   }
 };
 

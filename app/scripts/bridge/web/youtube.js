@@ -41,7 +41,8 @@ export default {
     });
   },
 
-  getYoutubeURL(data) {
-    return new Promise(resolve => resolve({ ...newSoundClass, ...data }));
+  getYoutubeURL(subject, data) {
+    subject.next({ ...newSoundClass, ...data });
+    subject.complete();
   }
 };
