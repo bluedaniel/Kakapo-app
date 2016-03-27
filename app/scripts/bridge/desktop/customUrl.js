@@ -31,41 +31,40 @@ const actions = {
     if (data.source === 'file') {
       subject.next(data);
       subject.complete();
+      return;
     }
 
-    if (data.source !== 'file') {
-      const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
+    const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
-      if (!validHowl(data.file)) {
-        subject.error(validHowl(data.file, true));
+    if (!validHowl(data.file)) {
+      subject.error(validHowl(data.file, true));
+    }
+
+    const file = `${shortid.generate()}.${path.extname(data.file).substring(1)}`;
+    newSound = { ...newSoundClass, ...data, ... {
+      file: path.join(pathConfig.userSoundDir, file)
+    } };
+
+    request(data.file)
+    .on('response', res => {
+      fileSize = res.headers['content-length'];
+      if (!fileSize) {
+        subject.error('Error: Could not access file.');
+      } else {
+        res
+        .on('data', data => {
+          const progress = (dataRead += data.length) / fileSize;
+          subject.next({ ...newSound, progress });
+        })
+        .on('error', e => subject.error(`Error: ${e.message}`))
+        .on('end', () => {
+          fs.rename(tmpFile, newSound.file);
+          subject.next(newSound);
+          subject.complete(); // Completed download
+        });
       }
-
-      const file = `${shortid.generate()}.${path.extname(data.file).substring(1)}`;
-      newSound = { ...newSoundClass, ...data, ... {
-        file: path.join(pathConfig.userSoundDir, file)
-      } };
-
-      request(data.file)
-      .on('response', res => {
-        fileSize = res.headers['content-length'];
-        if (!fileSize) {
-          subject.error('Error: Could not access file.');
-        } else {
-          res
-          .on('data', data => {
-            const progress = (dataRead += data.length) / fileSize;
-            subject.next({ ...newSound, progress });
-          })
-          .on('error', e => subject.error(`Error: ${e.message}`))
-          .on('end', () => {
-            fs.rename(tmpFile, newSound.file);
-            subject.next(newSound);
-            subject.complete(); // Completed download
-          });
-        }
-      })
-      .pipe(fs.createWriteStream(tmpFile));
-    }
+    })
+    .pipe(fs.createWriteStream(tmpFile));
   }
 };
 

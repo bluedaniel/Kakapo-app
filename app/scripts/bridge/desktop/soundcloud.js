@@ -49,7 +49,7 @@ const actions = {
         link: response.data.permalink_url
       } };
 
-      return request(`${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`)
+      request(`${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`)
       .on('response', res => {
         fileSize = res.headers['content-length'];
         if (!fileSize) {
