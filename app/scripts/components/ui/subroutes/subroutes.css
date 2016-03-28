@@ -9,7 +9,7 @@
   z-index: 3;
   min-height: 82px;
 
-  @media (min-width: 40.0rem) {
+  @media (min-width: 40rem) {
     width: 300px;
     top: 35px;
   }
@@ -20,7 +20,8 @@
   }
   &.with-close {
     height: 400px;
-    @media (min-width: 40.0rem) {
+
+    @media (min-width: 40rem) {
       height: auto;
     }
     .inner {
