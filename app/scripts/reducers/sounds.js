@@ -94,9 +94,10 @@ const soundReducers = {
   },
 
   soundDownloaded(state, sound) {
-    sound = { ...sound, progress: 1, playing: true };
+    sound = { ...sound, progress: 1 };
     state = state.set(sound.file, sound);
     howls = howls.set(sound.file, createSoundObj(sound));
+    if (sound.playing) this._getHowl(sound).then(howl => howl.play());
     this.toggleMute(state);
     return state;
   },

@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
+import Rx from 'rxjs';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
 import { soundActions, notifyActions } from 'actions/';
-import { handleStopPropagation } from 'utils/';
+import { classNames, handleStopPropagation } from 'utils/';
 import awsCredentials from '../../../../aws.json';
 import 'aws-custom-build';
 import './playlist.css';
@@ -13,37 +14,50 @@ AWS.config.update(awsCredentials);
 
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
+function observeAutocomplete(dispatch, router) {
+  const subject = new Rx.Subject()
+  .throttleTime(1000)
+  .distinctUntilChanged();
+
+  subject.subscribe({
+    next: (id) => {
+      table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
+        if (err) dispatch(notifyActions.send(err));
+        if (data.Item) {
+          router.push('/');
+          dispatch(soundActions.resetSounds(true));
+
+          const playlist = JSON.parse(atob(data.Item.playlistID.S));
+          Object.keys(playlist).map(_p => {
+            switch (playlist[_p].source) {
+              case 'youtubeStream':
+                return dispatch(soundActions.addSound('youtube', playlist[_p]));
+              case 'soundcloudStream':
+                return dispatch(soundActions.addSound('soundcloud', playlist[_p].file));
+              default:
+                return dispatch(soundActions.addSound('kakapo', playlist[_p]));
+            }
+          });
+        } else {
+          dispatch(notifyActions.send('Error: Playlist not found'));
+          router.push('/');
+        }
+      });
+    }
+  });
+
+  return subject;
+}
+
 export default function Playlist({ sounds, themes, params, intl, dispatch }, { router }) {
+  const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
+
+  const subject = observeAutocomplete(dispatch, router);
+
   if (params.shareId) {
-    const clipboard = new Clipboard('.copy-clipboard');
+    const clipboard = new Clipboard(`.${clipBoardClass}`);
     clipboard.on('success', () => dispatch(notifyActions.send('Playlist link copied!')));
   }
-
-  const setSoundsToPlaylist = (playlist) => {
-    Object.keys(playlist).map(_p => {
-      dispatch(soundActions.resetSounds(true));
-      switch (playlist[_p].source) {
-        case 'youtubeStream':
-          return dispatch(soundActions.addSound('youtube', playlist[_p], false));
-        case 'soundcloudStream':
-          return dispatch(soundActions.addSound('soundcloud', playlist[_p].file, false));
-        default:
-          return dispatch(soundActions.addSound('kakapo', playlist[_p], false));
-      }
-    });
-    router.push('/');
-  };
-
-  const getFromDynamo = (id) => {
-    table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
-      if (err) dispatch(notifyActions.send(err));
-      if (data.Item) {
-        setSoundsToPlaylist(JSON.parse(atob(data.Item.playlistID.S)));
-      } else {
-        dispatch(notifyActions.send('Error: Playlist not found'));
-      }
-    });
-  };
 
   const resetSounds = () => {
     dispatch(soundActions.resetSounds(false));
@@ -75,9 +89,9 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
               <input className="input-1 InputAddOn-field" id="copyClipboard"
                 value={`${url}/playlist/${params.shareId}`} readOnly
               />
-              <button className="copy-clipboard InputAddOn-item"
-                data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}
-              >
+            <button className={classNames(clipBoardClass, 'InputAddOn-item')}
+              data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}
+            >
                 <span title="Copy to clipboard" />
               </button>
             </div>
@@ -108,8 +122,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
   );
 
   if (params.playlistId) { // Loading new playlist
-    dispatch(notifyActions.send('Loading new playlist ...'));
-    getFromDynamo(params.playlistId);
+    subject.next(params.playlistId);
   }
 
   return (
@@ -122,7 +135,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
         {Object.keys(kakapoAssets.playlists).map(_e => (
-          <span onClick={() => getFromDynamo(kakapoAssets.playlists[_e])}
+          <span onClick={() => subject.next(kakapoAssets.playlists[_e])}
             className="button" key={_e}
           >
             {intl.formatMessage({ id: `playlist.list_${_e}` })}
