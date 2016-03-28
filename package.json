@@ -50,7 +50,7 @@
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.0",
     "cssnano": "^3.5.2",
-    "electron-packager": "^5.2.0",
+    "electron-packager": "^6.0.0",
     "electron-prebuilt": "^0.37.2",
     "electron-winstaller": "^2.0.5",
     "enzyme": "^2.2.0",

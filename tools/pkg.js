@@ -1,5 +1,4 @@
 import packager from 'electron-packager';
-import del from 'del';
 import packagejson from '../package.json';
 
 const opts = {
@@ -12,7 +11,6 @@ const opts = {
 };
 
 export default async function pkg() {
-  await del('release');
   await Promise.all([ 'linux', 'win32', 'darwin' ].map(plat =>
     new Promise((resolve, reject) =>
       packager({ ...opts, ... {
