@@ -27,6 +27,7 @@
     margin-right: 8px;
   }
   #copyClipboard {
-    background-color: transparent;
+    background-color: #fff;
+    font-size: 13px;
   }
 }

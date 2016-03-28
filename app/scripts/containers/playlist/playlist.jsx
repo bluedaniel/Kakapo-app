@@ -71,14 +71,16 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
         <div>
           <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="form">
-            <input className="input-1" id="copyClipboard"
-              value={`${url}/playlist/${params.shareId}`} readOnly
-            />
-            <button className="copy-clipboard" data-clipboard-target="#copyClipboard"
-              onClick={handleStopPropagation}
-            >
-              <span title="Copy to clipboard" />
-            </button>
+            <div className="InputAddOn">
+              <input className="input-1 InputAddOn-field" id="copyClipboard"
+                value={`${url}/playlist/${params.shareId}`} readOnly
+              />
+              <button className="copy-clipboard InputAddOn-item"
+                data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}
+              >
+                <span title="Copy to clipboard" />
+              </button>
+            </div>
           </form>
         </div>
       );
