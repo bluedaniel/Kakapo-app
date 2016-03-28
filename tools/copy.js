@@ -9,6 +9,7 @@ export default async function copy() {
   const indexFile = argv.production ? 'index' : 'index-dev';
 
   await fsPromise.copyAsync('./node_modules/kakapo-assets/icomoon/fonts', 'build/fonts', {});
+  await fsPromise.copyAsync('app/fonts', 'build/fonts', {});
 
   if (argv.platform === 'desktop') {
     proc.execSync('babel app/browser.js --out-file build/browser.js');

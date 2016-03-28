@@ -15,7 +15,7 @@
     width: calc(100% - 35px);
     display: none;
 
-    @media (min-width: 40.0rem) {
+    @media (min-width: 40rem) {
       display: block;
     }
   }

@@ -52,8 +52,8 @@ const config = {
       loader: 'json-loader'
     } ],
     noParse: [
-      /node_modules\/sinon\//,
-      /node_modules\/json-schema\/lib\/validate\.js/
+      path.resolve('node_modules/sinon'),
+      path.resolve('node_modules/json-schema/lib/validate.js')
     ]
   },
   resolve: {

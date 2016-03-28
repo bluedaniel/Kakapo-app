@@ -59,7 +59,7 @@ app.on('ready', () => {
     width: 400
   };
   appIcon.window = new BrowserWindow(defaults);
-  appIcon.window.loadUrl(path.join('file://', app.getAppPath(), 'index.html'));
+  appIcon.window.loadURL(path.join('file://', app.getAppPath(), 'index.html'));
 
   appIcon.window.webContents.on('new-window', (event, url, frameName, disposition, opts) => {
     opts.frame = true;
@@ -73,7 +73,7 @@ app.on('ready', () => {
     ipcMain.on('toggle-devtools', (event, arg) => toggleDevTools(appIcon.window, arg));
   }
 
-  appIcon.on('clicked', (_e, bounds) => {
+  appIcon.on('click', (_e, bounds) => {
     if (appIcon.window && appIcon.window.isVisible()) {
       if (appIcon.window) appIcon.window.hide();
     } else {
