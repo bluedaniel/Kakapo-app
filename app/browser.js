@@ -73,7 +73,7 @@ app.on('ready', () => {
     ipcMain.on('toggle-devtools', (event, arg) => toggleDevTools(appIcon.window, arg));
   }
 
-  appIcon.on('clicked', (_e, bounds) => {
+  appIcon.on('click', (_e, bounds) => {
     if (appIcon.window && appIcon.window.isVisible()) {
       if (appIcon.window) appIcon.window.hide();
     } else {
