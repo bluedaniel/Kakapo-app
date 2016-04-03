@@ -6,6 +6,7 @@ import { createHashHistory } from 'history';
 import { useRouterHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { store } from 'stores/configureStore';
+import { safe } from 'utils/';
 import 'styles/base.css';
 
 const hashHistory = useRouterHistory(createHashHistory)({ queryKey: false });
@@ -31,13 +32,7 @@ if (module.hot) {
     ReactDOM.render(<RedBox error={err} />, target);
   };
 
-  render = () => {
-    try {
-      renderApp();
-    } catch (err) {
-      renderError(err);
-    }
-  };
+  render = safe(() => renderApp, renderError);
 
   module.hot.accept('./root', () => setTimeout(render));
 }

@@ -1,12 +1,4 @@
-
-const isJson = (str) => {
-  try {
-    JSON.parse(str);
-  } catch (e) {
-    return false;
-  }
-  return true;
-};
+import { safe } from 'utils/';
 
 export default {
   getItem(option) {
@@ -15,7 +7,7 @@ export default {
       mute: localStorage.getItem('mute')
     };
     const obj = data[option];
-    return isJson(obj) ? JSON.parse(obj) : obj;
+    return safe(() => JSON.parse(obj), obj);
   },
   setItem(option, value) {
     if (option === 'initialRender' || option === 'updateStatus') return;

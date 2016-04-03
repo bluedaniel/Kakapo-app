@@ -65,9 +65,9 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
   };
 
   const createPlaylist = () => {
-    const currentPlaylistHash = btoa(JSON.stringify(sounds));
+    const playlistID = btoa(JSON.stringify(sounds));
     const shareID = shortid.generate();
-    const putItem = { Item: { shareID: { S: shareID }, playlistID: { S: currentPlaylistHash } } };
+    const putItem = { Item: { shareID: { S: shareID }, playlistID: { S: playlistID } } };
     table.putItem(putItem, () => router.push(`/share-playlist/${shareID}`));
   };
 

@@ -1,7 +1,7 @@
 import React, { cloneElement } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router';
-import { camelCase, omit, classNames } from 'utils/';
+import { camelCase, compose, omit, merge, classNames } from 'utils/';
 import './subroutes.css';
 
 export default (props) => {
@@ -12,17 +12,16 @@ export default (props) => {
     transitionEnterTimeout: 500,
     transitionLeaveTimeout: 300
   };
-  const newProps = {
-    ...omit('children', props),
-    key: camelCase(location.pathname)
-  };
+
+  const key = camelCase(location.pathname);
+  const newProps = compose(merge({ key }), omit('children'))(props);
 
   return (
     <div className={classNames('secondary-panel', {
-      'with-close': newProps.key !== '/'
+      'with-close': key !== '/'
     })}
     >
-      {newProps.key !== '/' ? <Link className="icon-close" to="/" /> : null}
+      {key !== '/' ? <Link className="icon-close" to="/" /> : null}
       <div className="inner">
         <CSSTransitionGroup transitionName="panel" { ...transitions }>
           {children ? cloneElement(children, newProps) : null}

@@ -1,9 +1,10 @@
 import React from 'react';
+import { noop } from 'utils/';
 
 export default ({ name,
-  onChange = () => ({}),
-  onFocus = () => ({}),
-  onBlur = () => ({}),
+  onChange = noop,
+  onFocus = noop,
+  onBlur = noop,
   placeholder,
   value,
   spinner,

@@ -9,6 +9,24 @@ import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/windowCount';
 import { Howler } from 'howler';
 
+export const curry = (fn, args = []) => (...a) => {
+  const x = args.concat(a);
+  return x.length >= fn.length ? fn(...x) : curry(fn, x);
+};
+
+export const compose = (...a) => x => a.reduceRight((y, fn) => fn(y), x);
+
+export const noop = () => {};
+export const merge = curry((y, x) => ({ ...x, ...y }));
+
+export const safe = (fn, or = undefined) => {
+  try {
+    return fn();
+  } catch (e) {
+    return or;
+  }
+};
+
 export const createConstants = (...constants) => constants.reduce((acc, constant) =>
   ({ ...acc, [constant]: constant }), {});
 
@@ -20,20 +38,23 @@ export const createReducer = (initialState, handlers) => (state = initialState, 
 };
 
 // hyphen-name-format -> hyphenNameFormat
-export const camelCase = str => str.replace(/^([A-Z])|[\s-_](\w)/g, (match, p1, p2) =>
+export const camelCase = str =>
+  str.replace(/^([A-Z])|[\s-_](\w)/g, (match, p1, p2) =>
     p2 ? p2.toUpperCase() : p1.toLowerCase());
 
 export const toArray = x => Array.isArray(x) ? x : [ x ];
 
 // (['a'], {a: 1, b: 2, c: 3}) -> {a: 1}
-export const pluck = (props, x) => toArray(props).reduce((acc, prop) => {
-  if (typeof x[prop] !== 'undefined') acc[prop] = x[prop];
-  return acc;
-}, {});
+export const pluck = curry((props, x) =>
+  toArray(props).reduce((acc, prop) => {
+    if (typeof x[prop] !== 'undefined') acc[prop] = x[prop];
+    return acc;
+  }, {}));
 
 // (['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) -> {b: 2, c: 3}
-export const omit = (props, x) => pluck(Object.keys(x).filter(k =>
-  typeof toArray(props).filter(p => p === k)[0] === 'undefined'), x);
+export const omit = curry((props, x) =>
+  pluck(Object.keys(x).filter(k =>
+    typeof toArray(props).filter(p => p === k)[0] === 'undefined'), x));
 
 // [1, [2, [3, [4]], 5]] → [1, 2, 3, 4, 5]
 export const flatten = a => Array.isArray(a) ? [].concat(...a.map(flatten)) : a;
