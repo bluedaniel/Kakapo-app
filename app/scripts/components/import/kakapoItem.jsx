@@ -12,7 +12,7 @@ export default ({ sounds, sound, intl, dispatch }) => {
   return (
     <div className={classNames('kakapo-item', { disabled })} onClick={handleClick}>
       <div className="thumbnail">
-        <img src={`http://data.kakapo.co/v2/images/dark_${sound.img}.png`} />
+        <i className={`icon-${sound.img}`} />
       </div>
       <span className="title">
         {intl.formatMessage({ id: (`sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`) })}

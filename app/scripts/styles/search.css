@@ -24,9 +24,13 @@
     margin-right: 1em;
     max-width: 110px;
     position: relative;
-    img {
+    img,
+    i {
       height: 80px;
       max-width: 100%;
+    }
+    i {
+      font-size: 50px;
     }
     .user-avatar img {
       border-radius: 50%;
