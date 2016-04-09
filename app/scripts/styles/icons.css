@@ -22,6 +22,62 @@
   }
 }
 
+.icon-birds::before {
+  content: "\e904";
+}
+
+.icon-bonfire::before {
+  content: "\e905";
+}
+
+.icon-cafe::before {
+  content: "\e906";
+}
+
+.icon-cat::before {
+  content: "\e907";
+}
+
+.icon-chimes::before {
+  content: "\e908";
+}
+
+.icon-fan::before {
+  content: "\e909";
+}
+
+.icon-leaves::before {
+  content: "\e90a";
+}
+
+.icon-paris::before {
+  content: "\e90b";
+}
+
+.icon-rain::before {
+  content: "\e90c";
+}
+
+.icon-thunder::before {
+  content: "\e90d";
+}
+
+.icon-train::before {
+  content: "\e90e";
+}
+
+.icon-water::before {
+  content: "\e90f";
+}
+
+.icon-waves::before {
+  content: "\e910";
+}
+
+.icon-wind::before {
+  content: "\e911";
+}
+
 .icon-playlist::before {
   content: "\e903";
 }

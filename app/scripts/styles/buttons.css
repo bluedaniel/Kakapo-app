@@ -1,11 +1,12 @@
+:root {
+  --buttonColor: transparent;
+  --buttonSecondColor: color(#522e92 blackness(10%));
+}
+
 .button,
-
 button,
-
 input[type="button"],
-
 input[type="reset"],
-
 input[type="submit"] {
   background-color: var(--buttonColor);
   border: 0.1rem solid #333;

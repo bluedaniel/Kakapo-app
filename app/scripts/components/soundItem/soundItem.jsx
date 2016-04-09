@@ -54,9 +54,11 @@ export default ({ sound, themes, dispatch }) => {
     objStyle = { ...objStyle, backgroundColor: themes.get('primary'), color: '#fff' };
   }
 
-  let img = sound.img;
+  let icon;
   if (sound.source === 'file') {
-    img = `http://data.kakapo.co/v2/images/${sound.playing ? 'light_' : 'dark_'}${sound.img.replace(/^.*[\\\/]/, '')}.png`;
+    icon = <i className={classNames('preview', `icon-${sound.img}`)} />;
+  } else {
+    icon = sound.img ? <img src={sound.img} /> : <div className="no-image" />;
   }
 
   return (
@@ -70,7 +72,7 @@ export default ({ sound, themes, dispatch }) => {
       style={objStyle}
     >
       <div className="inner">
-        {img ? <img src={img} /> : <div className="no-image" />}
+        {icon}
         {renderActions()}
         <span className="title">
           {sound.name}

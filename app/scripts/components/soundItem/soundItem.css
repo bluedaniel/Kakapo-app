@@ -1,3 +1,6 @@
+:root {
+  --animationSpeed: 450ms;
+}
 
 .item {
   background: #fff;
@@ -8,14 +11,17 @@
   opacity: 1;
   padding: 20px 25px 20px 75px;
   position: relative;
-  transition: opacity, background-color $animation-speed ease;
+  background-color: #fff;
+  transition: opacity, background-color var(--animationSpeed) ease;
   img,
-  .no-image {
+  .no-image,
+  .preview {
     height: 44px;
     left: 12px;
     position: absolute;
     top: 23px;
     width: 44px;
+    font-size: 50px;
   }
   .no-image {
     background: linear-gradient(to left, #232526, #414345);
@@ -27,7 +33,7 @@
     margin-right: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    transition: margin $animation-speed ease;
+    transition: margin var(--animationSpeed) ease;
     white-space: nowrap;
   }
   .actions {
