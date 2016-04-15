@@ -73,11 +73,6 @@ $ npm test -- --watch
 $ npm test
 ```
 
-## Contribute
-You are most welcome to do with this repo what you will :smile:.
-
-If you'd like to help translate the app into a new language, you can do so at - [https://github.com/bluedaniel/kakapo-assets](https://github.com/bluedaniel/kakapo-assets).
-
 ## Bugs and Feature Requests
 
 Have a bug or a feature request? [Please open a new issue here](https://github.com/bluedaniel/Kakapo-app/issues/new).
