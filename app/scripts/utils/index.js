@@ -27,8 +27,10 @@ export const safe = (fn, or = undefined) => {
   }
 };
 
-export const createConstants = (...constants) => constants.reduce((acc, constant) =>
-  ({ ...acc, [constant]: constant }), {});
+export const createConstants = (...constants) => constants.reduce((acc, constant) => {
+  acc[constant] = constant;
+  return acc;
+}, {});
 
 export const createReducer = (initialState, handlers) => (state = initialState, action) => {
   if (handlers.hasOwnProperty(action.type)) {

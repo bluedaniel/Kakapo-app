@@ -80,7 +80,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
 
   const renderShare = () => {
     if (params.shareId) {
-      const url = location.hostname + (__DEV__ ? `:${location.port}` : 'kakapo.co/#/playlist/');
+      const url = `http://${location.hostname}` + (true ? `:${location.port}` : 'kakapo.co/#');
       return (
         <div>
           <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
