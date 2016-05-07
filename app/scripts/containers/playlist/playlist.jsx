@@ -80,14 +80,14 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
 
   const renderShare = () => {
     if (params.shareId) {
-      const url = `http://${location.hostname}` + (true ? `:${location.port}` : 'kakapo.co/#');
+      const baseUrl = `http://${location.hostname}${(__DEV__ ? `:${location.port}` : 'kakapo.co')}`;
       return (
         <div>
           <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="form">
             <div className="InputAddOn">
               <input className="input-1 InputAddOn-field" id="copyClipboard"
-                value={`${url}/playlist/${params.shareId}`} readOnly
+                value={`${baseUrl}/#/playlist/${params.shareId}`} readOnly
               />
             <button className={classNames(clipBoardClass, 'InputAddOn-item')}
               data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}
