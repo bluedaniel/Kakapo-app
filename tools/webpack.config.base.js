@@ -38,6 +38,7 @@ const config = {
     new webpack.ProvidePlugin({
       fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
     }),
+    new webpack.IgnorePlugin(/react\/addons/),
     new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
     new webpack.optimize.OccurenceOrderPlugin()
   ],
