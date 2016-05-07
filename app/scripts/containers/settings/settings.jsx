@@ -72,13 +72,13 @@ export default function Settings({ settings, themes, location, intl, dispatch },
         <i className="icon-img-github" />
       </a>
       {__DESKTOP__ && !__DEV__ ? (
-      <p className="version" onClick={checkForUpdates}>
-        {!settings.updateStatus && `Check for update - v${app.getVersion()}`}
-        {settings.updateStatus === 'checking' && 'Checking for updates ...'}
-        {settings.updateStatus === 'downloading' && 'Downloading update ...'}
-        {settings.updateStatus === 'latest' && 'You have the latest version.'}
-        {settings.updateStatus === 'downloaded' && 'Click to restart and update.'}
-      </p>) : null}
+        <p className="version" onClick={checkForUpdates}>
+          {!settings.updateStatus && `Check for update - v${app.getVersion()}`}
+          {settings.updateStatus === 'checking' && 'Checking for updates ...'}
+          {settings.updateStatus === 'downloading' && 'Downloading update ...'}
+          {settings.updateStatus === 'latest' && 'You have the latest version.'}
+          {settings.updateStatus === 'downloaded' && 'Click to restart and update.'}
+        </p>) : null}
     </div>
   );
 
