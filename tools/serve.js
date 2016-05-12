@@ -44,7 +44,7 @@ export default async function serve() {
 
     devMiddleware.waitUntilValid(webpackComplete);
 
-    process.on('exit', () => server.kill('SIGTERM'));
+    process.on('exit', server.close);
     return server;
   });
 }

@@ -1,8 +1,6 @@
-import app from 'app';
+import { app, ipcMain, BrowserWindow, autoUpdater, Tray } from 'electron';
 import fs from 'fs';
-import { ipcMain, BrowserWindow, autoUpdater } from 'electron';
 import path from 'path';
-import Tray from 'tray';
 import proc from 'child_process';
 
 let appSettings;
