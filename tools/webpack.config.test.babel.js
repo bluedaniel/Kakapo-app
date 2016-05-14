@@ -3,7 +3,9 @@ import path from 'path';
 
 const config = {
   ...baseConfig,
-  entry: './test/index',
+  entry: {
+    index: './test/index.js'
+  },
   output: {
     filename: './.tmp/test-bundle.js'
   },

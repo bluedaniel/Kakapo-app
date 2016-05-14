@@ -1,6 +1,6 @@
 {
   "framework": "tap",
-  "serve_files": [ "./tmp/test-bundle.js" ],
+  "serve_files": [ ".tmp/test-bundle.js" ],
   "launch_in_dev": [ "chrome" ],
   "before_tests": "webpack --config tools/webpack.config.test.babel.js"
 }

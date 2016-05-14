@@ -1,14 +1,9 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { curry } from 'utils/';
 
-describe('Utility `curry`', () => {
-  it('should return a function', () => {
-    const setup = curry((x, y, z) => (x * y) + z);
-    expect(typeof setup).to.eql('function');
-  });
-
-  it('should curry arguments left to right', () => {
-    const setup = curry((x, y, z) => (x * y) + z);
-    expect(setup(1)(2)(3)).to.eql(5);
-  });
+test('[utils/curry]', t => {
+  t.plan(2);
+  const setup = curry((x, y, z) => (x * y) + z);
+  t.equal(typeof setup, 'function', 'should return a function');
+  t.equal(setup(1)(2)(3), 5, 'should curry arguments left to right');
 });

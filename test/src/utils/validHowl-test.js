@@ -1,19 +1,9 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { validHowl } from 'utils/';
 
-describe('Utility `validHowl`', () => {
-  it('rejects `.invalidExtension`', () => {
-    const setup = validHowl('test.invalidExtension');
-    expect(setup).to.eql(false);
-  });
-
-  it('accepts `.mp3`', () => {
-    const setup = validHowl('test.mp3');
-    expect(setup).to.eql(true);
-  });
-
-  it('accepts `.ogg`', () => {
-    const setup = validHowl('test.ogg');
-    expect(setup).to.eql(true);
-  });
+test('[utils/validHowl]', t => {
+  t.plan(3);
+  t.equal(validHowl('test.invalidExtension'), false, 'rejects `.invalidExtension`');
+  t.equal(validHowl('test.mp3'), true, 'accepts `.mp3`');
+  t.equal(validHowl('test.ogg'), true, 'accepts `.ogg`');
 });

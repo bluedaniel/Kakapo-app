@@ -1,18 +1,12 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { compose } from 'utils/';
 
 const minusTwo = x => x - 2;
 const plusFour = x => x + 4;
 const timesTwo = x => x * 2;
 
-describe('Utility `compose`', () => {
-  it('should return a function', () => {
-    const setup = compose(timesTwo, plusFour, minusTwo);
-    expect(typeof setup).to.eql('function');
-  });
-
-  it('should reduce functions right to left', () => {
-    const setup = compose(timesTwo, plusFour, minusTwo);
-    expect(setup(9)).to.eql(22);
-  });
+test('[utils/compose]', t => {
+  t.plan(2);
+  t.equal(typeof compose(timesTwo, plusFour, minusTwo), 'function', 'should return a function');
+  t.equal(compose(timesTwo, plusFour, minusTwo)(9), 22, 'should reduce functions right to left');
 });
