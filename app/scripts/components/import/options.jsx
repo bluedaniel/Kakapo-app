@@ -15,8 +15,7 @@ export default ({ intl }) => (
             <Link to={`/${item}`}>
               <i className={classNames(`icon-img-${item}`, {
                 'icon-add': item === 'custom'
-              })}
-              />
+              })} />
               <span className="text">{intl.formatMessage({ id: `import.options.${item}` })}</span>
             </Link>
           </li>

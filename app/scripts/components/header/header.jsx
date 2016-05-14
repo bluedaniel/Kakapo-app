@@ -8,8 +8,7 @@ export default ({ settings, themes, toggleMute }) => (
       <span className="hint--right" data-hint={settings.mute ? 'Unmute' : 'Mute'}>
         <i className={classNames(settings.mute ? 'icon-volume_off' : 'icon-volume_up', {
           dark: themes.get('darkUI')
-        })}
-        />
+        })} />
       </span>
     </span>
     <div className="logo">

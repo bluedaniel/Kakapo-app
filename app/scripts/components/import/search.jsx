@@ -30,19 +30,15 @@ export default ({ search, location, intl, dispatch }) => {
     <div className="youtube">
       <TextInput placeholder={`import.${service}.search_placeholder`}
         name="searchInput" spinner={search.get('loading')} intl={intl}
-        onChange={({ target }) => subject.next(target.value)}
-      />
+        onChange={({ target }) => subject.next(target.value)} />
       <div className={`${service}-items`}>
         {search.get(service).map(_y => (
-          <SearchResult
-            key={_y.videoId || _y.scId}
-            {...{
-              sound: _y,
-              service,
-              intl,
-              dispatch
-            }}
-          />
+          <SearchResult key={_y.videoId || _y.scId} {...{
+            sound: _y,
+            service,
+            intl,
+            dispatch
+          }} />
         ))}
       </div>
     </div>

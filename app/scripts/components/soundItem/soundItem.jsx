@@ -77,15 +77,9 @@ export default ({ sound, themes, dispatch }) => {
         <span className="title">
           {sound.name}
         </span>
-        <input
-          defaultValue={sound.volume}
-          max="1"
-          min="0"
+        <input defaultValue={sound.volume} max="1" min="0" step="0.01" type="range"
           onChange={({ target }) => subject.next(parseFloat(target.value))}
-          onClick={handleStopPropagation}
-          step="0.001"
-          type="range"
-        />
+          onClick={handleStopPropagation} />
       </div>
       {sound.source === 'youtubeStream' ?
         <div className="youtube-video" id={`video-${sound.file}`} /> : <div />}

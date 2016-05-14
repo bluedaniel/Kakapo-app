@@ -30,13 +30,11 @@ export default function CustomUrl({ themes, intl, dispatch }, { router }) {
       <form onSubmit={handleSubmit}>
         <div className="media-import">
           <TextInput placeholder="import.custom.name_placeholder" name="name" intl={intl} />
-          <TextInput placeholder="import.custom.url_placeholder"
-            name="url" intl={intl}
-          />
-          <button
-            className="button"
-            style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}
-          >{intl.formatMessage({ id: 'import.save' })}</button>
+          <TextInput placeholder="import.custom.url_placeholder" name="url" intl={intl} />
+          <button className="button"
+            style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}>
+            {intl.formatMessage({ id: 'import.save' })}
+          </button>
         </div>
       </form>
     </div>

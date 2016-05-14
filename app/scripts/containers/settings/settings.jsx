@@ -39,22 +39,12 @@ export default function Settings({ settings, themes, location, intl, dispatch },
   const renderDockOpt = () => (
     <div>
       <div className="opt">
-        <Checkbox
-          checked={settings.dockIcon}
-          handleChange={settingActions.toggleDock}
-          label="Show dock icon"
-          name="toggle-dock"
-          dispatch={dispatch}
-        />
+        <Checkbox checked={settings.dockIcon} handleChange={settingActions.toggleDock}
+          label="Show dock icon" name="toggle-dock" dispatch={dispatch} />
       </div>
       <div className="opt">
-        <Checkbox
-          checked={settings.devTools}
-          handleChange={settingActions.toggleDevTools}
-          label="Show developer tools"
-          name="toggle-devtools"
-          dispatch={dispatch}
-        />
+        <Checkbox checked={settings.devTools} handleChange={settingActions.toggleDevTools}
+          label="Show developer tools" name="toggle-devtools" dispatch={dispatch} />
       </div>
     </div>
   );

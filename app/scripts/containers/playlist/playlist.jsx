@@ -87,8 +87,7 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
           <form className="form">
             <div className="InputAddOn">
               <input className="input-1 InputAddOn-field" id="copyClipboard"
-                value={`${baseUrl}/#/playlist/${params.shareId}`} readOnly
-              />
+                value={`${baseUrl}/#/playlist/${params.shareId}`} readOnly />
               <button className={classNames(clipBoardClass, 'InputAddOn-item')}
                 data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}>
                 <span title="Copy to clipboard" />
@@ -112,9 +111,8 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
       <form className="form">
         <div className="InputAddOn">
           <span className="InputAddOn-item">kakapo.co/#/playlist/</span>
-          <input onKeyDown={handleDesktopPlaylistInput}
-            className="input-1 InputAddOn-field" type="text"
-          />
+          <input type="text" onKeyDown={handleDesktopPlaylistInput}
+            className="input-1 InputAddOn-field" />
         </div>
       </form>
     </div>
