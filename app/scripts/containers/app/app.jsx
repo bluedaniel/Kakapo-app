@@ -55,7 +55,7 @@ const App = (props) => {
 
   return (
     <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
-      <Dropzone activeClassName="activeDrop" className="inactiveDrop" disableClick={onDrop}>
+      <Dropzone activeClassName="activeDrop" className="inactiveDrop" onDrop={onDrop} disableClick>
         <Nav {...{ themes, intl }} />
 
         <Subroutes {...props} />
