@@ -62,15 +62,12 @@ export default ({ sound, themes, dispatch }) => {
   }
 
   return (
-    <div
+    <div onClick={handleToggle} style={objStyle}
       className={classNames('item', 'waves-effect', 'waves-block', {
         playing: sound.playing,
         paused: !sound.playing,
         'youtube-stream': sound.source === 'youtubeStream'
-      })}
-      onClick={handleToggle}
-      style={objStyle}
-    >
+      })}>
       <div className="inner">
         {icon}
         {renderActions()}

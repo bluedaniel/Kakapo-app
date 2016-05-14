@@ -30,10 +30,10 @@ export default ({ sound, themes, intl, dispatch }) => {
         <a className="button" onClick={handleCancel}>
           {intl.formatMessage({ id: 'list.cancel' })}
         </a>
-        <button
-          className="button"
-          style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}
-        >{intl.formatMessage({ id: 'list.save' })}</button>
+        <button className="button"
+          style={{ backgroundColor: themes.get('btn'), borderColor: themes.get('btn') }}>
+          {intl.formatMessage({ id: 'list.save' })}
+        </button>
       </form>
     </div>
   );

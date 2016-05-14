@@ -39,8 +39,7 @@ const App = (props) => {
   const renderLoading = () => (
     <div className="loading" style={{
       background: color(themes.get('primary')).alpha(0.5).rgbaString()
-    }}
-    >
+    }}>
       <div className="sk-fading-circle">
         {Array.from(new Array(12), (x, i) => i + 1).map(a => (
           <div className={`sk-circle${a} sk-circle`} key={`sk-circle${a}`} />
@@ -56,9 +55,7 @@ const App = (props) => {
 
   return (
     <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
-      <Dropzone activeClassName="activeDrop" className="inactiveDrop" disableClick
-        onDrop={onDrop}
-      >
+      <Dropzone activeClassName="activeDrop" className="inactiveDrop" disableClick={onDrop}>
         <Nav {...{ themes, intl }} />
 
         <Subroutes {...props} />

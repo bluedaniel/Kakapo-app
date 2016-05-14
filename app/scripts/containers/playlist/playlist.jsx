@@ -132,9 +132,8 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
         {Object.keys(kakapoAssets.playlists).map(_e => (
-          <span onClick={() => subject.next(kakapoAssets.playlists[_e])}
-            className="button" key={_e}
-          >
+          <span className="button" key={_e}
+            onClick={() => subject.next(kakapoAssets.playlists[_e])}>
             {intl.formatMessage({ id: `playlist.list_${_e}` })}
           </span>
         ))}

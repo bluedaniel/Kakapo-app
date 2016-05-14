@@ -17,8 +17,7 @@ export default ({ themes, intl }) => {
 
   return (
     <div className={classNames('topbar', { darkUI: themes.get('darkUI') })}
-      style={{ backgroundColor: themes.get('darkPrimary') }}
-    >
+      style={{ backgroundColor: themes.get('darkPrimary') }} >
       {renderDragOrDownload()}
       <div className="share">
         {__WEB__ ? <div className="fb-share-button" data-href="http://www.kakapo.co" data-layout="button_count" /> : null}

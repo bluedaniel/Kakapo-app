@@ -53,12 +53,8 @@ export default function Settings({ settings, themes, location, intl, dispatch },
 
   const renderGitRepo = () => (
     <div className="opt opt-repo">
-      <a
-        className="github hint--right"
-        data-hint="Fork me on Github!"
-        href="https://github.com/bluedaniel/kakapo-app"
-        target="_blank"
-      >
+      <a className="github hint--right" data-hint="Fork me on Github!"
+        href="https://github.com/bluedaniel/kakapo-app" target="_blank">
         <i className="icon-img-github" />
       </a>
       {__DESKTOP__ && !__DEV__ ? (
