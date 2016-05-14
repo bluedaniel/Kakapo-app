@@ -1,6 +1,5 @@
 {
   "extends": "airbnb",
-  "parser": "babel-eslint",
   "globals": {
     "__DEV__": true,
     "__DESKTOP__": true,
