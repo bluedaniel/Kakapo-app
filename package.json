@@ -100,13 +100,17 @@
     "style-loader": "^0.13.1",
     "stylelint": "^6.3.1",
     "stylelint-config-standard": "^7.0.0",
+    "tap-bail": "0.0.0",
+    "tape": "^4.5.1",
+    "testem": "^1.7.1",
     "webpack": "^1.13.0",
     "webpack-dev-middleware": "^1.6.1",
     "webpack-hot-middleware": "^2.10.0",
     "yargs": "^4.4.0"
   },
   "scripts": {
-    "test": "npm run lint && cross-env NODE_ENV=test karma start",
+    "test": "testem",
+    "_test": "npm run lint && cross-env NODE_ENV=test karma start",
     "styles": "babel-node tools/run styles",
     "lint": "stylelint \"app/scripts/**/*.css\" && eslint --ext .jsx --ext .js app/scripts",
     "build": "npm run lint && babel-node tools/run build",

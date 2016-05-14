@@ -3,6 +3,10 @@ import path from 'path';
 
 const config = {
   ...baseConfig,
+  entry: './test/index',
+  output: {
+    filename: './.tmp/test-bundle.js'
+  },
   devtool: 'inline-source-map',
   module: {
     preLoaders: [ {
