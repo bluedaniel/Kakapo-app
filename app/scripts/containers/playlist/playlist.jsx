@@ -89,9 +89,8 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
               <input className="input-1 InputAddOn-field" id="copyClipboard"
                 value={`${baseUrl}/#/playlist/${params.shareId}`} readOnly
               />
-            <button className={classNames(clipBoardClass, 'InputAddOn-item')}
-              data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}
-            >
+              <button className={classNames(clipBoardClass, 'InputAddOn-item')}
+                data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}>
                 <span title="Copy to clipboard" />
               </button>
             </div>

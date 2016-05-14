@@ -16,7 +16,7 @@ const state = store.getState();
 const target = document.querySelector('[app]');
 
 let render = () => {
-  const Root = require('./root').default;
+  const Root = require('./root').default; // eslint-disable-line global-require
   ReactDOM.render(
     <Provider store={store}>
       <Root {...{ state, appHistory }} />
@@ -28,7 +28,7 @@ let render = () => {
 if (module.hot) {
   const renderApp = render;
   const renderError = (err) => {
-    const RedBox = require('redbox-react');
+    const RedBox = require('redbox-react'); // eslint-disable-line global-require
     ReactDOM.render(<RedBox error={err} />, target);
   };
 

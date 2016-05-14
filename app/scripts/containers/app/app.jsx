@@ -49,8 +49,10 @@ const App = (props) => {
     </div>
   );
 
-  const toggleMute = () =>
-    (dispatch(settingActions.toggleMute()), dispatch(soundActions.soundsMute()));
+  const toggleMute = () => {
+    dispatch(settingActions.toggleMute());
+    dispatch(soundActions.soundsMute());
+  };
 
   return (
     <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
@@ -66,7 +68,7 @@ const App = (props) => {
 
           {settings.updateStatus === 'downloaded' ?
             <a className="update-now" onClick={() => ipcRenderer.send('application:quit-install')}>
-            Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
+              Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
 
           <Header {...{ settings, themes, toggleMute }} />
 

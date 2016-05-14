@@ -42,7 +42,7 @@ export default ({ sound, themes, dispatch }) => {
       {sound.source !== 'youtubeStream' ? (
         <li onClick={handleEdit}>
           <i className="icon-edit" />
-          </li>) : ''}
+        </li>) : ''}
       <li onClick={handleDelete}>
         <i className="icon-delete" />
       </li>
@@ -58,7 +58,7 @@ export default ({ sound, themes, dispatch }) => {
   if (sound.source === 'file') {
     icon = <i className={classNames('preview', `icon-${sound.img}`)} />;
   } else {
-    icon = sound.img ? <img src={sound.img} /> : <div className="no-image" />;
+    icon = sound.img ? <img src={sound.img} role="presentation" /> : <div className="no-image" />;
   }
 
   return (
