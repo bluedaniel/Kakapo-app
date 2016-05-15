@@ -1,32 +1,23 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { themeActions } from 'actions/';
 import themes, { initialState } from 'reducers/themes';
 
-describe('Reducer `themes`', () => {
-  it('change primary color to `#E91E63`', () => {
-    const setup = themes(initialState, themeActions.themesChange('#E91E63', 0));
-    expect(setup.get('primary')).to.eql('#E91E63');
-    expect(setup.get('btn')).to.eql('#4CAF50');
-  });
+test('[reducer/themes]', t => {
+  t.plan(7);
+  const setup1 = themes(initialState, themeActions.themesChange('#E91E63', 0));
+  t.equal(setup1.get('primary'), '#E91E63', 'change primary color to `#E91E63`');
+  t.equal(setup1.get('btn'), '#4CAF50');
 
-  it('change primary color to `#03A9F4`', () => {
-    const setup = themes(initialState, themeActions.themesChange('#03A9F4', 0));
-    expect(setup.get('primary')).to.eql('#03A9F4');
-  });
+  const setup2 = themes(initialState, themeActions.themesChange('#03A9F4', 0));
+  t.equal(setup2.get('primary'), '#03A9F4', 'change primary color to `#03A9F4`');
 
-  it('change secondary color to `#9C27B0`', () => {
-    const setup = themes(initialState, themeActions.themesChange('#9C27B0', 1));
-    expect(setup.get('btn')).to.eql('#9C27B0');
-  });
+  const setup3 = themes(initialState, themeActions.themesChange('#9C27B0', 1));
+  t.equal(setup3.get('btn'), '#9C27B0', 'change secondary color to `#9C27B0`');
 
-  it('change secondary color to `#8BC34A`', () => {
-    const setup = themes(initialState, themeActions.themesChange('#8BC34A', 1));
-    expect(setup.get('btn')).to.eql('#8BC34A');
-  });
+  const setup4 = themes(initialState, themeActions.themesChange('#8BC34A', 1));
+  t.equal(setup4.get('btn'), '#8BC34A', 'change secondary color to `#8BC34A`');
 
-  it('change primary color to a dark theme color `#FFEB3B`', () => {
-    const setup = themes(initialState, themeActions.themesChange('#FFEB3B', 0));
-    expect(setup.get('primary')).to.eql('#FFEB3B');
-    expect(setup.get('darkUI')).to.eql(true);
-  });
+  const setup5 = themes(initialState, themeActions.themesChange('#FFEB3B', 0));
+  t.equal(setup5.get('primary'), '#FFEB3B', 'change primary color to a dark theme color `#FFEB3B`');
+  t.equal(setup5.get('darkUI'), true);
 });

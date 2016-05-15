@@ -1,7 +1,7 @@
 import React from 'react';
+import test from 'tape';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { getData } from '../../helper';
 import { Header } from 'components/';
 
@@ -14,21 +14,26 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Header {...propData} />) };
 }
 
-describe('<Header/>', () => {
-  it('renders as a <header>', () => {
+test('<Header/>', t => {
+  test('renders as a <header>', t => {
+    t.plan(1);
     const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('header');
+    t.equal(wrapper.type(), 'header');
   });
 
-  it('should render mute icon', () => {
+  test('should render mute icon', t => {
+    t.plan(1);
     const { wrapper } = setup();
-    expect(wrapper.find('.toggle-mute')).to.have.length(1);
+    t.equal(wrapper.find('.toggle-mute').length, 1);
   });
 
-  it('simulate toggle-mute click', () => {
+  test('simulate toggle-mute click', t => {
+    t.plan(1);
     const toggleMute = sinon.spy();
     const { wrapper } = setup({ toggleMute });
     wrapper.find('.toggle-mute').simulate('click');
-    expect(toggleMute.calledOnce).to.equal(true);
+    t.equal(toggleMute.calledOnce, true);
   });
+
+  t.end();
 });

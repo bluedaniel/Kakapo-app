@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
 import { getData } from '../../helper';
 import { Nav } from 'components/';
 
@@ -13,9 +13,12 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Nav {...propData} />) };
 }
 
-describe('<Nav/>', () => {
-  it('className equals `topbar`', () => {
+test('<Nav/>', t => {
+  test('className equals `topbar`', t => {
+    t.plan(1);
     const { wrapper } = setup();
-    expect(wrapper.prop('className')).to.eql('topbar');
+    t.equals(wrapper.prop('className'), 'topbar');
   });
+
+  t.end();
 });

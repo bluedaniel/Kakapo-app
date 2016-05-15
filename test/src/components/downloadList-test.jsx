@@ -1,6 +1,6 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { Map } from 'immutable';
 import { getData } from '../../helper';
 import { newSoundClass } from 'classes/';
@@ -23,22 +23,29 @@ function randomSounds(count) {
   return arr;
 }
 
-describe('<DownloadList/>', () => {
-  it('renders empty div if no downloads', () => {
+test('<DownloadList/>', t => {
+  test('renders empty div if no downloads', t => {
+    t.plan(1);
     const { wrapper } = setup();
-    expect(wrapper.html()).to.eql('<div></div>');
+    t.equal(wrapper.html(), '<div></div>');
   });
 
-  describe('When given props', () => {
-    it('renders as a <div> with className equals `download-list`', () => {
+  test('When given props', t => {
+    test('renders as a <div> with className equals `download-list`', t => {
+      t.plan(2);
       const { wrapper } = setup({ sounds: randomSounds(4) });
-      expect(wrapper.type()).to.eql('div');
-      expect(wrapper.prop('className')).to.eql('download-list');
+      t.equal(wrapper.type(), 'div');
+      t.equal(wrapper.prop('className'), 'download-list');
     });
 
-    it('should only render sounds with `progress` < 1', () => {
+    test('should only render sounds with `progress` < 1', t => {
+      t.plan(1);
       const { wrapper } = setup({ sounds: randomSounds(4) });
-      expect(wrapper.children().length).to.eql(3);
+      t.equal(wrapper.children().length, 3);
     });
+
+    t.end();
   });
+
+  t.end();
 });

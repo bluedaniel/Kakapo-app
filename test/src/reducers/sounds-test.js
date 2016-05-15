@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import test from 'tape';
 import sinon from 'sinon';
 import { store } from 'stores/configureStore';
 import { soundActions } from 'actions/';
@@ -11,71 +11,77 @@ const currState = () => store.getState().sounds;
 
 let defaultState;
 
-describe('Reducer `sounds`', () => {
-  beforeEach(() => {
-    localStorage.removeItem('sounds');
-    const stubbedFetch = sinon.stub(window, 'fetch');
-    stubMatch(stubbedFetch, /kakapo/, kakapoRes);
+test('setup', t => {
+  localStorage.removeItem('sounds');
+  const stubbedFetch = sinon.stub(window, 'fetch');
+  stubMatch(stubbedFetch, /kakapo/, kakapoRes);
+  t.end();
+});
+
+test('[reducer/sounds] init sounds', t => {
+  t.plan(3);
+  const action = store.dispatch(soundActions.soundsInit());
+  action.then(data => {
+    t.equal(data.type, 'SOUNDS_RECEIVED');
+    t.equal(data.resp.length, 14);
+    t.equal(currState().count(), 14);
+    defaultState = currState();
   });
+});
 
-  afterEach(() => window.fetch.restore());
 
-  it('init sounds', (done) => {
-    const action = store.dispatch(soundActions.soundsInit());
-    action.then(data => {
-      expect(data.type).to.eql('SOUNDS_RECEIVED');
-      expect(data.resp.length).to.eql(14);
-      expect(currState().count()).to.eql(14);
-      defaultState = currState();
-      done();
-    });
-  });
+test('toggle play `on`', t => {
+  t.plan(2);
+  const action = store.dispatch(soundActions.soundsPlay(currState().get('wind')));
+  t.equal(action.type, 'SOUNDS_PLAY');
+  t.equal(currState().get('wind').playing, true);
+});
 
-  describe('then', () => {
-    it('toggle play `on`', () => {
-      const action = store.dispatch(soundActions.soundsPlay(currState().get('wind')));
-      expect(action.type).to.eql('SOUNDS_PLAY');
-      expect(currState().get('wind').playing).to.eql(true);
-    });
-  });
+test('toggle play `off`', t => {
+  t.plan(2);
+  const action = store.dispatch(soundActions.soundsPlay(currState().get('wind')));
+  t.equal(action.type, 'SOUNDS_PLAY');
+  t.equal(currState().get('wind').playing, false);
+});
 
-  describe('then', () => {
-    it('toggle play `off`', () => {
-      const action = store.dispatch(soundActions.soundsPlay(currState().get('wind')));
-      expect(action.type).to.eql('SOUNDS_PLAY');
-      expect(currState().get('wind').playing).to.eql(false);
-    });
+test('change volume', t => {
+  t.plan(3);
+  t.equal(currState().get('wind').volume, 0.5);
+  const action = store.dispatch(soundActions.soundsVolume(currState().get('wind'), 0.25));
+  t.equal(action.type, 'SOUNDS_VOLUME');
+  t.equal(currState().get('wind').volume, 0.25);
+});
 
-    it('change volume', () => {
-      expect(currState().get('wind').volume).to.eql(0.5);
-      const action = store.dispatch(soundActions.soundsVolume(currState().get('wind'), 0.25));
-      expect(action.type).to.eql('SOUNDS_VOLUME');
-      expect(currState().get('wind').volume).to.eql(0.25);
-    });
+test('edit sound', t => {
+  t.plan(2);
+  const newData = { tags: 'newTag' };
+  const action = store.dispatch(soundActions.soundsEdit(currState().get('wind'), newData));
+  t.equal(action.type, 'SOUNDS_EDIT');
+  t.equal(currState().get('wind').tags, newData.tags);
+});
 
-    it('edit sound', () => {
-      const newData = { tags: 'newTag' };
-      const action = store.dispatch(soundActions.soundsEdit(currState().get('wind'), newData));
-      expect(action.type).to.eql('SOUNDS_EDIT');
-      expect(currState().get('wind').tags).to.eql(newData.tags);
-    });
+test('remove sound', t => {
+  t.plan(2);
+  const action = store.dispatch(soundActions.soundsRemove(currState().get('wind')));
+  t.equal(action.type, 'SOUNDS_REMOVE');
+  t.equal(currState().get('wind'), undefined);
+});
 
-    it('remove sound', () => {
-      const action = store.dispatch(soundActions.soundsRemove(currState().get('wind')));
-      expect(action.type).to.eql('SOUNDS_REMOVE');
-      expect(currState().get('wind')).to.eql(undefined);
-    });
+test('reset sounds', t => {
+  t.plan(2);
+  const action = store.dispatch(soundActions.resetSounds(true));
+  t.equal(action.type, 'SOUNDS_RESET');
+  t.deepEqual(currState().toJS(), {});
+});
 
-    it('reset sounds', () => {
-      const action = store.dispatch(soundActions.resetSounds(true));
-      expect(action.type).to.eql('SOUNDS_RESET');
-      expect(currState().toJS()).to.eql({});
-    });
+test('clear sounds', t => {
+  t.plan(2);
+  const action = store.dispatch(soundActions.resetSounds());
+  t.equal(action.type, 'SOUNDS_RESET');
+  t.deepEqual(currState().toJS(), defaultState.toJS());
+});
 
-    it('clear sounds', () => {
-      const action = store.dispatch(soundActions.resetSounds());
-      expect(action.type).to.eql('SOUNDS_RESET');
-      expect(currState().toJS()).to.eql(defaultState.toJS());
-    });
-  });
+test('teardown', t => {
+  window.fetch.restore();
+  t.end();
 });

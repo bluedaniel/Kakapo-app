@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
 import { Map } from 'immutable';
 import { getData } from '../../helper';
 import { newSoundClass } from 'classes/';
@@ -28,21 +28,28 @@ function randomSounds(count) {
   return arr;
 }
 
-describe('<SoundList/>', () => {
-  it('renders null if no sounds', () => {
+test('<SoundList/>', t => {
+  test('renders null if no sounds', t => {
+    t.plan(1);
     const { wrapper } = setup();
-    expect(wrapper.html()).to.eql('<div></div>');
+    t.equals(wrapper.html(), '<div></div>');
   });
 
-  describe('When given props', () => {
-    it('renders as a <section>', () => {
+  test('When given props', t => {
+    test('renders as a <section>', t => {
+      t.plan(1);
       const { wrapper } = setup({ sounds: randomSounds(4) });
-      expect(wrapper.type()).to.eql('section');
+      t.equals(wrapper.type(), 'section');
     });
 
-    it('should only render sounds with `progress` === 1', () => {
+    test('should only render sounds with `progress` === 1', t => {
+      t.plan(1);
       const { wrapper } = setup({ sounds: randomSounds(8) });
-      expect(wrapper.find('.sound-item-wrap').length).to.eql(5);
+      t.equals(wrapper.find('.sound-item-wrap').length, 5);
     });
+
+    t.end();
   });
+
+  t.end();
 });

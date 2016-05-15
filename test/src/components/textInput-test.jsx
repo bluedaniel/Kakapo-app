@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
 import { getData } from '../../helper';
 import { TextInput } from 'components/ui/';
 
@@ -14,40 +14,50 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<TextInput {...propData} />) };
 }
 
-describe('<TextInput/>', () => {
-  it('renders as a <div> with className equals `group`', () => {
+test('<TextInput/>', t => {
+  test('renders as a <div> with className equals `group`', t => {
+    t.plan(2);
     const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('group');
+    t.equals(wrapper.type(), 'div');
+    t.equals(wrapper.prop('className'), 'group');
   });
 
-  it('renders the correct amount of elements', () => {
+  test('renders the correct amount of elements', t => {
+    t.plan(4);
     const { wrapper } = setup();
-    expect(wrapper.find('input')).to.have.length(1);
-    expect(wrapper.find('.highlight')).to.have.length(1);
-    expect(wrapper.find('.bar')).to.have.length(1);
-    expect(wrapper.find('label')).to.have.length(1);
+    t.equals(wrapper.find('input').length, 1);
+    t.equals(wrapper.find('.highlight').length, 1);
+    t.equals(wrapper.find('.bar').length, 1);
+    t.equals(wrapper.find('label').length, 1);
   });
 
-  it('renders correctly without translation', () => {
+  test('renders correctly without translation', t => {
+    t.plan(1);
     const { wrapper } = setup();
-    expect(wrapper.find('label').text()).to.eql('without.translation');
+    t.equals(wrapper.find('label').text(), 'without.translation');
   });
 
-  describe('When given props', () => {
-    it('renders the correct value', () => {
+  test('When given props', t => {
+    test('renders the correct value', t => {
+      t.plan(1);
       const { wrapper } = setup({ value: 42 });
-      expect(wrapper.find('input').props().defaultValue).to.eql(42);
+      t.equals(wrapper.find('input').props().defaultValue, 42);
     });
 
-    it('renders the correct translation', () => {
+    test('renders the correct translation', t => {
+      t.plan(1);
       const { wrapper } = setup({ placeholder: 'nav.settings' });
-      expect(wrapper.find('label').text()).to.eql('Settings');
+      t.equals(wrapper.find('label').text(), 'Settings');
     });
 
-    it('renders a loading spinner', () => {
+    test('renders a loading spinner', t => {
+      t.plan(1);
       const { wrapper } = setup({ spinner: true });
-      expect(wrapper.find('.spinner')).to.have.length(1);
+      t.equals(wrapper.find('.spinner').length, 1);
     });
+
+    t.end();
   });
+
+  t.end();
 });

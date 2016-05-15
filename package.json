@@ -20,6 +20,7 @@
     "intl": "^1.1.0",
     "kakapo-assets": "^5.18.0",
     "lost": "^6.7.2",
+    "ramda": "^0.21.0",
     "react": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
     "react-dom": "^15.0.2",
@@ -110,7 +111,6 @@
   },
   "scripts": {
     "test": "testem",
-    "_test": "npm run lint && cross-env NODE_ENV=test karma start",
     "styles": "babel-node tools/run styles",
     "lint": "stylelint \"app/scripts/**/*.css\" && eslint --ext .jsx --ext .js app/scripts",
     "build": "npm run lint && babel-node tools/run build",

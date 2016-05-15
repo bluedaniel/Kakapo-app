@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import test from 'tape';
 import sinon from 'sinon';
 import { store } from 'stores/configureStore';
 import { searchActions } from 'actions/';
@@ -8,43 +8,45 @@ import search, { initialState } from 'reducers/search';
 const stubMatch = (stub, regex, data) =>
   stub.withArgs(sinon.match(regex)).returns(Promise.resolve(stubFetchWith(data)));
 
-describe('Reducer `search`', () => {
-  beforeEach(() => {
-    const stubbedFetch = sinon.stub(window, 'fetch');
-    stubMatch(stubbedFetch, /search/, youtubeRes.videos);
-    stubMatch(stubbedFetch, /videos/, youtubeRes.statistics);
-    stubMatch(stubbedFetch, /kakapo/, kakapoRes);
-  });
+test('setup', t => {
+  const stubbedFetch = sinon.stub(window, 'fetch');
+  stubMatch(stubbedFetch, /search/, youtubeRes.videos);
+  stubMatch(stubbedFetch, /videos/, youtubeRes.statistics);
+  stubMatch(stubbedFetch, /kakapo/, kakapoRes);
+  t.end();
+});
 
-  afterEach(() => {
-    window.fetch.restore();
-  });
+test('[reducer/search] search YouTube for `oceans`', t => {
+  t.plan(2);
+  const action = store.dispatch(searchActions.searchYoutube('oceans'));
+  action.then(data => {
+    t.equal(data.type, 'SEARCH_YOUTUBE');
+    t.equal(data.items.length, 2);
 
-  it('search YouTube for `oceans`', (done) => {
-    const action = store.dispatch(searchActions.searchYoutube('oceans'));
-    action.then(data => {
-      expect(data.type).to.eql('SEARCH_YOUTUBE');
-      expect(data.items.length).to.eql(2);
-      done();
-
-      it('update the store with the new data', () => {
-        const reducer = search(initialState, data);
-        expect(reducer.get('youtube').count()).to.eql(15);
-      });
+    test('update the store with the new data', t => {
+      t.plan(1);
+      const reducer = search(initialState, data);
+      t.equal(reducer.get('youtube').count(), 15);
     });
   });
+});
 
-  it('search Kakapo', (done) => {
-    const action = store.dispatch(searchActions.searchKakapo());
-    action.then(data => {
-      expect(data.type).to.eql('SEARCH_KAKAPO');
-      expect(data.items.length).to.eql(14);
-      done();
+test('[reducer/search] search Kakapo', t => {
+  t.plan(2);
+  const action = store.dispatch(searchActions.searchKakapo());
+  action.then(data => {
+    t.equal(data.type, 'SEARCH_KAKAPO');
+    t.equal(data.items.length, 14);
 
-      it('update the store with the new data', () => {
-        const reducer = search(initialState, data);
-        expect(reducer.get('kakapofavs').count()).to.eql(15);
-      });
+    test('update the store with the new data', t => {
+      t.plan(1);
+      const reducer = search(initialState, data);
+      t.equal(reducer.get('kakapofavs').count(), 14);
     });
   });
+});
+
+test('teardown', t => {
+  window.fetch.restore();
+  t.end();
 });

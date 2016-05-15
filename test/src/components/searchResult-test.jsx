@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
+import R from 'ramda';
 import { getData } from '../../helper';
 import { ImportSearchResult as SearchResult } from 'components/';
 
@@ -23,30 +24,40 @@ const sound = {
   viewCount: 319609
 };
 
-describe('<SearchResult/>', () => {
-  describe('When YouTube data added', () => {
-    it('renders as a <div> with className equals `youtube-item`', () => {
+test('<SearchResult/>', t => {
+  test('When YouTube data added', t => {
+    test('renders as a <div> with className equals `youtube-item`', t => {
+      t.plan(2);
       const { wrapper } = setup({ sound });
-      expect(wrapper.type()).to.eql('div');
-      expect(wrapper.prop('className')).to.eql('youtube-item');
+      t.equals(wrapper.type(), 'div');
+      t.equals(wrapper.prop('className'), 'youtube-item');
     });
 
-    it('renders the view count in correct locale', () => {
+    test('renders the view count in correct locale', t => {
+      t.plan(1);
       const { wrapper } = setup({ sound });
-      expect(wrapper.find('.view-count').text()).to.be.oneOf([ '319609 views', '319,609 views' ]);
+      t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 views', '319,609 views' ]));
     });
+
+    t.end();
   });
 
-  describe('When SoundCloud data added', () => {
-    it('renders as a <div> with className equals `soundcloud-item`', () => {
+  test('When SoundCloud data added', t => {
+    test('renders as a <div> with className equals `soundcloud-item`', t => {
+      t.plan(2);
       const { wrapper } = setup({ service: 'soundcloud', sound });
-      expect(wrapper.type()).to.eql('div');
-      expect(wrapper.prop('className')).to.eql('soundcloud-item');
+      t.equals(wrapper.type(), 'div');
+      t.equals(wrapper.prop('className'), 'soundcloud-item');
     });
 
-    it('renders the view count in correct locale', () => {
+    test('renders the view count in correct locale', t => {
+      t.plan(1);
       const { wrapper } = setup({ service: 'soundcloud', sound });
-      expect(wrapper.find('.view-count').text()).to.be.oneOf([ '319609 plays', '319,609 plays' ]);
+      t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 plays', '319,609 plays' ]));
     });
+
+    t.end();
   });
+
+  t.end();
 });
