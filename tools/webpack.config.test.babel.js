@@ -4,10 +4,10 @@ import path from 'path';
 const config = {
   ...baseConfig,
   entry: {
-    index: './test/index.js'
+    index: './test/test-bundler.js'
   },
   output: {
-    filename: './.tmp/test-bundle.js'
+    filename: './.tmp/test.bundle.js'
   },
   devtool: 'inline-source-map',
   module: {
@@ -24,6 +24,9 @@ const config = {
     loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: 'null-loader'
+    }, {
+      test: /sinon.*\.js$/,
+      loader: 'imports?define=>false,require=>false'
     } ],
     noParse: baseConfig.module.noParse
   },
