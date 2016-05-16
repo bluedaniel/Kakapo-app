@@ -28,28 +28,20 @@ function randomSounds(count) {
   return arr;
 }
 
-test('<SoundList/>', t => {
-  test('renders null if no sounds', t => {
-    t.plan(1);
-    const { wrapper } = setup();
-    t.equals(wrapper.html(), '<div></div>');
-  });
+test('<SoundList/> render empty', t => {
+  t.plan(1);
+  const { wrapper } = setup();
+  t.equals(wrapper.html(), '<div></div>');
+});
 
-  test('When given props', t => {
-    test('renders as a <section>', t => {
-      t.plan(1);
-      const { wrapper } = setup({ sounds: randomSounds(4) });
-      t.equals(wrapper.type(), 'section');
-    });
+test('<SoundList/> render', t => {
+  t.plan(1);
+  const { wrapper } = setup({ sounds: randomSounds(4) });
+  t.equals(wrapper.type(), 'section');
+});
 
-    test('should only render sounds with `progress` === 1', t => {
-      t.plan(1);
-      const { wrapper } = setup({ sounds: randomSounds(8) });
-      t.equals(wrapper.find('.sound-item-wrap').length, 5);
-    });
-
-    t.end();
-  });
-
-  t.end();
+test('<SoundList/> progress === 1', t => {
+  t.plan(1);
+  const { wrapper } = setup({ sounds: randomSounds(8) });
+  t.equals(wrapper.find('.sound-item-wrap').length, 5);
 });

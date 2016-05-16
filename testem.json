@@ -1,5 +1,0 @@
-{
-  "framework": "tap",
-  "serve_files": [ ".tmp/test-bundle.js" ],
-  "before_tests": "webpack --config tools/webpack.config.test.babel.js"
-}

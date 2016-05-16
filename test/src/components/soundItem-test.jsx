@@ -26,60 +26,48 @@ const soundProp = (props = {}) => {
 const defaultClassName = 'item waves-effect waves-block';
 const youtubeTestId = '7ccQyyCLtx8';
 
-test('<SoundItem/>', t => {
-  test('renders as a <div> with className equals `item waves-effect waves-block paused`', t => {
-    t.plan(2);
-    const { wrapper } = setup(soundProp());
-    t.equals(wrapper.type(), 'div');
-    t.equals(wrapper.prop('className'), `${defaultClassName} paused`);
-  });
+test('<SoundItem/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp());
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), `${defaultClassName} paused`);
+});
 
-  test('without image should render `no-image`', t => {
-    t.plan(1);
-    const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
-    t.equals(wrapper.find('.no-image').length, 1);
-  });
+test('<SoundItem/> w/o image', t => {
+  t.plan(1);
+  const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
+  t.equals(wrapper.find('.no-image').length, 1);
+});
 
-  test('should render 3 icons', t => {
-    t.plan(3);
-    const { wrapper } = setup(soundProp());
-    t.equals(wrapper.find('.icon-share').length, 1);
-    t.equals(wrapper.find('.icon-edit').length, 1);
-    t.equals(wrapper.find('.icon-delete').length, 1);
-  });
+test('<SoundItem/> render 3 icons', t => {
+  t.plan(3);
+  const { wrapper } = setup(soundProp());
+  t.equals(wrapper.find('.icon-share').length, 1);
+  t.equals(wrapper.find('.icon-edit').length, 1);
+  t.equals(wrapper.find('.icon-delete').length, 1);
+});
 
-  test('When YouTube added', t => {
-    test('className `youtube-stream` is added', t => {
-      t.plan(1);
-      const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
-      t.equals(wrapper.prop('className'), `${defaultClassName} paused youtube-stream`);
-    });
+test('<SoundItem/> youtube render', t => {
+  t.plan(1);
+  const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
+  t.equals(wrapper.prop('className'), `${defaultClassName} paused youtube-stream`);
+});
 
-    test('should render only 2 icons', t => {
-      t.plan(1);
-      const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
-      t.equals(wrapper.find('.icon-edit').length, 0);
-    });
+test('<SoundItem/> youtube render 2 icons', t => {
+  t.plan(1);
+  const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
+  t.equals(wrapper.find('.icon-edit').length, 0);
+});
 
-    test(`video container '#video-${youtubeTestId}.youtube-video' is added`, t => {
-      t.plan(2);
-      const { wrapper } = setup(soundProp({ file: youtubeTestId, source: 'youtubeStream' }));
-      t.equals(wrapper.find('.youtube-video').length, 1);
-      t.equals(wrapper.find('.youtube-video').prop('id'), `video-${youtubeTestId}`);
-    });
+test('<SoundItem/> youtube render test-id', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp({ file: youtubeTestId, source: 'youtubeStream' }));
+  t.equals(wrapper.find('.youtube-video').length, 1);
+  t.equals(wrapper.find('.youtube-video').prop('id'), `video-${youtubeTestId}`);
+});
 
-    t.end();
-  });
-
-  test('When playing', t => {
-    test('className equals `item waves-effect waves-block playing`', t => {
-      t.plan(1);
-      const { wrapper } = setup(soundProp({ playing: true }));
-      t.equals(wrapper.prop('className'), `${defaultClassName} playing`);
-    });
-
-    t.end();
-  });
-
-  t.end();
+test('<SoundItem/> render playing', t => {
+  t.plan(1);
+  const { wrapper } = setup(soundProp({ playing: true }));
+  t.equals(wrapper.prop('className'), `${defaultClassName} playing`);
 });

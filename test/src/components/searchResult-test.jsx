@@ -24,40 +24,29 @@ const sound = {
   viewCount: 319609
 };
 
-test('<SearchResult/>', t => {
-  test('When YouTube data added', t => {
-    test('renders as a <div> with className equals `youtube-item`', t => {
-      t.plan(2);
-      const { wrapper } = setup({ sound });
-      t.equals(wrapper.type(), 'div');
-      t.equals(wrapper.prop('className'), 'youtube-item');
-    });
 
-    test('renders the view count in correct locale', t => {
-      t.plan(1);
-      const { wrapper } = setup({ sound });
-      t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 views', '319,609 views' ]));
-    });
+test('<SearchResult/> render youtube', t => {
+  t.plan(2);
+  const { wrapper } = setup({ sound });
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'youtube-item');
+});
 
-    t.end();
-  });
+test('<SearchResult/> youtube view count in locale', t => {
+  t.plan(1);
+  const { wrapper } = setup({ sound });
+  t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 views', '319,609 views' ]));
+});
 
-  test('When SoundCloud data added', t => {
-    test('renders as a <div> with className equals `soundcloud-item`', t => {
-      t.plan(2);
-      const { wrapper } = setup({ service: 'soundcloud', sound });
-      t.equals(wrapper.type(), 'div');
-      t.equals(wrapper.prop('className'), 'soundcloud-item');
-    });
+test('<SearchResult/> render soundcloud', t => {
+  t.plan(2);
+  const { wrapper } = setup({ service: 'soundcloud', sound });
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'soundcloud-item');
+});
 
-    test('renders the view count in correct locale', t => {
-      t.plan(1);
-      const { wrapper } = setup({ service: 'soundcloud', sound });
-      t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 plays', '319,609 plays' ]));
-    });
-
-    t.end();
-  });
-
-  t.end();
+test('<SearchResult/> soundcould view count in locale', t => {
+  t.plan(1);
+  const { wrapper } = setup({ service: 'soundcloud', sound });
+  t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 plays', '319,609 plays' ]));
 });

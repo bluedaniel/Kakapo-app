@@ -22,20 +22,16 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<KakapoItem {...propData} />) };
 }
 
-test('<KakapoItem/>', t => {
-  test('renders as a <div> with className equals `kakapo-item disabled`', t => {
-    t.plan(2);
-    const { wrapper } = setup(soundProp());
-    t.equal(wrapper.type(), 'div');
-    t.equal(wrapper.prop('className'), 'kakapo-item disabled');
-  });
+test('<KakapoItem/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp());
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'kakapo-item disabled');
+});
 
-  test('when given unique file renders className equals `kakapo-item`', t => {
-    t.plan(2);
-    const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
-    t.equal(wrapper.type(), 'div');
-    t.equal(wrapper.prop('className'), 'kakapo-item');
-  });
-
-  t.end();
+test('<KakapoItem/> render file', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
+  t.equal(wrapper.type(), 'div');
+  t.equal(wrapper.prop('className'), 'kakapo-item');
 });

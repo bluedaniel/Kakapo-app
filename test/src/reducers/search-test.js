@@ -8,45 +8,49 @@ import search, { initialState } from 'reducers/search';
 const stubMatch = (stub, regex, data) =>
   stub.withArgs(sinon.match(regex)).returns(Promise.resolve(stubFetchWith(data)));
 
-test('setup', t => {
-  const stubbedFetch = sinon.stub(window, 'fetch');
+function setup() {
+  const stubbedFetch = sinon.stub(global, 'fetch');
   stubMatch(stubbedFetch, /search/, youtubeRes.videos);
   stubMatch(stubbedFetch, /videos/, youtubeRes.statistics);
   stubMatch(stubbedFetch, /kakapo/, kakapoRes);
-  t.end();
-});
+}
 
-test('[reducer/search] search YouTube for `oceans`', t => {
-  t.plan(2);
+function teardown() {
+  global.fetch.restore();
+}
+
+function testWrap(description, fn) {
+  test(description, (t) => {
+    setup();
+    fn(t);
+    teardown();
+  });
+}
+
+testWrap('[reducer/search] search YouTube for `oceans`', t => {
   const action = store.dispatch(searchActions.searchYoutube('oceans'));
-  action.then(data => {
-    t.equal(data.type, 'SEARCH_YOUTUBE');
-    t.equal(data.items.length, 2);
+  setTimeout(() => {
+    action.then(data => {
+      t.equal(data.type, 'SEARCH_YOUTUBE');
+      t.equal(data.items.length, 2);
 
-    test('update the store with the new data', t => {
-      t.plan(1);
       const reducer = search(initialState, data);
-      t.equal(reducer.get('youtube').count(), 15);
+      t.equal(reducer.get('youtube').count(), 15, 'update the store with the new data');
+      t.end();
     });
-  });
+  }, 10000);
 });
 
-test('[reducer/search] search Kakapo', t => {
-  t.plan(2);
+testWrap('[reducer/search] search Kakapo', t => {
   const action = store.dispatch(searchActions.searchKakapo());
-  action.then(data => {
-    t.equal(data.type, 'SEARCH_KAKAPO');
-    t.equal(data.items.length, 14);
+  setTimeout(() => {
+    action.then(data => {
+      t.equal(data.type, 'SEARCH_KAKAPO');
+      t.equal(data.items.length, 14);
 
-    test('update the store with the new data', t => {
-      t.plan(1);
       const reducer = search(initialState, data);
-      t.equal(reducer.get('kakapofavs').count(), 14);
+      t.equal(reducer.get('kakapofavs').count(), 14, 'update the store with the new data');
+      t.end();
     });
-  });
-});
-
-test('teardown', t => {
-  window.fetch.restore();
-  t.end();
+  }, 10000);
 });

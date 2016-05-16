@@ -16,19 +16,15 @@ const soundProp = (props = {}) => {
   }, {});
 };
 
-test('<DownloadItem/>', t => {
-  test('renders as a <div> with className equals `download active`', t => {
-    t.plan(2);
-    const { wrapper } = setup(soundProp());
-    t.equal(wrapper.type(), 'div');
-    t.equal(wrapper.prop('className'), 'download active');
-  });
+test('<DownloadItem/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp());
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'download active');
+});
 
-  test('without image should render `no-image`', t => {
-    t.plan(1);
-    const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
-    t.equal(wrapper.find('.no-image').length, 1);
-  });
-
-  t.end();
+test('<DownloadItem/> w/o image should render `no-image`', t => {
+  t.plan(1);
+  const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
+  t.equal(wrapper.find('.no-image').length, 1, 'should render `no-image`');
 });

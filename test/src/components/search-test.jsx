@@ -18,13 +18,9 @@ function setup(props = {}, method = shallow) {
   };
 }
 
-test('<Search/>', t => {
-  test('renders as a <div> with className equals `youtube`', t => {
-    t.plan(2);
-    const { wrapper } = setup();
-    t.equals(wrapper.type(), 'div');
-    t.equals(wrapper.prop('className'), 'youtube');
-  });
-
-  t.end();
+test('<Search/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'youtube');
 });

@@ -16,12 +16,8 @@ function setup(props = {}) {
 }
 
 test('<Checkbox/>', t => {
-  test('renders as a <label> with className equals `switch`', t => {
-    t.plan(2);
-    const { wrapper } = setup();
-    t.equals(wrapper.type(), 'label');
-    t.equals(wrapper.prop('className'), 'switch');
-  });
-
-  t.end();
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'label', 'render as <label>');
+  t.equals(wrapper.prop('className'), 'switch', 'className `switch`');
 });

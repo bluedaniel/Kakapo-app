@@ -13,7 +13,7 @@ let defaultState;
 
 test('setup', t => {
   localStorage.removeItem('sounds');
-  const stubbedFetch = sinon.stub(window, 'fetch');
+  const stubbedFetch = sinon.stub(global, 'fetch');
   stubMatch(stubbedFetch, /kakapo/, kakapoRes);
   t.end();
 });
@@ -82,6 +82,6 @@ test('clear sounds', t => {
 });
 
 test('teardown', t => {
-  window.fetch.restore();
+  global.fetch.restore();
   t.end();
 });

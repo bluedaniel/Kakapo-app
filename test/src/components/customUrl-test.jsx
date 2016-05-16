@@ -14,11 +14,8 @@ function setup(props = {}) {
 }
 
 test('<CustomUrl/>', t => {
-  test('renders as a <div> with className equals `customurl`', t => {
-    t.plan(2);
-    const { wrapper } = setup();
-    t.equal(wrapper.type(), 'div');
-    t.equal(wrapper.prop('className'), 'customurl');
-  });
-  t.end();
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'customurl', 'className `customurl`');
 });

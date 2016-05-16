@@ -29,34 +29,15 @@ function randomSounds(count) {
   return arr;
 }
 
-test('<Kakapo/>', t => {
-  test('renders as a <div> with className equals `kakapo`', t => {
-    t.plan(2);
-    const { wrapper } = setup();
-    t.equal(wrapper.type(), 'div');
-    t.equal(wrapper.prop('className'), 'kakapo');
-  });
+test('<Kakapo/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'kakapo', 'className `kakapo`');
+});
 
-  test('renders correct number of SoudCloud items', t => {
-    t.plan(1);
-    const { wrapper } = setup({ search: fromJS({ kakapofavs: randomSounds(5) }) });
-    t.equal(wrapper.find(KakapoItem).length, 5);
-  });
-
-  test('When mounted', t => {
-    // it.skip('focus on input should change state', t => {
-    //   t.plan(1);
-    //   const { wrapper } = setup();
-    //   wrapper.find('.input__field').simulate('focus');
-    //   t.equal(wrapper.state('focused'), 'input-yt');
-    // });
-    //
-    // it.skip('should subscribe to RxJS autocomplete stream', t => {
-    //
-    // });
-
-    t.end();
-  });
-
-  t.end();
+test('<Kakapo/> render items', t => {
+  t.plan(1);
+  const { wrapper } = setup({ search: fromJS({ kakapofavs: randomSounds(5) }) });
+  t.equal(wrapper.find(KakapoItem).length, 5);
 });

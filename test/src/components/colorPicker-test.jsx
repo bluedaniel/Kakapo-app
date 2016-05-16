@@ -12,12 +12,8 @@ function setup(props = {}) {
 }
 
 test('<ColorPicker/>', t => {
-  test('renders as a <div> with className equals `color-picker`', t => {
-    t.plan(2);
-    const { wrapper } = setup();
-    t.equal(wrapper.type(), 'div');
-    t.equal(wrapper.prop('className'), 'color-picker');
-  });
-
-  t.end();
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'color-picker', 'className `color-picker`');
 });

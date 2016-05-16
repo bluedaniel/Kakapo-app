@@ -14,50 +14,37 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<TextInput {...propData} />) };
 }
 
-test('<TextInput/>', t => {
-  test('renders as a <div> with className equals `group`', t => {
-    t.plan(2);
-    const { wrapper } = setup();
-    t.equals(wrapper.type(), 'div');
-    t.equals(wrapper.prop('className'), 'group');
-  });
+test('<TextInput/> render', t => {
+  t.plan(6);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'group');
+  t.equals(wrapper.find('input').length, 1);
+  t.equals(wrapper.find('.highlight').length, 1);
+  t.equals(wrapper.find('.bar').length, 1);
+  t.equals(wrapper.find('label').length, 1);
+});
 
-  test('renders the correct amount of elements', t => {
-    t.plan(4);
-    const { wrapper } = setup();
-    t.equals(wrapper.find('input').length, 1);
-    t.equals(wrapper.find('.highlight').length, 1);
-    t.equals(wrapper.find('.bar').length, 1);
-    t.equals(wrapper.find('label').length, 1);
-  });
+test('<TextInput/> w/o translation', t => {
+  t.plan(1);
+  const { wrapper } = setup();
+  t.equals(wrapper.find('label').text(), 'without.translation');
+});
 
-  test('renders correctly without translation', t => {
-    t.plan(1);
-    const { wrapper } = setup();
-    t.equals(wrapper.find('label').text(), 'without.translation');
-  });
+test('<TextInput/> correct value', t => {
+  t.plan(1);
+  const { wrapper } = setup({ value: 42 });
+  t.equals(wrapper.find('input').props().defaultValue, 42);
+});
 
-  test('When given props', t => {
-    test('renders the correct value', t => {
-      t.plan(1);
-      const { wrapper } = setup({ value: 42 });
-      t.equals(wrapper.find('input').props().defaultValue, 42);
-    });
+test('<TextInput/> correct translation', t => {
+  t.plan(1);
+  const { wrapper } = setup({ placeholder: 'nav.settings' });
+  t.equals(wrapper.find('label').text(), 'Settings');
+});
 
-    test('renders the correct translation', t => {
-      t.plan(1);
-      const { wrapper } = setup({ placeholder: 'nav.settings' });
-      t.equals(wrapper.find('label').text(), 'Settings');
-    });
-
-    test('renders a loading spinner', t => {
-      t.plan(1);
-      const { wrapper } = setup({ spinner: true });
-      t.equals(wrapper.find('.spinner').length, 1);
-    });
-
-    t.end();
-  });
-
-  t.end();
+test('<TextInput/> loading spinner', t => {
+  t.plan(1);
+  const { wrapper } = setup({ spinner: true });
+  t.equals(wrapper.find('.spinner').length, 1);
 });

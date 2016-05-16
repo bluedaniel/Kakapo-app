@@ -9,7 +9,8 @@ const config = {
   output: {
     filename: './.tmp/test.bundle.js'
   },
-  devtool: 'inline-source-map',
+  target: 'node',
+  devtool: 'eval',
   module: {
     preLoaders: [ {
       test: /\.(js|jsx)$/,
