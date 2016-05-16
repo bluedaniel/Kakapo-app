@@ -33,8 +33,7 @@ const actions = {
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
-    window
-    .fetch(`${SCAPI_TRACKS}/${soundcloudID}${serialize({ client_id: SOUNDCLOUD_KEY })}`)
+    fetch(`${SCAPI_TRACKS}/${soundcloudID}${serialize({ client_id: SOUNDCLOUD_KEY })}`)
     .then(response => {
       if (!response.data.download_url) {
         subject.error('Sorry, that SoundCloud track cannot be downloaded.');

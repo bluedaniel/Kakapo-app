@@ -36,7 +36,9 @@ const config = {
       __TEST__: process.env.NODE_ENV === 'test'
     }),
     new webpack.ProvidePlugin({
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
+      fetch: `imports?this=>global!exports?global.fetch!${process.env.NODE_ENV === 'test' ?
+        'isomorphic-fetch' : 'whatwg-fetch'}`
     }),
     new webpack.IgnorePlugin(/react\/addons/),
     new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
