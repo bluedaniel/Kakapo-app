@@ -3,6 +3,7 @@ import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router';
 import { settingActions, themeActions } from 'actions/';
 import { ColorPicker, Checkbox } from 'components/ui/';
+import { openLink } from 'utils/';
 import './settings.css';
 
 let app;
@@ -53,8 +54,9 @@ export default function Settings({ settings, themes, location, intl, dispatch },
 
   const renderGitRepo = () => (
     <div className="opt opt-repo">
-      <a className="github hint--right" data-hint="Fork me on Github!"
-        href="https://github.com/bluedaniel/kakapo-app" target="_blank">
+      <a className="github hint--right" data-hint="Fork me on Github!" target="_blank"
+        href="https://github.com/bluedaniel/kakapo-app" onClick={(e) =>
+          openLink(e, 'https://github.com/bluedaniel/kakapo-app')}>
         <i className="icon-img-github" />
       </a>
       {__DESKTOP__ && !__DEV__ ? (

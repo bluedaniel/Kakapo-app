@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { remote } from 'electron';
+import { remote, shell } from 'electron';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -108,6 +108,13 @@ export const throttle = (func, ms = 50, context = window) => {
 export const handleStopPropagation = (e) => {
   e.preventDefault();
   e.stopPropagation();
+};
+
+export const openLink = (e, link) => {
+  if (__DESKTOP__) {
+    handleStopPropagation(e);
+    shell.openExternal(link);
+  }
 };
 
 // Konami keycode
