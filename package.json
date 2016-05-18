@@ -8,11 +8,8 @@
     "themeVersion": "1.0.0"
   },
   "dependencies": {
-    "babel-core": "^6.7.6",
     "clipboard": "^1.5.10",
     "color": "^0.11.1",
-    "electron-prebuilt": "^1.0.1",
-    "electron-windows-installer": "^1.3.3",
     "hint.css": "^2.2.1",
     "history": "^2.1.1",
     "howler": "^2.0.0-beta13",
@@ -39,6 +36,7 @@
   },
   "devDependencies": {
     "archiver": "^1.0.0",
+    "babel-core": "^6.7.6",
     "babel-cli": "^6.8.0",
     "babel-istanbul-loader": "^0.1.0",
     "babel-loader": "^6.2.4",
@@ -53,7 +51,7 @@
     "cssnano": "^3.5.2",
     "devtron": "^1.1.0",
     "electron-packager": "^7.0.1",
-    "electron-prebuilt": "^0.37.5",
+    "electron-prebuilt": "^1.0.1",
     "electron-winstaller": "^2.0.5",
     "enzyme": "^2.2.0",
     "es6-promise": "^3.1.2",
