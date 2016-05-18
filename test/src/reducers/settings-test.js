@@ -3,7 +3,7 @@ import { settingActions } from 'actions/';
 import settings, { initialState } from 'reducers/settings';
 
 test('[reducer/settings]', t => {
-  t.plan(8);
+  t.plan(10);
 
   const setup = settings(initialState, settingActions.initialRender());
   t.equal(initialState.initialRender, false);
@@ -14,10 +14,10 @@ test('[reducer/settings]', t => {
   const newState1 = settings(setup1, settingActions.desktopUpdate('checking'));
   t.equal(newState1.updateStatus, 'checking', 'set `updateStatus` to checking');
 
-  // const setup2 = settings(initialState, settingActions.toggleMute());
-  // t.equal(setup2.mute, true, 'get `toggleMute` status');
-  // const newState2 = settings(setup2, settingActions.toggleMute());
-  // t.equal(newState2.mute, false, 'get `toggleMute` again and should be false');
+  const setup2 = settings(initialState, settingActions.toggleMute());
+  t.equal(setup2.mute, true, 'get `toggleMute` status');
+  const newState2 = settings(setup2, settingActions.toggleMute());
+  t.equal(newState2.mute, false, 'get `toggleMute` again and should be false');
 
   const setup3 = settings(initialState, settingActions.toggleDock(true));
   t.equal(setup3.dockIcon, true, 'set `toggleDock` to true');
