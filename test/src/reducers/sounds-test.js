@@ -27,8 +27,7 @@ test('[reducer/sounds] init sounds', t => {
     t.equal(data.resp.length, 14);
     t.equal(currState().count(), 14);
     defaultState = currState();
-  })
-  .catch(err => console.log(err));
+  });
 });
 
 test('[reducer/sounds] toggle play `on`', t => {

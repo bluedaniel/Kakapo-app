@@ -7,7 +7,8 @@ export default {
     localStorage.setItem('version', packageJson.version);
   },
   initWithDefault(defaultSounds) {
-    const initialState = new Map(JSON.parse(localStorage.getItem('sounds')));
+    const localState = JSON.parse(localStorage.getItem('sounds'));
+    const initialState = localState ? new Map(localState) : new Map();
 
     if (!initialState.size) {
       this.setVersion();
