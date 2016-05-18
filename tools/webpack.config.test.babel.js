@@ -1,5 +1,4 @@
 import baseConfig from './webpack.config.base';
-import path from 'path';
 
 const config = {
   ...baseConfig,
@@ -16,11 +15,6 @@ const config = {
       test: /\.(js|jsx)$/,
       exclude: /(node_modules|app\/scripts)/,
       loader: 'babel'
-    }, {
-      test: /\.(js|jsx)$/,
-      include: path.resolve('app/scripts/'),
-      exclude: /(bridge)/,
-      loader: 'isparta'
     } ],
     loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
