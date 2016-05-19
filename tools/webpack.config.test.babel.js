@@ -11,11 +11,6 @@ const config = {
   target: 'node',
   devtool: 'eval',
   module: {
-    preLoaders: [ {
-      test: /\.(js|jsx)$/,
-      exclude: /(node_modules|app\/scripts)/,
-      loader: 'babel'
-    } ],
     loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: 'null-loader'
@@ -38,7 +33,8 @@ const config = {
   },
   resolve: { ...baseConfig.resolve, ...{
     alias: { ...baseConfig.resolve.alias, ...{
-      sinon: 'sinon/pkg/sinon'
+      sinon: 'sinon/pkg/sinon',
+      'aws-custom-build': 'void 0'
     } }
   } }
 };
