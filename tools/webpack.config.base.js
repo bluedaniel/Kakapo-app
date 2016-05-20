@@ -47,10 +47,7 @@ const config = {
   module: {
     loaders: [ {
       test: /\.(js|jsx)?$/,
-      include: [
-        path.resolve(__dirname, '../app'),
-        path.resolve(__dirname, '../test')
-      ],
+      include: path.resolve(__dirname, '../app'),
       exclude: /(node_modules|app\/vendor)/,
       loader: 'babel'
     }, {

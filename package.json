@@ -97,7 +97,7 @@
   },
   "scripts": {
     "test": "cross-env NODE_ENV=test webpack --config tools/webpack.config.test.babel.js && node test/index.js | tap-bail | faucet",
-    "coverage": "cross-env NODE_ENV=test babel-node `npm bin`/isparta cover --report lcov --report html --report text ./app/**/*.js",
+    "coverage": "NODE_ENV=test babel-node `npm bin`/isparta cover --include './app/**/*.jsx' --include './app/**/*.js' --report lcov --report html babel-node -- test",
     "styles": "babel-node tools/run styles",
     "lint": "stylelint \"app/scripts/**/*.css\" && eslint --ext .jsx --ext .js app/scripts",
     "build": "npm run lint && babel-node tools/run build",
