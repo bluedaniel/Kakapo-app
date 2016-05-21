@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'tape';
 import { Map } from 'immutable';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { newSoundClass } from 'classes/';
 import { SoundList } from 'components/';
 

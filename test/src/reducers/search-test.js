@@ -2,7 +2,7 @@ import test from 'tape';
 import sinon from 'sinon';
 import { store } from 'stores/configureStore';
 import { searchActions } from 'actions/';
-import { stubFetchWith, kakapoRes, youtubeRes } from '../../helper';
+import { stubFetchWith, kakapoRes, youtubeRes } from '../helper';
 import search, { initialState } from 'reducers/search';
 
 const stubMatch = (stub, regex, data) =>

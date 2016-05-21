@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'tape';
 import { spy } from 'sinon';
-import { getData, mockEvent } from '../../helper';
+import { getData, mockEvent } from '../helper';
 import { notifyActions, soundActions } from 'actions/';
 import { newSoundClass } from 'classes/';
 import { SoundEdit } from 'components/';

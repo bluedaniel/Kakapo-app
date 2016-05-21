@@ -2,7 +2,7 @@ import test from 'tape';
 import sinon from 'sinon';
 import { store } from 'stores/configureStore';
 import { soundActions } from 'actions/';
-import { stubFetchWith, kakapoRes } from '../../helper';
+import { stubFetchWith, kakapoRes } from '../helper';
 
 const stubMatch = (stub, regex, data) =>
   stub.withArgs(sinon.match(regex)).returns(Promise.resolve(stubFetchWith(data)));

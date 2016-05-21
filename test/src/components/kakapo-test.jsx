@@ -2,7 +2,7 @@ import React from 'react';
 import test from 'tape';
 import { shallow } from 'enzyme';
 import { fromJS, List } from 'immutable';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { newSoundClass } from 'classes/';
 import { ImportKakapo as Kakapo, ImportKakapoItem as KakapoItem } from 'components/';
 

@@ -12,17 +12,12 @@ const config = {
   target: 'node',
   devtool: 'eval',
   module: {
-    preloaders: [ {
-      test: /\.(js|jsx)$/,
-      exclude: /(node_modules|app\/scripts)/,
+    loaders: [ ...baseConfig.module.loaders, {
+      test: /\.(js|jsx)?$/,
+      include: path.resolve(__dirname, '../test/src'),
+      exclude: /(node_modules|app\/vendor|\.tmp)/,
       loader: 'babel'
     }, {
-      test: /\.(js|jsx)$/,
-      include: path.resolve('app/scripts/'),
-      exclude: /(bridge)/,
-      loader: 'isparta'
-    } ],
-    loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: 'null-loader'
     }, {

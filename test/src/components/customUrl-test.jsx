@@ -1,7 +1,7 @@
 import React from 'react';
 import test from 'tape';
 import { shallow } from 'enzyme';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { ImportCustomUrl as CustomUrl } from 'components/';
 
 function setup(props = {}) {

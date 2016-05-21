@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'tape';
 import R from 'ramda';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { ImportSearchResult as SearchResult } from 'components/';
 
 function setup(props = {}) {

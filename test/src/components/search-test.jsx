@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'tape';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { ImportSearch as Search } from 'components/';
 
 function setup(props = {}, method = shallow) {

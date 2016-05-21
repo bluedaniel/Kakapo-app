@@ -2,7 +2,7 @@ import React from 'react';
 import test from 'tape';
 import { shallow } from 'enzyme';
 import { newSoundClass } from 'classes/';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { ImportKakapoItem as KakapoItem } from 'components/';
 
 const soundProp = (props = {}) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import test from 'tape';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { Link } from 'react-router';
 import { ImportOptions as Options } from 'components/';
 

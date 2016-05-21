@@ -2,7 +2,7 @@ import React from 'react';
 import test from 'tape';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { Header } from 'components/';
 
 function setup(props = {}) {
