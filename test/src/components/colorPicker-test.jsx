@@ -1,6 +1,6 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { ColorPicker } from 'components/ui/';
 
 function setup(props = {}) {
@@ -11,10 +11,9 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<ColorPicker {...props} />) };
 }
 
-describe('<ColorPicker/>', () => {
-  it('renders as a <div> with className equals `color-picker`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('color-picker');
-  });
+test('<ColorPicker/>', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'color-picker', 'className `color-picker`');
 });

@@ -1,25 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
 import { Progress } from 'components/ui/';
 
 function setup(props = {}) {
   return { props, wrapper: shallow(<Progress {...props} />) };
 }
 
-describe('<Progress/>', () => {
-  it('renders as a <div> with className equals `progress`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('progress');
-  });
+test('<Progress/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'progress');
+});
 
-  describe('When given props', () => {
-    it('progress rounds 0.415 to 42% ', () => {
-      const { wrapper } = setup({
-        progress: 0.415
-      });
-      expect(wrapper.find('.progress-text').text()).to.eql('42%');
-    });
-  });
+test('<Progress/> rounds 0.415 to 42% ', t => {
+  t.plan(1);
+  const { wrapper } = setup({ progress: 0.415 });
+  t.equals(wrapper.find('.progress-text').text(), '42%');
 });

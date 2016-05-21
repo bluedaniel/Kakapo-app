@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import { getData } from '../../helper';
+import test from 'tape';
+import { getData } from '../helper';
 import { ImportSearch as Search } from 'components/';
 
 function setup(props = {}, method = shallow) {
@@ -18,10 +18,9 @@ function setup(props = {}, method = shallow) {
   };
 }
 
-describe('<Search/>', () => {
-  it('renders as a <div> with className equals `youtube`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('youtube');
-  });
+test('<Search/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'youtube');
 });

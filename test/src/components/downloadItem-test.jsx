@@ -1,6 +1,6 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { newSoundClass } from 'classes/';
 import { DownloadItem } from 'components/';
 
@@ -16,15 +16,15 @@ const soundProp = (props = {}) => {
   }, {});
 };
 
-describe('<DownloadItem/>', () => {
-  it('renders as a <div> with className equals `download active`', () => {
-    const { wrapper } = setup(soundProp());
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('download active');
-  });
+test('<DownloadItem/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp());
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'download active');
+});
 
-  it('without image should render `no-image`', () => {
-    const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
-    expect(wrapper.find('.no-image').length).to.eql(1);
-  });
+test('<DownloadItem/> w/o image should render `no-image`', t => {
+  t.plan(1);
+  const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
+  t.equal(wrapper.find('.no-image').length, 1, 'should render `no-image`');
 });

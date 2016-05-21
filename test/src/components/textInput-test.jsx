@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import { getData } from '../../helper';
+import test from 'tape';
+import { getData } from '../helper';
 import { TextInput } from 'components/ui/';
 
 function setup(props = {}) {
@@ -14,40 +14,37 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<TextInput {...propData} />) };
 }
 
-describe('<TextInput/>', () => {
-  it('renders as a <div> with className equals `group`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('group');
-  });
+test('<TextInput/> render', t => {
+  t.plan(6);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'group');
+  t.equals(wrapper.find('input').length, 1);
+  t.equals(wrapper.find('.highlight').length, 1);
+  t.equals(wrapper.find('.bar').length, 1);
+  t.equals(wrapper.find('label').length, 1);
+});
 
-  it('renders the correct amount of elements', () => {
-    const { wrapper } = setup();
-    expect(wrapper.find('input')).to.have.length(1);
-    expect(wrapper.find('.highlight')).to.have.length(1);
-    expect(wrapper.find('.bar')).to.have.length(1);
-    expect(wrapper.find('label')).to.have.length(1);
-  });
+test('<TextInput/> w/o translation', t => {
+  t.plan(1);
+  const { wrapper } = setup();
+  t.equals(wrapper.find('label').text(), 'without.translation');
+});
 
-  it('renders correctly without translation', () => {
-    const { wrapper } = setup();
-    expect(wrapper.find('label').text()).to.eql('without.translation');
-  });
+test('<TextInput/> correct value', t => {
+  t.plan(1);
+  const { wrapper } = setup({ value: 42 });
+  t.equals(wrapper.find('input').props().defaultValue, 42);
+});
 
-  describe('When given props', () => {
-    it('renders the correct value', () => {
-      const { wrapper } = setup({ value: 42 });
-      expect(wrapper.find('input').props().defaultValue).to.eql(42);
-    });
+test('<TextInput/> correct translation', t => {
+  t.plan(1);
+  const { wrapper } = setup({ placeholder: 'nav.settings' });
+  t.equals(wrapper.find('label').text(), 'Settings');
+});
 
-    it('renders the correct translation', () => {
-      const { wrapper } = setup({ placeholder: 'nav.settings' });
-      expect(wrapper.find('label').text()).to.eql('Settings');
-    });
-
-    it('renders a loading spinner', () => {
-      const { wrapper } = setup({ spinner: true });
-      expect(wrapper.find('.spinner')).to.have.length(1);
-    });
-  });
+test('<TextInput/> loading spinner', t => {
+  t.plan(1);
+  const { wrapper } = setup({ spinner: true });
+  t.equals(wrapper.find('.spinner').length, 1);
 });

@@ -1,7 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import { getData } from '../../helper';
+import test from 'tape';
+import R from 'ramda';
+import { getData } from '../helper';
 import { ImportSearchResult as SearchResult } from 'components/';
 
 function setup(props = {}) {
@@ -23,30 +24,29 @@ const sound = {
   viewCount: 319609
 };
 
-describe('<SearchResult/>', () => {
-  describe('When YouTube data added', () => {
-    it('renders as a <div> with className equals `youtube-item`', () => {
-      const { wrapper } = setup({ sound });
-      expect(wrapper.type()).to.eql('div');
-      expect(wrapper.prop('className')).to.eql('youtube-item');
-    });
 
-    it('renders the view count in correct locale', () => {
-      const { wrapper } = setup({ sound });
-      expect(wrapper.find('.view-count').text()).to.be.oneOf([ '319609 views', '319,609 views' ]);
-    });
-  });
+test('<SearchResult/> render youtube', t => {
+  t.plan(2);
+  const { wrapper } = setup({ sound });
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'youtube-item');
+});
 
-  describe('When SoundCloud data added', () => {
-    it('renders as a <div> with className equals `soundcloud-item`', () => {
-      const { wrapper } = setup({ service: 'soundcloud', sound });
-      expect(wrapper.type()).to.eql('div');
-      expect(wrapper.prop('className')).to.eql('soundcloud-item');
-    });
+test('<SearchResult/> youtube view count in locale', t => {
+  t.plan(1);
+  const { wrapper } = setup({ sound });
+  t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 views', '319,609 views' ]));
+});
 
-    it('renders the view count in correct locale', () => {
-      const { wrapper } = setup({ service: 'soundcloud', sound });
-      expect(wrapper.find('.view-count').text()).to.be.oneOf([ '319609 plays', '319,609 plays' ]);
-    });
-  });
+test('<SearchResult/> render soundcloud', t => {
+  t.plan(2);
+  const { wrapper } = setup({ service: 'soundcloud', sound });
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'soundcloud-item');
+});
+
+test('<SearchResult/> soundcould view count in locale', t => {
+  t.plan(1);
+  const { wrapper } = setup({ service: 'soundcloud', sound });
+  t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 plays', '319,609 plays' ]));
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
 import { spy } from 'sinon';
-import { getData, mockEvent } from '../../helper';
+import { getData, mockEvent } from '../helper';
 import { notifyActions, soundActions } from 'actions/';
 import { newSoundClass } from 'classes/';
 import { SoundEdit } from 'components/';
@@ -28,49 +28,50 @@ const soundProp = (props = {}) => {
 
 const sound = { ...soundProp() };
 
-describe('<SoundEdit/>', () => {
-  it('renders as a <div> with className equals `item editing`', () => {
-    const { wrapper } = setup(sound);
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('item editing');
+test('<SoundEdit/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup(sound);
+  t.equals(wrapper.type(), 'div');
+  t.equals(wrapper.prop('className'), 'item editing');
+});
+
+test('<SoundEdit/> render 2 inputs', t => {
+  t.plan(1);
+  const { wrapper } = setup(sound);
+  t.equals(wrapper.find(TextInput).length, 2);
+});
+
+test('<SoundEdit/> handleCancel', t => {
+  t.plan(2);
+  const dispatch = spy();
+  const action = soundActions.soundsEdit(sound, null);
+  const { wrapper } = setup({ sound, dispatch });
+  wrapper.find('.button').at(0).simulate('click', mockEvent);
+  t.equals(dispatch.calledOnce, true);
+  t.deepEqual(dispatch.args[0][0], action);
+});
+
+test('<SoundEdit/> handleSubmit empty', t => {
+  t.plan(3);
+  const dispatch = spy();
+  const action = notifyActions.send('Please fill out all fields');
+  const { wrapper } = setup({ sound, dispatch });
+  wrapper.find('form').simulate('submit', { ...mockEvent,
+    target: { getElementsByTagName: () => ({}) }
   });
+  t.equals(dispatch.calledOnce, true);
+  t.equals(dispatch.args[0][0].type, action.type);
+  t.equals(dispatch.args[0][0].data, action.data);
+});
 
-  it('should render 2 inputs', () => {
-    const { wrapper } = setup(sound);
-    expect(wrapper.find(TextInput)).to.have.length(2);
+test('<SoundEdit/> handleSubmit filled', t => {
+  t.plan(2);
+  const dispatch = spy();
+  const action = soundActions.soundsEdit(sound, { name: 'hi' });
+  const { wrapper } = setup({ sound, dispatch });
+  wrapper.find('form').simulate('submit', { ...mockEvent,
+    target: { getElementsByTagName: () => ([ { name: 'name', value: 'hi' } ]) }
   });
-
-  describe('When simulating clicks', () => {
-    let dispatch;
-    beforeEach(() => { dispatch = spy(); });
-
-    it('for `handleCancel`', () => {
-      const action = soundActions.soundsEdit(sound, null);
-      const { wrapper } = setup({ sound, dispatch });
-      wrapper.find('.button').at(0).simulate('click', mockEvent);
-      expect(dispatch.calledOnce).to.equal(true);
-      expect(dispatch.args[0][0]).to.eql(action);
-    });
-
-    it('for `handleSubmit` when form is empty', () => {
-      const action = notifyActions.send('Please fill out all fields');
-      const { wrapper } = setup({ sound, dispatch });
-      wrapper.find('form').simulate('submit', { ...mockEvent,
-        target: { getElementsByTagName: () => ({}) }
-      });
-      expect(dispatch.calledOnce).to.equal(true);
-      expect(dispatch.args[0][0].type).to.equal(action.type);
-      expect(dispatch.args[0][0].data).to.eql(action.data);
-    });
-
-    it('for `handleSubmit` when form is filled', () => {
-      const action = soundActions.soundsEdit(sound, { name: 'hi' });
-      const { wrapper } = setup({ sound, dispatch });
-      wrapper.find('form').simulate('submit', { ...mockEvent,
-        target: { getElementsByTagName: () => ([ { name: 'name', value: 'hi' } ]) }
-      });
-      expect(dispatch.calledOnce).to.equal(true);
-      expect(dispatch.args[0][0]).to.eql(action);
-    });
-  });
+  t.equals(dispatch.calledOnce, true);
+  t.deepEqual(dispatch.args[0][0], action);
 });

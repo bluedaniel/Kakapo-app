@@ -1,23 +1,28 @@
-import baseConfig from './webpack.config.base';
 import path from 'path';
+import baseConfig from './webpack.config.base';
 
 const config = {
   ...baseConfig,
-  devtool: 'inline-source-map',
+  entry: {
+    index: './test/test-bundler.js'
+  },
+  output: {
+    filename: './.tmp/test.bundle.js'
+  },
+  target: 'node',
+  devtool: 'eval',
   module: {
-    preLoaders: [ {
-      test: /\.(js|jsx)$/,
-      exclude: /(node_modules|app\/scripts)/,
+    loaders: [ ...baseConfig.module.loaders, {
+      test: /\.(js|jsx)?$/,
+      include: path.resolve(__dirname, '../test/src'),
+      exclude: /(node_modules|app\/vendor|\.tmp)/,
       loader: 'babel'
     }, {
-      test: /\.(js|jsx)$/,
-      include: path.resolve('app/scripts/'),
-      exclude: /(bridge)/,
-      loader: 'isparta'
-    } ],
-    loaders: [ ...baseConfig.module.loaders, {
       test: /\.css$/,
       loader: 'null-loader'
+    }, {
+      test: /sinon.*\.js$/,
+      loader: 'imports?define=>false,require=>false'
     } ],
     noParse: baseConfig.module.noParse
   },
@@ -34,7 +39,8 @@ const config = {
   },
   resolve: { ...baseConfig.resolve, ...{
     alias: { ...baseConfig.resolve.alias, ...{
-      sinon: 'sinon/pkg/sinon'
+      sinon: 'sinon/pkg/sinon',
+      'aws-custom-build': 'void 0'
     } }
   } }
 };

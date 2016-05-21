@@ -1,24 +1,10 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { camelCase } from 'utils/';
 
-describe('Utility `camelCase`', () => {
-  it('`hyphen-name-format` -> `hyphenNameFormat`', () => {
-    const setup = camelCase('hyphen-name-format');
-    expect(setup).to.eql('hyphenNameFormat');
-  });
-
-  it('`hyphenname-format` -> `hyphennameFormat`', () => {
-    const setup = camelCase('hyphenname-format');
-    expect(setup).to.eql('hyphennameFormat');
-  });
-
-  it('`hyphen name format` -> `hyphenNameFormat`', () => {
-    const setup = camelCase('hyphen name format');
-    expect(setup).to.eql('hyphenNameFormat');
-  });
-
-  it('`Hyphen Name Format` -> `hyphenNameFormat`', () => {
-    const setup = camelCase('Hyphen Name Format');
-    expect(setup).to.eql('hyphenNameFormat');
-  });
+test('[utils/camelCase]', t => {
+  t.plan(4);
+  t.equal(camelCase('hyphen-name-format'), 'hyphenNameFormat', 'should be valid');
+  t.equal(camelCase('hyphenname-format'), 'hyphennameFormat', 'should be valid');
+  t.equal(camelCase('hyphen name format'), 'hyphenNameFormat', 'should be valid');
+  t.equal(camelCase('Hyphen Name Format'), 'hyphenNameFormat', 'should be valid');
 });

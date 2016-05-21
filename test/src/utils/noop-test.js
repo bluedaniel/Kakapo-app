@@ -1,9 +1,7 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { noop } from 'utils/';
 
-describe('Utility `noop`', () => {
-  it('should return undefined', () => {
-    const setup = noop();
-    expect(setup).to.eql(undefined);
-  });
+test('[utils/noop]', t => {
+  t.plan(1);
+  t.equal(noop(), undefined, 'should return undefined');
 });

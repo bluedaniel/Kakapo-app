@@ -1,4 +1,4 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { createReducer, createConstants } from 'utils/';
 
 const initialState = 'testingVal';
@@ -11,34 +11,25 @@ const reducer = createReducer(initialState, {
   [constants.MULTIPLY]: (state, { modifier }) => state.map(_s => _s * modifier)
 });
 
-describe('Utility `createReducer`', () => {
-  it('testing `constants.NONE`', () => {
-    expect(reducer(initialState, {
-      type: constants.NONE
-    })).to.eql(initialState);
-  });
+test('[utils/createReducer]', t => {
+  t.plan(2);
+  const test1 = reducer(initialState, { type: constants.NONE });
+  t.equal(test1, initialState, 'testing `constants.NONE`');
 
-  it('testing `constants.UPPER`', () => {
-    expect(reducer(initialState, {
-      type: constants.UPPER
-    })).to.eql(initialState.toUpperCase());
-  });
+  const test2 = reducer(initialState, { type: constants.UPPER });
+  t.equal(test2, initialState.toUpperCase(), 'testing `constants.UPPER`');
 
-  describe('Work with new state', () => {
+  test('[utils/createReducer] New state', t => {
+    t.plan(2);
     const newState = reducer(initialState, {
       type: constants.CHANGE_TYPE,
       newValue: [ 1, 2, 3, 4, 5 ]
     });
 
-    it('testing `constants.CHANGE_TYPE`', () => {
-      expect(newState).to.eql([ 1, 2, 3, 4, 5 ]);
-    });
-
-    it('testing `constants.MULTIPLY`', () => {
-      expect(reducer(newState, {
-        type: constants.MULTIPLY,
-        modifier: 2
-      })).to.eql([ 2, 4, 6, 8, 10 ]);
-    });
+    t.deepEqual(newState, [ 1, 2, 3, 4, 5 ], 'testing `constants.CHANGE_TYPE`');
+    t.deepEqual(reducer(newState, {
+      type: constants.MULTIPLY,
+      modifier: 2
+    }), [ 2, 4, 6, 8, 10 ], 'testing `constants.MULTIPLY`');
   });
 });

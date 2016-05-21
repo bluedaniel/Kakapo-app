@@ -3,14 +3,10 @@ import {
 } from 'rxjs/observable/FromEventPatternObservable';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
-import devTools from 'remote-redux-devtools';
 import rootReducer from 'reducers';
 
-function configureStore(debug = false) {
+function configureStore() {
   const enhancer = [ applyMiddleware(thunk) ];
-
-  /* istanbul ignore if */
-  if (debug) enhancer.push(devTools());
 
   return compose(...enhancer)(createStore)(
     rootReducer,
@@ -18,7 +14,7 @@ function configureStore(debug = false) {
   );
 }
 
-export const store = configureStore(__DEV__ && !__TEST__);
+export const store = configureStore();
 
 export const observableStore = new FromEventPatternObservable(
   handler => store.subscribe(handler),

@@ -1,7 +1,7 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { ImportCustomUrl as CustomUrl } from 'components/';
 
 function setup(props = {}) {
@@ -13,10 +13,9 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<CustomUrl {...propData} />) };
 }
 
-describe('<CustomUrl/>', () => {
-  it('renders as a <div> with className equals `customurl`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('customurl');
-  });
+test('<CustomUrl/>', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'customurl', 'className `customurl`');
 });

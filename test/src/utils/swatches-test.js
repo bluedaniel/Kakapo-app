@@ -1,19 +1,9 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { swatches } from 'utils/';
 
-describe('Utility `swatches`', () => {
-  it('returns 20 colors in array', () => {
-    const setup = swatches();
-    expect(setup.length).to.eql(20);
-  });
-
-  it('returns 17 dark colors in array', () => {
-    const setup = swatches('dark');
-    expect(setup.length).to.eql(17);
-  });
-
-  it('returns 3 light colors in array', () => {
-    const setup = swatches('light');
-    expect(setup.length).to.eql(3);
-  });
+test('[utils/swatches]', t => {
+  t.plan(3);
+  t.equal(swatches().length, 20, 'returns 20 colors in array');
+  t.equal(swatches('dark').length, 17, 'returns 17 dark colors in array');
+  t.equal(swatches('light').length, 3, 'returns 3 light colors in array');
 });

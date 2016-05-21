@@ -1,7 +1,7 @@
 import React from 'react';
 import Rx from 'rxjs';
 import { soundActions } from 'actions/';
-import { classNames, handleStopPropagation } from 'utils/';
+import { classNames, handleStopPropagation, openLink } from 'utils/';
 import './soundItem.css';
 
 function observeThrottleVolume(dispatch, sound) {
@@ -35,7 +35,7 @@ export default ({ sound, themes, dispatch }) => {
     <ul className={classNames('actions', { dark: !sound.playing })}>
       {sound.link ? (
         <li>
-          <a href={sound.link} target="_blank">
+          <a href={sound.link} onClick={(e) => openLink(e, sound.link)} target="_blank">
             <i className="icon-share" />
           </a>
         </li>) : ''}

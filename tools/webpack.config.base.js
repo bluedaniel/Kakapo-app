@@ -11,7 +11,7 @@ const platformDevice = argv.platform || 'web';
 let externals = {};
 if (platformDevice === 'web') {
   const voidModules = [ 'electron', 'request', 'fs', 'fs-extra' ];
-  externals = voidModules.reduce((a, b) => ({ ...a, [b]: 'void 0' }), {});
+  externals = voidModules.reduce((a, b) => ({ ...a, [b]: 'void 0' }), externals);
 }
 
 const config = {
@@ -36,10 +36,12 @@ const config = {
       __TEST__: process.env.NODE_ENV === 'test'
     }),
     new webpack.ProvidePlugin({
-      fetch: 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
+      fetch: `imports?this=>global!exports?global.fetch!${process.env.NODE_ENV === 'test' ?
+        'isomorphic-fetch' : 'whatwg-fetch'}`
     }),
-    new webpack.IgnorePlugin(/react\/addons/),
-    new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
+    new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
+    new webpack.IgnorePlugin(/vertx|react\/addons|react\/lib\/ReactContext/),
     new webpack.optimize.OccurenceOrderPlugin()
   ],
   module: {
@@ -54,7 +56,8 @@ const config = {
     } ],
     noParse: [
       path.resolve('node_modules/sinon'),
-      path.resolve('node_modules/json-schema/lib/validate.js')
+      path.resolve('node_modules/json-schema/lib/validate.js'),
+      path.resolve('../app/vendor')
     ]
   },
   resolve: {

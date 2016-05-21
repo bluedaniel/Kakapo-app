@@ -1,8 +1,8 @@
 import React from 'react';
+import test from 'tape';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { Header } from 'components/';
 
 function setup(props = {}) {
@@ -14,21 +14,22 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Header {...propData} />) };
 }
 
-describe('<Header/>', () => {
-  it('renders as a <header>', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('header');
-  });
+test('<Header/> render', t => {
+  t.plan(1);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'header');
+});
 
-  it('should render mute icon', () => {
-    const { wrapper } = setup();
-    expect(wrapper.find('.toggle-mute')).to.have.length(1);
-  });
+test('<Header/> render mute icon', t => {
+  t.plan(1);
+  const { wrapper } = setup();
+  t.equal(wrapper.find('.toggle-mute').length, 1);
+});
 
-  it('simulate toggle-mute click', () => {
-    const toggleMute = sinon.spy();
-    const { wrapper } = setup({ toggleMute });
-    wrapper.find('.toggle-mute').simulate('click');
-    expect(toggleMute.calledOnce).to.equal(true);
-  });
+test('<Header/> simulate toggle-mute click', t => {
+  t.plan(1);
+  const toggleMute = sinon.spy();
+  const { wrapper } = setup({ toggleMute });
+  wrapper.find('.toggle-mute').simulate('click');
+  t.equal(toggleMute.calledOnce, true);
 });

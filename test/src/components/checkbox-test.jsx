@@ -1,6 +1,6 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { Checkbox } from 'components/ui/';
 
 function setup(props = {}) {
@@ -15,10 +15,9 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Checkbox {...propData} />) };
 }
 
-describe('<Checkbox/>', () => {
-  it('renders as a <label> with className equals `switch`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('label');
-    expect(wrapper.prop('className')).to.eql('switch');
-  });
+test('<Checkbox/>', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equals(wrapper.type(), 'label', 'render as <label>');
+  t.equals(wrapper.prop('className'), 'switch', 'className `switch`');
 });

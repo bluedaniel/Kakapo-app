@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bluedaniel/Kakapo-app.svg)](https://travis-ci.org/bluedaniel/Kakapo-app) [![Dependency Status](https://david-dm.org/bluedaniel/kakapo-app.svg)](https://david-dm.org/bluedaniel/kakapo-app)  [![Coverage Status](https://coveralls.io/repos/github/bluedaniel/Kakapo-app/badge.svg?branch=master)](https://coveralls.io/github/bluedaniel/Kakapo-app?branch=master)
+[![Build Status](https://travis-ci.org/bluedaniel/Kakapo-app.svg)](https://travis-ci.org/bluedaniel/Kakapo-app) [![Dependency Status](https://david-dm.org/bluedaniel/kakapo-app.svg)](https://david-dm.org/bluedaniel/kakapo-app)
 
 <img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/images/kakapo_border.png" width="128" height="128" align="right" />
 

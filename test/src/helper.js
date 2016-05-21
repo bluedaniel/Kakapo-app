@@ -3,7 +3,7 @@ import kakapoAssets from 'kakapo-assets';
 import color from 'color';
 import { fromJS, Map } from 'immutable';
 import { flatteni18n, swatches } from 'utils/';
-import packageJson from '../package.json';
+import packageJson from '../../package.json';
 
 export function getIntlProps() {
   return {

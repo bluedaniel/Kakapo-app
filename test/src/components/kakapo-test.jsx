@@ -1,8 +1,8 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { fromJS, List } from 'immutable';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { newSoundClass } from 'classes/';
 import { ImportKakapo as Kakapo, ImportKakapoItem as KakapoItem } from 'components/';
 
@@ -29,27 +29,15 @@ function randomSounds(count) {
   return arr;
 }
 
-describe('<Kakapo/>', () => {
-  it('renders as a <div> with className equals `kakapo`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('kakapo');
-  });
+test('<Kakapo/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup();
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'kakapo', 'className `kakapo`');
+});
 
-  it('renders correct number of SoudCloud items', () => {
-    const { wrapper } = setup({ search: fromJS({ kakapofavs: randomSounds(5) }) });
-    expect(wrapper.find(KakapoItem).length).to.eql(5);
-  });
-
-  describe('When mounted', () => {
-    it.skip('focus on input should change state', () => {
-      const { wrapper } = setup();
-      wrapper.find('.input__field').simulate('focus');
-      expect(wrapper.state('focused')).to.eql('input-yt');
-    });
-
-    it.skip('should subscribe to RxJS autocomplete stream', () => {
-
-    });
-  });
+test('<Kakapo/> render items', t => {
+  t.plan(1);
+  const { wrapper } = setup({ search: fromJS({ kakapofavs: randomSounds(5) }) });
+  t.equal(wrapper.find(KakapoItem).length, 5);
 });

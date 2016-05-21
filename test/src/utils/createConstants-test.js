@@ -1,9 +1,8 @@
-import { expect } from 'chai';
+import test from 'tape';
 import { createConstants } from 'utils/';
 
-describe('Utility `createConstants`', () => {
-  it('returns key/value object', () => {
-    const setup = createConstants('TEST1', 'TEST2', 'TEST3');
-    expect(setup).to.eql({ TEST1: 'TEST1', TEST2: 'TEST2', TEST3: 'TEST3' });
-  });
+test('[utils/createConstants]', t => {
+  t.plan(1);
+  const expected = { TEST1: 'TEST1', TEST2: 'TEST2', TEST3: 'TEST3' };
+  t.deepEqual(createConstants('TEST1', 'TEST2', 'TEST3'), expected, 'returns key/value object');
 });

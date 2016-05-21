@@ -1,8 +1,8 @@
 import React from 'react';
+import test from 'tape';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
 import { newSoundClass } from 'classes/';
-import { getData } from '../../helper';
+import { getData } from '../helper';
 import { ImportKakapoItem as KakapoItem } from 'components/';
 
 const soundProp = (props = {}) => {
@@ -22,16 +22,16 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<KakapoItem {...propData} />) };
 }
 
-describe('<KakapoItem/>', () => {
-  it('renders as a <div> with className equals `kakapo-item disabled`', () => {
-    const { wrapper } = setup(soundProp());
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('kakapo-item disabled');
-  });
+test('<KakapoItem/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp());
+  t.equal(wrapper.type(), 'div', 'render as <div>');
+  t.equal(wrapper.prop('className'), 'kakapo-item disabled');
+});
 
-  it('when given unique file renders className equals `kakapo-item`', () => {
-    const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
-    expect(wrapper.type()).to.eql('div');
-    expect(wrapper.prop('className')).to.eql('kakapo-item');
-  });
+test('<KakapoItem/> render file', t => {
+  t.plan(2);
+  const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
+  t.equal(wrapper.type(), 'div');
+  t.equal(wrapper.prop('className'), 'kakapo-item');
 });

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
-import { getData } from '../../helper';
+import test from 'tape';
+import { getData } from '../helper';
 import { Nav } from 'components/';
 
 function setup(props = {}) {
@@ -13,9 +13,8 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Nav {...propData} />) };
 }
 
-describe('<Nav/>', () => {
-  it('className equals `topbar`', () => {
-    const { wrapper } = setup();
-    expect(wrapper.prop('className')).to.eql('topbar');
-  });
+test('<Nav/> render', t => {
+  t.plan(1);
+  const { wrapper } = setup();
+  t.equals(wrapper.prop('className'), 'topbar');
 });

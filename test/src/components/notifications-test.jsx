@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { expect } from 'chai';
+import test from 'tape';
 import { Map } from 'immutable';
 import { Notifications } from 'components/ui/';
 
@@ -8,24 +8,23 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Notifications {...props} />) };
 }
 
-describe('<Notifications/>', () => {
-  it('renders as a <aside> with className equals `notify`', () => {
-    const { wrapper } = setup({ notifications: new Map() });
-    expect(wrapper.type()).to.eql('aside');
-    expect(wrapper.prop('className')).to.eql('notify');
-  });
+test('<Notifications/> render', t => {
+  t.plan(2);
+  const { wrapper } = setup({ notifications: new Map() });
+  t.equals(wrapper.type(), 'aside');
+  t.equals(wrapper.prop('className'), 'notify');
+});
 
-  describe('When given props', () => {
-    it('className is correct', () => {
-      const { wrapper } = setup({ notifications: new Map({ a: 'test' }) });
-      expect(wrapper.prop('className')).to.eql('notify notify-visible');
-    });
+test('<Notifications/> className', t => {
+  t.plan(1);
+  const { wrapper } = setup({ notifications: new Map({ a: 'test' }) });
+  t.equals(wrapper.prop('className'), 'notify notify-visible');
+});
 
-    it('renders list in correct order', () => {
-      const { wrapper } = setup({ notifications: new Map({ a: 'test', b: 'test2' }) });
-      expect(wrapper.children().length).to.eql(2);
-      expect(wrapper.childAt(0).text()).to.eql('test');
-      expect(wrapper.childAt(1).text()).to.eql('test2');
-    });
-  });
+test('<Notifications/> list order', t => {
+  t.plan(3);
+  const { wrapper } = setup({ notifications: new Map({ a: 'test', b: 'test2' }) });
+  t.equals(wrapper.children().length, 2);
+  t.equals(wrapper.childAt(0).text(), 'test');
+  t.equals(wrapper.childAt(1).text(), 'test2');
 });
