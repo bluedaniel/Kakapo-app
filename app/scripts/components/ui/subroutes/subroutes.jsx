@@ -20,7 +20,7 @@ export default (props) => {
     <div className={classNames('secondary-panel', { 'with-close': key !== '/' })}>
       {key !== '/' ? <Link className="icon-close" to="/" /> : null}
       <div className="inner">
-        <CSSTransitionGroup transitionName="panel" { ...transitions }>
+        <CSSTransitionGroup transitionName="panel" {...transitions}>
           {children ? cloneElement(children, newProps) : null}
         </CSSTransitionGroup>
       </div>
