@@ -5,8 +5,8 @@ import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
 import { soundActions, notifyActions } from 'actions/';
 import { classNames, handleStopPropagation } from 'utils/';
-import awsCredentials from '../../../../aws.json';
 import 'aws-custom-build';
+import awsCredentials from '../../../../aws.json';
 import './playlist.css';
 
 const AWS = window.AWS;

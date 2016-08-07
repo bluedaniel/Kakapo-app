@@ -29,7 +29,6 @@
   position: absolute;
   top: 50%;
   width: 70px;
-
   .sk-circle {
     height: 100%;
     left: 0;
@@ -37,7 +36,6 @@
     top: 0;
     width: 100%;
   }
-
   .sk-circle::before {
     animation: sk-circleFadeDelay 1.2s infinite ease-in-out both;
     background-color: #fff;
@@ -48,7 +46,6 @@
     margin: 0 auto;
     width: 15%;
   }
-
   .sk-circle2 {
     transform: rotate(30deg);
   }

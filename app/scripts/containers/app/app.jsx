@@ -30,7 +30,7 @@ const App = (props) => {
   const renderUpload = () => (
     <div className="uploadFiles">
       <div className="inner">
-        <h3><i className="icon-add"></i></h3>
+        <h3><i className="icon-add" /></h3>
         <p className="text">Drop files to upload</p>
       </div>
     </div>

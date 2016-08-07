@@ -12,12 +12,12 @@ let newSound = {};
 const actions = {
   getCustomFile(name, filePath) {
     const file = `${shortid.generate()}.${path.extname(filePath).substring(1)}`;
-    newSound = { ...newSoundClass, ... {
+    newSound = { ...newSoundClass,
       file: path.join(pathConfig.userSoundDir, file),
       img: '',
       name,
       source: 'customFile'
-    } };
+    };
 
     fs.copySync(filePath, newSound.file);
     return newSound;
@@ -41,9 +41,7 @@ const actions = {
     }
 
     const file = `${shortid.generate()}.${path.extname(data.file).substring(1)}`;
-    newSound = { ...newSoundClass, ...data, ... {
-      file: path.join(pathConfig.userSoundDir, file)
-    } };
+    newSound = { ...newSoundClass, ...data, file: path.join(pathConfig.userSoundDir, file) };
 
     request(data.file)
     .on('response', res => {

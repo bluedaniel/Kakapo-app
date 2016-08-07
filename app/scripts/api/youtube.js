@@ -20,9 +20,10 @@ export function getStatistics(resolve, reject, videos) {
   fetch(`${GAPI_URL}/videos${serialize(params)}`)
   .then(resp => resp.json())
   .then(({ items }) => resolve(items.map(_v =>
-    ({ ...videos[_it++], ...{
+    ({ ...videos[_it++],
       duration: _v.contentDetails.duration,
-      viewCount: _v.statistics.viewCount } }))))
+      viewCount: _v.statistics.viewCount
+    }))))
   .catch(response => reject(response));
 }
 

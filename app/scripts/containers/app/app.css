@@ -1,5 +1,4 @@
 .app-container {
-
   .main-panel {
     padding-bottom: 80px;
     transition: width, padding, margin-left 0.25s ease;
@@ -10,7 +9,6 @@
       margin-left: 300px;
     }
   }
-
   &.desktop {
     .uploadFiles {
       align-items: center;
@@ -35,7 +33,6 @@
       }
     }
     .inactiveDrop {
-
       &.activeDrop {
         .uploadFiles {
           animation-name: fadeInDown;

@@ -33,7 +33,7 @@ export const createConstants = (...constants) => constants.reduce((acc, constant
 }, {});
 
 export const createReducer = (initialState, handlers) => (state = initialState, action) => {
-  if (handlers.hasOwnProperty(action.type)) {
+  if ({}.hasOwnProperty.call(handlers, action.type)) {
     return handlers[action.type](state, action);
   }
   return state;

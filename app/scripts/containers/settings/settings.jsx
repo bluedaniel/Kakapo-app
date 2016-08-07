@@ -54,7 +54,8 @@ export default function Settings({ settings, themes, location, intl, dispatch },
 
   const renderGitRepo = () => (
     <div className="opt opt-repo">
-      <a className="github hint--right" data-hint="Fork me on Github!" target="_blank"
+      <a className="github hint--right" data-hint="Fork me on Github!"
+        rel="noopener noreferrer" target="_blank"
         href="https://github.com/bluedaniel/kakapo-app" onClick={(e) =>
           openLink(e, 'https://github.com/bluedaniel/kakapo-app')}>
         <i className="icon-img-github" />

@@ -39,14 +39,14 @@ const actions = {
         subject.error('Sorry, that SoundCloud track cannot be downloaded.');
       }
 
-      newSound = { ...newSoundClass, ...{
+      newSound = { ...newSoundClass,
         file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.mp3`),
         source: 'soundcloudStream',
         name: response.data.title,
         tags: response.data.tag_list,
         img: response.data.artwork_url || 'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
         link: response.data.permalink_url
-      } };
+      };
 
       request(`${response.data.download_url}?client_id=${SOUNDCLOUD_KEY}`)
       .on('response', res => {

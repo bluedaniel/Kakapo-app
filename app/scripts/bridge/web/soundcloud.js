@@ -39,7 +39,7 @@ export default {
     fetch(url)
     .then(response => response.json())
     .then(({ data }) => {
-      subject.next({ ...newSoundClass, ...{
+      subject.next({ ...newSoundClass,
         file: data.stream_url,
         img: data.artwork_url,
         link: data.permalink_url,
@@ -47,7 +47,7 @@ export default {
         progress: 0,
         source: 'soundcloudStream',
         tags: data.tag_list
-      } });
+      });
     })
     .catch(({ data }) => subject.error(data.errors[0].error_message));
   }

@@ -17,10 +17,10 @@ export let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
-  initialState = { ...initialState, ...{
+  initialState = { ...initialState,
     dockIcon: bridgedSettings.getItem('dockIcon'),
     devTools: bridgedSettings.getItem('devTools')
-  } };
+  };
 }
 
 const settingReducers = {

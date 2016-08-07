@@ -9,7 +9,7 @@ export default ({ themes, intl }) => {
       return <span className="drag" />;
     }
     return (
-      <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank">
+      <a className="download-app" href="http://www.kakapo.co/app.html" target="_blank" rel="noopener noreferrer">
         {intl.formatMessage({ id: 'nav.app' })}
       </a>
     );

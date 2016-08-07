@@ -10,9 +10,9 @@ export default ({ sounds, themes, intl, dispatch }) => {
   sounds = sounds.map(_s => {
     const soundProps = { themes, sound: { ..._s }, intl, dispatch };
 
-    let item = <SoundItem key={_s.file} { ...soundProps } />;
+    let item = <SoundItem key={_s.file} {...soundProps} />;
     if (_s.editing) {
-      item = <SoundEdit key={`${_s.file}editing`} { ...soundProps } />;
+      item = <SoundEdit key={`${_s.file}editing`} {...soundProps} />;
     }
 
     return (

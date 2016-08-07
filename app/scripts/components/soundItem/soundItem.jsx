@@ -35,7 +35,8 @@ export default ({ sound, themes, dispatch }) => {
     <ul className={classNames('actions', { dark: !sound.playing })}>
       {sound.link ? (
         <li>
-          <a href={sound.link} onClick={(e) => openLink(e, sound.link)} target="_blank">
+          <a href={sound.link} onClick={(e) => openLink(e, sound.link)}
+            rel="noopener noreferrer" target="_blank">
             <i className="icon-share" />
           </a>
         </li>) : ''}

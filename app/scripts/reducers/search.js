@@ -77,13 +77,13 @@ const searchReducers = {
 
   // KakapoFavourites Listeners
   mapKakapo(results) {
-    return results.map(_y => ({ ..._y, ...{
+    return results.map(_y => ({ ..._y,
       desc: _y.description,
       img: _y.img,
       name: _y.name,
       tags: _y.tags,
       url: _y.url
-    } }));
+    }));
   },
 
   fetchComplete(state, service, list) {

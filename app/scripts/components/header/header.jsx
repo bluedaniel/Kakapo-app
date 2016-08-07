@@ -13,7 +13,7 @@ export default ({ settings, themes, toggleMute }) => (
     </span>
     <div className="logo">
       <h3 className={classNames({ darkUI: themes.get('darkUI') })}>
-        <span className="logo-bg icon-img-logo"></span>
+        <span className="logo-bg icon-img-logo" />
         <span className="logo-text">Kakapo</span>
       </h3>
     </div>

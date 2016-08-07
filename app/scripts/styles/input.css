@@ -5,7 +5,6 @@
 .group {
   margin-bottom: 35px;
   position: relative;
-
   input {
     background: transparent;
     border: none;
@@ -18,25 +17,21 @@
       font-size: 0.7em;
       top: -20px;
     }
-
     &:focus ~ {
       &.bar::before,
       &.bar::after {
         width: 50%;
       }
-
       &.highlight {
         animation: inputHighlighter 0.3s ease;
       }
     }
   }
-
   input,
   label {
     font-size: 0.9em;
     padding: 7px 0;
   }
-
   label {
     color: #999;
     font-weight: normal;
@@ -46,7 +41,6 @@
     top: 0;
     transition: 0.2s ease all;
   }
-
   .bar {
     position: relative;
     display: block;
