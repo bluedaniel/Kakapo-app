@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/windowCount';
-import { Howler } from 'howler/howler.core.min.js';
+import { Howler } from 'howler';
 
 export const curry = (fn, args = []) => (...a) => {
   const x = args.concat(a);

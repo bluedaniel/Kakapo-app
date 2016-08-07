@@ -1,4 +1,4 @@
-import howler from 'howler/howler.core.min.js';
+import { Howl } from 'howler';
 import path from 'path';
 import { pathConfig } from 'utils/';
 
@@ -10,7 +10,7 @@ export default function getHowlerObj({ file, source, volume }) {
     if (__DESKTOP__) soundFile = `${path.join(pathConfig.soundDir, soundFile)}.ogg`;
   }
 
-  return new howler.Howl({
+  return new Howl({
     src: [ soundFile ],
     html5: true,
     loop: true,
