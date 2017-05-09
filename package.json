@@ -103,10 +103,7 @@
     "installer-win": "babel-node tools/run installer-win",
     "start": "babel-node tools/run start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bluedaniel/Kakapo-app.git"
-  },
+  "repository": "git+https://github.com/bluedaniel/Kakapo-app.git",
   "author": "Daniel Levitt @supercerebral",
   "license": "ISC",
   "bugs": {
