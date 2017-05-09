@@ -66,10 +66,12 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "faucet": "0.0.1",
     "fs-extra": "^0.30.0",
+    "husky": "^0.13.3",
     "imagemin": "^5.2.2",
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.3",
+    "lint-staged": "^3.4.1",
     "node-noop": "^1.0.0",
     "null-loader": "^0.1.1",
     "open": "0.0.5",
@@ -103,7 +105,14 @@
     "pkg": "babel-node tools/run pkg",
     "installer-mac": "babel-node tools/run installer-mac",
     "installer-win": "babel-node tools/run installer-win",
-    "start": "babel-node tools/run start"
+    "start": "babel-node tools/run start",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write --single-quote",
+      "git add"
+    ]
   },
   "repository": "git+https://github.com/bluedaniel/Kakapo-app.git",
   "author": "Daniel Levitt @supercerebral",
