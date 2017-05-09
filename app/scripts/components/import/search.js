@@ -6,12 +6,12 @@ import SearchResult from './searchResult';
 
 function observeAutocomplete(dispatch, service) {
   const subject = new Rx.Subject()
-  .filter(text => text.length >= 2)
-  .debounceTime(750)
-  .distinctUntilChanged();
+    .filter(text => text.length >= 2)
+    .debounceTime(750)
+    .distinctUntilChanged();
 
   subject.subscribe({
-    next: (_s) => {
+    next: _s => {
       if (service === 'youtube') {
         return dispatch(searchActions.searchYoutube(_s));
       }
@@ -28,17 +28,24 @@ export default ({ search, location, intl, dispatch }) => {
 
   return (
     <div className="youtube">
-      <TextInput placeholder={`import.${service}.search_placeholder`}
-        name="searchInput" spinner={search.get('loading')} intl={intl}
-        onChange={({ target }) => subject.next(target.value)} />
+      <TextInput
+        placeholder={`import.${service}.search_placeholder`}
+        name="searchInput"
+        spinner={search.get('loading')}
+        intl={intl}
+        onChange={({ target }) => subject.next(target.value)}
+      />
       <div className={`${service}-items`}>
         {search.get(service).map(_y => (
-          <SearchResult key={_y.videoId || _y.scId} {...{
-            sound: _y,
-            service,
-            intl,
-            dispatch
-          }} />
+          <SearchResult
+            key={_y.videoId || _y.scId}
+            {...{
+              sound: _y,
+              service,
+              intl,
+              dispatch
+            }}
+          />
         ))}
       </div>
     </div>

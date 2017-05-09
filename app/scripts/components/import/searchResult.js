@@ -1,7 +1,10 @@
 import React, { PropTypes } from 'react';
 import { soundActions } from 'actions/';
 
-export default function SearchResult({ service, sound, intl, dispatch }, { router }) {
+export default function SearchResult(
+  { service, sound, intl, dispatch },
+  { router }
+) {
   const handleClick = () => {
     let actionParams;
     if (service === 'youtube') {
@@ -21,7 +24,9 @@ export default function SearchResult({ service, sound, intl, dispatch }, { route
     router.push('/');
   };
 
-  const viewCountId = service === 'youtube' ? 'youtube.views' : 'soundcloud.plays';
+  const viewCountId = service === 'youtube'
+    ? 'youtube.views'
+    : 'soundcloud.plays';
 
   return (
     <div className={`${service}-item`} onClick={handleClick}>
@@ -34,7 +39,9 @@ export default function SearchResult({ service, sound, intl, dispatch }, { route
       <span className="title">
         {sound.name}
         <span className="view-count">
-          {intl.formatNumber(sound.viewCount)} {intl.formatMessage({ id: viewCountId })}
+          {intl.formatNumber(sound.viewCount)}
+          {' '}
+          {intl.formatMessage({ id: viewCountId })}
         </span>
       </span>
     </div>

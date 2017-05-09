@@ -15,12 +15,10 @@ AWS.config.update(awsCredentials);
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
 function observeAutocomplete(dispatch, router) {
-  const subject = new Rx.Subject()
-  .throttleTime(1000)
-  .distinctUntilChanged();
+  const subject = new Rx.Subject().throttleTime(1000).distinctUntilChanged();
 
   subject.subscribe({
-    next: (id) => {
+    next: id => {
       table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
         if (err) dispatch(notifyActions.send(err));
         if (data.Item) {
@@ -33,7 +31,9 @@ function observeAutocomplete(dispatch, router) {
               case 'youtubeStream':
                 return dispatch(soundActions.addSound('youtube', playlist[_p]));
               case 'soundcloudStream':
-                return dispatch(soundActions.addSound('soundcloud', playlist[_p].file));
+                return dispatch(
+                  soundActions.addSound('soundcloud', playlist[_p].file)
+                );
               default:
                 return dispatch(soundActions.addSound('kakapo', playlist[_p]));
             }
@@ -49,14 +49,19 @@ function observeAutocomplete(dispatch, router) {
   return subject;
 }
 
-export default function Playlist({ sounds, themes, params, intl, dispatch }, { router }) {
+export default function Playlist(
+  { sounds, themes, params, intl, dispatch },
+  { router }
+) {
   const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
 
   const subject = observeAutocomplete(dispatch, router);
 
   if (params.shareId) {
     const clipboard = new Clipboard(`.${clipBoardClass}`);
-    clipboard.on('success', () => dispatch(notifyActions.send('Playlist link copied!')));
+    clipboard.on('success', () =>
+      dispatch(notifyActions.send('Playlist link copied!'))
+    );
   }
 
   const resetSounds = () => {
@@ -67,11 +72,13 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
   const createPlaylist = () => {
     const playlistID = btoa(JSON.stringify(sounds));
     const shareID = shortid.generate();
-    const putItem = { Item: { shareID: { S: shareID }, playlistID: { S: playlistID } } };
+    const putItem = {
+      Item: { shareID: { S: shareID }, playlistID: { S: playlistID } }
+    };
     table.putItem(putItem, () => router.push(`/share-playlist/${shareID}`));
   };
 
-  const handleDesktopPlaylistInput = (e) => {
+  const handleDesktopPlaylistInput = e => {
     if (e.keyCode === 13) {
       handleStopPropagation(e);
       router.push('/playlist/${e.target.value}');
@@ -80,16 +87,23 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
 
   const renderShare = () => {
     if (params.shareId) {
-      const baseUrl = `http://${location.hostname}${(__DEV__ ? `:${location.port}` : 'kakapo.co')}`;
+      const baseUrl = `http://${location.hostname}${__DEV__ ? `:${location.port}` : 'kakapo.co'}`;
       return (
         <div>
           <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="form">
             <div className="InputAddOn">
-              <input className="input-1 InputAddOn-field" id="copyClipboard"
-                value={`${baseUrl}/#/playlist/${params.shareId}`} readOnly />
-              <button className={classNames(clipBoardClass, 'InputAddOn-item')}
-                data-clipboard-target="#copyClipboard" onClick={handleStopPropagation}>
+              <input
+                className="input-1 InputAddOn-field"
+                id="copyClipboard"
+                value={`${baseUrl}/#/playlist/${params.shareId}`}
+                readOnly
+              />
+              <button
+                className={classNames(clipBoardClass, 'InputAddOn-item')}
+                data-clipboard-target="#copyClipboard"
+                onClick={handleStopPropagation}
+              >
                 <span title="Copy to clipboard" />
               </button>
             </div>
@@ -111,14 +125,18 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
       <form className="form">
         <div className="InputAddOn">
           <span className="InputAddOn-item">kakapo.co/#/playlist/</span>
-          <input type="text" onKeyDown={handleDesktopPlaylistInput}
-            className="input-1 InputAddOn-field" />
+          <input
+            type="text"
+            onKeyDown={handleDesktopPlaylistInput}
+            className="input-1 InputAddOn-field"
+          />
         </div>
       </form>
     </div>
   );
 
-  if (params.playlistId) { // Loading new playlist
+  if (params.playlistId) {
+    // Loading new playlist
     subject.next(params.playlistId);
   }
 
@@ -132,8 +150,11 @@ export default function Playlist({ sounds, themes, params, intl, dispatch }, { r
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
         {Object.keys(kakapoAssets.playlists).map(_e => (
-          <span className="button" key={_e}
-            onClick={() => subject.next(kakapoAssets.playlists[_e])}>
+          <span
+            className="button"
+            key={_e}
+            onClick={() => subject.next(kakapoAssets.playlists[_e])}
+          >
             {intl.formatMessage({ id: `playlist.list_${_e}` })}
           </span>
         ))}

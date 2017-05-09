@@ -10,12 +10,17 @@ export default ({ sounds, sound, intl, dispatch }) => {
   };
 
   return (
-    <div className={classNames('kakapo-item', { disabled })} onClick={handleClick}>
+    <div
+      className={classNames('kakapo-item', { disabled })}
+      onClick={handleClick}
+    >
       <div className="thumbnail">
         <i className={`icon-${sound.img}`} />
       </div>
       <span className="title">
-        {intl.formatMessage({ id: (`sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`) })}
+        {intl.formatMessage({
+          id: `sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`
+        })}
       </span>
     </div>
   );

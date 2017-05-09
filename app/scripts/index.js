@@ -28,7 +28,7 @@ let render = () => {
 
 if (module.hot) {
   const renderApp = render;
-  const renderError = (err) => {
+  const renderError = err => {
     const RedBox = require('redbox-react'); // eslint-disable-line global-require
 
     ReactDOM.render(<RedBox error={err} />, target);

@@ -10,7 +10,7 @@ import { Notifications, Subroutes } from 'components/ui';
 import { classNames } from 'utils/';
 import './app.css';
 
-const App = (props) => {
+const App = props => {
   const { notifications, settings, sounds, themes, intl, dispatch } = props;
 
   if (!settings.initialRender) {
@@ -18,12 +18,16 @@ const App = (props) => {
     dispatch(soundActions.soundsInit());
   }
 
-  const onDrop = (files) => {
+  const onDrop = files => {
     /* istanbul ignore if */
     if (__DESKTOP__) {
       files.map(_f => dispatch(soundActions.addLocalSound(_f.name, _f.path)));
     } else {
-      dispatch(notifyActions.send('You can only add desktop files with the Kakapo desktop app.'));
+      dispatch(
+        notifyActions.send(
+          'You can only add desktop files with the Kakapo desktop app.'
+        )
+      );
     }
   };
 
@@ -37,9 +41,12 @@ const App = (props) => {
   );
 
   const renderLoading = () => (
-    <div className="loading" style={{
-      background: color(themes.get('primary')).alpha(0.5).rgbaString()
-    }}>
+    <div
+      className="loading"
+      style={{
+        background: color(themes.get('primary')).alpha(0.5).rgbaString()
+      }}
+    >
       <div className="sk-fading-circle">
         {Array.from(new Array(12), (x, i) => i + 1).map(a => (
           <div className={`sk-circle${a} sk-circle`} key={`sk-circle${a}`} />
@@ -54,8 +61,18 @@ const App = (props) => {
   };
 
   return (
-    <div className={classNames('app-container', { web: __WEB__, desktop: __DESKTOP__ })}>
-      <Dropzone activeClassName="activeDrop" className="inactiveDrop" onDrop={onDrop} disableClick>
+    <div
+      className={classNames('app-container', {
+        web: __WEB__,
+        desktop: __DESKTOP__
+      })}
+    >
+      <Dropzone
+        activeClassName="activeDrop"
+        className="inactiveDrop"
+        onDrop={onDrop}
+        disableClick
+      >
         <Nav {...{ themes, intl }} />
 
         <Subroutes {...props} />
@@ -63,14 +80,20 @@ const App = (props) => {
         <div className="main-panel">
           {__DESKTOP__ ? renderUpload() : null}
 
-          {settings.updateStatus === 'downloaded' ?
-            <a className="update-now" onClick={() => ipcRenderer.send('application:quit-install')}>
-              Hi, there is a new version of Kakapo!<br />Click here to update</a> : null}
+          {settings.updateStatus === 'downloaded'
+            ? <a
+                className="update-now"
+                onClick={() => ipcRenderer.send('application:quit-install')}
+              >
+                Hi, there is a new version of Kakapo!<br />Click here to update
+              </a>
+            : null}
 
           <Header {...{ settings, themes, toggleMute }} />
 
-          {sounds.count() ? <SoundList {...{ sounds, themes, intl, dispatch }} /> :
-            renderLoading()}
+          {sounds.count()
+            ? <SoundList {...{ sounds, themes, intl, dispatch }} />
+            : renderLoading()}
 
           <Notifications {...{ notifications }} />
           <DownloadList {...{ sounds }} />
@@ -80,10 +103,12 @@ const App = (props) => {
   );
 };
 
-export default injectIntl(connect(state => ({
-  notifications: state.notifications,
-  settings: state.settings,
-  sounds: state.sounds,
-  search: state.search,
-  themes: state.themes
-}))(App));
+export default injectIntl(
+  connect(state => ({
+    notifications: state.notifications,
+    settings: state.settings,
+    sounds: state.sounds,
+    search: state.search,
+    themes: state.themes
+  }))(App)
+);

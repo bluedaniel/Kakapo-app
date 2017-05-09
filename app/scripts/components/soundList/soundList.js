@@ -17,8 +17,11 @@ export default ({ sounds, themes, intl, dispatch }) => {
 
     return (
       <div className="sound-item-wrap" key={_s.file}>
-        <CSSTransitionGroup transitionEnterTimeout={450} transitionLeaveTimeout={450}
-          transitionName="list-animation">
+        <CSSTransitionGroup
+          transitionEnterTimeout={450}
+          transitionLeaveTimeout={450}
+          transitionName="list-animation"
+        >
           {item}
         </CSSTransitionGroup>
       </div>
