@@ -4,11 +4,16 @@ import shortid from 'shortid';
 import path from 'path';
 import { pathConfig, omit } from 'utils/';
 
-const tmpUpdateStatus = path.join(pathConfig.tempDir, `kakapo-${shortid.generate()}`);
+const tmpUpdateStatus = path.join(
+  pathConfig.tempDir,
+  `kakapo-${shortid.generate()}`
+);
 
 export default {
   _fromSettings() {
-    let appSettings = fs.readJsonSync(pathConfig.settingsFile, { throws: false });
+    let appSettings = fs.readJsonSync(pathConfig.settingsFile, {
+      throws: false
+    });
     try {
       appSettings = fs.readJsonSync(pathConfig.userSettingsFile);
     } catch (err) {

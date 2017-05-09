@@ -26,30 +26,37 @@ const actions = {
       format: 'audioonly',
       debug: true
     })
-    .on('response', ({ headers }) => {
-      fileSize = headers['content-length'];
-    })
-    .on('info', ({ title, keywords, thumbnail_url, video_id }, { container }) => {
-      newSound = { ...newSoundClass,
-        file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${container}`),
-        img: thumbnail_url,
-        link: `https://www.youtube.com/watch?v=${video_id}`,
-        name: title,
-        source: 'youtubeStream',
-        tags: keywords ? keywords.join(' ') : ''
-      };
-    })
-    .on('error', e => subject.error(`Error: ${e.message}`))
-    .on('data', data => {
-      const progress = (dataRead += data.length) / fileSize;
-      subject.next({ ...newSound, progress });
-    })
-    .on('finish', () => {
-      fs.rename(tmpFile, newSound.file);
-      subject.next(newSound);
-      subject.complete(); // Completed download
-    })
-    .pipe(fs.createWriteStream(tmpFile));
+      .on('response', ({ headers }) => {
+        fileSize = headers['content-length'];
+      })
+      .on(
+        'info',
+        ({ title, keywords, thumbnail_url, video_id }, { container }) => {
+          newSound = {
+            ...newSoundClass,
+            file: path.join(
+              pathConfig.userSoundDir,
+              `${shortid.generate()}.${container}`
+            ),
+            img: thumbnail_url,
+            link: `https://www.youtube.com/watch?v=${video_id}`,
+            name: title,
+            source: 'youtubeStream',
+            tags: keywords ? keywords.join(' ') : ''
+          };
+        }
+      )
+      .on('error', e => subject.error(`Error: ${e.message}`))
+      .on('data', data => {
+        const progress = (dataRead += data.length) / fileSize;
+        subject.next({ ...newSound, progress });
+      })
+      .on('finish', () => {
+        fs.rename(tmpFile, newSound.file);
+        subject.next(newSound);
+        subject.complete(); // Completed download
+      })
+      .pipe(fs.createWriteStream(tmpFile));
   }
 };
 

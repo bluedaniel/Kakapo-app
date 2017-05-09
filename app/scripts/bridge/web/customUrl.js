@@ -2,9 +2,7 @@ import { newSoundClass } from 'classes/';
 import { validHowl } from 'utils/';
 
 const actions = {
-  getCustomFile() {
-
-  },
+  getCustomFile() {},
   getCustomURL(subject, data) {
     if (data.source !== 'file' && !validHowl(data.file)) {
       subject.error(validHowl(data.file, true));

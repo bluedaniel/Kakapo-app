@@ -6,8 +6,16 @@ import { createReducer } from 'utils/';
 import { observableStore, store } from 'stores/configureStore';
 
 const {
-  SOUNDS_MUTE, SOUNDS_PLAY, SOUNDS_VOLUME, SOUNDS_EDIT, SOUNDS_REMOVE,
-  SOUNDS_RECEIVED, SOUNDS_DOWNLOADING, SOUNDS_DOWNLOADED, SOUNDS_ERROR, SOUNDS_RESET
+  SOUNDS_MUTE,
+  SOUNDS_PLAY,
+  SOUNDS_VOLUME,
+  SOUNDS_EDIT,
+  SOUNDS_REMOVE,
+  SOUNDS_RECEIVED,
+  SOUNDS_DOWNLOADING,
+  SOUNDS_DOWNLOADED,
+  SOUNDS_ERROR,
+  SOUNDS_RESET
 } = constants;
 
 export let initialState = new Map();
@@ -29,10 +37,10 @@ const soundReducers = {
       const currentHowl = howls.get(_s.file);
       if (currentHowl) return resolve(currentHowl);
       return createSoundObj(_s)
-      .then(res => {
-        howls = howls.set(_s.file, res);
-      })
-      .then(() => resolve(howls.get(_s.file)));
+        .then(res => {
+          howls = howls.set(_s.file, res);
+        })
+        .then(() => resolve(howls.get(_s.file)));
     });
   },
 
@@ -48,9 +56,11 @@ const soundReducers = {
   },
 
   resetSounds(state, clear) {
-    state.map(_s => this._getHowl(_s).then(howl => {
-      if (howl) howl.unload(); // Remove sound object
-    }));
+    state.map(_s =>
+      this._getHowl(_s).then(howl => {
+        if (howl) howl.unload(); // Remove sound object
+      })
+    );
     howls = howls.clear();
     if (clear) return state.clear();
     return this.setSounds(defaultSounds);
@@ -81,7 +91,7 @@ const soundReducers = {
 
   editSound(state, sound, newData) {
     let opts = { editing: !sound.editing };
-    if (typeof (newData) !== 'undefined') opts = { ...opts, ...newData };
+    if (typeof newData !== 'undefined') opts = { ...opts, ...newData };
     state = state.update(sound.file, _s => ({ ..._s, ...opts }));
     return state;
   },
@@ -89,7 +99,8 @@ const soundReducers = {
   removeSound(state, sound) {
     this._getHowl(sound).then(howl => howl.unload());
     state = state.delete(sound.file);
-    if (__DESKTOP__ && sound.source !== 'file') bridgedSounds.removeFromDisk(sound);
+    if (__DESKTOP__ && sound.source !== 'file')
+      bridgedSounds.removeFromDisk(sound);
     return state;
   },
 
@@ -127,12 +138,14 @@ const soundReducers = {
 
 export default createReducer(initialState, {
   [SOUNDS_RECEIVED]: (state, { resp }) => soundReducers.init(state, resp),
-  [SOUNDS_MUTE]: (state) => soundReducers.toggleMute(state),
+  [SOUNDS_MUTE]: state => soundReducers.toggleMute(state),
   [SOUNDS_PLAY]: (state, { sound }) => soundReducers.togglePlay(state, sound),
   [SOUNDS_VOLUME]: (state, { sound, volume }) =>
     soundReducers.changeVolume(state, sound, volume),
-  [SOUNDS_EDIT]: (state, { sound, data }) => soundReducers.editSound(state, sound, data),
-  [SOUNDS_REMOVE]: (state, { sound }) => soundReducers.removeSound(state, sound),
+  [SOUNDS_EDIT]: (state, { sound, data }) =>
+    soundReducers.editSound(state, sound, data),
+  [SOUNDS_REMOVE]: (state, { sound }) =>
+    soundReducers.removeSound(state, sound),
   [SOUNDS_DOWNLOADING]: (state, { sound }) =>
     soundReducers.soundDownloading(state, sound),
   [SOUNDS_DOWNLOADED]: (state, { sound, notify }) =>

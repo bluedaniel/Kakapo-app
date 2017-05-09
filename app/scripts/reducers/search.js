@@ -3,7 +3,10 @@ import constants from 'constants/';
 import { createReducer } from 'utils/';
 
 const {
-  SEARCH_REQUEST, SEARCH_KAKAPO, SEARCH_YOUTUBE, SEARCH_SOUNDCLOUD
+  SEARCH_REQUEST,
+  SEARCH_KAKAPO,
+  SEARCH_YOUTUBE,
+  SEARCH_SOUNDCLOUD
 } = constants;
 
 export const initialState = fromJS({
@@ -16,13 +19,13 @@ export const initialState = fromJS({
 const searchReducers = {
   formatDuration(timestamp) {
     const hours = Math.floor(timestamp / 3600);
-    const minutes = Math.floor((timestamp - (hours * 3600)) / 60);
-    const seconds = timestamp - (hours * 3600) - (minutes * 60);
+    const minutes = Math.floor((timestamp - hours * 3600) / 60);
+    const seconds = timestamp - hours * 3600 - minutes * 60;
     let time = '';
 
     if (hours !== 0) time += `${hours}:`;
     time += minutes < 10 ? `0${minutes}:` : `${String(minutes)}:`;
-    return !time ? seconds : time + ((seconds < 10) ? `0${seconds}` : seconds);
+    return !time ? seconds : time + (seconds < 10 ? `0${seconds}` : seconds);
   },
 
   // Convert YouTube ISO8061 duration string
@@ -77,7 +80,8 @@ const searchReducers = {
 
   // KakapoFavourites Listeners
   mapKakapo(results) {
-    return results.map(_y => ({ ..._y,
+    return results.map(_y => ({
+      ..._y,
       desc: _y.description,
       img: _y.img,
       name: _y.name,
@@ -93,11 +97,23 @@ const searchReducers = {
 };
 
 export default createReducer(initialState, {
-  [SEARCH_REQUEST]: (state) => state.update('loading', () => true),
+  [SEARCH_REQUEST]: state => state.update('loading', () => true),
   [SEARCH_YOUTUBE]: (state, { items }) =>
-    searchReducers.fetchComplete(state, 'youtube', searchReducers.mapYoutube(items)),
+    searchReducers.fetchComplete(
+      state,
+      'youtube',
+      searchReducers.mapYoutube(items)
+    ),
   [SEARCH_SOUNDCLOUD]: (state, { items }) =>
-    searchReducers.fetchComplete(state, 'soundcloud', searchReducers.mapSoundcloud(items)),
+    searchReducers.fetchComplete(
+      state,
+      'soundcloud',
+      searchReducers.mapSoundcloud(items)
+    ),
   [SEARCH_KAKAPO]: (state, { items }) =>
-    searchReducers.fetchComplete(state, 'kakapofavs', searchReducers.mapKakapo(items))
+    searchReducers.fetchComplete(
+      state,
+      'kakapofavs',
+      searchReducers.mapKakapo(items)
+    )
 });

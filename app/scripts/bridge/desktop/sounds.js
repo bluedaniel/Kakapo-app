@@ -9,17 +9,24 @@ const latestVersion = packageJson.config.soundsVersion;
 
 export default {
   setVersion() {
-    fs.writeFile(pathConfig.userInstallFile, JSON.stringify({ version: latestVersion }));
+    fs.writeFile(
+      pathConfig.userInstallFile,
+      JSON.stringify({ version: latestVersion })
+    );
   },
   initWithDefault(defaultSounds) {
     let initialState;
     let appDetails;
 
     try {
-      initialState = fs.readJsonSync(pathConfig.userSoundFile, { throws: false }, (err, data) => {
-        if (err) return [];
-        return data;
-      });
+      initialState = fs.readJsonSync(
+        pathConfig.userSoundFile,
+        { throws: false },
+        (err, data) => {
+          if (err) return [];
+          return data;
+        }
+      );
     } catch (e) {
       initialState = [];
     }
@@ -32,7 +39,9 @@ export default {
     }
 
     try {
-      appDetails = fs.readJsonSync(pathConfig.userInstallFile, { throws: false });
+      appDetails = fs.readJsonSync(pathConfig.userInstallFile, {
+        throws: false
+      });
     } catch (e) {
       appDetails = {};
     }
@@ -40,9 +49,9 @@ export default {
     if (semver.lt(appDetails.version || '0.0.1', packageJson.version)) {
       this.setVersion();
       return initialState
-      .filterNot(_s => _s.source === 'file')
-      .toArray()
-      .concat(defaultSounds);
+        .filterNot(_s => _s.source === 'file')
+        .toArray()
+        .concat(defaultSounds);
     }
 
     return initialState;

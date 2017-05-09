@@ -5,7 +5,10 @@ export default {
   fromStorage() {
     const theme = JSON.parse(localStorage.getItem('theme'));
 
-    if (!theme || semver.lt(theme.version || '0.0.1', packageJson.config.themeVersion)) {
+    if (
+      !theme ||
+      semver.lt(theme.version || '0.0.1', packageJson.config.themeVersion)
+    ) {
       return {};
     }
 

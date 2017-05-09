@@ -4,20 +4,30 @@ import constants from 'constants/';
 import { createReducer, flatteni18n } from 'utils/';
 
 const {
-  SETTINGS_INITIAL_RENDER, SETTINGS_LANGUAGE, SETTINGS_MUTE,
-  SETTINGS_DOCK, SETTINGS_DEVTOOLS, SETTINGS_UPDATE
+  SETTINGS_INITIAL_RENDER,
+  SETTINGS_LANGUAGE,
+  SETTINGS_MUTE,
+  SETTINGS_DOCK,
+  SETTINGS_DEVTOOLS,
+  SETTINGS_UPDATE
 } = constants;
 
-export let initialState = [ 'mute', 'lang' ].reduce((acc, k) =>
-  ({ ...acc, [k]: bridgedSettings.getItem(k) }), {
-    intlData: { ...kakapoAssets.i18n.en, messages: flatteni18n(kakapoAssets.i18n.en.messages) },
+export let initialState = ['mute', 'lang'].reduce(
+  (acc, k) => ({ ...acc, [k]: bridgedSettings.getItem(k) }),
+  {
+    intlData: {
+      ...kakapoAssets.i18n.en,
+      messages: flatteni18n(kakapoAssets.i18n.en.messages)
+    },
     initialRender: false,
     updateStatus: false
-  });
+  }
+);
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
-  initialState = { ...initialState,
+  initialState = {
+    ...initialState,
     dockIcon: bridgedSettings.getItem('dockIcon'),
     devTools: bridgedSettings.getItem('devTools')
   };
@@ -49,8 +59,10 @@ const settingReducers = {
 export default createReducer(initialState, {
   [SETTINGS_LANGUAGE]: state => state,
   [SETTINGS_INITIAL_RENDER]: state => settingReducers.initialRender(state),
-  [SETTINGS_MUTE]: (state) => settingReducers.toggleMute(state),
+  [SETTINGS_MUTE]: state => settingReducers.toggleMute(state),
   [SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
-  [SETTINGS_DEVTOOLS]: (state, { bool }) => settingReducers.toggleDevTools(state, bool),
-  [SETTINGS_UPDATE]: (state, { status }) => settingReducers.desktopUpdate(state, status)
+  [SETTINGS_DEVTOOLS]: (state, { bool }) =>
+    settingReducers.toggleDevTools(state, bool),
+  [SETTINGS_UPDATE]: (state, { status }) =>
+    settingReducers.desktopUpdate(state, status)
 });

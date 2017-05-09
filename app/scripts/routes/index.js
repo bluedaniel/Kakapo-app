@@ -1,5 +1,10 @@
 import { App, Playlist, Settings } from 'containers/';
-import { ImportOptions, ImportKakapo, ImportSearch, ImportCustomUrl } from 'components/';
+import {
+  ImportOptions,
+  ImportKakapo,
+  ImportSearch,
+  ImportCustomUrl
+} from 'components/';
 
 export default {
   path: '/',
@@ -9,9 +14,7 @@ export default {
     {
       path: 'settings',
       component: Settings,
-      childRoutes: [
-        { path: 'theme(/:slotNo)', component: Settings }
-      ]
+      childRoutes: [{ path: 'theme(/:slotNo)', component: Settings }]
     },
     { path: 'kakapo', component: ImportKakapo },
     { path: 'youtube', component: ImportSearch },

@@ -15,12 +15,14 @@ export default {
       return defaultSounds;
     }
 
-    if (semver.lt(localStorage.getItem('version') || '0.0.1', packageJson.version)) {
+    if (
+      semver.lt(localStorage.getItem('version') || '0.0.1', packageJson.version)
+    ) {
       this.setVersion();
       return initialState
-      .filterNot(_s => _s.source === 'file')
-      .toArray()
-      .concat(defaultSounds);
+        .filterNot(_s => _s.source === 'file')
+        .toArray()
+        .concat(defaultSounds);
     }
 
     return initialState;

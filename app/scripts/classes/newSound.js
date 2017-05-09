@@ -1,4 +1,3 @@
-
 export default {
   editing: false,
   file: null,

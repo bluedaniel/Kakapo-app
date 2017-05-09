@@ -3,7 +3,7 @@ import constants from 'constants/';
 
 const { NOTIFICATION_SEND, NOTIFICATION_CLEAR } = constants;
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const actions = {
   send: (msg, time = 3000) => dispatch => {
@@ -12,7 +12,7 @@ const actions = {
     return delay(time).then(() => dispatch(actions.clear(id)));
   },
   notify: (id, msg) => ({ type: NOTIFICATION_SEND, id, msg }),
-  clear: (id) => ({ type: NOTIFICATION_CLEAR, id })
+  clear: id => ({ type: NOTIFICATION_CLEAR, id })
 };
 
 export default actions;

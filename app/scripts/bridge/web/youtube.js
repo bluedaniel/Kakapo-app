@@ -20,7 +20,7 @@ export default {
               showinfo: 0
             },
             events: {
-              onReady: (el) => {
+              onReady: el => {
                 resolve({
                   play: () => el.target.playVideo(),
                   pause: () => el.target.pauseVideo(),

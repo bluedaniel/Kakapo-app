@@ -16,6 +16,7 @@ const notifyReducers = {
 };
 
 export default createReducer(initialState, {
-  [NOTIFICATION_SEND]: (state, { id, msg }) => notifyReducers.send(state, id, msg),
+  [NOTIFICATION_SEND]: (state, { id, msg }) =>
+    notifyReducers.send(state, id, msg),
   [NOTIFICATION_CLEAR]: (state, { id }) => notifyReducers.clear(state, id)
 });

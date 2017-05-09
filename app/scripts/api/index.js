@@ -7,23 +7,32 @@ import { getYoutubeSearch } from './youtube';
 
 const { getCustomFile, getCustomURL } = bridgedCustom;
 const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
-const { getSoundCloudSearch, getSoundCloudURL, getSoundCloudObj } = bridgedSoundcloud;
+const {
+  getSoundCloudSearch,
+  getSoundCloudURL,
+  getSoundCloudObj
+} = bridgedSoundcloud;
 
 export function getDefaultSounds() {
   /* istanbul ignore if */
   if (__DESKTOP__) {
-    return new Promise((resolve, reject) => fs.readJson(pathConfig.soundFile, (err, data) => {
-      if (err) reject(err);
-      resolve(data);
-    }));
+    return new Promise((resolve, reject) =>
+      fs.readJson(pathConfig.soundFile, (err, data) => {
+        if (err) reject(err);
+        resolve(data);
+      })
+    );
   }
 
-  const defaultSounds = fetch('http://data.kakapo.co/v2/data/sounds.json')
-  .then(resp => resp.json());
+  const defaultSounds = fetch(
+    'http://data.kakapo.co/v2/data/sounds.json'
+  ).then(resp => resp.json());
 
-  return new Promise(resolve => new Promise(res => {
-    window.onYouTubeIframeAPIReady = res(true);
-  }).then(resolve(defaultSounds)));
+  return new Promise(resolve =>
+    new Promise(res => {
+      window.onYouTubeIframeAPIReady = res(true);
+    }).then(resolve(defaultSounds))
+  );
 }
 
 export function createSoundObj(sound) {

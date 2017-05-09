@@ -27,12 +27,16 @@ export const safe = (fn, or = undefined) => {
   }
 };
 
-export const createConstants = (...constants) => constants.reduce((acc, constant) => {
-  acc[constant] = constant;
-  return acc;
-}, {});
+export const createConstants = (...constants) =>
+  constants.reduce((acc, constant) => {
+    acc[constant] = constant;
+    return acc;
+  }, {});
 
-export const createReducer = (initialState, handlers) => (state = initialState, action) => {
+export const createReducer = (initialState, handlers) => (
+  state = initialState,
+  action
+) => {
   if ({}.hasOwnProperty.call(handlers, action.type)) {
     return handlers[action.type](state, action);
   }
@@ -41,53 +45,69 @@ export const createReducer = (initialState, handlers) => (state = initialState, 
 
 // hyphen-name-format -> hyphenNameFormat
 export const camelCase = str =>
-  str.replace(/^([A-Z])|[\s-_](\w)/g, (match, p1, p2) =>
-    p2 ? p2.toUpperCase() : p1.toLowerCase());
+  str.replace(
+    /^([A-Z])|[\s-_](\w)/g,
+    (match, p1, p2) => (p2 ? p2.toUpperCase() : p1.toLowerCase())
+  );
 
-export const toArray = x => Array.isArray(x) ? x : [ x ];
+export const toArray = x => (Array.isArray(x) ? x : [x]);
 
 // (['a'], {a: 1, b: 2, c: 3}) -> {a: 1}
 export const pluck = curry((props, x) =>
   toArray(props).reduce((acc, prop) => {
     if (typeof x[prop] !== 'undefined') acc[prop] = x[prop];
     return acc;
-  }, {}));
+  }, {})
+);
 
 // (['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) -> {b: 2, c: 3}
 export const omit = curry((props, x) =>
-  pluck(Object.keys(x).filter(k =>
-    typeof toArray(props).filter(p => p === k)[0] === 'undefined'), x));
+  pluck(
+    Object.keys(x).filter(
+      k => typeof toArray(props).filter(p => p === k)[0] === 'undefined'
+    ),
+    x
+  )
+);
 
 // [1, [2, [3, [4]], 5]] → [1, 2, 3, 4, 5]
-export const flatten = a => Array.isArray(a) ? [].concat(...a.map(flatten)) : a;
+export const flatten = a =>
+  Array.isArray(a) ? [].concat(...a.map(flatten)) : a;
 
 // { 'a':{ 'b':{ 'b2':2 }, 'c':{ 'c2':2 } } } → { 'a.b.b2':2, 'a.c.c2':2 }
-export const flatteni18n = obj => Object.keys(obj).reduce((_r, _k) => {
-  if (typeof obj[_k] === 'object') {
-    const flatObj = flatteni18n(obj[_k]);
-    Object.keys(flatObj).map(_f => {
-      _r[_f ? `${_k}.${_f}` : _k] = flatObj[_f];
-      return _f;
-    });
-  } else {
-    _r[_k] = obj[_k];
-  }
-  return _r;
-}, {});
+export const flatteni18n = obj =>
+  Object.keys(obj).reduce((_r, _k) => {
+    if (typeof obj[_k] === 'object') {
+      const flatObj = flatteni18n(obj[_k]);
+      Object.keys(flatObj).map(_f => {
+        _r[_f ? `${_k}.${_f}` : _k] = flatObj[_f];
+        return _f;
+      });
+    } else {
+      _r[_k] = obj[_k];
+    }
+    return _r;
+  }, {});
 
-const filterObj = obj => Object.keys(obj).map(_k => obj[_k] ? _k : false).filter(_v => _v);
+const filterObj = obj =>
+  Object.keys(obj).map(_k => (obj[_k] ? _k : false)).filter(_v => _v);
 
 // classNames('one', { two: true, three: false }) = 'one two'
-export const classNames = (...args) => flatten(args.map(_a => {
-  if (Array.isArray(_a)) return flatten(_a).join(' ');
-  if (typeof _a === 'object') return filterObj(_a);
-  return _a;
-})).join(' ');
+export const classNames = (...args) =>
+  flatten(
+    args.map(_a => {
+      if (Array.isArray(_a)) return flatten(_a).join(' ');
+      if (typeof _a === 'object') return filterObj(_a);
+      return _a;
+    })
+  ).join(' ');
 
 // [1, [2, [3, [4]], 5]] → [1, 2, 3, 4, 5]
 export const serialize = obj => {
-  const encodedObj = Object.keys(obj).reduce((acc, k) =>
-    ([ ...acc, `${k}=${encodeURIComponent(obj[k])}` ]), []);
+  const encodedObj = Object.keys(obj).reduce(
+    (acc, k) => [...acc, `${k}=${encodeURIComponent(obj[k])}`],
+    []
+  );
   return `?${encodedObj.join('&')}`;
 };
 
@@ -105,7 +125,7 @@ export const throttle = (func, ms = 50, context = window) => {
   };
 };
 
-export const handleStopPropagation = (e) => {
+export const handleStopPropagation = e => {
   e.preventDefault();
   e.stopPropagation();
 };
@@ -118,24 +138,30 @@ export const openLink = (e, link) => {
 };
 
 // Konami keycode
-export const Konami = () => Observable.fromEvent(window, 'keyup')
-  .map(el => el.keyCode)
-  .windowWithCount(10, 1)
-  .mergeMap(_x => _x.toArray())
-  .filter(seq => seq.toString() === [ 38, 38, 40, 40, 37, 39, 37, 39, 66, 65 ].toString());
+export const Konami = () =>
+  Observable.fromEvent(window, 'keyup')
+    .map(el => el.keyCode)
+    .windowWithCount(10, 1)
+    .mergeMap(_x => _x.toArray())
+    .filter(
+      seq =>
+        seq.toString() === [38, 38, 40, 40, 37, 39, 37, 39, 66, 65].toString()
+    );
 
 // file.mp6 -> invalid
 export const validHowl = (url, msg) => {
   const codecs = Howler._codecs;
-  const testCodecs = [ 'mp3', 'opus', 'ogg', 'wav', 'aac', 'm4a', 'mp4', 'weba' ];
+  const testCodecs = ['mp3', 'opus', 'ogg', 'wav', 'aac', 'm4a', 'mp4', 'weba'];
   const supported = codecs.length ? Object.keys(codecs) : testCodecs;
   const ext = path.extname(url).substring(1);
   const valid = supported.indexOf(ext) !== -1;
-  return msg && !valid ? `File is ${ext}, but must be one of ${supported.join(', ')}` : valid;
+  return msg && !valid
+    ? `File is ${ext}, but must be one of ${supported.join(', ')}`
+    : valid;
 };
 
 // https://gist.github.com/dperini/729294
-export const validUrl = (str) => {
+export const validUrl = str => {
   const reWeburl = new RegExp(
     '^' +
       // protocol identifier (optional) + //
@@ -148,11 +174,11 @@ export const validUrl = (str) => {
       '(?::\\d{2,5})?' +
       // resource path (optional)
       '(?:/\\S*)?' +
-    '$', 'i'
+      '$',
+    'i'
   );
   return str.match(reWeburl);
 };
-
 
 let desktopPathConfig = {};
 
@@ -161,8 +187,9 @@ if (__DESKTOP__) {
   const app = remote.app;
 
   // Setup directories
-  [ 'user-sounds', 'user-data' ].forEach(_d =>
-    fs.ensureDir(path.join(app.getPath('userData'), _d)));
+  ['user-sounds', 'user-data'].forEach(_d =>
+    fs.ensureDir(path.join(app.getPath('userData'), _d))
+  );
 
   desktopPathConfig = {
     // Default json objects & dirs
@@ -173,24 +200,42 @@ if (__DESKTOP__) {
 
     // User data & dirs
     userSoundDir: path.join(app.getPath('userData'), 'user-sounds'),
-    userSettingsFile: path.join(app.getPath('userData'), 'user-data/settings.json'),
+    userSettingsFile: path.join(
+      app.getPath('userData'),
+      'user-data/settings.json'
+    ),
     userSoundFile: path.join(app.getPath('userData'), 'user-data/sounds.json'),
     userThemeFile: path.join(app.getPath('userData'), 'user-data/theme.json'),
-    userInstallFile: path.join(app.getPath('userData'), 'user-data/app-details.json'),
+    userInstallFile: path.join(
+      app.getPath('userData'),
+      'user-data/app-details.json'
+    ),
     tempDir: app.getPath('temp')
   };
 }
 
 export const pathConfig = desktopPathConfig;
 
-export const swatches = (type) => {
-  const light = [
-    '#FFEB3B', '#FFC107', '#FF9800'
-  ];
+export const swatches = type => {
+  const light = ['#FFEB3B', '#FFC107', '#FF9800'];
   const dark = [
-    '#F44336', '#E91E63', '#9C27B0', '#673AB7', '#3F51B5', '#2196F3',
-    '#03A9F4', '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39',
-    '#FF5722', '#795548', '#9E9E9E', '#607D8B', '#001'
+    '#F44336',
+    '#E91E63',
+    '#9C27B0',
+    '#673AB7',
+    '#3F51B5',
+    '#2196F3',
+    '#03A9F4',
+    '#00BCD4',
+    '#009688',
+    '#4CAF50',
+    '#8BC34A',
+    '#CDDC39',
+    '#FF5722',
+    '#795548',
+    '#9E9E9E',
+    '#607D8B',
+    '#001'
   ];
   switch (type) {
     case 'light':
