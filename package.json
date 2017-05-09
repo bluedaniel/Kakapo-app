@@ -17,7 +17,7 @@
   "scripts": {
     "test": "cross-env NODE_ENV=test webpack --config tools/webpack.config.test.babel.js && node test | tap-bail | faucet",
     "styles": "babel-node tools/run styles",
-    "lint": "stylelint \"app/scripts/**/*.css\" && eslint --ext .jsx --ext .js app/scripts",
+    "lint": "stylelint \"app/scripts/**/*.css\" && eslint app/scripts/**/*.js",
     "eslint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
     "build": "npm run lint && babel-node tools/run build",
     "pkg": "babel-node tools/run pkg",
