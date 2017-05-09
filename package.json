@@ -43,6 +43,7 @@
     "intl": "^1.2.4",
     "kakapo-assets": "^5.18.0",
     "lost": "^8.0.0",
+    "prop-types": "^15.5.8",
     "ramda": "^0.23.0",
     "react": "^15.3.0",
     "react-addons-css-transition-group": "^15.3.0",

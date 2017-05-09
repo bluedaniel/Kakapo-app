@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Rx from 'rxjs';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';

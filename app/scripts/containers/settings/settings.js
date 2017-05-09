@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router';
 import { settingActions, themeActions } from 'actions/';
