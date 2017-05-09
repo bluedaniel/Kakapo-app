@@ -8,6 +8,7 @@
   transition: opacity 200ms, transform 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
   will-change: transform;
   left: 16px;
+
   div {
     background-color: #444;
     border-radius: 3px;
@@ -17,6 +18,7 @@
     padding: 16px;
     margin-bottom: 1rem;
   }
+
   &.notify-visible {
     top: 16px;
     opacity: 1;

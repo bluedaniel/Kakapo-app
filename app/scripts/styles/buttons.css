@@ -19,6 +19,7 @@ input[type="submit"] {
   text-align: center;
   text-decoration: none;
   white-space: nowrap;
+
   &:hover,
   &:focus {
     background-color: var(--buttonSecondColor);
@@ -26,25 +27,30 @@ input[type="submit"] {
     color: #fff;
     outline: 0;
   }
+
   &.button-disabled,
   &[disabled] {
     opacity: 0.5;
     cursor: default;
+
     &:hover,
     &:focus {
       background-color: var(--buttonColor);
       border-color: var(--buttonColor);
     }
   }
+
   &.button-outline {
     color: var(--buttonColor);
     background-color: transparent;
+
     &:hover,
     &:focus {
       color: var(--buttonSecondColor);
       background-color: transparent;
       border-color: var(--buttonSecondColor);
     }
+
     &.button-disabled,
     &[disabled] {
       &:hover,
@@ -54,16 +60,19 @@ input[type="submit"] {
       }
     }
   }
+
   &.button-clear {
     color: transparent;
     background-color: transparent;
     border-color: transparent;
+
     &:hover,
     &:focus {
       color: var(--buttonSecondColor);
       background-color: transparent;
       border-color: transparent;
     }
+
     &.button-disabled,
     &[disabled] {
       &:hover,

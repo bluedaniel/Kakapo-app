@@ -3,20 +3,24 @@
   padding: 12px 0;
   z-index: 40;
   lost-column: 1;
+
   .logo {
-    lost-column: 3/5;
+    lost-column: 3 / 5;
     color: #fff;
     font-size: 0.8em;
     text-align: center;
   }
+
   h3 {
     font-size: 1.75rem;
     font-weight: 800;
     margin: 0;
     text-align: center;
+
     span.logo-text {
       margin-left: 8px;
     }
+
     span.logo-bg {
       background-position: center;
       background-repeat: no-repeat;
@@ -26,11 +30,13 @@
       width: 42px;
     }
   }
+
   .toggle-mute {
-    lost-column: 1/5;
+    lost-column: 1 / 5;
     font-size: 28px;
     padding: 0 7px;
     margin: 0 7px;
+
     i {
       vertical-align: middle;
     }

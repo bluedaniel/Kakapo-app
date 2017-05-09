@@ -7,9 +7,11 @@
   width: 280px;
   z-index: 60;
   margin-left: -140px;
+
   &.active {
     display: block;
   }
+
   > div {
     float: left;
     padding-bottom: 20%;

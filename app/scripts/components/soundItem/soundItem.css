@@ -13,6 +13,7 @@
   position: relative;
   background-color: #fff;
   transition: opacity, background-color var(--animationSpeed) ease;
+
   img,
   .no-image,
   .preview {
@@ -23,9 +24,11 @@
     width: 44px;
     font-size: 50px;
   }
+
   .no-image {
     background: linear-gradient(to left, #232526, #414345);
   }
+
   .title {
     display: block;
     font-size: 1.15em;
@@ -36,6 +39,7 @@
     transition: margin var(--animationSpeed) ease;
     white-space: nowrap;
   }
+
   .actions {
     list-style: none;
     margin: 0;
@@ -44,48 +48,60 @@
     right: 15px;
     top: 15px;
     transition: opacity $animation-speed ease;
+
     li {
       float: left;
       margin: 0 15px 0 0;
+
       &:last-child {
         margin-right: 0;
       }
+
       i {
         float: left;
         height: 15px;
         width: 15px;
+
         &.icon-trash {
           width: 13px;
         }
+
         svg {
           fill: currentColor;
         }
       }
     }
   }
+
   &.editing {
     background-color: #efefef;
     padding: 30px 20px 25px;
+
     form {
       margin-bottom: 0;
     }
+
     a {
       margin-bottom: 0;
       margin-right: 7px;
     }
+
     button {
       margin-bottom: 0;
       vertical-align: top;
     }
   }
+
   &:hover {
     .title {
       margin-right: 80px;
     }
+
     .actions {
       opacity: 1;
     }
   }
+
   &.paused {
     img,
     .title,
@@ -97,12 +113,15 @@
 
 .app-container.web .item.youtube-stream {
   min-height: 185px;
+
   * {
     z-index: 2;
   }
+
   input {
     position: relative;
   }
+
   .youtube-video {
     left: 0;
     opacity: 0.4;
@@ -124,6 +143,7 @@ input[type="range"] {
   border-radius: 10px;
   margin: auto;
   transition: all 0.3s ease;
+
   &::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     width: 20px;
@@ -140,6 +160,7 @@ input[type="range"] {
   input[type="range"] {
     background: color(white a(70%));
     border: 1px solid color(white a(50%));
+
     &::-webkit-slider-thumb {
       background: white;
     }

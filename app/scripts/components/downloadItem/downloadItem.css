@@ -10,21 +10,21 @@
     margin-bottom: 10px;
     overflow: hidden;
     position: relative;
+
     .preview,
     .no-image {
       background-position: 50%;
       background-repeat: no-repeat;
       background-size: cover;
       height: 30px;
-      margin-bottom: 5px;
-      margin-left: 5px;
-      margin-right: 12px;
-      margin-top: 5px;
+      margin: 5px 12px 5px 5px;
       width: 30px;
     }
+
     .no-image {
       background: linear-gradient(to left, #232526, #414345);
     }
+
     .title {
       overflow: hidden;
       white-space: nowrap;

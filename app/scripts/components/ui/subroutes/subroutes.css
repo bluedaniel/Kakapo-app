@@ -13,20 +13,24 @@
     width: 300px;
     top: 35px;
   }
+
   .inner {
     padding: 20px;
     transition: padding 0.2s ease;
   }
+
   &.with-close {
     height: 400px;
 
     @media (min-width: 40rem) {
       height: auto;
     }
+
     .inner {
       padding-top: 40px;
     }
   }
+
   .icon-close {
     position: absolute;
     right: 10px;

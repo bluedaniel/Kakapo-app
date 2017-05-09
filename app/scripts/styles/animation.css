@@ -7,24 +7,46 @@
     opacity: 0;
     transform: scale(0.8) rotateX(-40deg);
   }
-  50% { opacity: 1; }
-  70% { transform: scale(1.05) rotateX(0); }
-  100% { transform: scale(1) rotateX(0); }
+
+  50% {
+    opacity: 1;
+  }
+
+  70% {
+    transform: scale(1.05) rotateX(0);
+  }
+
+  100% {
+    transform: scale(1) rotateX(0);
+  }
 }
 
 @keyframes barberpole {
-  from { background-position: 0 0; }
-  to { background-position: 60px 30px; }
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 60px 30px;
+  }
 }
 
 @keyframes spinBounce {
   0%,
-  100% { transform: scale(0); }
-  50% { transform: scale(1); }
+  100% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
 }
 
 @keyframes inputHighlighter {
-  from { background: #5264ae; }
+  from {
+    background: #5264ae;
+  }
+
   to {
     background: transparent;
     width: 0;
@@ -36,10 +58,12 @@
     opacity: 0;
     transform: translate3d(1em, 0, 0);
   }
+
   51% {
     opacity: 0;
     transform: translate3d(-1em, -40%, 0);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, -40%, 0);
@@ -52,7 +76,10 @@
   100% {
     opacity: 0;
   }
-  40% { opacity: 1; }
+
+  40% {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeInUp {
@@ -60,6 +87,7 @@
     opacity: 0;
     transform: translate3d(0, 100%, 0);
   }
+
   to {
     opacity: 1;
     transform: none;
@@ -67,7 +95,10 @@
 }
 
 @keyframes fadeOutDown {
-  from { opacity: 1; }
+  from {
+    opacity: 1;
+  }
+
   to {
     opacity: 0;
     transform: translate3d(0, 100%, 0);
@@ -78,22 +109,26 @@
   > div {
     transition: height var(--animationSpeed) cubic-bezier(0.23, 1, 0.32, 1) 0;
   }
+
   .item {
     &.list-animation-enter {
       animation-duration: var(--animationSpeed);
       animation-name: fadeInUp;
       visibility: hidden;
+
       &.list-animation-enter-active {
         animation-fill-mode: both;
         visibility: visible;
       }
     }
+
     &.list-animation-leave {
       animation-duration: var(--animationSpeed);
       animation-name: fadeOutDown;
       position: absolute;
       top: 0;
       width: 100%;
+
       &.list-animation-leave-active {
         animation-fill-mode: both;
       }
@@ -108,6 +143,7 @@
   transform: scale(0.7);
   opacity: 0;
   transition: all 0.3s;
+
   &.panel-enter-active {
     transform: scale(1);
     opacity: 1;
@@ -120,6 +156,7 @@
   transform: scale(1);
   opacity: 1;
   transition: transform 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946), opacity 0.3s cubic-bezier(0.465, 0.183, 0.153, 0.946);
+
   &.panel-leave-active {
     transform: scale(1.15);
     opacity: 0;
