@@ -44,7 +44,7 @@ const App = props => {
     <div
       className="loading"
       style={{
-        background: color(themes.get('primary')).alpha(0.5).string()
+        background: color(themes.get('primary')).alpha(0.5).rgbaString()
       }}
     >
       <div className="sk-fading-circle">

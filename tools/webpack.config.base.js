@@ -3,7 +3,6 @@ import path from 'path';
 import webpack from 'webpack';
 import FunctionModulePlugin from 'webpack/lib/FunctionModulePlugin';
 import NodeTargetPlugin from 'webpack/lib/node/NodeTargetPlugin';
-import postcssPlugins, { postcssImport } from './postcss.plugins';
 
 const DEBUG = !argv.production;
 const platformDevice = argv.platform || 'web';
@@ -26,7 +25,6 @@ const config = {
   target: platformDevice === 'web' ? 'web' : 'electron',
   externals,
   cache: DEBUG,
-  debug: DEBUG,
   devtool: DEBUG ? '#eval' : false,
   plugins: [
     new webpack.DefinePlugin({
@@ -39,24 +37,19 @@ const config = {
       __TEST__: process.env.NODE_ENV === 'test'
     }),
     new webpack.ProvidePlugin({
-      Promise: 'imports?this=>global!exports?global.Promise!es6-promise',
-      fetch: `imports?this=>global!exports?global.fetch!${process.env.NODE_ENV === 'test' ? 'isomorphic-fetch' : 'whatwg-fetch'}`
+      Promise: 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
+      fetch: `imports-loader?this=>global!exports-loader?global.fetch!${process.env.NODE_ENV === 'test' ? 'isomorphic-fetch' : 'whatwg-fetch'}`
     }),
     new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
-    new webpack.IgnorePlugin(/vertx|react\/addons|react\/lib\/ReactContext/),
-    new webpack.optimize.OccurenceOrderPlugin()
+    new webpack.IgnorePlugin(/vertx|react\/addons|react\/lib\/ReactContext/)
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         include: path.resolve(__dirname, '../app'),
         exclude: /(node_modules|app\/vendor)/,
-        loader: 'babel'
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
+        use: 'babel-loader'
       }
     ],
     noParse: [
@@ -66,11 +59,12 @@ const config = {
     ]
   },
   resolve: {
-    root: [
+    modules: [
+      path.resolve('node_modules'),
       path.resolve(__dirname, '../app/scripts'), // You can do components/nav
       path.resolve(__dirname, '../build') // For minified images
     ],
-    extensions: ['', '.webpack.js', '.web.js', '.js'],
+    extensions: ['.js'],
     alias: {
       // Custom AWS build (DynamoDB only) from https://sdk.amazonaws.com/builder/js/
       'aws-custom-build': path.resolve(
@@ -85,10 +79,10 @@ const config = {
     }
   },
 
-  postcss: webpack =>
-    [postcssImport({ addDependencyTo: webpack })].concat(
-      postcssPlugins(!DEBUG && platformDevice === 'desktop')
-    ),
+  // postcss: webpack =>
+  //   [postcssImport({ addDependencyTo: webpack })].concat(
+  //     postcssPlugins(!DEBUG && platformDevice === 'desktop')
+  //   ),
 
   stats: {
     colors: true,
