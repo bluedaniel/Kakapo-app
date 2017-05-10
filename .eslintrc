@@ -22,6 +22,7 @@
   "rules": {
     "prettier/prettier": ["off", {"singleQuote": true}],
     "react/prop-types": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/jsx-uses-react": 1,
     "react/jsx-no-bind": 0,
     "react/jsx-first-prop-new-line": 0,
