@@ -13,13 +13,6 @@ module.exports = ctx => ({
     },
     'postcss-url': {},
     'postcss-nested': {},
-    // 'postcss-custom-media': {
-    //   extensions: {
-    //     '--viewport-small': '(width < 500px)',
-    //     '--viewport-large': '(width >= 500px)'
-    //   },
-    //   preserve: true
-    // },
     'postcss-cssnext': {}
   }
 });
