@@ -1,4 +1,5 @@
 import { List, fromJS } from 'immutable';
+import { pathOr, propOr } from 'ramda';
 import constants from 'constants/';
 import { createReducer } from 'utils/';
 
@@ -54,13 +55,15 @@ const searchReducers = {
   // YouTube Listeners
   mapYoutube(results) {
     return results.map(_y => ({
-      desc: _y.snippet.description,
-      duration: this.formatDuration(this.parseDuration(_y.duration)),
-      img: _y.snippet.thumbnails.high.url,
-      name: _y.snippet.title,
+      desc: pathOr('', ['snippet', 'description'], _y),
+      duration: this.formatDuration(
+        this.parseDuration(propOr(0, 'duration', _y))
+      ),
+      img: pathOr('', ['snippet', 'thumbnails', 'high', 'url'], _y),
+      name: pathOr('', ['snippet', 'title'], _y),
       tags: '',
-      videoId: _y.id.videoId,
-      viewCount: parseInt(_y.viewCount, 0)
+      videoId: pathOr('', ['id', 'videoId'], _y),
+      viewCount: parseInt(propOr(0, 'viewCount', _y), 10)
     }));
   },
 

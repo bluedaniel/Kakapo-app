@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Rx from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
@@ -16,7 +16,7 @@ AWS.config.update(awsCredentials);
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
 function observeAutocomplete(dispatch, router) {
-  const subject = new Rx.Subject().throttleTime(1000).distinctUntilChanged();
+  const subject = new Subject().throttleTime(1000).distinctUntilChanged();
 
   subject.subscribe({
     next: id => {
@@ -82,7 +82,7 @@ export default function Playlist(
   const handleDesktopPlaylistInput = e => {
     if (e.keyCode === 13) {
       handleStopPropagation(e);
-      router.push('/playlist/${e.target.value}');
+      router.push(`/playlist/${e.target.value}`);
     }
   };
 

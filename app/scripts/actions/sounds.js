@@ -1,4 +1,4 @@
-import Rx from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import constants from 'constants/';
 import {
   getDefaultSounds,
@@ -39,7 +39,7 @@ const actions = {
     dispatch(actions.addSoundComplete(getCustomFile(name, path))),
 
   addSound: (service, data) => dispatch => {
-    const subject = new Rx.Subject().throttleTime(250).distinctUntilChanged();
+    const subject = new Subject().throttleTime(250).distinctUntilChanged();
 
     let rxData;
     subject.subscribe({

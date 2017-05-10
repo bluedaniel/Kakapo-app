@@ -7,6 +7,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/windowCount';
+import 'rxjs/add/operator/throttleTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/debounceTime';
 import { Howler } from 'howler/dist/howler.core.min.js';
 
 export const curry = (fn, args = []) => (...a) => {

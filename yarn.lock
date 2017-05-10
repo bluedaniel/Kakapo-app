@@ -1476,7 +1476,7 @@ color-string@^0.3.0:
   dependencies:
     color-name "^1.0.0"
 
-color@0.11.3:
+color@0.11.3, color@^0.11.3:
   version "0.11.3"
   resolved "https://registry.yarnpkg.com/color/-/color-0.11.3.tgz#4bad1d0d52499dd00dbd6f0868442467e49394e6"
   dependencies:
@@ -1491,7 +1491,7 @@ color@^0.10.1:
     color-convert "^0.5.3"
     color-string "^0.3.0"
 
-color@^0.11.0, color@^0.11.3, color@^0.11.4:
+color@^0.11.0, color@^0.11.4:
   version "0.11.4"
   resolved "https://registry.yarnpkg.com/color/-/color-0.11.4.tgz#6d7b5c74fb65e841cd48792ad1ed5e07b904d764"
   dependencies:
@@ -3697,6 +3697,10 @@ jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
 
+jsdom-global@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/jsdom-global/-/jsdom-global-3.0.2.tgz#6bd299c13b0c4626b2da2c0393cd4385d606acb9"
+
 jsdom@^10.1.0:
   version "10.1.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-10.1.0.tgz#7765e00fd5c3567f34985a1c86ff466a61dacc6a"
@@ -4110,6 +4114,12 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.1"
     yallist "^2.0.0"
 
+m3u8stream@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/m3u8stream/-/m3u8stream-0.1.2.tgz#dd098162eee080ed5ab7705b3c923242e273923c"
+  dependencies:
+    miniget "^1.0.0"
+
 macaddress@^0.2.8:
   version "0.2.8"
   resolved "https://registry.yarnpkg.com/macaddress/-/macaddress-0.2.8.tgz#5904dc537c39ec6dbefeae902327135fa8511f12"
@@ -4211,6 +4221,10 @@ mime@1.3.4, mime@^1.2.11, mime@^1.3.4:
 mimic-fn@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/mimic-fn/-/mimic-fn-1.1.0.tgz#e667783d92e89dbd342818b5230b9d62a672ad18"
+
+miniget@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/miniget/-/miniget-1.0.0.tgz#019743264b33786c459f817df81482663df4941a"
 
 minimalistic-assert@^1.0.0:
   version "1.0.0"
@@ -7187,11 +7201,13 @@ yauzl@2.4.1:
   dependencies:
     fd-slicer "~1.0.1"
 
-ytdl-core@^0.7.17:
-  version "0.7.24"
-  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-0.7.24.tgz#446569beeff09b4b6195f77eb10443a84b9917b9"
+ytdl-core@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/ytdl-core/-/ytdl-core-0.14.0.tgz#f10e7e0679755b41faf4df9c4c925786bcab9825"
   dependencies:
     html-entities "^1.1.3"
+    m3u8stream "^0.1.1"
+    miniget "^1.0.0"
     sax "^1.1.3"
 
 zip-stream@^1.1.0:

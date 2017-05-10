@@ -1,4 +1,5 @@
 const jsdom = require('jsdom');
+require('jsdom-global')();
 
 const { JSDOM } = jsdom;
 

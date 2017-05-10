@@ -12,21 +12,21 @@ const config = {
   target: 'node',
   devtool: 'eval',
   module: {
-    loaders: [
-      ...baseConfig.module.loaders,
+    rules: [
+      ...baseConfig.module.rules,
       {
         test: /\.js?$/,
         include: path.resolve(__dirname, '../test/src'),
         exclude: /(node_modules|app\/vendor|\.tmp)/,
-        loader: 'babel'
+        use: 'babel-loader'
       },
       {
         test: /\.css$/,
-        loader: 'null-loader'
+        use: 'null-loader'
       },
       {
         test: /sinon.*\.js$/,
-        loader: 'imports?define=>false,require=>false'
+        use: 'imports-loader?define=>false,require=>false'
       }
     ],
     noParse: baseConfig.module.noParse

@@ -1,11 +1,11 @@
 import React from 'react';
-import Rx from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { soundActions } from 'actions/';
 import { classNames, handleStopPropagation, openLink } from 'utils/';
 import './soundItem.css';
 
 function observeThrottleVolume(dispatch, sound) {
-  const subject = new Rx.Subject().throttleTime(500).distinctUntilChanged();
+  const subject = new Subject().throttleTime(500).distinctUntilChanged();
 
   subject.subscribe({
     next: _s => dispatch(soundActions.soundsVolume(sound, _s))

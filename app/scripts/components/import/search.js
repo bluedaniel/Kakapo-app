@@ -1,11 +1,11 @@
 import React from 'react';
-import Rx from 'rxjs';
+import { Subject } from 'rxjs/Subject';
 import { TextInput } from 'components/ui';
 import { searchActions } from 'actions/';
 import SearchResult from './searchResult';
 
 function observeAutocomplete(dispatch, service) {
-  const subject = new Rx.Subject()
+  const subject = new Subject()
     .filter(text => text.length >= 2)
     .debounceTime(750)
     .distinctUntilChanged();

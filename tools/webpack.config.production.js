@@ -23,11 +23,10 @@ const config = {
       ...baseConfig.module.rules,
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract([
-          'style-loader',
-          'css-loader?-url',
-          'postcss-loader'
-        ])
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader?-url', 'postcss-loader']
+        })
       }
     ],
     noParse: baseConfig.module.noParse
