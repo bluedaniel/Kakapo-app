@@ -1,4 +1,4 @@
-import constants from 'constants/';
+import constants from 'actions/constants/';
 
 const { THEMES_CHANGE } = constants;
 

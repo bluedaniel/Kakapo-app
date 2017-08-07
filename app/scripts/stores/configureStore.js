@@ -2,9 +2,16 @@ import { FromEventPatternObservable } from 'rxjs/observable/FromEventPatternObse
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from 'reducers';
+import { routerMiddleware } from 'react-router-redux';
+import createHashHistory from 'history/createHashHistory';
+
+export const history = createHashHistory();
 
 function configureStore() {
-  const enhancer = [applyMiddleware(thunk)];
+  const enhancer = [
+    applyMiddleware(thunk),
+    applyMiddleware(routerMiddleware(history))
+  ];
 
   return compose(...enhancer)(createStore)(
     rootReducer,

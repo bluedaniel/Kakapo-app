@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ipcRenderer, remote } from 'electron';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { settingActions, themeActions } from 'actions/';
 import { ColorPicker, Checkbox } from 'components/ui/';
 import { openLink } from 'utils/';

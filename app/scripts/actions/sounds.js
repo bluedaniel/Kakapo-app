@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs/Subject';
-import constants from 'constants/';
+import constants from 'actions/constants/';
 import {
   getDefaultSounds,
   getYoutubeURL,

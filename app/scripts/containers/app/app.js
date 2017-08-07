@@ -1,4 +1,5 @@
 import React from 'react';
+import { pick } from 'ramda';
 import { connect } from 'react-redux';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
@@ -45,7 +46,7 @@ const App = props => {
     <div
       className="loading"
       style={{
-        background: color(themes.get('primary')).alpha(0.5).rgbaString()
+        background: color(themes.get('primary')).alpha(0.5).toString()
       }}
     >
       <div className="sk-fading-circle">
@@ -103,12 +104,14 @@ const App = props => {
   );
 };
 
-export default injectIntl(
-  connect(state => ({
-    notifications: state.notifications,
-    settings: state.settings,
-    sounds: state.sounds,
-    search: state.search,
-    themes: state.themes
-  }))(App)
-);
+const mapStateToProps = pick([
+  'notifications',
+  'settings',
+  'sounds',
+  'search',
+  'themes'
+]);
+
+const IntlApp = injectIntl(App);
+
+export default connect(mapStateToProps)(IntlApp);

@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import color from 'color';
 import { bridgedThemes } from 'kakapoBridge';
-import constants from 'constants/';
+import constants from 'actions/constants/';
 import { createReducer, swatches } from 'utils/';
 import { observableStore } from 'stores/configureStore';
 import packageJson from '../../../package.json';

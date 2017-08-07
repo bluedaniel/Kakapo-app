@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import constants from 'constants/';
+import constants from 'actions/constants/';
 
 const { NOTIFICATION_SEND, NOTIFICATION_CLEAR } = constants;
 

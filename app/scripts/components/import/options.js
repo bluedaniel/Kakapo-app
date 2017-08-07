@@ -1,6 +1,6 @@
 import React from 'react';
 import { classNames } from 'utils/';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 export default ({ intl }) =>
   <div className="downloads">

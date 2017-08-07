@@ -1,6 +1,6 @@
 import kakapoAssets from 'kakapo-assets';
 import { bridgedSettings } from 'kakapoBridge';
-import constants from 'constants/';
+import constants from 'actions/constants/';
 import { createReducer, flatteni18n } from 'utils/';
 
 const {

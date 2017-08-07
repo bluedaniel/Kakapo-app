@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import { bridgedSounds } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
-import constants from 'constants/';
+import constants from 'actions/constants/';
 import { createReducer } from 'utils/';
 import { observableStore, store } from 'stores/configureStore';
 

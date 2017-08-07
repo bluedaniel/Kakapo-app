@@ -1,6 +1,6 @@
 import React, { cloneElement } from 'react';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { camelCase, compose, omit, merge, classNames } from 'utils/';
 import './subroutes.css';
 
