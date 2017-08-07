@@ -10,7 +10,7 @@ export default ({
   value,
   spinner,
   intl
-}) => (
+}) =>
   <div className="group">
     <input
       type="text"
@@ -32,5 +32,4 @@ export default ({
         <div className="double-bounce1" />
         <div className="double-bounce2" />
       </div>}
-  </div>
-);
+  </div>;

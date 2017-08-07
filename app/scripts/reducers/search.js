@@ -72,7 +72,8 @@ const searchReducers = {
     return results.map(_y => ({
       desc: _y.description,
       duration: this.formatDuration(_y.duration / 1000),
-      img: 'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
+      img:
+        'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
       name: _y.title,
       tags: _y.tag_list,
       scId: parseInt(_y.id, 0),

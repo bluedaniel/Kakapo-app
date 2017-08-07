@@ -50,7 +50,8 @@ const actions = {
           source: 'soundcloudStream',
           name: response.data.title,
           tags: response.data.tag_list,
-          img: response.data.artwork_url ||
+          img:
+            response.data.artwork_url ||
             'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
           link: response.data.permalink_url
         };

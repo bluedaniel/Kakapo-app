@@ -2,7 +2,7 @@ import React from 'react';
 import { classNames } from 'utils/';
 import { Link } from 'react-router';
 
-export default ({ intl }) => (
+export default ({ intl }) =>
   <div className="downloads">
     <div className="media">
       <h4 className="add-sounds-title">
@@ -12,7 +12,7 @@ export default ({ intl }) => (
         })}
       </h4>
       <ul className="option-ul">
-        {['kakapo', 'youtube', 'soundcloud', 'custom'].map(item => (
+        {['kakapo', 'youtube', 'soundcloud', 'custom'].map(item =>
           <li className={`option options-${item}`} key={item}>
             <Link to={`/${item}`}>
               <i
@@ -25,7 +25,7 @@ export default ({ intl }) => (
               </span>
             </Link>
           </li>
-        ))}
+        )}
       </ul>
       <div className="divider" />
       <ul className="option-ul">
@@ -47,5 +47,4 @@ export default ({ intl }) => (
         </li>
       </ul>
     </div>
-  </div>
-);
+  </div>;

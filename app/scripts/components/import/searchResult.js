@@ -25,9 +25,8 @@ export default function SearchResult(
     router.push('/');
   };
 
-  const viewCountId = service === 'youtube'
-    ? 'youtube.views'
-    : 'soundcloud.plays';
+  const viewCountId =
+    service === 'youtube' ? 'youtube.views' : 'soundcloud.plays';
 
   return (
     <div className={`${service}-item`} onClick={handleClick}>
@@ -40,8 +39,7 @@ export default function SearchResult(
       <span className="title">
         {sound.name}
         <span className="view-count">
-          {intl.formatNumber(sound.viewCount)}
-          {' '}
+          {intl.formatNumber(sound.viewCount)}{' '}
           {intl.formatMessage({ id: viewCountId })}
         </span>
       </span>

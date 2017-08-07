@@ -29,7 +29,7 @@ export default ({ sound, themes, dispatch }) => {
     dispatch(soundActions.soundsEdit(sound));
   };
 
-  const renderActions = () => (
+  const renderActions = () =>
     <ul className={classNames('actions', { dark: !sound.playing })}>
       {sound.link
         ? <li>
@@ -51,8 +51,7 @@ export default ({ sound, themes, dispatch }) => {
       <li onClick={handleDelete}>
         <i className="icon-delete" />
       </li>
-    </ul>
-  );
+    </ul>;
 
   let objStyle = { color: '#121212' };
   if (sound.playing) {

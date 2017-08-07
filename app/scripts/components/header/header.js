@@ -2,7 +2,7 @@ import React from 'react';
 import { classNames } from 'utils/';
 import './header.css';
 
-export default ({ settings, themes, toggleMute }) => (
+export default ({ settings, themes, toggleMute }) =>
   <header className="header" style={{ backgroundColor: themes.get('primary') }}>
     <span className="toggle-mute" onClick={toggleMute}>
       <span
@@ -25,5 +25,4 @@ export default ({ settings, themes, toggleMute }) => (
         <span className="logo-text">Kakapo</span>
       </h3>
     </div>
-  </header>
-);
+  </header>;

@@ -50,7 +50,7 @@ export default function Settings(
       ipcRenderer.send('application:quit-install');
   };
 
-  const renderDockOpt = () => (
+  const renderDockOpt = () =>
     <div>
       <div className="opt">
         <Checkbox
@@ -70,12 +70,11 @@ export default function Settings(
           dispatch={dispatch}
         />
       </div>
-    </div>
-  );
+    </div>;
 
   // && !__DEV__
 
-  const renderGitRepo = () => (
+  const renderGitRepo = () =>
     <div className="opt opt-repo">
       <a
         className="github hint--right"
@@ -100,17 +99,15 @@ export default function Settings(
               'Click to restart and update.'}
           </p>
         : null}
-    </div>
-  );
+    </div>;
 
-  const renderDesktopOpts = () => (
+  const renderDesktopOpts = () =>
     <div>
       {process.platform === 'darwin' ? renderDockOpt() : null}
       <div className="opt quit">
         <a onClick={() => ipcRenderer.send('app-quit')}>Quit Kakapo</a>
       </div>
-    </div>
-  );
+    </div>;
 
   return (
     <div className="settings-pane">

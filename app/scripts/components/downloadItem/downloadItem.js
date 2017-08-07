@@ -12,7 +12,9 @@ export default ({ sound }) => {
       {img
         ? <div className="preview" style={{ backgroundImage: `url(${img})` }} />
         : <div className="no-image" />}
-      <span className="title">{sound.name}</span>
+      <span className="title">
+        {sound.name}
+      </span>
       <Progress key={`${sound.file}progress`} progress={sound.progress} />
     </div>
   );

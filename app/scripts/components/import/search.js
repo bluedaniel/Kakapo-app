@@ -36,7 +36,7 @@ export default ({ search, location, intl, dispatch }) => {
         onChange={({ target }) => subject.next(target.value)}
       />
       <div className={`${service}-items`}>
-        {search.get(service).map(_y => (
+        {search.get(service).map(_y =>
           <SearchResult
             key={_y.videoId || _y.scId}
             {...{
@@ -46,7 +46,7 @@ export default ({ search, location, intl, dispatch }) => {
               dispatch
             }}
           />
-        ))}
+        )}
       </div>
     </div>
   );

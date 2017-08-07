@@ -32,7 +32,9 @@ export default function CustomUrl({ themes, intl, dispatch }, { router }) {
 
   return (
     <div className="customurl">
-      <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
+      <h5>
+        {intl.formatMessage({ id: 'import.custom.header' })}
+      </h5>
       <form onSubmit={handleSubmit}>
         <div className="media-import">
           <TextInput

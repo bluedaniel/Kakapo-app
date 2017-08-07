@@ -1,12 +1,13 @@
 import React from 'react';
 import './progress.css';
 
-export default ({ progress }) => (
+export default ({ progress }) =>
   <div className="progress">
     <div
       className="progress-barberpole"
       style={{ width: `${Math.ceil(progress * 100)}%` }}
     />
-    <div className="progress-text">{Math.ceil(progress * 100)}%</div>
-  </div>
-);
+    <div className="progress-text">
+      {Math.ceil(progress * 100)}%
+    </div>
+  </div>;

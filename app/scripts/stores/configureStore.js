@@ -1,6 +1,4 @@
-import {
-  FromEventPatternObservable
-} from 'rxjs/observable/FromEventPatternObservable';
+import { FromEventPatternObservable } from 'rxjs/observable/FromEventPatternObservable';
 import { applyMiddleware, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from 'reducers';

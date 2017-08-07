@@ -88,10 +88,14 @@ export default function Playlist(
 
   const renderShare = () => {
     if (params.shareId) {
-      const baseUrl = `http://${location.hostname}${__DEV__ ? `:${location.port}` : 'kakapo.co'}`;
+      const baseUrl = `http://${location.hostname}${__DEV__
+        ? `:${location.port}`
+        : 'kakapo.co'}`;
       return (
         <div>
-          <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
+          <p>
+            {intl.formatMessage({ id: 'playlist.share_created' })}
+          </p>
           <form className="form">
             <div className="InputAddOn">
               <input
@@ -119,10 +123,12 @@ export default function Playlist(
     );
   };
 
-  const renderDesktopPlaylistInput = () => (
+  const renderDesktopPlaylistInput = () =>
     <div>
       <hr />
-      <p>{intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
+      <p>
+        {intl.formatMessage({ id: 'playlist.input_playlist' })}
+      </p>
       <form className="form">
         <div className="InputAddOn">
           <span className="InputAddOn-item">kakapo.co/#/playlist/</span>
@@ -133,8 +139,7 @@ export default function Playlist(
           />
         </div>
       </form>
-    </div>
-  );
+    </div>;
 
   if (params.playlistId) {
     // Loading new playlist
@@ -144,13 +149,17 @@ export default function Playlist(
   return (
     <div className="modal playlist-pane">
       <div className="modal-inner">
-        <h3>{intl.formatMessage({ id: 'playlist.header' })}</h3>
+        <h3>
+          {intl.formatMessage({ id: 'playlist.header' })}
+        </h3>
         {renderShare()}
-        <p>{intl.formatMessage({ id: 'playlist.subheading' })}</p>
+        <p>
+          {intl.formatMessage({ id: 'playlist.subheading' })}
+        </p>
         <a className="button" onClick={resetSounds}>
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
-        {Object.keys(kakapoAssets.playlists).map(_e => (
+        {Object.keys(kakapoAssets.playlists).map(_e =>
           <span
             className="button"
             key={_e}
@@ -158,7 +167,7 @@ export default function Playlist(
           >
             {intl.formatMessage({ id: `playlist.list_${_e}` })}
           </span>
-        ))}
+        )}
         {__DESKTOP__ ? renderDesktopPlaylistInput() : null}
       </div>
     </div>
