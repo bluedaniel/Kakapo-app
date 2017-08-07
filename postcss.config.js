@@ -13,6 +13,8 @@ module.exports = ctx => ({
     },
     'postcss-url': {},
     'postcss-nested': {},
-    'postcss-cssnext': {}
+    'postcss-cssnext': {},
+    'postcss-browser-reporter': {},
+    'postcss-reporter': {}
   }
 });

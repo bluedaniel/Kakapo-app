@@ -13,7 +13,7 @@ const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
   darkUI: swatches('light').indexOf(palette1) !== -1,
   colorPickerActive: false, // Close the color picker
   btn: palette2,
-  darkPrimary: color(palette1).darken(0.2).hexString(),
+  darkPrimary: color(palette1).darken(0.2).toString(),
   primary: palette1
 });
 
