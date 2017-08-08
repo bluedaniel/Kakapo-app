@@ -4,6 +4,7 @@ import { remote, shell } from 'electron';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { Observable } from 'rxjs/Observable';
+import { flatten } from 'ramda';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -14,15 +15,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounceTime';
 import { Howler } from 'howler/dist/howler.core.min.js';
 
-export const curry = (fn, args = []) => (...a) => {
-  const x = args.concat(a);
-  return x.length >= fn.length ? fn(...x) : curry(fn, x);
-};
-
-export const compose = (...a) => x => a.reduceRight((y, fn) => fn(y), x);
-
 export const noop = () => {};
-export const merge = curry((y, x) => ({ ...x, ...y }));
 
 export const safe = (fn, or = undefined) => {
   try {
@@ -79,28 +72,6 @@ export const camelCase = str =>
   );
 
 export const toArray = x => (Array.isArray(x) ? x : [x]);
-
-// (['a'], {a: 1, b: 2, c: 3}) -> {a: 1}
-export const pluck = curry((props, x) =>
-  toArray(props).reduce((acc, prop) => {
-    if (typeof x[prop] !== 'undefined') acc[prop] = x[prop];
-    return acc;
-  }, {})
-);
-
-// (['a', 'd'], {a: 1, b: 2, c: 3, d: 4}) -> {b: 2, c: 3}
-export const omit = curry((props, x) =>
-  pluck(
-    Object.keys(x).filter(
-      k => typeof toArray(props).filter(p => p === k)[0] === 'undefined'
-    ),
-    x
-  )
-);
-
-// [1, [2, [3, [4]], 5]] → [1, 2, 3, 4, 5]
-export const flatten = a =>
-  Array.isArray(a) ? [].concat(...a.map(flatten)) : a;
 
 // { 'a':{ 'b':{ 'b2':2 }, 'c':{ 'c2':2 } } } → { 'a.b.b2':2, 'a.c.c2':2 }
 export const flatteni18n = obj =>

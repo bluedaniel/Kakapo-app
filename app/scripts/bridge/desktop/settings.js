@@ -2,7 +2,8 @@ import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
 import shortid from 'shortid';
 import path from 'path';
-import { pathConfig, omit } from 'utils/';
+import { omit } from 'ramda';
+import { pathConfig } from 'utils/';
 
 const tmpUpdateStatus = path.join(
   pathConfig.tempDir,

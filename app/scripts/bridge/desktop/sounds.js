@@ -1,7 +1,7 @@
 import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { compose, length, filter, prop } from 'ramda';
+import { compose, length, filter, prop, concat } from 'ramda';
 import { pathConfig } from 'utils/';
 import packageJson from '../../../../package.json';
 
@@ -48,10 +48,9 @@ export default {
 
     if (semver.lt(appDetails.version || '0.0.1', packageJson.version)) {
       this.setVersion();
-      return initialState
-        .filterNot(_s => _s.source === 'file')
-        .toArray()
-        .concat(defaultSounds);
+      return compose(concat(defaultSounds), filter(_s => _s.source !== 'file'))(
+        initialState
+      );
     }
 
     return initialState;

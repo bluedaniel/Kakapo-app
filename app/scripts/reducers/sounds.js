@@ -1,13 +1,4 @@
-import {
-  mapObjIndexed,
-  set,
-  lensProp,
-  over,
-  prop,
-  propOr,
-  omit,
-  reduce
-} from 'ramda';
+import { mapObjIndexed, set, lensProp, over, prop, omit, reduce } from 'ramda';
 import { bridgedSounds } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
 import constants from 'actions/constants/';
