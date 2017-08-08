@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, keys, length, pick } from 'ramda';
+import { compose, keys, length, pick, prop } from 'ramda';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
@@ -48,7 +48,7 @@ const App = props => {
     <div
       className="loading"
       style={{
-        background: color(themes.get('primary')).alpha(0.5).toString()
+        background: color(prop('primary', themes)).alpha(0.5).toString()
       }}
     >
       <div className="sk-fading-circle">

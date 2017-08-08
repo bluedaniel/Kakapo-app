@@ -1,4 +1,5 @@
 import React from 'react';
+import { prop } from 'ramda';
 import { soundActions, notifyActions } from 'actions/';
 import { handleStopPropagation } from 'utils/';
 import TextInput from '../ui/textInput/textInput';
@@ -49,8 +50,8 @@ export default ({ sound, themes, intl, dispatch }) => {
         <button
           className="button"
           style={{
-            backgroundColor: themes.get('btn'),
-            borderColor: themes.get('btn')
+            backgroundColor: prop('btn', themes),
+            borderColor: prop('btn', themes)
           }}
         >
           {intl.formatMessage({ id: 'list.save' })}

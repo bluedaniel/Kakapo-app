@@ -2,8 +2,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig, serialize } from 'utils/';
-import { newSoundClass } from 'classes/';
+import { pathConfig, serialize, newSoundObj } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
@@ -45,7 +44,7 @@ const actions = {
         }
 
         newSound = {
-          ...newSoundClass,
+          ...newSoundObj,
           file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.mp3`),
           source: 'soundcloudStream',
           name: response.data.title,

@@ -32,6 +32,20 @@ export const safe = (fn, or = undefined) => {
   }
 };
 
+export const newSoundObj = {
+  editing: false,
+  file: null,
+  img: null,
+  link: null,
+  name: null,
+  playing: false,
+  progress: 0,
+  recentlyDownloaded: true,
+  tags: null,
+  source: null,
+  volume: 0.5
+};
+
 export const mapRoute = (props = {}) => route =>
   <Route
     key={route.path}

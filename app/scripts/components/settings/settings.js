@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, pathOr, propOr } from 'ramda';
+import { compose, pathOr, propOr, prop } from 'ramda';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
@@ -120,11 +120,11 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
         <span className="swatches">
           <Link
             to="/settings?palette=1"
-            style={{ backgroundColor: themes.get('primary') }}
+            style={{ backgroundColor: prop('primary', themes) }}
           />
           <Link
             to="/settings?palette=2"
-            style={{ backgroundColor: themes.get('btn') }}
+            style={{ backgroundColor: prop('btn', themes) }}
           />
         </span>
         <ColorPicker active={palette} handleSwatch={handleSwatch} />

@@ -5,10 +5,10 @@ import './notifications.css';
 export default ({ notifications }) =>
   <aside
     className={classNames('notify', {
-      'notify-visible': notifications.count()
+      'notify-visible': Object.keys(notifications).length
     })}
   >
-    {Object.keys(notifications.toJS()).map(k =>
+    {Object.keys(notifications).map(k =>
       <div key={k}>
         {notifications.toJS()[k]}
       </div>

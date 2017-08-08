@@ -1,5 +1,6 @@
 import React from 'react';
 import { Subject } from 'rxjs/Subject';
+import { compose, map, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';
@@ -31,22 +32,25 @@ export default ({ search, location, intl, dispatch }) => {
       <TextInput
         placeholder={`import.${service}.search_placeholder`}
         name="searchInput"
-        spinner={search.get('loading')}
+        spinner={prop('loading', search)}
         intl={intl}
         onChange={({ target }) => subject.next(target.value)}
       />
       <div className={`${service}-items`}>
-        {search.get(service).map(_y =>
-          <SearchResult
-            key={_y.videoId || _y.scId}
-            {...{
-              sound: _y,
-              service,
-              intl,
-              dispatch
-            }}
-          />
-        )}
+        {compose(
+          map(_y =>
+            <SearchResult
+              key={_y.videoId || _y.scId}
+              {...{
+                sound: _y,
+                service,
+                intl,
+                dispatch
+              }}
+            />
+          ),
+          prop(service)
+        )(search)}
       </div>
     </div>
   );

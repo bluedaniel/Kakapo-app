@@ -1,5 +1,5 @@
 /* eslint no-new:0 */
-import { newSoundClass } from 'classes/';
+import { newSoundObj } from 'utils/';
 
 export default {
   getYoutubeObj({ file, playing }) {
@@ -20,17 +20,17 @@ export default {
               showinfo: 0
             },
             events: {
-              onReady: el => {
+              onReady: ({ el: { target } }) => {
                 resolve({
-                  play: () => el.target.playVideo(),
-                  pause: () => el.target.pauseVideo(),
-                  volume: vol => el.target.setVolume(vol * 100),
+                  play: () => target.playVideo(),
+                  pause: () => target.pauseVideo(),
+                  volume: vol => target.setVolume(vol * 100),
                   mute: toggle => {
-                    if (toggle) return el.target.mute();
-                    return el.target.unMute();
+                    if (toggle) return target.mute();
+                    return target.unMute();
                   },
 
-                  unload: () => el.target.destroy()
+                  unload: () => target.destroy()
                 });
               }
             }
@@ -42,7 +42,7 @@ export default {
   },
 
   getYoutubeURL(subject, data) {
-    subject.next({ ...newSoundClass, ...data });
+    subject.next({ ...newSoundObj, ...data });
     subject.complete();
   }
 };

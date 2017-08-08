@@ -1,5 +1,4 @@
-import { newSoundClass } from 'classes/';
-import { serialize } from 'utils/';
+import { serialize, newSoundObj } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
@@ -43,7 +42,7 @@ export default {
       .then(response => response.json())
       .then(({ data }) => {
         subject.next({
-          ...newSoundClass,
+          ...newSoundObj,
           file: data.stream_url,
           img: data.artwork_url,
           link: data.permalink_url,

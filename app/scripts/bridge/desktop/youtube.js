@@ -3,8 +3,7 @@ import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig } from 'utils/';
-import { newSoundClass } from 'classes/';
+import { pathConfig, newSoundObj } from 'utils/';
 
 let fileSize = 0;
 let dataRead = 0;
@@ -33,7 +32,7 @@ const actions = {
         'info',
         ({ title, keywords, thumbnail_url, video_id }, { container }) => {
           newSound = {
-            ...newSoundClass,
+            ...newSoundObj,
             file: path.join(
               pathConfig.userSoundDir,
               `${shortid.generate()}.${container}`

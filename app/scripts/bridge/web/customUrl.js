@@ -1,5 +1,4 @@
-import { newSoundClass } from 'classes/';
-import { validHowl } from 'utils/';
+import { validHowl, newSoundObj } from 'utils/';
 
 const actions = {
   getCustomFile() {},
@@ -7,7 +6,7 @@ const actions = {
     if (data.source !== 'file' && !validHowl(data.file)) {
       subject.error(validHowl(data.file, true));
     } else {
-      subject.next({ ...newSoundClass, ...data });
+      subject.next({ ...newSoundObj, ...data });
       subject.complete();
     }
   }

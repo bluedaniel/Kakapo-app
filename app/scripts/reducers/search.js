@@ -1,5 +1,4 @@
-import { List, fromJS } from 'immutable';
-import { pathOr, propOr } from 'ramda';
+import { compose, set, pathOr, propOr, lensProp } from 'ramda';
 import constants from 'actions/constants/';
 import { createReducer } from 'utils/';
 
@@ -10,12 +9,12 @@ const {
   SEARCH_SOUNDCLOUD
 } = constants;
 
-export const initialState = fromJS({
+export const initialState = {
   youtube: [],
   soundcloud: [],
   kakapofavs: [],
   loading: false
-});
+};
 
 const searchReducers = {
   formatDuration(timestamp) {
@@ -95,13 +94,15 @@ const searchReducers = {
   },
 
   fetchComplete(state, service, list) {
-    const newState = state.update(service, () => new List(list));
-    return newState.update('loading', () => false);
+    return compose(
+      set(lensProp('loading'), false),
+      set(lensProp(service), list)
+    )(state);
   }
 };
 
 export default createReducer(initialState, {
-  [SEARCH_REQUEST]: state => state.update('loading', () => true),
+  [SEARCH_REQUEST]: set(lensProp('loading'), true),
   [SEARCH_YOUTUBE]: (state, { items }) =>
     searchReducers.fetchComplete(
       state,

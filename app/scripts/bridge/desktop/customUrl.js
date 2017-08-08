@@ -2,8 +2,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig, validHowl } from 'utils/';
-import { newSoundClass } from 'classes/';
+import { pathConfig, validHowl, newSoundObj } from 'utils/';
 
 let fileSize = 0;
 let dataRead = 0;
@@ -13,7 +12,7 @@ const actions = {
   getCustomFile(name, filePath) {
     const file = `${shortid.generate()}.${path.extname(filePath).substring(1)}`;
     newSound = {
-      ...newSoundClass,
+      ...newSoundObj,
       file: path.join(pathConfig.userSoundDir, file),
       img: '',
       name,
@@ -45,7 +44,7 @@ const actions = {
       .extname(data.file)
       .substring(1)}`;
     newSound = {
-      ...newSoundClass,
+      ...newSoundObj,
       ...data,
       file: path.join(pathConfig.userSoundDir, file)
     };

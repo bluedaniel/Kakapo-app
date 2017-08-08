@@ -126,15 +126,15 @@ const soundReducers = {
 
   soundDownloaded(state, sound) {
     sound = { ...sound, progress: 1 };
-    state = set(sound.file, sound, state);
-    howls = set(sound.file, createSoundObj(sound), howls);
+    state = set(lensProp(sound.file), sound, state);
+    howls = set(lensProp(sound.file), createSoundObj(sound), howls);
     if (sound.playing) this._getHowl(sound).then(howl => howl.play());
     this.toggleMute(state);
     return state;
   },
 
   soundDownloading(state, sound) {
-    return set(sound.file, { ...sound }, state);
+    return set(lensProp(sound.file), { ...sound }, state);
   },
 
   soundError(state) {

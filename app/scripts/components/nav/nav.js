@@ -1,4 +1,5 @@
 import React from 'react';
+import { prop } from 'ramda';
 import { classNames } from 'utils/';
 import './nav.css';
 
@@ -22,8 +23,8 @@ export default ({ themes, intl }) => {
 
   return (
     <div
-      className={classNames('topbar', { darkUI: themes.get('darkUI') })}
-      style={{ backgroundColor: themes.get('darkPrimary') }}
+      className={classNames('topbar', { darkUI: prop('darkUI', themes) })}
+      style={{ backgroundColor: prop('darkPrimary', themes) }}
     >
       {renderDragOrDownload()}
       <div className="share">

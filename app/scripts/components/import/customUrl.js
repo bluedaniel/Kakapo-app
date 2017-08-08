@@ -1,5 +1,6 @@
 import React from 'react';
 import { push } from 'react-router-redux';
+import { prop } from 'ramda';
 import { soundActions, notifyActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';
@@ -50,8 +51,8 @@ export default ({ themes, intl, dispatch }) => {
           <button
             className="button"
             style={{
-              backgroundColor: themes.get('btn'),
-              borderColor: themes.get('btn')
+              backgroundColor: prop('btn', themes),
+              borderColor: prop('btn', themes)
             }}
           >
             {intl.formatMessage({ id: 'import.save' })}

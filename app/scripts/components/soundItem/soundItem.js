@@ -1,5 +1,6 @@
 import React from 'react';
 import { Subject } from 'rxjs/Subject';
+import { prop } from 'ramda';
 import { soundActions } from 'actions/';
 import { classNames, handleStopPropagation, openLink } from 'utils/';
 import './soundItem.css';
@@ -57,7 +58,7 @@ export default ({ sound, themes, dispatch }) => {
   if (sound.playing) {
     objStyle = {
       ...objStyle,
-      backgroundColor: themes.get('primary'),
+      backgroundColor: prop('primary', themes),
       color: '#fff'
     };
   }
