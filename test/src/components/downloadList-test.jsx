@@ -1,10 +1,10 @@
 import React from 'react';
 import test from 'tape';
 import { shallow } from 'enzyme';
-import { Map } from 'immutable';
-import { getData } from '../helper';
-import { newSoundClass } from 'classes/';
+import { inc } from 'ramda';
+import { newSoundObj } from 'utils/';
 import { DownloadList } from 'components/';
+import { getData } from '../helper';
 
 function setup(props = {}) {
   const propData = { ...getData('sounds'), ...props };
@@ -13,8 +13,8 @@ function setup(props = {}) {
 
 function randomSounds(count) {
   let arr = new Map();
-  for (let i = 0; i < count; i++) {
-    const obj = { ...newSoundClass, progress: i > 2 ? 1 : 0.5 };
+  for (let i = 0; i < count; inc(i)) {
+    const obj = { ...newSoundObj, progress: i > 2 ? 1 : 0.5 };
     arr = arr.set(i, Object.keys(obj).reduce((newObj, _e) => {
       newObj[_e] = obj[_e] === null ? `test${i}` : obj[_e];
       return newObj;

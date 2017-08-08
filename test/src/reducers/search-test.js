@@ -1,12 +1,15 @@
 import test from 'tape';
 import sinon from 'sinon';
+import { prop, compose, length } from 'ramda';
 import { store } from 'stores/configureStore';
 import { searchActions } from 'actions/';
 import search, { initialState } from 'reducers/search';
 import { stubFetchWith, kakapoRes, youtubeRes } from '../helper';
 
 const stubMatch = (stub, regex, data) =>
-  stub.withArgs(sinon.match(regex)).returns(Promise.resolve(stubFetchWith(data)));
+  stub
+    .withArgs(sinon.match(regex))
+    .returns(Promise.resolve(stubFetchWith(data)));
 
 test('[reducer/search] setup', t => {
   const stubbedFetch = sinon.stub(global, 'fetch');
@@ -24,7 +27,11 @@ test('[reducer/search] search YouTube for `oceans`', t => {
     t.equal(data.items.length, 15);
 
     const reducer = search(initialState, data);
-    t.equal(reducer.get('youtube').count(), 15, 'update the store with the new data');
+    t.equal(
+      compose(length, prop('youtube'))(reducer),
+      15,
+      'update the store with the new data'
+    );
   });
 });
 
@@ -36,7 +43,7 @@ test('[reducer/search] search YouTube for `oceans`', t => {
 //     t.equal(data.items.length, 14);
 //
 //     const reducer = search(initialState, data);
-//     t.equal(reducer.get('kakapofavs').count(), 14, 'update the store with the new data');
+//     t.equal(compose(length, prop('kakapofavs'))(reducer), 14, 'update the store with the new data');
 //   });
 // });
 

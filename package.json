@@ -15,7 +15,7 @@
     "themeVersion": "1.0.0"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test webpack --config tools/webpack.config.test.babel.js && node test | tap-bail | faucet",
+    "test": "cross-env NODE_ENV=test webpack --config tools/webpack.config.test.babel.js --progress --display errors-only && node test | tap-bail | faucet",
     "styles": "babel-node tools/run styles",
     "styles:format": "stylefmt -r \"app/**/*.css\"",
     "lint": "stylelint \"app/scripts/**/*.css\" && eslint app/scripts/**/*.js",

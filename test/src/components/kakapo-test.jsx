@@ -1,30 +1,30 @@
 import React from 'react';
 import test from 'tape';
 import { shallow } from 'enzyme';
-import { fromJS, List } from 'immutable';
-import { getData } from '../helper';
-import { newSoundClass } from 'classes/';
+import { inc, set, lensProp, identity } from 'ramda';
+import { newSoundObj } from 'utils/';
 import { ImportKakapo as Kakapo, ImportKakapoItem as KakapoItem } from 'components/';
+import { getData } from '../helper';
 
 function setup(props = {}) {
   const propData = {
     ...getData('search'),
     soundActions: {},
     ...getData('intl'),
-    dispatch: (e) => e,
+    dispatch: identity,
     ...props
   };
   return { props, wrapper: shallow(<Kakapo {...propData} />) };
 }
 
 function randomSounds(count) {
-  let arr = new List();
-  for (let i = 0; i < count; i++) {
-    const obj = { ...newSoundClass, source: 'file', progress: 1 };
-    arr = arr.set(i, Object.keys(obj).reduce((newObj, _e) => {
+  let arr = [];
+  for (let i = 0; i < count; inc(i)) {
+    const obj = { ...newSoundObj, source: 'file', progress: 1 };
+    arr = set(lensProp(i), Object.keys(obj).reduce((newObj, _e) => {
       newObj[_e] = typeof obj[_e] === 'function' ? `test${i}` : obj[_e];
       return newObj;
-    }, {}));
+    }, {}), arr);
   }
   return arr;
 }

@@ -1,7 +1,7 @@
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
 import color from 'color';
-import { fromJS, Map } from 'immutable';
+import { lensProp, set } from 'ramda';
 import { flatteni18n, swatches } from 'utils/';
 import packageJson from '../../package.json';
 
@@ -21,37 +21,37 @@ export function getData(slice, opts = {}) {
   switch (slice) {
     case 'themes': {
       return {
-        themes: fromJS({
+        themes: {
           version: packageJson.config.themeVersion,
           darkUI: swatches('light').indexOf('#673AB7') !== -1,
           colorPickerActive: false, // Close the color picker
           btn: '#4CAF50',
           darkPrimary: color('#673AB7').darken(0.2).hexString(),
           primary: '#673AB7'
-        })
+        }
       };
     }
     case 'search': {
       return {
-        search: fromJS({
+        search: {
           youtube: [],
           soundcloud: [],
           kakapofavs: []
-        })
+        }
       };
     }
     case 'sounds': {
-      let sounds = new Map();
+      let sounds = {};
       if (opts.full) {
         kakapoAssets.sounds.map(_s => {
-          sounds = sounds.set(_s.file, { ..._s });
+          sounds = set(lensProp(_s.file), { ..._s }, sounds);
           return sounds;
         });
       }
       return { sounds };
     }
     case 'settings': {
-      return { settings: new Map() };
+      return { settings: {} };
     }
     case 'location': {
       return { location: { pathname: '' } };
