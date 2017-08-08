@@ -136,9 +136,7 @@ const soundReducers = {
     observableStore.subscribe(_x => {
       if (initialState === _x.sounds) return; // Still the same state
       const obj = reduce(
-        (acc, curr) => {
-          return set(curr.file, { ...curr }, acc);
-        },
+        (acc, curr) => set(lensProp(curr.file), { ...curr }, acc),
         {},
         _x.sounds
       );
