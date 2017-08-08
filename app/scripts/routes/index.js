@@ -1,15 +1,17 @@
-import { App, Playlist, Settings } from 'containers/';
 import {
   ImportOptions,
   ImportKakapo,
   ImportSearch,
-  ImportCustomUrl
+  ImportCustomUrl,
+  Playlist,
+  Settings
 } from 'components/';
+import App from 'containers/app/app';
 
 export default [
   {
-    component: App,
     path: '/',
+    component: App,
     routes: [
       {
         path: '/',
@@ -17,7 +19,7 @@ export default [
         component: ImportOptions
       },
       {
-        path: 'settings',
+        path: '/settings',
         component: Settings,
         routes: [
           {
@@ -26,12 +28,12 @@ export default [
           }
         ]
       },
-      { path: 'kakapo', component: ImportKakapo },
-      { path: 'youtube', component: ImportSearch },
-      { path: 'soundcloud', component: ImportSearch },
-      { path: 'custom', component: ImportCustomUrl },
-      { path: 'playlist(/:playlistId)', component: Playlist },
-      { path: 'share-playlist(/:shareId)', component: Playlist }
+      { path: '/kakapo', component: ImportKakapo },
+      { path: '/youtube', component: ImportSearch },
+      { path: '/soundcloud', component: ImportSearch },
+      { path: '/custom', component: ImportCustomUrl },
+      { path: '/playlist(/:playlistId)', component: Playlist },
+      { path: '/share-playlist(/:shareId)', component: Playlist }
     ]
   }
 ];

@@ -1,13 +1,15 @@
 import React from 'react';
 import { pick } from 'ramda';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
 import { injectIntl } from 'react-intl';
 import color from 'color';
 import { soundActions, settingActions, notifyActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
-import { Notifications, Subroutes } from 'components/ui';
+import Notifications from 'components/ui/notifications/notifications';
+import Subroutes from 'components/ui/subroutes/subroutes';
 import { classNames } from 'utils/';
 import './app.css';
 
@@ -109,9 +111,10 @@ const mapStateToProps = pick([
   'settings',
   'sounds',
   'search',
-  'themes'
+  'themes',
+  'routing'
 ]);
 
 const IntlApp = injectIntl(App);
 
-export default connect(mapStateToProps)(IntlApp);
+export default withRouter(connect(mapStateToProps)(IntlApp));

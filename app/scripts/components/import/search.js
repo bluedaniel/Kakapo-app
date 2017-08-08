@@ -1,7 +1,7 @@
 import React from 'react';
 import { Subject } from 'rxjs/Subject';
-import { TextInput } from 'components/ui';
 import { searchActions } from 'actions/';
+import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';
 
 function observeAutocomplete(dispatch, service) {

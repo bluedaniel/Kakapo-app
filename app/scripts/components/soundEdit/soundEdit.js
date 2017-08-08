@@ -1,7 +1,7 @@
 import React from 'react';
-import { TextInput } from 'components/ui';
 import { soundActions, notifyActions } from 'actions/';
 import { handleStopPropagation } from 'utils/';
+import TextInput from '../ui/textInput/textInput';
 
 export default ({ sound, themes, intl, dispatch }) => {
   const handleCancel = el => {

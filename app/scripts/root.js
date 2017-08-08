@@ -1,17 +1,9 @@
 import React from 'react';
 import { map } from 'ramda';
 import { ConnectedRouter } from 'react-router-redux';
-import { Route } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
+import { mapRoute } from 'utils/';
 import routes from 'routes/';
-
-const mapRoutes = map(route =>
-  <Route
-    key={route.path}
-    path={route.path}
-    render={props => <route.component {...props} routes={route.routes} />}
-  />
-);
 
 export default ({ state, history }) =>
   <IntlProvider
@@ -20,7 +12,7 @@ export default ({ state, history }) =>
   >
     <ConnectedRouter {...{ history }}>
       <div>
-        {mapRoutes(routes)}
+        {map(mapRoute(), routes)}
       </div>
     </ConnectedRouter>
   </IntlProvider>;

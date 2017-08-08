@@ -1,21 +1,31 @@
 import { FromEventPatternObservable } from 'rxjs/observable/FromEventPatternObservable';
-import { applyMiddleware, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from 'reducers';
-import { routerMiddleware } from 'react-router-redux';
 import createHashHistory from 'history/createHashHistory';
+import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'react-router-redux';
+import rootReducer from 'reducers';
 
 export const history = createHashHistory();
 
-function configureStore() {
-  const enhancer = [
-    applyMiddleware(thunk),
-    applyMiddleware(routerMiddleware(history))
-  ];
+export default function configureStore() {
+  const middlewares = [thunk, routerMiddleware(history)];
 
-  return compose(...enhancer)(createStore)(
+  const enhancers = [applyMiddleware(...middlewares)];
+
+  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
+  /* eslint-disable no-underscore-dangle */
+  const composeEnhancers =
+    process.env.NODE_ENV !== 'production' &&
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      : compose;
+  /* eslint-enable */
+
+  return createStore(
     rootReducer,
-    window.__INITIAL_STATE__
+    window.__INITIAL_STATE__,
+    composeEnhancers(...enhancers)
   );
 }
 

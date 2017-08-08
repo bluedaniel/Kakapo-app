@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { remote, shell } from 'electron';
+import React from 'react';
+import { Route } from 'react-router-dom';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/map';
@@ -29,6 +31,15 @@ export const safe = (fn, or = undefined) => {
     return or;
   }
 };
+
+export const mapRoute = (props = {}) => route =>
+  <Route
+    key={route.path}
+    exact={route.exact}
+    path={route.path}
+    render={x =>
+      <route.component {...{ ...x, ...props }} routes={route.routes} />}
+  />;
 
 export const createConstants = (...constants) =>
   constants.reduce((acc, constant) => {

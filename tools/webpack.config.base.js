@@ -37,8 +37,12 @@ const config = {
       __TEST__: process.env.NODE_ENV === 'test'
     }),
     new webpack.ProvidePlugin({
-      Promise: 'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
-      fetch: `imports-loader?this=>global!exports-loader?global.fetch!${process.env.NODE_ENV === 'test' ? 'isomorphic-fetch' : 'whatwg-fetch'}`
+      Promise:
+        'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
+      fetch: `imports-loader?this=>global!exports-loader?global.fetch!${process
+        .env.NODE_ENV === 'test'
+        ? 'isomorphic-fetch'
+        : 'whatwg-fetch'}`
     }),
     new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
     new webpack.IgnorePlugin(/vertx|react\/addons|react\/lib\/ReactContext/)
@@ -66,11 +70,6 @@ const config = {
     ],
     extensions: ['.js'],
     alias: {
-      // Custom AWS build (DynamoDB only) from https://sdk.amazonaws.com/builder/js/
-      'aws-custom-build': path.resolve(
-        __dirname,
-        '../app/vendor/aws-sdk-2.2.31.min'
-      ),
       kakapoBridge: path.resolve(
         __dirname,
         '../app/scripts/bridge',

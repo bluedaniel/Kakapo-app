@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 import { Subject } from 'rxjs/Subject';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
@@ -15,7 +15,7 @@ AWS.config.update(awsCredentials);
 
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
-function observeAutocomplete(dispatch, router) {
+function observeAutocomplete(dispatch) {
   const subject = new Subject().throttleTime(1000).distinctUntilChanged();
 
   subject.subscribe({
@@ -23,7 +23,7 @@ function observeAutocomplete(dispatch, router) {
       table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
         if (err) dispatch(notifyActions.send(err));
         if (data.Item) {
-          router.push('/');
+          push('/');
           dispatch(soundActions.resetSounds(true));
 
           const playlist = JSON.parse(atob(data.Item.playlistID.S));
@@ -41,7 +41,7 @@ function observeAutocomplete(dispatch, router) {
           });
         } else {
           dispatch(notifyActions.send('Error: Playlist not found'));
-          router.push('/');
+          push('/');
         }
       });
     }
@@ -50,13 +50,10 @@ function observeAutocomplete(dispatch, router) {
   return subject;
 }
 
-export default function Playlist(
-  { sounds, themes, params, intl, dispatch },
-  { router }
-) {
+export default ({ sounds, params, intl, dispatch }) => {
   const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
 
-  const subject = observeAutocomplete(dispatch, router);
+  const subject = observeAutocomplete(dispatch);
 
   if (params.shareId) {
     const clipboard = new Clipboard(`.${clipBoardClass}`);
@@ -67,7 +64,7 @@ export default function Playlist(
 
   const resetSounds = () => {
     dispatch(soundActions.resetSounds(false));
-    router.push('/');
+    push('/');
   };
 
   const createPlaylist = () => {
@@ -76,13 +73,13 @@ export default function Playlist(
     const putItem = {
       Item: { shareID: { S: shareID }, playlistID: { S: playlistID } }
     };
-    table.putItem(putItem, () => router.push(`/share-playlist/${shareID}`));
+    table.putItem(putItem, () => push(`/share-playlist/${shareID}`));
   };
 
   const handleDesktopPlaylistInput = e => {
     if (e.keyCode === 13) {
       handleStopPropagation(e);
-      router.push(`/playlist/${e.target.value}`);
+      push(`/playlist/${e.target.value}`);
     }
   };
 
@@ -172,6 +169,4 @@ export default function Playlist(
       </div>
     </div>
   );
-}
-
-Playlist.contextTypes = { router: PropTypes.object };
+};

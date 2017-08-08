@@ -1,6 +1,6 @@
 import React from 'react';
-import { Progress } from 'components/ui/';
 import { classNames } from 'utils/';
+import Progress from '../ui/progress/progress';
 import './downloadItem.css';
 
 export default ({ sound }) => {

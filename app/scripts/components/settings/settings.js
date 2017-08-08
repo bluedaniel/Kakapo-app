@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { pathOr } from 'ramda';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
+import { push } from 'react-router-redux';
 import { settingActions, themeActions } from 'actions/';
-import { ColorPicker, Checkbox } from 'components/ui/';
 import { openLink } from 'utils/';
+import Checkbox from '../ui/checkbox/checkbox';
+import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
 let app;
@@ -16,11 +18,8 @@ if (__DESKTOP__) {
   autoUpdater = remote.autoUpdater;
 }
 
-export default function Settings(
-  { settings, themes, location, intl, dispatch },
-  { router }
-) {
-  const { palette } = location.query;
+export default ({ settings, themes, location, intl, dispatch }) => {
+  const palette = pathOr(0, ['query', 'palette'], location);
 
   /* istanbul ignore if */
   if (__DESKTOP__) {
@@ -41,7 +40,7 @@ export default function Settings(
 
   const handleSwatch = swatch => {
     dispatch(themeActions.themesChange(swatch, palette - 1));
-    router.push('/settings');
+    push('/settings');
   };
 
   const checkForUpdates = () => {
@@ -129,6 +128,4 @@ export default function Settings(
       {renderGitRepo()}
     </div>
   );
-}
-
-Settings.contextTypes = { router: PropTypes.object };
+};

@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 import { soundActions, notifyActions } from 'actions/';
-import { TextInput } from 'components/ui';
+import TextInput from '../ui/textInput/textInput';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';
 
-export default function CustomUrl({ themes, intl, dispatch }, { router }) {
+export default ({ themes, intl, dispatch }) => {
   const handleError = (msg, translateMsg = true) => {
     const err = translateMsg ? intl.formatMessage({ id: msg }) : msg;
     dispatch(notifyActions.send(err));
@@ -27,7 +27,7 @@ export default function CustomUrl({ themes, intl, dispatch }, { router }) {
       return handleError(validHowl(data.url, true), false);
 
     dispatch(soundActions.addSound('custom', data));
-    return router.push('/');
+    return push('/');
   };
 
   return (
@@ -60,6 +60,4 @@ export default function CustomUrl({ themes, intl, dispatch }, { router }) {
       </form>
     </div>
   );
-}
-
-CustomUrl.contextTypes = { router: PropTypes.object };
+};

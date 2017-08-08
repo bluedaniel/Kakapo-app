@@ -1,11 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { push } from 'react-router-redux';
 import { soundActions } from 'actions/';
 
-export default function SearchResult(
-  { service, sound, intl, dispatch },
-  { router }
-) {
+export default ({ service, sound, intl, dispatch }) => {
   const handleClick = () => {
     let actionParams;
     if (service === 'youtube') {
@@ -22,7 +19,7 @@ export default function SearchResult(
       actionParams = sound.scId;
     }
     dispatch(soundActions.addSound(service, actionParams));
-    router.push('/');
+    push('/');
   };
 
   const viewCountId =
@@ -45,6 +42,4 @@ export default function SearchResult(
       </span>
     </div>
   );
-}
-
-SearchResult.contextTypes = { router: PropTypes.object };
+};

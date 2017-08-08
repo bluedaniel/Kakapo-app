@@ -1,30 +1,27 @@
-import React, { cloneElement } from 'react';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
-import { Link } from 'react-router-dom';
-import { camelCase, compose, omit, merge, classNames } from 'utils/';
+import React from 'react';
+import { compose, prop, head, map } from 'ramda';
+import { Link, Switch } from 'react-router-dom';
+import { camelCase, classNames, mapRoute } from 'utils/';
+import routes from 'routes/';
 import './subroutes.css';
 
-export default props => {
-  const { children, location } = props;
+const getChildRoutes = compose(prop('routes'), head);
 
-  const transitions = {
-    component: 'div',
-    transitionEnterTimeout: 500,
-    transitionLeaveTimeout: 300
-  };
+export default props => {
+  const { location } = props;
 
   const key = camelCase(location.pathname);
-  const newProps = compose(merge({ key }), omit('children'))(props);
 
   return (
     <div
       className={classNames('secondary-panel', { 'with-close': key !== '/' })}
     >
       {key !== '/' ? <Link className="icon-close" to="/" /> : null}
+
       <div className="inner">
-        <CSSTransitionGroup transitionName="panel" {...transitions}>
-          {children ? cloneElement(children, newProps) : null}
-        </CSSTransitionGroup>
+        <Switch>
+          {compose(map(mapRoute(props)), getChildRoutes)(routes)}
+        </Switch>
       </div>
     </div>
   );

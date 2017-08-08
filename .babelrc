@@ -1,3 +1,14 @@
 {
-  "presets": ["node5", "react", "stage-0"]
+  "presets": ["node5", "react", "stage-0"],
+  "plugins": [
+    [
+      "module-resolver",
+      {
+        "root": ["./app/scripts"],
+        "alias": {
+          "aws-custom-build": "./app/vendor/aws-sdk-2.2.31.min"
+        }
+      }
+    ]
+  ]
 }
