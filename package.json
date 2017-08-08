@@ -44,6 +44,7 @@
     "kakapo-assets": "^5.18.0",
     "lost": "^8.0.0",
     "prop-types": "^15.5.9",
+    "query-string": "^5.0.0",
     "ramda": "^0.24.1",
     "react": "^15.3.0",
     "react-addons-css-transition-group": "^15.3.0",

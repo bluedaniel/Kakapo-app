@@ -1,8 +1,9 @@
 import React from 'react';
-import { pathOr } from 'ramda';
+import { compose, pathOr, propOr } from 'ramda';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
+import queryString from 'query-string';
 import { settingActions, themeActions } from 'actions/';
 import { openLink } from 'utils/';
 import Checkbox from '../ui/checkbox/checkbox';
@@ -18,8 +19,12 @@ if (__DESKTOP__) {
   autoUpdater = remote.autoUpdater;
 }
 
-export default ({ settings, themes, location, intl, dispatch }) => {
-  const palette = pathOr(0, ['query', 'palette'], location);
+export default ({ settings, themes, intl, dispatch, routing }) => {
+  const palette = compose(
+    propOr(0, 'palette'),
+    queryString.parse,
+    pathOr('', ['location', 'search'])
+  )(routing);
 
   /* istanbul ignore if */
   if (__DESKTOP__) {
@@ -40,7 +45,7 @@ export default ({ settings, themes, location, intl, dispatch }) => {
 
   const handleSwatch = swatch => {
     dispatch(themeActions.themesChange(swatch, palette - 1));
-    push('/settings');
+    dispatch(push('/settings'));
   };
 
   const checkForUpdates = () => {

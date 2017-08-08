@@ -8,9 +8,9 @@ import './subroutes.css';
 const getChildRoutes = compose(prop('routes'), head);
 
 export default props => {
-  const { location } = props;
+  const { routing: { location: { pathname } } } = props;
 
-  const key = camelCase(location.pathname);
+  const key = camelCase(pathname);
 
   return (
     <div

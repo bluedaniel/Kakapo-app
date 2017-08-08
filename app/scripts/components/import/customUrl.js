@@ -27,7 +27,7 @@ export default ({ themes, intl, dispatch }) => {
       return handleError(validHowl(data.url, true), false);
 
     dispatch(soundActions.addSound('custom', data));
-    return push('/');
+    return dispatch(push('/'));
   };
 
   return (

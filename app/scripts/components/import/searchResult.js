@@ -19,7 +19,7 @@ export default ({ service, sound, intl, dispatch }) => {
       actionParams = sound.scId;
     }
     dispatch(soundActions.addSound(service, actionParams));
-    push('/');
+    dispatch(push('/'));
   };
 
   const viewCountId =

@@ -23,7 +23,7 @@ function observeAutocomplete(dispatch) {
       table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
         if (err) dispatch(notifyActions.send(err));
         if (data.Item) {
-          push('/');
+          dispatch(push('/'));
           dispatch(soundActions.resetSounds(true));
 
           const playlist = JSON.parse(atob(data.Item.playlistID.S));
@@ -41,7 +41,7 @@ function observeAutocomplete(dispatch) {
           });
         } else {
           dispatch(notifyActions.send('Error: Playlist not found'));
-          push('/');
+          dispatch(push('/'));
         }
       });
     }
@@ -64,7 +64,7 @@ export default ({ sounds, params, intl, dispatch }) => {
 
   const resetSounds = () => {
     dispatch(soundActions.resetSounds(false));
-    push('/');
+    dispatch(push('/'));
   };
 
   const createPlaylist = () => {
@@ -73,13 +73,13 @@ export default ({ sounds, params, intl, dispatch }) => {
     const putItem = {
       Item: { shareID: { S: shareID }, playlistID: { S: playlistID } }
     };
-    table.putItem(putItem, () => push(`/share-playlist/${shareID}`));
+    table.putItem(putItem, () => dispatch(push(`/share-playlist/${shareID}`)));
   };
 
   const handleDesktopPlaylistInput = e => {
     if (e.keyCode === 13) {
       handleStopPropagation(e);
-      push(`/playlist/${e.target.value}`);
+      dispatch(push(`/playlist/${e.target.value}`));
     }
   };
 
