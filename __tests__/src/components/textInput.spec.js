@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import test from 'tape';
+import TextInput from 'components/ui/textInput/textInput';
 import { getData } from '../helper';
-import { TextInput } from 'components/ui/';
 
 function setup(props = {}) {
   const propData = {
@@ -14,37 +13,37 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<TextInput {...propData} />) };
 }
 
-test('<TextInput/> render', t => {
-  t.plan(6);
+test('<TextInput/> render', () => {
+  expect.assertions(6);
   const { wrapper } = setup();
-  t.equals(wrapper.type(), 'div');
-  t.equals(wrapper.prop('className'), 'group');
-  t.equals(wrapper.find('input').length, 1);
-  t.equals(wrapper.find('.highlight').length, 1);
-  t.equals(wrapper.find('.bar').length, 1);
-  t.equals(wrapper.find('label').length, 1);
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('group');
+  expect(wrapper.find('input').length).toBe(1);
+  expect(wrapper.find('.highlight').length).toBe(1);
+  expect(wrapper.find('.bar').length).toBe(1);
+  expect(wrapper.find('label').length).toBe(1);
 });
 
-test('<TextInput/> w/o translation', t => {
-  t.plan(1);
+test('<TextInput/> w/o translation', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equals(wrapper.find('label').text(), 'without.translation');
+  expect(wrapper.find('label').text()).toBe('without.translation');
 });
 
-test('<TextInput/> correct value', t => {
-  t.plan(1);
+test('<TextInput/> correct value', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ value: 42 });
-  t.equals(wrapper.find('input').props().defaultValue, 42);
+  expect(wrapper.find('input').props().defaultValue).toBe(42);
 });
 
-test('<TextInput/> correct translation', t => {
-  t.plan(1);
+test('<TextInput/> correct translation', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ placeholder: 'nav.settings' });
-  t.equals(wrapper.find('label').text(), 'Settings');
+  expect(wrapper.find('label').text()).toBe('Settings');
 });
 
-test('<TextInput/> loading spinner', t => {
-  t.plan(1);
+test('<TextInput/> loading spinner', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ spinner: true });
-  t.equals(wrapper.find('.spinner').length, 1);
+  expect(wrapper.find('.spinner').length).toBe(1);
 });

@@ -1,12 +1,11 @@
 import React from 'react';
-import test from 'tape';
 import { shallow } from 'enzyme';
-import { newSoundClass } from 'classes/';
-import { getData } from '../helper';
+import { newSoundObj } from 'utils/';
 import { ImportKakapoItem as KakapoItem } from 'components/';
+import { getData } from '../helper';
 
 const soundProp = (props = {}) => {
-  const obj = { ...newSoundClass, source: 'file', progress: 1, ...props };
+  const obj = { ...newSoundObj, source: 'file', progress: 1, ...props };
   return {
     sound: Object.keys(obj).reduce((newObj, _e) => {
       newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
@@ -24,16 +23,16 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<KakapoItem {...propData} />) };
 }
 
-test('<KakapoItem/> render', t => {
-  t.plan(2);
+test('<KakapoItem/> render', () => {
+  expect.assertions(2);
   const { wrapper } = setup(soundProp());
-  t.equal(wrapper.type(), 'div', 'render as <div>');
-  t.equal(wrapper.prop('className'), 'kakapo-item disabled');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('kakapo-item disabled');
 });
 
-test('<KakapoItem/> render file', t => {
-  t.plan(2);
+test('<KakapoItem/> render file', () => {
+  expect.assertions(2);
   const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
-  t.equal(wrapper.type(), 'div');
-  t.equal(wrapper.prop('className'), 'kakapo-item');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('kakapo-item');
 });

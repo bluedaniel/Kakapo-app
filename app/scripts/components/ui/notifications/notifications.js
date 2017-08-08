@@ -10,7 +10,7 @@ export default ({ notifications }) =>
   >
     {Object.keys(notifications).map(k =>
       <div key={k}>
-        {notifications.toJS()[k]}
+        {notifications[k]}
       </div>
     )}
   </aside>;

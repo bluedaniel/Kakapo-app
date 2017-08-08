@@ -1,5 +1,4 @@
 import React from 'react';
-import test from 'tape';
 import { shallow } from 'enzyme';
 import { inc, set, lensProp, identity } from 'ramda';
 import { newSoundObj } from 'utils/';
@@ -36,17 +35,17 @@ function randomSounds(count) {
   return arr;
 }
 
-test('<Kakapo/> render', t => {
-  t.plan(2);
+test('<Kakapo/> render', () => {
+  expect.assertions(2);
   const { wrapper } = setup();
-  t.equal(wrapper.type(), 'div', 'render as <div>');
-  t.equal(wrapper.prop('className'), 'kakapo', 'className `kakapo`');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('kakapo');
 });
 
-test('<Kakapo/> render items', t => {
-  t.plan(1);
+test('<Kakapo/> render items', () => {
+  expect.assertions(1);
   const { wrapper } = setup({
     search: fromJS({ kakapofavs: randomSounds(5) })
   });
-  t.equal(wrapper.find(KakapoItem).length, 5);
+  expect(wrapper.find(KakapoItem).length).toBe(5);
 });

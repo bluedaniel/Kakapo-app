@@ -1,14 +1,9 @@
-import test from 'tape';
 import { cx } from 'utils/';
 
-test('[utils/cx]', t => {
-  t.plan(4);
-  t.equal(cx('one', 'two', 'three'), 'one two three', 'multiple args');
-  t.equal(cx(['one', 'two']), 'one two', 'array as args');
-  t.equal(
-    cx(['one', 'two', ['three']]),
-    'one two three',
-    'multi-dimensional arr as args'
-  );
-  t.equal(cx('one', { two: true, three: false }), 'one two', 'object as args');
+test('[utils/cx]', () => {
+  expect.assertions(4);
+  expect(cx('one', 'two', 'three')).toBe('one two three');
+  expect(cx(['one', 'two'])).toBe('one two');
+  expect(cx(['one', 'two', ['three']])).toBe('one two three');
+  expect(cx('one', { two: true, three: false })).toBe('one two');
 });

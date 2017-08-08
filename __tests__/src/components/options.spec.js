@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import test from 'tape';
 import { getData } from '../helper';
 import { Link } from 'react-router';
 import { ImportOptions as Options } from 'components/';
@@ -13,26 +12,26 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Options {...propData} />) };
 }
 
-test('<Options/> render', t => {
-  t.plan(2);
+test('<Options/> render', () => {
+  expect.assertions(2);
   const { wrapper } = setup();
-  t.equals(wrapper.type(), 'div');
-  t.equals(wrapper.prop('className'), 'downloads');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('downloads');
 });
 
-test('<Options/> contains 6 links', t => {
-  t.plan(1);
+test('<Options/> contains 6 links', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equals(wrapper.find(Link).length, 6);
+  expect(wrapper.find(Link).length).toBe(6);
 });
 
-test('<Options/> render 6 icons', t => {
-  t.plan(6);
+test('<Options/> render 6 icons', () => {
+  expect.assertions(6);
   const { wrapper } = setup();
-  t.equals(wrapper.find('.icon-img-kakapo').length, 1);
-  t.equals(wrapper.find('.icon-img-youtube').length, 1);
-  t.equals(wrapper.find('.icon-img-soundcloud').length, 1);
-  t.equals(wrapper.find('.icon-img-custom').length, 1);
-  t.equals(wrapper.find('.icon-settings').length, 1);
-  t.equals(wrapper.find('.icon-playlist').length, 1);
+  expect(wrapper.find('.icon-img-kakapo').length).toBe(1);
+  expect(wrapper.find('.icon-img-youtube').length).toBe(1);
+  expect(wrapper.find('.icon-img-soundcloud').length).toBe(1);
+  expect(wrapper.find('.icon-img-custom').length).toBe(1);
+  expect(wrapper.find('.icon-settings').length).toBe(1);
+  expect(wrapper.find('.icon-playlist').length).toBe(1);
 });

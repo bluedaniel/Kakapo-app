@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import test from 'tape';
 import R from 'ramda';
 import { getData } from '../helper';
 import { ImportSearchResult as SearchResult } from 'components/';
@@ -24,38 +23,38 @@ const sound = {
   viewCount: 319609
 };
 
-test('<SearchResult/> render youtube', t => {
-  t.plan(2);
+test('<SearchResult/> render youtube', () => {
+  expect.assertions(2);
   const { wrapper } = setup({ sound });
-  t.equals(wrapper.type(), 'div');
-  t.equals(wrapper.prop('className'), 'youtube-item');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('youtube-item');
 });
 
-test('<SearchResult/> youtube view count in locale', t => {
-  t.plan(1);
+test('<SearchResult/> youtube view count in locale', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ sound });
-  t.ok(
+  expect(
     R.contains(wrapper.find('.view-count').text(), [
       '319609 views',
       '319,609 views'
     ])
-  );
+  ).toBeTruthy();
 });
 
-test('<SearchResult/> render soundcloud', t => {
-  t.plan(2);
+test('<SearchResult/> render soundcloud', () => {
+  expect.assertions(2);
   const { wrapper } = setup({ service: 'soundcloud', sound });
-  t.equals(wrapper.type(), 'div');
-  t.equals(wrapper.prop('className'), 'soundcloud-item');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('soundcloud-item');
 });
 
-test('<SearchResult/> soundcould view count in locale', t => {
-  t.plan(1);
+test('<SearchResult/> soundcould view count in locale', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ service: 'soundcloud', sound });
-  t.ok(
+  expect(
     R.contains(wrapper.find('.view-count').text(), [
       '319609 plays',
       '319,609 plays'
     ])
-  );
+  ).toBeTruthy();
 });

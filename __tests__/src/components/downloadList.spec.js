@@ -1,5 +1,4 @@
 import React from 'react';
-import test from 'tape';
 import { shallow } from 'enzyme';
 import { inc } from 'ramda';
 import { newSoundObj } from 'utils/';
@@ -26,25 +25,21 @@ function randomSounds(count) {
   return arr;
 }
 
-test('<DownloadList/> render empty', t => {
-  t.plan(1);
+test('<DownloadList/> render empty', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equal(wrapper.html(), '<div></div>', 'render empty <div>');
+  expect(wrapper.html()).toBe('<div></div>');
 });
 
-test('<DownloadList/> render', t => {
-  t.plan(2);
+test('<DownloadList/> render', () => {
+  expect.assertions(2);
   const { wrapper } = setup({ sounds: randomSounds(4) });
-  t.equal(wrapper.type(), 'div', 'render as <div>');
-  t.equal(
-    wrapper.prop('className'),
-    'download-list',
-    'className `download-list`'
-  );
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('download-list');
 });
 
-test('<DownloadList/> render sounds with `progress` < 1', t => {
-  t.plan(1);
+test('<DownloadList/> render sounds with `progress` < 1', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ sounds: randomSounds(4) });
-  t.equal(wrapper.children().length, 3);
+  expect(wrapper.children().length).toBe(3);
 });

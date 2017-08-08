@@ -1,5 +1,4 @@
 import React from 'react';
-import test from 'tape';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { getData } from '../helper';
@@ -14,22 +13,22 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Header {...propData} />) };
 }
 
-test('<Header/> render', t => {
-  t.plan(1);
+test('<Header/> render', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equal(wrapper.type(), 'header');
+  expect(wrapper.type()).toBe('header');
 });
 
-test('<Header/> render mute icon', t => {
-  t.plan(1);
+test('<Header/> render mute icon', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equal(wrapper.find('.toggle-mute').length, 1);
+  expect(wrapper.find('.toggle-mute').length).toBe(1);
 });
 
-test('<Header/> simulate toggle-mute click', t => {
-  t.plan(1);
+test('<Header/> simulate toggle-mute click', () => {
+  expect.assertions(1);
   const toggleMute = sinon.spy();
   const { wrapper } = setup({ toggleMute });
   wrapper.find('.toggle-mute').simulate('click');
-  t.equal(toggleMute.calledOnce, true);
+  expect(toggleMute.calledOnce).toBe(true);
 });

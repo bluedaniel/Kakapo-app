@@ -1,4 +1,3 @@
-import test from 'tape';
 import sinon from 'sinon';
 import { prop, compose, length } from 'ramda';
 import { store } from 'stores/configureStore';
@@ -11,27 +10,22 @@ const stubMatch = (stub, regex, data) =>
     .withArgs(sinon.match(regex))
     .returns(Promise.resolve(stubFetchWith(data)));
 
-test('[reducer/search] setup', t => {
+test('[reducer/search] setup', () => {
   const stubbedFetch = sinon.stub(global, 'fetch');
   stubMatch(stubbedFetch, /search/, youtubeRes.videos);
   stubMatch(stubbedFetch, /videos/, youtubeRes.statistics);
   stubMatch(stubbedFetch, /kakapo/, kakapoRes);
-  t.end();
 });
 
-test('[reducer/search] search YouTube for `oceans`', t => {
-  t.plan(3);
+test('[reducer/search] search YouTube for `oceans`', () => {
+  expect.assertions(3);
   const action = store.dispatch(searchActions.searchYoutube('oceans'));
   action.then(data => {
-    t.equal(data.type, 'SEARCH_YOUTUBE');
-    t.equal(data.items.length, 15);
+    expect(data.type).toBe('SEARCH_YOUTUBE');
+    expect(data.items.length).toBe(15);
 
     const reducer = search(initialState, data);
-    t.equal(
-      compose(length, prop('youtube'))(reducer),
-      15,
-      'update the store with the new data'
-    );
+    expect(compose(length, prop('youtube'))(reducer)).toBe(15);
   });
 });
 
@@ -47,7 +41,6 @@ test('[reducer/search] search YouTube for `oceans`', t => {
 //   });
 // });
 
-test('[reducer/search] teardown', t => {
+test('[reducer/search] teardown', () => {
   global.fetch.restore();
-  t.end();
 });

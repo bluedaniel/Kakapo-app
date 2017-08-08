@@ -1,21 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import test from 'tape';
-import { Progress } from 'components/ui/';
+import Progress from 'components/ui/progress/progress';
 
 function setup(props = {}) {
   return { props, wrapper: shallow(<Progress {...props} />) };
 }
 
-test('<Progress/> render', t => {
-  t.plan(2);
+test('<Progress/> render', () => {
+  expect.assertions(2);
   const { wrapper } = setup();
-  t.equals(wrapper.type(), 'div');
-  t.equals(wrapper.prop('className'), 'progress');
+  expect(wrapper.type()).toBe('div');
+  expect(wrapper.prop('className')).toBe('progress');
 });
 
-test('<Progress/> rounds 0.415 to 42% ', t => {
-  t.plan(1);
+test('<Progress/> rounds 0.415 to 42% ', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ progress: 0.415 });
-  t.equals(wrapper.find('.progress-text').text(), '42%');
+  expect(wrapper.find('.progress-text').text()).toBe('42%');
 });

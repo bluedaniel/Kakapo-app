@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import test from 'tape';
 import { inc, set, lensProp } from 'ramda';
 import { newSoundObj } from 'utils/';
 import { SoundList } from 'components/';
@@ -32,20 +31,20 @@ function randomSounds(count) {
   return arr;
 }
 
-test('<SoundList/> render empty', t => {
-  t.plan(1);
+test('<SoundList/> render empty', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equals(wrapper.html(), '<div></div>');
+  expect(wrapper.html()).toBe('<div></div>');
 });
 
-test('<SoundList/> render', t => {
-  t.plan(1);
+test('<SoundList/> render', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ sounds: randomSounds(4) });
-  t.equals(wrapper.type(), 'section');
+  expect(wrapper.type()).toBe('section');
 });
 
-test('<SoundList/> progress === 1', t => {
-  t.plan(1);
+test('<SoundList/> progress === 1', () => {
+  expect.assertions(1);
   const { wrapper } = setup({ sounds: randomSounds(8) });
-  t.equals(wrapper.find('.sound-item-wrap').length, 5);
+  expect(wrapper.find('.sound-item-wrap').length).toBe(5);
 });

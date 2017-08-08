@@ -1,13 +1,8 @@
-import test from 'tape';
 import { validHowl } from 'utils/';
 
-test('[utils/validHowl]', t => {
-  t.plan(3);
-  t.equal(
-    validHowl('test.invalidExtension'),
-    false,
-    'rejects `.invalidExtension`'
-  );
-  t.equal(validHowl('test.mp3'), true, 'accepts `.mp3`');
-  t.equal(validHowl('test.ogg'), true, 'accepts `.ogg`');
+test('[utils/validHowl]', () => {
+  expect.assertions(3);
+  expect(validHowl('test.invalidExtension')).toBe(false);
+  expect(validHowl('test.mp3')).toBe(true);
+  expect(validHowl('test.ogg')).toBe(true);
 });

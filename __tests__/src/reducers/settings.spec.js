@@ -1,37 +1,36 @@
-import test from 'tape';
 import { settingActions } from 'actions/';
 import settings, { initialState } from 'reducers/settings';
 
-test('[reducer/settings]', t => {
-  t.plan(10);
+test('[reducer/settings]', () => {
+  expect.assertions(10);
 
   const setup = settings(initialState, settingActions.initialRender());
-  t.equal(initialState.initialRender, false);
-  t.equal(setup.initialRender, true, 'trigger `initialRender`');
+  expect(initialState.initialRender).toBe(false);
+  expect(setup.initialRender).toBe(true);
 
   const setup1 = settings(initialState, settingActions.desktopUpdate());
-  t.equal(setup1.updateStatus, undefined, 'get `updateStatus`');
+  expect(setup1.updateStatus).toBe(undefined);
   const newState1 = settings(setup1, settingActions.desktopUpdate('checking'));
-  t.equal(newState1.updateStatus, 'checking', 'set `updateStatus` to checking');
+  expect(newState1.updateStatus).toBe('checking');
 
   const setup2 = settings(initialState, settingActions.toggleMute());
-  t.equal(setup2.mute, true, 'get `toggleMute` status');
+  expect(setup2.mute).toBe(true);
   const newState2 = settings(setup2, settingActions.toggleMute());
-  t.equal(newState2.mute, false, 'get `toggleMute` again and should be false');
+  expect(newState2.mute).toBe(false);
 
   const setup3 = settings(initialState, settingActions.toggleDock(true));
-  t.equal(setup3.dockIcon, true, 'set `toggleDock` to true');
+  expect(setup3.dockIcon).toBe(true);
   const newState3 = settings(
     setup3,
     settingActions.toggleDock(!setup3.dockIcon)
   );
-  t.equal(newState3.dockIcon, false, 'set `toggleDock` to false');
+  expect(newState3.dockIcon).toBe(false);
 
   const setup4 = settings(initialState, settingActions.toggleDevTools(true));
-  t.equal(setup4.devTools, true, 'set `toggleDevTools` to true');
+  expect(setup4.devTools).toBe(true);
   const newState4 = settings(
     setup4,
     settingActions.toggleDevTools(!setup4.devTools)
   );
-  t.equal(newState4.devTools, false, 'set `toggleDevTools` to false');
+  expect(newState4.devTools).toBe(false);
 });

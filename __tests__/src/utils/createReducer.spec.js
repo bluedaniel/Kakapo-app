@@ -1,4 +1,3 @@
-import test from 'tape';
 import { createReducer, createConstants } from 'utils/';
 
 const initialState = 'testingVal';
@@ -11,29 +10,27 @@ const reducer = createReducer(initialState, {
   [constants.MULTIPLY]: (state, { modifier }) => state.map(_s => _s * modifier)
 });
 
-test('[utils/createReducer]', t => {
-  t.plan(2);
+test('[utils/createReducer]', () => {
+  expect.assertions(2);
   const test1 = reducer(initialState, { type: constants.NONE });
-  t.equal(test1, initialState, 'testing `constants.NONE`');
+  expect(test1).toBe(initialState);
 
   const test2 = reducer(initialState, { type: constants.UPPER });
-  t.equal(test2, initialState.toUpperCase(), 'testing `constants.UPPER`');
+  expect(test2).toBe(initialState.toUpperCase());
 
-  test('[utils/createReducer] New state', t => {
-    t.plan(2);
+  test('[utils/createReducer] New state', () => {
+    expect.assertions(2);
     const newState = reducer(initialState, {
       type: constants.CHANGE_TYPE,
       newValue: [1, 2, 3, 4, 5]
     });
 
-    t.deepEqual(newState, [1, 2, 3, 4, 5], 'testing `constants.CHANGE_TYPE`');
-    t.deepEqual(
+    expect(newState).toEqual([1, 2, 3, 4, 5]);
+    expect(
       reducer(newState, {
         type: constants.MULTIPLY,
         modifier: 2
-      }),
-      [2, 4, 6, 8, 10],
-      'testing `constants.MULTIPLY`'
-    );
+      })
+    ).toEqual([2, 4, 6, 8, 10]);
   });
 });

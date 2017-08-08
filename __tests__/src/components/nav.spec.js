@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import test from 'tape';
 import { getData } from '../helper';
 import { Nav } from 'components/';
 
@@ -13,8 +12,8 @@ function setup(props = {}) {
   return { props, wrapper: shallow(<Nav {...propData} />) };
 }
 
-test('<Nav/> render', t => {
-  t.plan(1);
+test('<Nav/> render', () => {
+  expect.assertions(1);
   const { wrapper } = setup();
-  t.equals(wrapper.prop('className'), 'topbar');
+  expect(wrapper.prop('className')).toBe('topbar');
 });

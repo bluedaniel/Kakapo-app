@@ -1,4 +1,3 @@
-import test from 'tape';
 import sinon from 'sinon';
 import { compose, path, length, keys } from 'ramda';
 import { store } from 'stores/configureStore';
@@ -14,87 +13,85 @@ const currState = () => store.getState().sounds;
 
 let defaultState;
 
-test('[reducer/sounds] setup', t => {
+test('[reducer/sounds] setup', () => {
   localStorage.setItem('version', false);
   localStorage.removeItem('sounds');
   const stubbedFetch = sinon.stub(global, 'fetch');
   stubMatch(stubbedFetch, /kakapo/, kakapoRes);
-  t.end();
 });
 
-test('[reducer/sounds] init sounds', t => {
-  t.plan(3);
+test('[reducer/sounds] init sounds', () => {
+  expect.assertions(3);
   const action = store.dispatch(soundActions.soundsInit());
   action.then(data => {
-    t.equal(data.type, 'SOUNDS_RECEIVED');
-    t.equal(data.resp.length, 14);
-    t.equal(compose(length, keys)(currState()), 14);
+    expect(data.type).toBe('SOUNDS_RECEIVED');
+    expect(data.resp.length).toBe(14);
+    expect(compose(length, keys)(currState())).toBe(14);
     defaultState = currState();
   });
 });
 
-test('[reducer/sounds] toggle play `on`', t => {
-  t.plan(2);
+test('[reducer/sounds] toggle play `on`', () => {
+  expect.assertions(2);
   const action = store.dispatch(
     soundActions.soundsPlay(path(['wind'], currState()))
   );
-  t.equal(action.type, 'SOUNDS_PLAY');
-  t.equal(path(['wind', 'playing'], currState()), true);
+  expect(action.type).toBe('SOUNDS_PLAY');
+  expect(path(['wind', 'playing'], currState())).toBe(true);
 });
 
-test('[reducer/sounds] toggle play `off`', t => {
-  t.plan(2);
+test('[reducer/sounds] toggle play `off`', () => {
+  expect.assertions(2);
   const action = store.dispatch(
     soundActions.soundsPlay(path(['wind'], currState()))
   );
-  t.equal(action.type, 'SOUNDS_PLAY');
-  t.equal(path(['wind', 'playing'], currState()), false);
+  expect(action.type).toBe('SOUNDS_PLAY');
+  expect(path(['wind', 'playing'], currState())).toBe(false);
 });
 
-test('[reducer/sounds] volume', t => {
-  t.plan(3);
-  t.equal(path(['wind', 'volume'], currState()), 0.5);
+test('[reducer/sounds] volume', () => {
+  expect.assertions(3);
+  expect(path(['wind', 'volume'], currState())).toBe(0.5);
   const action = store.dispatch(
     soundActions.soundsVolume(path(['wind'], currState()), 0.25)
   );
-  t.equal(action.type, 'SOUNDS_VOLUME');
-  t.equal(path(['wind', 'volume'], currState()), 0.25);
+  expect(action.type).toBe('SOUNDS_VOLUME');
+  expect(path(['wind', 'volume'], currState())).toBe(0.25);
 });
 
-test('[reducer/sounds] edit', t => {
-  t.plan(2);
+test('[reducer/sounds] edit', () => {
+  expect.assertions(2);
   const newData = { tags: 'newTag' };
   const action = store.dispatch(
     soundActions.soundsEdit(path(['wind'], currState()), newData)
   );
-  t.equal(action.type, 'SOUNDS_EDIT');
-  t.equal(path(['wind', 'tags'], currState()), newData.tags);
+  expect(action.type).toBe('SOUNDS_EDIT');
+  expect(path(['wind', 'tags'], currState())).toBe(newData.tags);
 });
 
-test('[reducer/sounds] remove', t => {
-  t.plan(2);
+test('[reducer/sounds] remove', () => {
+  expect.assertions(2);
   const action = store.dispatch(
     soundActions.soundsRemove(path(['wind'], currState()))
   );
-  t.equal(action.type, 'SOUNDS_REMOVE');
-  t.equal(path(['wind'], currState()), undefined);
+  expect(action.type).toBe('SOUNDS_REMOVE');
+  expect(path(['wind'], currState())).toBe(undefined);
 });
 
-test('[reducer/sounds] reset', t => {
-  t.plan(2);
+test('[reducer/sounds] reset', () => {
+  expect.assertions(2);
   const action = store.dispatch(soundActions.resetSounds(true));
-  t.equal(action.type, 'SOUNDS_RESET');
-  t.deepEqual(currState(), {});
+  expect(action.type).toBe('SOUNDS_RESET');
+  expect(currState()).toEqual({});
 });
 
-test('[reducer/sounds] clear', t => {
-  t.plan(2);
+test('[reducer/sounds] clear', () => {
+  expect.assertions(2);
   const action = store.dispatch(soundActions.resetSounds());
-  t.equal(action.type, 'SOUNDS_RESET');
-  t.deepEqual(currState(), defaultState);
+  expect(action.type).toBe('SOUNDS_RESET');
+  expect(currState()).toEqual(defaultState);
 });
 
-test('[reducer/sounds] teardown', t => {
+test('[reducer/sounds] teardown', () => {
   global.fetch.restore();
-  t.end();
 });

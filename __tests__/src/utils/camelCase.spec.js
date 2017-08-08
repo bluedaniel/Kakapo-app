@@ -1,26 +1,9 @@
-import test from 'tape';
 import { camelCase } from 'utils/';
 
-test('[utils/camelCase]', t => {
-  t.plan(4);
-  t.equal(
-    camelCase('hyphen-name-format'),
-    'hyphenNameFormat',
-    'should be valid'
-  );
-  t.equal(
-    camelCase('hyphenname-format'),
-    'hyphennameFormat',
-    'should be valid'
-  );
-  t.equal(
-    camelCase('hyphen name format'),
-    'hyphenNameFormat',
-    'should be valid'
-  );
-  t.equal(
-    camelCase('Hyphen Name Format'),
-    'hyphenNameFormat',
-    'should be valid'
-  );
+test('[utils/camelCase]', () => {
+  expect.assertions(4);
+  expect(camelCase('hyphen-name-format')).toBe('hyphenNameFormat');
+  expect(camelCase('hyphenname-format')).toBe('hyphennameFormat');
+  expect(camelCase('hyphen name format')).toBe('hyphenNameFormat');
+  expect(camelCase('Hyphen Name Format')).toBe('hyphenNameFormat');
 });
