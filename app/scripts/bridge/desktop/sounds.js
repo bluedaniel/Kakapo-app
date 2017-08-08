@@ -1,11 +1,13 @@
 import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { Map } from 'immutable';
+import { compose, length, filter, prop } from 'ramda';
 import { pathConfig } from 'utils/';
 import packageJson from '../../../../package.json';
 
 const latestVersion = packageJson.config.soundsVersion;
+
+const isPlaying = compose(length, filter(prop('playing')), JSON.parse);
 
 export default {
   setVersion() {
@@ -31,8 +33,6 @@ export default {
       initialState = [];
     }
 
-    initialState = new Map(initialState);
-
     if (!initialState.size) {
       this.setVersion();
       return defaultSounds;
@@ -56,10 +56,10 @@ export default {
 
     return initialState;
   },
-  saveToStorage(json) {
-    const trayIcon = new Map(JSON.parse(json)).filter(_s => _s.playing).size;
+  saveToStorage(data) {
+    const trayIcon = isPlaying(data);
     ipcRenderer.send('update-icon', trayIcon ? 'TrayActive' : 'TrayIdle');
-    fs.writeFile(pathConfig.userSoundFile, json);
+    fs.writeFile(pathConfig.userSoundFile, data);
   },
   removeFromDisk(sound) {
     fs.unlinkSync(sound.file);

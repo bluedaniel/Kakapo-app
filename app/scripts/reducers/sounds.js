@@ -1,4 +1,13 @@
-import { Map } from 'immutable';
+import {
+  mapObjIndexed,
+  set,
+  lensProp,
+  over,
+  prop,
+  propOr,
+  omit,
+  reduce
+} from 'ramda';
 import { bridgedSounds } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
 import constants from 'actions/constants/';
@@ -18,9 +27,9 @@ const {
   SOUNDS_RESET
 } = constants;
 
-export let initialState = new Map();
-let defaultSounds = new Map();
-let howls = new Map();
+export let initialState = {};
+let defaultSounds = {};
+let howls = {};
 
 const muteStatus = () => store.getState().settings.mute;
 
@@ -34,21 +43,25 @@ const soundReducers = {
 
   _getHowl(_s) {
     return new Promise(resolve => {
-      const currentHowl = howls.get(_s.file);
+      const currentHowl = prop(_s.file, howls);
       if (currentHowl) return resolve(currentHowl);
       return createSoundObj(_s)
         .then(res => {
-          howls = howls.set(_s.file, res);
+          howls = set(lensProp(_s.file), res, howls);
         })
-        .then(() => resolve(howls.get(_s.file)));
+        .then(() => resolve(prop(_s.file, howls)));
     });
   },
 
   setSounds(data) {
-    let newState = new Map();
+    let newState = {};
     data.map(_s => {
       if (_s.playing) this._getHowl(_s).then(howl => howl.play()); // Autoplay
-      newState = newState.set(_s.file, { ..._s, recentlyDownloaded: false });
+      newState = set(
+        lensProp(_s.file),
+        { ..._s, recentlyDownloaded: false },
+        newState
+      );
       return newState;
     });
     this.toggleMute(newState); // Auto mute
@@ -56,18 +69,24 @@ const soundReducers = {
   },
 
   resetSounds(state, clear) {
-    state.map(_s =>
-      this._getHowl(_s).then(howl => {
-        if (howl) howl.unload(); // Remove sound object
-      })
+    mapObjIndexed(
+      _s =>
+        this._getHowl(_s).then(howl => {
+          if (howl) howl.unload(); // Remove sound object
+        }),
+      state
     );
-    howls = howls.clear();
-    if (clear) return state.clear();
+    howls = {};
+    if (clear) return {};
     return this.setSounds(defaultSounds);
   },
 
   togglePlay(state, sound) {
-    state = state.update(sound.file, _s => ({ ..._s, playing: !_s.playing }));
+    state = over(
+      lensProp(sound.file),
+      _s => ({ ..._s, playing: !_s.playing }),
+      state
+    );
     this._getHowl(sound).then(howl => {
       if (sound.playing) {
         howl.pause();
@@ -79,12 +98,14 @@ const soundReducers = {
   },
 
   toggleMute(state) {
-    state.map(_s => this._getHowl(_s).then(howl => howl.mute(muteStatus())));
-    return state;
+    return mapObjIndexed(
+      _s => this._getHowl(_s).then(howl => howl.mute(muteStatus())),
+      state
+    );
   },
 
   changeVolume(state, sound, volume) {
-    state = state.update(sound.file, _s => ({ ..._s, volume }));
+    state = over(lensProp(sound.file), _s => ({ ..._s, volume }), state);
     this._getHowl(sound).then(howl => howl.volume(volume));
     return state;
   },
@@ -92,13 +113,12 @@ const soundReducers = {
   editSound(state, sound, newData) {
     let opts = { editing: !sound.editing };
     if (typeof newData !== 'undefined') opts = { ...opts, ...newData };
-    state = state.update(sound.file, _s => ({ ..._s, ...opts }));
-    return state;
+    return over(lensProp(sound.file), _s => ({ ..._s, ...opts }), state);
   },
 
   removeSound(state, sound) {
     this._getHowl(sound).then(howl => howl.unload());
-    state = state.delete(sound.file);
+    state = omit([sound.file], state);
     if (__DESKTOP__ && sound.source !== 'file')
       bridgedSounds.removeFromDisk(sound);
     return state;
@@ -106,16 +126,15 @@ const soundReducers = {
 
   soundDownloaded(state, sound) {
     sound = { ...sound, progress: 1 };
-    state = state.set(sound.file, sound);
-    howls = howls.set(sound.file, createSoundObj(sound));
+    state = set(sound.file, sound, state);
+    howls = set(sound.file, createSoundObj(sound), howls);
     if (sound.playing) this._getHowl(sound).then(howl => howl.play());
     this.toggleMute(state);
     return state;
   },
 
   soundDownloading(state, sound) {
-    state = state.set(sound.file, { ...sound });
-    return state;
+    return set(sound.file, { ...sound }, state);
   },
 
   soundError(state) {
@@ -125,11 +144,13 @@ const soundReducers = {
   saveToStorage() {
     observableStore.subscribe(_x => {
       if (initialState === _x.sounds) return; // Still the same state
-      let obj = new Map();
-      _x.sounds.map(_s => {
-        obj = obj.set(_s.file, { ..._s });
-        return _s;
-      });
+      const obj = reduce(
+        (acc, curr) => {
+          return set(curr.file, { ...curr }, acc);
+        },
+        {},
+        _x.sounds
+      );
       bridgedSounds.saveToStorage(JSON.stringify(obj));
       initialState = _x.sounds;
     });

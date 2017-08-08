@@ -1,5 +1,5 @@
 import React from 'react';
-import { pick } from 'ramda';
+import { compose, keys, length, pick } from 'ramda';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
@@ -94,7 +94,7 @@ const App = props => {
 
           <Header {...{ settings, themes, toggleMute }} />
 
-          {sounds.count()
+          {compose(length, keys)(sounds)
             ? <SoundList {...{ sounds, themes, intl, dispatch }} />
             : renderLoading()}
 
