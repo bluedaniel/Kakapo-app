@@ -17,10 +17,12 @@ function setup(props = {}) {
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundClass, source: 'file', progress: 1, ...props };
-  return { sound: Object.keys(obj).reduce((newObj, _e) => {
-    newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-    return newObj;
-  }, {}) };
+  return {
+    sound: Object.keys(obj).reduce((newObj, _e) => {
+      newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
+      return newObj;
+    }, {})
+  };
 };
 
 const defaultClassName = 'item waves-effect waves-block';
@@ -50,7 +52,10 @@ test('<SoundItem/> render 3 icons', t => {
 test('<SoundItem/> youtube render', t => {
   t.plan(1);
   const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
-  t.equals(wrapper.prop('className'), `${defaultClassName} paused youtube-stream`);
+  t.equals(
+    wrapper.prop('className'),
+    `${defaultClassName} paused youtube-stream`
+  );
 });
 
 test('<SoundItem/> youtube render 2 icons', t => {
@@ -61,7 +66,9 @@ test('<SoundItem/> youtube render 2 icons', t => {
 
 test('<SoundItem/> youtube render test-id', t => {
   t.plan(2);
-  const { wrapper } = setup(soundProp({ file: youtubeTestId, source: 'youtubeStream' }));
+  const { wrapper } = setup(
+    soundProp({ file: youtubeTestId, source: 'youtubeStream' })
+  );
   t.equals(wrapper.find('.youtube-video').length, 1);
   t.equals(wrapper.find('.youtube-video').prop('id'), `video-${youtubeTestId}`);
 });

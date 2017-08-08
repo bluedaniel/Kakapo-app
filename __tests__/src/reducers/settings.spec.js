@@ -21,11 +21,17 @@ test('[reducer/settings]', t => {
 
   const setup3 = settings(initialState, settingActions.toggleDock(true));
   t.equal(setup3.dockIcon, true, 'set `toggleDock` to true');
-  const newState3 = settings(setup3, settingActions.toggleDock(!setup3.dockIcon));
+  const newState3 = settings(
+    setup3,
+    settingActions.toggleDock(!setup3.dockIcon)
+  );
   t.equal(newState3.dockIcon, false, 'set `toggleDock` to false');
 
   const setup4 = settings(initialState, settingActions.toggleDevTools(true));
   t.equal(setup4.devTools, true, 'set `toggleDevTools` to true');
-  const newState4 = settings(setup4, settingActions.toggleDevTools(!setup4.devTools));
+  const newState4 = settings(
+    setup4,
+    settingActions.toggleDevTools(!setup4.devTools)
+  );
   t.equal(newState4.devTools, false, 'set `toggleDevTools` to false');
 });

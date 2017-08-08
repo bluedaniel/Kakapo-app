@@ -20,10 +20,12 @@ function setup(props = {}) {
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundClass, source: 'file', progress: 1, ...props };
-  return { sound: Object.keys(obj).reduce((newObj, _e) => {
-    newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-    return newObj;
-  }, {}) };
+  return {
+    sound: Object.keys(obj).reduce((newObj, _e) => {
+      newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
+      return newObj;
+    }, {})
+  };
 };
 
 const sound = { ...soundProp() };
@@ -56,7 +58,8 @@ test('<SoundEdit/> handleSubmit empty', t => {
   const dispatch = spy();
   const action = notifyActions.send('Please fill out all fields');
   const { wrapper } = setup({ sound, dispatch });
-  wrapper.find('form').simulate('submit', { ...mockEvent,
+  wrapper.find('form').simulate('submit', {
+    ...mockEvent,
     target: { getElementsByTagName: () => ({}) }
   });
   t.equals(dispatch.calledOnce, true);
@@ -69,8 +72,9 @@ test('<SoundEdit/> handleSubmit filled', t => {
   const dispatch = spy();
   const action = soundActions.soundsEdit(sound, { name: 'hi' });
   const { wrapper } = setup({ sound, dispatch });
-  wrapper.find('form').simulate('submit', { ...mockEvent,
-    target: { getElementsByTagName: () => ([ { name: 'name', value: 'hi' } ]) }
+  wrapper.find('form').simulate('submit', {
+    ...mockEvent,
+    target: { getElementsByTagName: () => [{ name: 'name', value: 'hi' }] }
   });
   t.equals(dispatch.calledOnce, true);
   t.deepEqual(dispatch.args[0][0], action);

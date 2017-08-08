@@ -24,7 +24,6 @@ const sound = {
   viewCount: 319609
 };
 
-
 test('<SearchResult/> render youtube', t => {
   t.plan(2);
   const { wrapper } = setup({ sound });
@@ -35,7 +34,12 @@ test('<SearchResult/> render youtube', t => {
 test('<SearchResult/> youtube view count in locale', t => {
   t.plan(1);
   const { wrapper } = setup({ sound });
-  t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 views', '319,609 views' ]));
+  t.ok(
+    R.contains(wrapper.find('.view-count').text(), [
+      '319609 views',
+      '319,609 views'
+    ])
+  );
 });
 
 test('<SearchResult/> render soundcloud', t => {
@@ -48,5 +52,10 @@ test('<SearchResult/> render soundcloud', t => {
 test('<SearchResult/> soundcould view count in locale', t => {
   t.plan(1);
   const { wrapper } = setup({ service: 'soundcloud', sound });
-  t.ok(R.contains(wrapper.find('.view-count').text(), [ '319609 plays', '319,609 plays' ]));
+  t.ok(
+    R.contains(wrapper.find('.view-count').text(), [
+      '319609 plays',
+      '319,609 plays'
+    ])
+  );
 });

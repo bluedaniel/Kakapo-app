@@ -20,10 +20,14 @@ function randomSounds(count) {
   let arr = new Map();
   for (let i = 0; i < count; inc(i)) {
     const obj = { ...newSoundObj, progress: i > 2 ? 1 : 0.5, editing: i > 2 };
-    arr = set(lensProp(i), Object.keys(obj).reduce((newObj, _e) => {
-      newObj[_e] = obj[_e] === null ? `test${i}` : obj[_e];
-      return newObj;
-    }, {}), arr);
+    arr = set(
+      lensProp(i),
+      Object.keys(obj).reduce((newObj, _e) => {
+        newObj[_e] = obj[_e] === null ? `test${i}` : obj[_e];
+        return newObj;
+      }, {}),
+      arr
+    );
   }
   return arr;
 }

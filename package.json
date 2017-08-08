@@ -15,7 +15,7 @@
     "themeVersion": "1.0.0"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test webpack --config tools/webpack.config.test.babel.js --progress --display errors-only && node test | tap-bail | faucet",
+    "test": "cross-env NODE_ENV=test jest",
     "styles": "babel-node tools/run styles",
     "styles:format": "stylefmt -r \"app/**/*.css\"",
     "lint": "stylelint \"app/scripts/**/*.css\" && eslint app/scripts/**/*.js",
@@ -99,6 +99,7 @@
     "imagemin": "^5.2.2",
     "imports-loader": "^0.7.1",
     "isomorphic-fetch": "^2.2.1",
+    "jest": "^20.0.4",
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
     "json-loader": "^0.5.3",

@@ -7,10 +7,12 @@ import { ImportKakapoItem as KakapoItem } from 'components/';
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundClass, source: 'file', progress: 1, ...props };
-  return { sound: Object.keys(obj).reduce((newObj, _e) => {
-    newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-    return newObj;
-  }, {}) };
+  return {
+    sound: Object.keys(obj).reduce((newObj, _e) => {
+      newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
+      return newObj;
+    }, {})
+  };
 };
 
 function setup(props = {}) {

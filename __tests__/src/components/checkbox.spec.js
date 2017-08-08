@@ -6,7 +6,7 @@ import { Checkbox } from 'components/ui/';
 function setup(props = {}) {
   const propData = {
     checked: false,
-    dispatch: (e) => e,
+    dispatch: e => e,
     handleChange: () => console.log('checkbox changed!'),
     label: 'testLabel',
     name: 'testName',
