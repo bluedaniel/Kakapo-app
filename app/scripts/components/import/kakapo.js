@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, prop, map, length } from 'ramda';
 import { searchActions } from 'actions/';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 import KakapoItem from './kakapoItem';
 
 export default ({ sounds, search, intl, dispatch }) => {
@@ -15,7 +15,7 @@ export default ({ sounds, search, intl, dispatch }) => {
         {intl.formatMessage({ id: 'import.kakapo.header' })}
       </h5>
       <div
-        className={classNames({
+        className={cx({
           'kakapofavs-items': compose(length, prop('kakapofavs'))(search)
         })}
       >

@@ -1,9 +1,9 @@
 import React from 'react';
-import { swatches, classNames } from 'utils/';
+import { swatches, cx } from 'utils/';
 import './colorPicker.css';
 
 export default ({ active, handleSwatch }) =>
-  <div className={classNames('color-picker', { active })}>
+  <div className={cx('color-picker', { active })}>
     {swatches().map(
       swatch =>
         <div

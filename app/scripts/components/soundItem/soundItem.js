@@ -2,7 +2,7 @@ import React from 'react';
 import { Subject } from 'rxjs/Subject';
 import { prop } from 'ramda';
 import { soundActions } from 'actions/';
-import { classNames, handleStopPropagation, openLink } from 'utils/';
+import { cx, handleStopPropagation, openLink } from 'utils/';
 import './soundItem.css';
 
 function observeThrottleVolume(dispatch, sound) {
@@ -31,7 +31,7 @@ export default ({ sound, themes, dispatch }) => {
   };
 
   const renderActions = () =>
-    <ul className={classNames('actions', { dark: !sound.playing })}>
+    <ul className={cx('actions', { dark: !sound.playing })}>
       {sound.link
         ? <li>
             <a
@@ -65,7 +65,7 @@ export default ({ sound, themes, dispatch }) => {
 
   let icon;
   if (sound.source === 'file') {
-    icon = <i className={classNames('preview', `icon-${sound.img}`)} />;
+    icon = <i className={cx('preview', `icon-${sound.img}`)} />;
   } else {
     icon = sound.img
       ? <img src={sound.img} role="presentation" />
@@ -76,7 +76,7 @@ export default ({ sound, themes, dispatch }) => {
     <div
       onClick={handleToggle}
       style={objStyle}
-      className={classNames('item', 'waves-effect', 'waves-block', {
+      className={cx('item', 'waves-effect', 'waves-block', {
         playing: sound.playing,
         paused: !sound.playing,
         'youtube-stream': sound.source === 'youtubeStream'

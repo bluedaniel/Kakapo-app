@@ -10,7 +10,7 @@ import { soundActions, settingActions, notifyActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import Notifications from 'components/ui/notifications/notifications';
 import Subroutes from 'components/ui/subroutes/subroutes';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 import './app.css';
 
 const App = props => {
@@ -65,7 +65,7 @@ const App = props => {
 
   return (
     <div
-      className={classNames('app-container', {
+      className={cx('app-container', {
         web: __WEB__,
         desktop: __DESKTOP__
       })}

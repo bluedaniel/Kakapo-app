@@ -1,6 +1,6 @@
 import React from 'react';
 import { prop } from 'ramda';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 import './nav.css';
 
 export default ({ themes, intl }) => {
@@ -23,7 +23,7 @@ export default ({ themes, intl }) => {
 
   return (
     <div
-      className={classNames('topbar', { darkUI: prop('darkUI', themes) })}
+      className={cx('topbar', { darkUI: prop('darkUI', themes) })}
       style={{ backgroundColor: prop('darkPrimary', themes) }}
     >
       {renderDragOrDownload()}

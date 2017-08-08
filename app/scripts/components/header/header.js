@@ -1,6 +1,6 @@
 import React from 'react';
 import { prop } from 'ramda';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 import './header.css';
 
 export default ({ settings, themes, toggleMute }) =>
@@ -14,17 +14,14 @@ export default ({ settings, themes, toggleMute }) =>
         data-hint={settings.mute ? 'Unmute' : 'Mute'}
       >
         <i
-          className={classNames(
-            settings.mute ? 'icon-volume_off' : 'icon-volume_up',
-            {
-              dark: prop('darkUI', themes)
-            }
-          )}
+          className={cx(settings.mute ? 'icon-volume_off' : 'icon-volume_up', {
+            dark: prop('darkUI', themes)
+          })}
         />
       </span>
     </span>
     <div className="logo">
-      <h3 className={classNames({ darkUI: prop('darkUI', themes) })}>
+      <h3 className={cx({ darkUI: prop('darkUI', themes) })}>
         <span className="logo-bg icon-img-logo" />
         <span className="logo-text">Kakapo</span>
       </h3>

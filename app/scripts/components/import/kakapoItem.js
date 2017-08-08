@@ -1,6 +1,6 @@
 import React from 'react';
 import { soundActions } from 'actions/';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 
 export default ({ sounds, sound, intl, dispatch }) => {
   const disabled = sounds.filter(_s => sound.file === _s.file).count() === 1;
@@ -10,10 +10,7 @@ export default ({ sounds, sound, intl, dispatch }) => {
   };
 
   return (
-    <div
-      className={classNames('kakapo-item', { disabled })}
-      onClick={handleClick}
-    >
+    <div className={cx('kakapo-item', { disabled })} onClick={handleClick}>
       <div className="thumbnail">
         <i className={`icon-${sound.img}`} />
       </div>

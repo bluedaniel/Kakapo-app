@@ -1,5 +1,5 @@
 import React from 'react';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 import { Link } from 'react-router-dom';
 
 export default ({ intl }) =>
@@ -16,7 +16,7 @@ export default ({ intl }) =>
           <li className={`option options-${item}`} key={item}>
             <Link to={`/${item}`}>
               <i
-                className={classNames(`icon-img-${item}`, {
+                className={cx(`icon-img-${item}`, {
                   'icon-add': item === 'custom'
                 })}
               />

@@ -5,7 +5,7 @@ import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
 import { soundActions, notifyActions } from 'actions/';
-import { classNames, handleStopPropagation } from 'utils/';
+import { cx, handleStopPropagation } from 'utils/';
 import 'aws-custom-build';
 import awsCredentials from '../../../../aws.json';
 import './playlist.css';
@@ -102,7 +102,7 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
                 readOnly
               />
               <button
-                className={classNames(clipBoardClass, 'InputAddOn-item')}
+                className={cx(clipBoardClass, 'InputAddOn-item')}
                 data-clipboard-target="#copyClipboard"
                 onClick={handleStopPropagation}
               >

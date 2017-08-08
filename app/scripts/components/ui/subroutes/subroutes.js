@@ -1,7 +1,7 @@
 import React from 'react';
 import { compose, prop, head, map, path } from 'ramda';
 import { Link, Switch } from 'react-router-dom';
-import { camelCase, classNames, mapRoute } from 'utils/';
+import { camelCase, cx, mapRoute } from 'utils/';
 import routes from 'routes/';
 import './subroutes.css';
 
@@ -11,7 +11,7 @@ const getKey = compose(camelCase, path(['routing', 'location', 'pathname']));
 
 export default props =>
   <div
-    className={classNames('secondary-panel', {
+    className={cx('secondary-panel', {
       'with-close': getKey(props) !== '/'
     })}
   >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { classNames } from 'utils/';
+import { cx } from 'utils/';
 import Progress from '../ui/progress/progress';
 import './downloadItem.css';
 
@@ -8,7 +8,7 @@ export default ({ sound }) => {
   if (sound.source === 'file')
     img = `http://data.kakapo.co/v2/images/light_${img}.png`;
   return (
-    <div className={classNames('download', { active: sound.progress < 1 })}>
+    <div className={cx('download', { active: sound.progress < 1 })}>
       {img
         ? <div className="preview" style={{ backgroundImage: `url(${img})` }} />
         : <div className="no-image" />}

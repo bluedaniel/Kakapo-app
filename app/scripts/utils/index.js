@@ -120,8 +120,8 @@ export const flatteni18n = obj =>
 const filterObj = obj =>
   Object.keys(obj).map(_k => (obj[_k] ? _k : false)).filter(_v => _v);
 
-// classNames('one', { two: true, three: false }) = 'one two'
-export const classNames = (...args) =>
+// cx('one', { two: true, three: false }) = 'one two'
+export const cx = (...args) =>
   flatten(
     args.map(_a => {
       if (Array.isArray(_a)) return flatten(_a).join(' ');
