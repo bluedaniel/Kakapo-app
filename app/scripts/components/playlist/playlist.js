@@ -15,7 +15,7 @@ AWS.config.update(awsCredentials);
 
 const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 
-function observeAutocomplete(dispatch) {
+const observeAutocomplete = dispatch => {
   const subject = new Subject().throttleTime(1000).distinctUntilChanged();
 
   subject.subscribe({
@@ -48,9 +48,9 @@ function observeAutocomplete(dispatch) {
   });
 
   return subject;
-}
+};
 
-export default ({ sounds, params, intl, dispatch }) => {
+export default ({ sounds, params = {}, intl, dispatch }) => {
   const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
 
   const subject = observeAutocomplete(dispatch);
