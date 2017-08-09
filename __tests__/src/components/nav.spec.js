@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getData } from '../helper';
 import { Nav } from 'components/';
+import { getData } from '../helper';
 
 function setup(props = {}) {
   const propData = {

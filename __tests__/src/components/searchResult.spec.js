@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import R from 'ramda';
-import { getData } from '../helper';
+import { contains } from 'ramda';
 import { ImportSearchResult as SearchResult } from 'components/';
+import { getData } from '../helper';
 
 function setup(props = {}) {
   const propData = {
@@ -34,7 +34,7 @@ test('<SearchResult/> youtube view count in locale', () => {
   expect.assertions(1);
   const { wrapper } = setup({ sound });
   expect(
-    R.contains(wrapper.find('.view-count').text(), [
+    contains(wrapper.find('.view-count').text(), [
       '319609 views',
       '319,609 views'
     ])
@@ -52,7 +52,7 @@ test('<SearchResult/> soundcould view count in locale', () => {
   expect.assertions(1);
   const { wrapper } = setup({ service: 'soundcloud', sound });
   expect(
-    R.contains(wrapper.find('.view-count').text(), [
+    contains(wrapper.find('.view-count').text(), [
       '319609 plays',
       '319,609 plays'
     ])

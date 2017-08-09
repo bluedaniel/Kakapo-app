@@ -1,8 +1,7 @@
 import React from 'react';
-import sinon from 'sinon';
 import { shallow } from 'enzyme';
-import { getData } from '../helper';
 import { Header } from 'components/';
+import { getData } from '../helper';
 
 function setup(props = {}) {
   const propData = {
@@ -27,8 +26,8 @@ test('<Header/> render mute icon', () => {
 
 test('<Header/> simulate toggle-mute click', () => {
   expect.assertions(1);
-  const toggleMute = sinon.spy();
+  const toggleMute = jest.fn();
   const { wrapper } = setup({ toggleMute });
   wrapper.find('.toggle-mute').simulate('click');
-  expect(toggleMute.calledOnce).toBe(true);
+  expect(toggleMute).toBeCalled();
 });

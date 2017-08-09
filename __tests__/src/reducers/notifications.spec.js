@@ -3,7 +3,7 @@ import { store } from 'stores/configureStore';
 import { notifyActions } from 'actions/';
 import notifications, { initialState } from 'reducers/notifications';
 
-test.skip('[reducer/notifications]', t => {
+test.skip('[reducer/notifications]', () => {
   expect.assertions(4);
   store.dispatch(notifyActions.send('test', 1000));
   const state = store.getState();
@@ -13,7 +13,6 @@ test.skip('[reducer/notifications]', t => {
   const action = store.dispatch(notifyActions.send('test', 1000));
   action.then(data => {
     const setup = notifications(initialState, data);
-    console.log(setup);
     setTimeout(() => {
       expect(data.type).toBe('NOTIFICATION_CLEAR');
       expect(compose(length, keys)(setup)).toBe(0);

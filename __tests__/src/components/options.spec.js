@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { getData } from '../helper';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { ImportOptions as Options } from 'components/';
+import { getData } from '../helper';
 
 function setup(props = {}) {
   const propData = {

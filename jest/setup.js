@@ -1,11 +1,13 @@
-// Polyfill for fetch
-const { Response, Request, Headers, fetch } = require('whatwg-fetch');
+global.fetch = require('jest-fetch-mock');
 
-global.Response = Response;
-global.Request = Request;
-global.Headers = Headers;
-global.fetch = fetch;
-
+global.__WEB__ = true;
 global.__DESKTOP__ = false;
 
+// AWS mock
+function DynamoDB() {
+  return { getItem: () => {}, putItem: () => {} };
+}
+global.AWS = { DynamoDB, config: { update: () => {} } };
+
 // jest.mock('util/getToken', () => () => 'testToken');
+jest.mock('aws-custom-build', () => {});

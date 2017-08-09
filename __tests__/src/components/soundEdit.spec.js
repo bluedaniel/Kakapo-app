@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { spy } from 'sinon';
 import { notifyActions, soundActions } from 'actions/';
 import { SoundEdit } from 'components/';
 import TextInput from 'components/ui/textInput/textInput';
@@ -44,37 +43,37 @@ test('<SoundEdit/> render 2 inputs', () => {
 
 test('<SoundEdit/> handleCancel', () => {
   expect.assertions(2);
-  const dispatch = spy();
+  const dispatch = jest.fn();
   const action = soundActions.soundsEdit(sound, null);
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('.button').at(0).simulate('click', mockEvent);
-  expect(dispatch.calledOnce).toBe(true);
-  expect(dispatch.args[0][0]).toEqual(action);
+  expect(dispatch).toBeCalled();
+  expect(dispatch.mock.calls[0][0]).toEqual(action);
 });
 
 test('<SoundEdit/> handleSubmit empty', () => {
   expect.assertions(3);
-  const dispatch = spy();
+  const dispatch = jest.fn();
   const action = notifyActions.send('Please fill out all fields');
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,
     target: { getElementsByTagName: () => ({}) }
   });
-  expect(dispatch.calledOnce).toBe(true);
-  expect(dispatch.args[0][0].type).toBe(action.type);
-  expect(dispatch.args[0][0].data).toBe(action.data);
+  expect(dispatch).toBeCalled();
+  expect(dispatch.mock.calls[0][0].type).toBe(action.type);
+  expect(dispatch.mock.calls[0][0].data).toBe(action.data);
 });
 
 test('<SoundEdit/> handleSubmit filled', () => {
   expect.assertions(2);
-  const dispatch = spy();
+  const dispatch = jest.fn();
   const action = soundActions.soundsEdit(sound, { name: 'hi' });
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,
     target: { getElementsByTagName: () => [{ name: 'name', value: 'hi' }] }
   });
-  expect(dispatch.calledOnce).toBe(true);
-  expect(dispatch.args[0][0]).toEqual(action);
+  expect(dispatch).toBeCalled();
+  expect(dispatch.mock.calls[0][0]).toEqual(action);
 });

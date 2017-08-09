@@ -12,6 +12,15 @@ export function getIntlProps() {
   };
 }
 
+export const mockResponse = (status, statusText, response) =>
+  new window.Response(response, {
+    status,
+    statusText,
+    headers: {
+      'Content-type': 'application/json'
+    }
+  });
+
 export const mockEvent = {
   preventDefault: () => ({}),
   stopPropagation: () => ({})
@@ -26,7 +35,7 @@ export function getData(slice, opts = {}) {
           darkUI: swatches('light').indexOf('#673AB7') !== -1,
           colorPickerActive: false, // Close the color picker
           btn: '#4CAF50',
-          darkPrimary: color('#673AB7').darken(0.2).hexString(),
+          darkPrimary: color('#673AB7').darken(0.2).toString(),
           primary: '#673AB7'
         }
       };

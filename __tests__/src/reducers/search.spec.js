@@ -1,26 +1,32 @@
-import sinon from 'sinon';
 import { prop, compose, length } from 'ramda';
 import { store } from 'stores/configureStore';
 import { searchActions } from 'actions/';
 import search, { initialState } from 'reducers/search';
-import { stubFetchWith, kakapoRes, youtubeRes } from '../helper';
+import { stubFetchWith, kakapoRes, youtubeRes, mockResponse } from '../helper';
 
-const stubMatch = (stub, regex, data) =>
-  stub
-    .withArgs(sinon.match(regex))
-    .returns(Promise.resolve(stubFetchWith(data)));
-
-test('[reducer/search] setup', () => {
-  const stubbedFetch = sinon.stub(global, 'fetch');
-  stubMatch(stubbedFetch, /search/, youtubeRes.videos);
-  stubMatch(stubbedFetch, /videos/, youtubeRes.statistics);
-  stubMatch(stubbedFetch, /kakapo/, kakapoRes);
-});
+// const stubMatch = (stub, regex, data) =>
+//   stub
+//     .withArgs(sinon.match(regex))
+//     .returns(Promise.resolve(stubFetchWith(data)));
+//
+// test('[reducer/search] setup', () => {
+//   const stubbedFetch = sinon.stub(global, 'fetch');
+//   stubMatch(stubbedFetch, /search/, youtubeRes.videos);
+//   stubMatch(stubbedFetch, /videos/, youtubeRes.statistics);
+//   stubMatch(stubbedFetch, /kakapo/, kakapoRes);
+// });
 
 test('[reducer/search] search YouTube for `oceans`', () => {
   expect.assertions(3);
+
+  window.fetch = jest
+    .fn()
+    .mockImplementation(() =>
+      Promise.resolve(mockResponse(200, null, youtubeRes.videos))
+    );
+
   const action = store.dispatch(searchActions.searchYoutube('oceans'));
-  action.then(data => {
+  return action.then(data => {
     expect(data.type).toBe('SEARCH_YOUTUBE');
     expect(data.items.length).toBe(15);
 
@@ -41,6 +47,6 @@ test('[reducer/search] search YouTube for `oceans`', () => {
 //   });
 // });
 
-test('[reducer/search] teardown', () => {
-  global.fetch.restore();
-});
+// test('[reducer/search] teardown', () => {
+//   global.fetch.restore();
+// });

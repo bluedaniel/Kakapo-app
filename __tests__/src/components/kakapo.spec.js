@@ -45,7 +45,7 @@ test('<Kakapo/> render', () => {
 test('<Kakapo/> render items', () => {
   expect.assertions(1);
   const { wrapper } = setup({
-    search: fromJS({ kakapofavs: randomSounds(5) })
+    search: { kakapofavs: randomSounds(5) }
   });
   expect(wrapper.find(KakapoItem).length).toBe(5);
 });
