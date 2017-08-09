@@ -14,7 +14,7 @@ const GAPI_OPTS_LIST = {
   part: 'contentDetails,statistics,status'
 };
 
-export function getStatistics(resolve, reject, videos) {
+export const getStatistics = (resolve, reject, videos) => {
   let _it = 0;
   const params = {
     ...GAPI_OPTS_LIST,
@@ -36,14 +36,12 @@ export function getStatistics(resolve, reject, videos) {
       )
     )
     .catch(response => reject(response));
-}
+};
 
-export function getYoutubeSearch(q) {
-  const params = { ...GAPI_OPTS_SEARCH, q };
-  return new Promise((resolve, reject) =>
-    fetch(`${GAPI_URL}/search${serialize(params)}`)
+export const getYoutubeSearch = q =>
+  new Promise((resolve, reject) =>
+    fetch(`${GAPI_URL}/search${serialize({ ...GAPI_OPTS_SEARCH, q })}`)
       .then(resp => resp.json())
       .then(({ items }) => getStatistics(resolve, reject, items))
       .catch(err => reject(err))
   );
-}

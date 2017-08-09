@@ -1,28 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { inc } from 'ramda';
-import { newSoundObj } from 'utils/';
 import { DownloadList } from 'components/';
-import { getData } from '../helper';
+import { getData, randomSounds } from '../helper';
 
 function setup(props = {}) {
   const propData = { ...getData('sounds'), ...props };
   return { props, wrapper: shallow(<DownloadList {...propData} />) };
-}
-
-function randomSounds(count) {
-  let arr = new Map();
-  for (let i = 0; i < count; inc(i)) {
-    const obj = { ...newSoundObj, progress: i > 2 ? 1 : 0.5 };
-    arr = arr.set(
-      i,
-      Object.keys(obj).reduce((newObj, _e) => {
-        newObj[_e] = obj[_e] === null ? `test${i}` : obj[_e];
-        return newObj;
-      }, {})
-    );
-  }
-  return arr;
 }
 
 test('<DownloadList/> render empty', () => {

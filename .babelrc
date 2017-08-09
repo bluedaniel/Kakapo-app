@@ -10,5 +10,21 @@
         }
       }
     ]
-  ]
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        [
+          "module-resolver",
+          {
+            "root": ["./app/scripts"],
+            "alias": {
+              "aws-custom-build": "./app/vendor/aws-sdk-2.2.31.min",
+              "kakapoBridge": "./app/scripts/bridge/web/index.js"
+            }
+          }
+        ]
+      ]
+    }
+  }
 }

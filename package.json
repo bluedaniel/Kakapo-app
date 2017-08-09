@@ -130,6 +130,7 @@
     "prettier": "^1.5.3",
     "rcedit": "^0.9.0",
     "react-addons-test-utils": "^15.3.0",
+    "react-test-renderer": "^15.6.1",
     "redbox-react": "^1.2.10",
     "request": "^2.74.0",
     "style-loader": "^0.18.2",

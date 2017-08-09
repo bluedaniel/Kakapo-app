@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import { bridgedYoutube, bridgedSoundcloud, bridgedCustom } from 'kakapoBridge';
 import { pathConfig } from 'utils/';
 import getHowlerObj from './howler';
-import { getKakapoFavourites } from './customUrl';
+import getKakapoFavourites from './customUrl';
 import { getYoutubeSearch } from './youtube';
 
 const { getCustomFile, getCustomURL } = bridgedCustom;

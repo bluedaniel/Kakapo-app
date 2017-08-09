@@ -1,29 +1,22 @@
-import sinon from 'sinon';
 import { compose, path, length, keys } from 'ramda';
 import { store } from 'stores/configureStore';
 import { soundActions } from 'actions/';
-import { stubFetchWith, kakapoRes } from '../helper';
-
-const stubMatch = (stub, regex, data) =>
-  stub
-    .withArgs(sinon.match(regex))
-    .returns(Promise.resolve(stubFetchWith(data)));
+import { kakapoRes } from '../helper';
 
 const currState = () => store.getState().sounds;
 
 let defaultState;
 
-test('[reducer/sounds] setup', () => {
+beforeEach(() => {
   localStorage.setItem('version', false);
   localStorage.removeItem('sounds');
-  const stubbedFetch = sinon.stub(global, 'fetch');
-  stubMatch(stubbedFetch, /kakapo/, kakapoRes);
+
+  fetch.mockResponses([JSON.stringify(kakapoRes), { status: 200 }]);
 });
 
 test('[reducer/sounds] init sounds', () => {
   expect.assertions(3);
-  const action = store.dispatch(soundActions.soundsInit());
-  action.then(data => {
+  return store.dispatch(soundActions.soundsInit()).then(data => {
     expect(data.type).toBe('SOUNDS_RECEIVED');
     expect(data.resp.length).toBe(14);
     expect(compose(length, keys)(currState())).toBe(14);
@@ -90,8 +83,4 @@ test('[reducer/sounds] clear', () => {
   const action = store.dispatch(soundActions.resetSounds());
   expect(action.type).toBe('SOUNDS_RESET');
   expect(currState()).toEqual(defaultState);
-});
-
-test('[reducer/sounds] teardown', () => {
-  global.fetch.restore();
 });

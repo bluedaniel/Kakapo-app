@@ -1,32 +1,39 @@
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
 import color from 'color';
-import { lensProp, set } from 'ramda';
-import { flatteni18n, swatches } from 'utils/';
+import { lensProp, set, reduce, compose, addIndex, map } from 'ramda';
+import { flatteni18n, swatches, newSoundObj } from 'utils/';
 import packageJson from '../../package.json';
 
-export function getIntlProps() {
-  return {
-    locale: 'en',
-    messages: flatteni18n(kakapoAssets.i18n.en.messages)
-  };
-}
-
-export const mockResponse = (status, statusText, response) =>
-  new window.Response(response, {
-    status,
-    statusText,
-    headers: {
-      'Content-type': 'application/json'
-    }
-  });
+export const getIntlProps = () => ({
+  locale: 'en',
+  messages: flatteni18n(kakapoAssets.i18n.en.messages)
+});
 
 export const mockEvent = {
   preventDefault: () => ({}),
   stopPropagation: () => ({})
 };
 
-export function getData(slice, opts = {}) {
+const mapIndexed = addIndex(map);
+
+export const randomSounds = compose(
+  reduce(
+    (acc, curr) => ({
+      ...acc,
+      [curr]: {
+        ...newSoundObj,
+        progress: curr > 2 ? 1 : 0.5,
+        editing: curr > 2
+      }
+    }),
+    {}
+  ),
+  mapIndexed((x, i) => i),
+  x => Array(x).fill(0)
+);
+
+export const getData = (slice, opts = {}) => {
   switch (slice) {
     case 'themes': {
       return {
@@ -73,7 +80,7 @@ export function getData(slice, opts = {}) {
       return {};
     }
   }
-}
+};
 
 export const stubFetchWith = data => {
   const res = {};

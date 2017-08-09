@@ -2,7 +2,7 @@ import { Howl } from 'howler/dist/howler.core.min.js';
 import path from 'path';
 import { pathConfig } from 'utils/';
 
-export default function getHowlerObj({ file, source, volume }) {
+export default ({ file, source, volume }) => {
   let soundFile = file;
   if (source === 'file') {
     if (__WEB__)
@@ -20,4 +20,4 @@ export default function getHowlerObj({ file, source, volume }) {
     loop: true,
     volume
   });
-}
+};
