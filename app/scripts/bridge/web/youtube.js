@@ -14,7 +14,7 @@ const newYTPlayer = (elID, file, playing, resolve) =>
       showinfo: 0
     },
     events: {
-      onReady: ({ el: { target } }) => {
+      onReady: ({ target }) => {
         resolve({
           play: () => target.playVideo(),
           pause: () => target.pauseVideo(),

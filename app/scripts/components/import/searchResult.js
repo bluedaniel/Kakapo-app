@@ -31,6 +31,7 @@ export default ({ i, service, sound, intl, dispatch }) => {
       role="button"
       tabIndex={i}
       onClick={handleClick}
+      key={sound.videoId}
     >
       <div className="thumbnail">
         <img src={sound.img} alt={sound.name} />
