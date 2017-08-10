@@ -44,7 +44,7 @@ const config = {
         ? 'isomorphic-fetch'
         : 'whatwg-fetch'}`
     }),
-    new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, 'node-noop'),
+    new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, () => {}),
     new webpack.IgnorePlugin(/vertx|react\/addons|react\/lib\/ReactContext/)
   ],
   module: {
