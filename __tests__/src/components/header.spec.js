@@ -26,8 +26,8 @@ test('<Header/> render mute icon', () => {
 
 test('<Header/> simulate toggle-mute click', () => {
   expect.assertions(1);
-  const toggleMute = jest.fn();
-  const { wrapper } = setup({ toggleMute });
+  const onToggleMute = jest.fn();
+  const { wrapper } = setup({ onToggleMute });
   wrapper.find('.toggle-mute').simulate('click');
-  expect(toggleMute).toBeCalled();
+  expect(onToggleMute).toBeCalled();
 });

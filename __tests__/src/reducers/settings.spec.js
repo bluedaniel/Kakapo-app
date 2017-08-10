@@ -2,11 +2,7 @@ import { settingActions } from 'actions/';
 import settings, { initialState } from 'reducers/settings';
 
 test('[reducer/settings]', () => {
-  expect.assertions(10);
-
-  const setup = settings(initialState, settingActions.initialRender());
-  expect(initialState.initialRender).toBe(false);
-  expect(setup.initialRender).toBe(true);
+  expect.assertions(8);
 
   const setup1 = settings(initialState, settingActions.desktopUpdate());
   expect(setup1.updateStatus).toBe(undefined);
