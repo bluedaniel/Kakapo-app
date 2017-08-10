@@ -10,7 +10,7 @@ export default {
     return safe(() => JSON.parse(obj), obj);
   },
   setItem(option, value) {
-    if (option === 'initialRender' || option === 'updateStatus') return;
+    if (option === 'updateStatus') return;
     localStorage.setItem(option, JSON.stringify(value));
   }
 };

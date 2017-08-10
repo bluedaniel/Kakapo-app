@@ -19,7 +19,6 @@ export let initialState = ['mute', 'lang'].reduce(
       ...kakapoAssets.i18n.en,
       messages: flatteni18n(kakapoAssets.i18n.en.messages)
     },
-    initialRender: false,
     updateStatus: false
   }
 );
@@ -34,9 +33,6 @@ if (__DESKTOP__) {
 }
 
 const settingReducers = {
-  initialRender(state) {
-    return { ...state, initialRender: true };
-  },
   toggleMute(state) {
     const mute = bridgedSettings.getItem('mute');
     bridgedSettings.setItem('mute', !mute);
@@ -58,7 +54,6 @@ const settingReducers = {
 
 export default createReducer(initialState, {
   [SETTINGS_LANGUAGE]: state => state,
-  [SETTINGS_INITIAL_RENDER]: state => settingReducers.initialRender(state),
   [SETTINGS_MUTE]: state => settingReducers.toggleMute(state),
   [SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
   [SETTINGS_DEVTOOLS]: (state, { bool }) =>

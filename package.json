@@ -69,6 +69,7 @@
     "react-router": "^4.1.2",
     "react-router-dom": "^4.1.2",
     "react-router-redux": "^5.0.0-alpha.6",
+    "recompose": "^0.24.0",
     "redux": "^3.4.0",
     "redux-thunk": "^2.0.1",
     "rxjs": "^5.4.0",

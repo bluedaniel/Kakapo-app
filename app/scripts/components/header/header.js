@@ -3,7 +3,7 @@ import { prop } from 'ramda';
 import { cx } from 'utils/';
 import './header.css';
 
-export default ({ settings, themes, toggleMute }) =>
+export default ({ settings, themes, onToggleMute }) =>
   <header
     className="header"
     style={{ backgroundColor: prop('primary', themes) }}
@@ -12,7 +12,7 @@ export default ({ settings, themes, toggleMute }) =>
       className="toggle-mute"
       role="button"
       tabIndex={-1}
-      onClick={toggleMute}
+      onClick={onToggleMute}
     >
       <span
         className="hint--right"
