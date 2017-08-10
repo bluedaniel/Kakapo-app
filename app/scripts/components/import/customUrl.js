@@ -2,8 +2,8 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { prop } from 'ramda';
 import { soundActions, notifyActions } from 'actions/';
-import TextInput from '../ui/textInput/textInput';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';
+import TextInput from '../ui/textInput/textInput';
 
 export default ({ themes, intl, dispatch }) => {
   const handleError = (msg, translateMsg = true) => {

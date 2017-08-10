@@ -68,7 +68,7 @@ export default ({ sound, themes, dispatch }) => {
     icon = <i className={cx('preview', `icon-${sound.img}`)} />;
   } else {
     icon = sound.img
-      ? <img src={sound.img} role="presentation" />
+      ? <img src={sound.img} alt={sound.name} />
       : <div className="no-image" />;
   }
 
@@ -76,6 +76,8 @@ export default ({ sound, themes, dispatch }) => {
     <div
       onClick={handleToggle}
       style={objStyle}
+      role="button"
+      tabIndex={-1}
       className={cx('item', 'waves-effect', 'waves-block', {
         playing: sound.playing,
         paused: !sound.playing,

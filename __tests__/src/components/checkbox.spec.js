@@ -6,7 +6,7 @@ function setup(props = {}) {
   const propData = {
     checked: false,
     dispatch: e => e,
-    handleChange: () => console.log('checkbox changed!'),
+    handleChange: () => 'checkbox changed!',
     label: 'testLabel',
     name: 'testName',
     ...props

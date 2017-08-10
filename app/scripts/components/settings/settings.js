@@ -91,7 +91,12 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
         <i className="icon-img-github" />
       </a>
       {__DESKTOP__ && !__DEV__
-        ? <p className="version" onClick={checkForUpdates}>
+        ? <a
+            className="version"
+            tabIndex="0"
+            role="link"
+            onClick={checkForUpdates}
+          >
             {!settings.updateStatus &&
               `Check for update - v${app.getVersion()}`}
             {settings.updateStatus === 'checking' && 'Checking for updates ...'}
@@ -101,7 +106,7 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
               'You have the latest version.'}
             {settings.updateStatus === 'downloaded' &&
               'Click to restart and update.'}
-          </p>
+          </a>
         : null}
     </div>;
 
@@ -109,7 +114,13 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
     <div>
       {process.platform === 'darwin' ? renderDockOpt() : null}
       <div className="opt quit">
-        <a onClick={() => ipcRenderer.send('app-quit')}>Quit Kakapo</a>
+        <a
+          role="link"
+          tabIndex="0"
+          onClick={() => ipcRenderer.send('app-quit')}
+        >
+          Quit Kakapo
+        </a>
       </div>
     </div>;
 

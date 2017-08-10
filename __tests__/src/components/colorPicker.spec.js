@@ -6,7 +6,7 @@ function setup(props = {}) {
   props = {
     ...{
       active: false,
-      handleSwatch: () => console.log('checkbox changed!')
+      handleSwatch: () => 'checkbox changed!'
     },
     ...props
   };

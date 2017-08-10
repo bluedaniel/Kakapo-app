@@ -16,7 +16,12 @@ export default ({ sounds, sound, intl, dispatch }) => {
   };
 
   return (
-    <div className={cx('kakapo-item', { disabled })} onClick={handleClick}>
+    <div
+      className={cx('kakapo-item', { disabled })}
+      role="link"
+      tabIndex={-1}
+      onClick={handleClick}
+    >
       <div className="thumbnail">
         <i className={`icon-${sound.img}`} />
       </div>

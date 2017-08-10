@@ -8,6 +8,8 @@ export default ({ active, handleSwatch }) =>
       swatch =>
         <div
           key={swatch}
+          role="button"
+          tabIndex={-1}
           onClick={() => handleSwatch(swatch)}
           style={{ backgroundColor: swatch }}
         />,

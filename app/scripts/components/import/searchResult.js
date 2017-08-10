@@ -2,7 +2,7 @@ import React from 'react';
 import { push } from 'react-router-redux';
 import { soundActions } from 'actions/';
 
-export default ({ service, sound, intl, dispatch }) => {
+export default ({ i, service, sound, intl, dispatch }) => {
   const handleClick = () => {
     let actionParams;
     if (service === 'youtube') {
@@ -26,9 +26,14 @@ export default ({ service, sound, intl, dispatch }) => {
     service === 'youtube' ? 'youtube.views' : 'soundcloud.plays';
 
   return (
-    <div className={`${service}-item`} onClick={handleClick}>
+    <div
+      className={`${service}-item`}
+      role="button"
+      tabIndex={i}
+      onClick={handleClick}
+    >
       <div className="thumbnail">
-        <img src={sound.img} role="presentation" />
+        <img src={sound.img} alt={sound.name} />
         <span className="duration">
           {sound.duration}
         </span>

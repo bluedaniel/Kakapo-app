@@ -1,9 +1,11 @@
 import React from 'react';
 import { Subject } from 'rxjs/Subject';
-import { compose, map, prop } from 'ramda';
+import { compose, map, prop, addIndex } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';
+
+const mapIndexed = addIndex(map);
 
 function observeAutocomplete(dispatch, service) {
   const subject = new Subject()
@@ -38,10 +40,11 @@ export default ({ search, location, intl, dispatch }) => {
       />
       <div className={`${service}-items`}>
         {compose(
-          map(_y =>
+          mapIndexed((_y, i) =>
             <SearchResult
               key={_y.videoId || _y.scId}
               {...{
+                i,
                 sound: _y,
                 service,
                 intl,

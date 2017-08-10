@@ -114,7 +114,7 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
       );
     }
     return (
-      <a className="button" onClick={createPlaylist}>
+      <a className="button" role="link" tabIndex={-1} onClick={createPlaylist}>
         {intl.formatMessage({ id: 'playlist.share' })}
       </a>
     );
@@ -153,11 +153,13 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
         <p>
           {intl.formatMessage({ id: 'playlist.subheading' })}
         </p>
-        <a className="button" onClick={resetSounds}>
+        <a role="link" tabIndex={-1} className="button" onClick={resetSounds}>
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
         {Object.keys(kakapoAssets.playlists).map(_e =>
           <span
+            role="link"
+            tabIndex={-1}
             className="button"
             key={_e}
             onClick={() => subject.next(kakapoAssets.playlists[_e])}

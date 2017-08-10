@@ -44,7 +44,7 @@ export default ({ sound, themes, intl, dispatch }) => {
           value={sound.tags}
           intl={intl}
         />
-        <a className="button" onClick={handleCancel}>
+        <a className="button" role="link" tabIndex={-1} onClick={handleCancel}>
           {intl.formatMessage({ id: 'list.cancel' })}
         </a>
         <button

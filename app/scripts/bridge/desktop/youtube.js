@@ -1,4 +1,3 @@
-/* eslint camelcase:0 */
 import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
@@ -30,7 +29,10 @@ const actions = {
       })
       .on(
         'info',
-        ({ title, keywords, thumbnail_url, video_id }, { container }) => {
+        (
+          { title, keywords, thumbnail_url, video_id: videoID },
+          { container }
+        ) => {
           newSound = {
             ...newSoundObj,
             file: path.join(
@@ -38,7 +40,7 @@ const actions = {
               `${shortid.generate()}.${container}`
             ),
             img: thumbnail_url,
-            link: `https://www.youtube.com/watch?v=${video_id}`,
+            link: `https://www.youtube.com/watch?v=${videoID}`,
             name: title,
             source: 'youtubeStream',
             tags: keywords ? keywords.join(' ') : ''
