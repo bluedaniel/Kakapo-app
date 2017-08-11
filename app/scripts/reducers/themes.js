@@ -1,12 +1,10 @@
 import { apply, set, props, compose, keys, length, lensProp } from 'ramda';
 import color from 'color';
 import { bridgedThemes } from 'kakapoBridge';
-import constants from 'actions/constants/';
+import { themeTypes } from 'actions/';
 import { createReducer, swatches } from 'utils/';
 import { observableStore } from 'stores/configureStore';
 import packageJson from '../../../package.json';
-
-const { THEMES_CHANGE } = constants;
 
 const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
   version: packageJson.config.themeVersion,
@@ -41,7 +39,7 @@ const themeReducers = {
 };
 
 export default createReducer(initialState, {
-  [THEMES_CHANGE]: (state, { swatch, slotNo }) => {
+  [themeTypes.CHANGE]: (state, { swatch, slotNo }) => {
     themeReducers.saveToStorage();
     return themeReducers.generateStyles(state, swatch, slotNo);
   }

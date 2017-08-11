@@ -1,7 +1,8 @@
-import constants from 'actions/constants/';
+import { createActions } from 'reduxsauce';
 
-const { THEMES_CHANGE } = constants;
-
-export default {
-  themesChange: (swatch, slotNo) => ({ type: THEMES_CHANGE, swatch, slotNo })
-};
+export const { Types, Creators } = createActions(
+  {
+    change: ['swatch', 'slotNo']
+  },
+  { prefix: 'THEMES_' }
+);

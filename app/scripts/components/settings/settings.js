@@ -44,7 +44,7 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
   }
 
   const handleSwatch = swatch => {
-    dispatch(themeActions.themesChange(swatch, palette - 1));
+    dispatch(themeActions.change(swatch, palette - 1));
     dispatch(push('/settings'));
   };
 

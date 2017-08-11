@@ -1,7 +1,6 @@
 import { createConstants } from 'utils/';
 
 export default createConstants(
-  'THEMES_CHANGE',
   'SOUNDS_ADD_LOCAL',
   'SOUNDS_REQUEST',
   'SOUNDS_MUTE',
