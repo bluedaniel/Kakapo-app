@@ -14,15 +14,16 @@ function* soundsRequest() {
 
 function* addLocal({ file }) {
   if (!__DESKTOP__) {
-    yield put(
+    return yield put(
       notifyActions.send(
         'You can only add desktop files with the Kakapo desktop app.'
       )
     );
-    return;
   }
 
-  yield put(soundActions.addSoundComplete(getCustomFile(file.name, file.path)));
+  return yield put(
+    soundActions.addSoundComplete(getCustomFile(file.name, file.path))
+  );
 }
 
 export default function* rootSaga() {

@@ -15,7 +15,7 @@ beforeEach(() => {
 test('[reducer/search] search YouTube for `oceans`', () => {
   expect.assertions(3);
 
-  return store.dispatch(searchActions.searchYoutube('oceans')).then(data => {
+  return store.dispatch(searchActions.youtube('oceans')).then(data => {
     expect(data.type).toBe('SEARCH_YOUTUBE');
     expect(data.items.length).toBe(2);
 
@@ -26,7 +26,7 @@ test('[reducer/search] search YouTube for `oceans`', () => {
 
 test('[reducer/search] search Kakapo', () => {
   expect.assertions(3);
-  return store.dispatch(searchActions.searchKakapo()).then(data => {
+  return store.dispatch(searchActions.kakapo()).then(data => {
     expect(data.type).toBe('SEARCH_KAKAPO');
     expect(data.items.length).toBe(14);
 

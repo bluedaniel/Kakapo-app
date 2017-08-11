@@ -31,7 +31,7 @@ const KakapoImport = ({ sounds, search, intl, dispatch }) =>
 export default compose(
   lifecycle({
     componentDidMount() {
-      this.props.dispatch(searchActions.searchKakapo());
+      this.props.dispatch(searchActions.kakapo());
     }
   })
 )(KakapoImport);

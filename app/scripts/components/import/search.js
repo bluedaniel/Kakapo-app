@@ -7,23 +7,21 @@ import SearchResult from './searchResult';
 
 const mapIndexed = addIndex(map);
 
-function observeAutocomplete(dispatch, service) {
+const observeAutocomplete = (dispatch, service) => {
   const subject = new Subject()
     .filter(text => text.length >= 2)
     .debounceTime(750)
     .distinctUntilChanged();
 
   subject.subscribe({
-    next: _s => {
-      if (service === 'youtube') {
-        return dispatch(searchActions.searchYoutube(_s));
-      }
-      return dispatch(searchActions.searchSoundCloud(_s));
-    }
+    next: _s =>
+      service === 'youtube'
+        ? dispatch(searchActions.youtube(_s))
+        : dispatch(searchActions.soundCloud(_s))
   });
 
   return subject;
-}
+};
 
 export default ({ search, location, intl, dispatch }) => {
   const service = location.pathname.split('/')[1] || 'youtube';
