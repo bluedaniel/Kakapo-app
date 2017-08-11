@@ -30,16 +30,16 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
   if (__DESKTOP__) {
     autoUpdater
       .on('checking-for-update', () =>
-        dispatch(settingActions.desktopUpdate('checking'))
+        dispatch(settingActions.settingsUpdate('checking'))
       )
       .on('update-available', () =>
-        dispatch(settingActions.desktopUpdate('downloading'))
+        dispatch(settingActions.settingsUpdate('downloading'))
       )
       .on('update-not-available', () =>
-        dispatch(settingActions.desktopUpdate('latest'))
+        dispatch(settingActions.settingsUpdate('latest'))
       )
       .on('update-downloaded', () =>
-        dispatch(settingActions.desktopUpdate('downloaded'))
+        dispatch(settingActions.settingsUpdate('downloaded'))
       );
   }
 
@@ -59,7 +59,7 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
       <div className="opt">
         <Checkbox
           checked={settings.dockIcon}
-          handleChange={settingActions.toggleDock}
+          handleChange={settingActions.settingsDock}
           label="Show dock icon"
           name="toggle-dock"
           dispatch={dispatch}
@@ -68,7 +68,7 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
       <div className="opt">
         <Checkbox
           checked={settings.devTools}
-          handleChange={settingActions.toggleDevTools}
+          handleChange={settingActions.settingsDevtools}
           label="Show developer tools"
           name="toggle-devtools"
           dispatch={dispatch}

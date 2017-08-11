@@ -1,3 +1,4 @@
+import { identity } from 'ramda';
 import kakapoAssets from 'kakapo-assets';
 import { bridgedSettings } from 'kakapoBridge';
 import constants from 'actions/constants/';
@@ -32,31 +33,29 @@ if (__DESKTOP__) {
 }
 
 const settingReducers = {
-  toggleMute(state) {
+  settingsMute(state) {
     const mute = bridgedSettings.getItem('mute');
     bridgedSettings.setItem('mute', !mute);
     return { ...state, mute: !mute };
   },
-  toggleDock(state, value) {
-    bridgedSettings.setItem('dockIcon', value);
-    return { ...state, dockIcon: value };
+  settingsDock(state, { bool }) {
+    bridgedSettings.setItem('dockIcon', bool);
+    return { ...state, dockIcon: bool };
   },
-  toggleDevTools(state, value) {
-    bridgedSettings.setItem('devTools', value);
-    return { ...state, devTools: value };
+  settingsDevtools(state, { bool }) {
+    bridgedSettings.setItem('devTools', bool);
+    return { ...state, devTools: bool };
   },
-  desktopUpdate(state, value) {
-    bridgedSettings.setItem('updateStatus', value);
-    return { ...state, updateStatus: value };
+  settingsUpdate(state, { status }) {
+    bridgedSettings.setItem('updateStatus', status);
+    return { ...state, updateStatus: status };
   }
 };
 
 export default createReducer(initialState, {
-  [SETTINGS_LANGUAGE]: state => state,
-  [SETTINGS_MUTE]: state => settingReducers.toggleMute(state),
-  [SETTINGS_DOCK]: (state, { bool }) => settingReducers.toggleDock(state, bool),
-  [SETTINGS_DEVTOOLS]: (state, { bool }) =>
-    settingReducers.toggleDevTools(state, bool),
-  [SETTINGS_UPDATE]: (state, { status }) =>
-    settingReducers.desktopUpdate(state, status)
+  [SETTINGS_LANGUAGE]: identity,
+  [SETTINGS_MUTE]: settingReducers.settingsMute,
+  [SETTINGS_DOCK]: settingReducers.settingsDock,
+  [SETTINGS_DEVTOOLS]: settingReducers.settingsDevtools,
+  [SETTINGS_UPDATE]: settingReducers.settingsUpdate
 });

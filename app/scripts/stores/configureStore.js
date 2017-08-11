@@ -2,13 +2,16 @@ import { FromEventPatternObservable } from 'rxjs/observable/FromEventPatternObse
 import createHashHistory from 'history/createHashHistory';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from 'reducers';
 
 export const history = createHashHistory();
 
-export default function configureStore() {
-  const middlewares = [thunk, routerMiddleware(history)];
+const sagaMiddleware = createSagaMiddleware();
+
+const configureStore = () => {
+  const middlewares = [thunk, sagaMiddleware, routerMiddleware(history)];
 
   const enhancers = [applyMiddleware(...middlewares)];
 
@@ -22,12 +25,16 @@ export default function configureStore() {
       : compose;
   /* eslint-enable */
 
-  return createStore(
+  const store = createStore(
     rootReducer,
     window.__INITIAL_STATE__,
     composeEnhancers(...enhancers)
   );
-}
+
+  store.runSaga = sagaMiddleware.run;
+
+  return store;
+};
 
 export const store = configureStore();
 

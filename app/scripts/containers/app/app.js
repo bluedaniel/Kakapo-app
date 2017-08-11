@@ -1,7 +1,7 @@
 import React from 'react';
-import { compose, keys, length, pick, prop } from 'ramda';
+import { compose, keys, length, pick, prop, map } from 'ramda';
 import { connect } from 'react-redux';
-import { lifecycle, withHandlers } from 'recompose';
+import { withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
@@ -106,26 +106,11 @@ export default compose(
   withRouter, // Add routing props
   connect(mapStateToProps), // Connect to redux stores
   injectIntl, // Add i18n
-  lifecycle({
-    componentDidMount() {
-      this.props.dispatch(soundActions.soundsInit());
-    }
-  }),
   withHandlers({
-    onDrop: ({ dispatch }) => files => {
-      /* istanbul ignore if */
-      if (__DESKTOP__) {
-        files.map(_f => dispatch(soundActions.addLocalSound(_f.name, _f.path)));
-      } else {
-        dispatch(
-          notifyActions.send(
-            'You can only add desktop files with the Kakapo desktop app.'
-          )
-        );
-      }
-    },
+    onDrop: ({ dispatch }) => files =>
+      map(x => dispatch(soundActions.addLocalSound(x)), files),
     onToggleMute: ({ dispatch }) => () => {
-      dispatch(settingActions.toggleMute());
+      dispatch(settingActions.settingsMute());
       dispatch(soundActions.soundsMute());
     }
   })

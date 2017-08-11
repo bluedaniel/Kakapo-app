@@ -1,14 +1,9 @@
 import { Subject } from 'rxjs/Subject';
 import constants from 'actions/constants/';
-import {
-  getDefaultSounds,
-  getYoutubeURL,
-  getCustomFile,
-  getCustomURL,
-  getSoundCloudURL
-} from 'api/';
+import { getYoutubeURL, getCustomURL, getSoundCloudURL } from 'api/';
 
 const {
+  SOUNDS_REQUEST,
   SOUNDS_MUTE,
   SOUNDS_PLAY,
   SOUNDS_VOLUME,
@@ -18,25 +13,20 @@ const {
   SOUNDS_DOWNLOADING,
   SOUNDS_DOWNLOADED,
   SOUNDS_ERROR,
-  SOUNDS_RESET
+  SOUNDS_RESET,
+  SOUNDS_ADD_LOCAL
 } = constants;
 
 const actions = {
-  soundsInit: () => dispatch => dispatch(actions.fetchSounds()),
+  soundsInit: () => ({ type: SOUNDS_REQUEST }),
+  soundsRequestSuccess: resp => ({ type: SOUNDS_RECEIVED, resp }),
+
   soundsMute: () => ({ type: SOUNDS_MUTE }),
   soundsPlay: sound => ({ type: SOUNDS_PLAY, sound }),
   soundsVolume: (sound, volume) => ({ type: SOUNDS_VOLUME, sound, volume }),
   soundsEdit: (sound, data) => ({ type: SOUNDS_EDIT, sound, data }),
   soundsRemove: sound => ({ type: SOUNDS_REMOVE, sound }),
-
-  fetchSounds: () => dispatch =>
-    getDefaultSounds().then(resp =>
-      dispatch(actions.fetchSoundsComplete(resp))
-    ),
-  fetchSoundsComplete: resp => ({ type: SOUNDS_RECEIVED, resp }),
-
-  addLocalSound: (name, path) => dispatch =>
-    dispatch(actions.addSoundComplete(getCustomFile(name, path))),
+  addLocalSound: file => ({ type: SOUNDS_ADD_LOCAL, file }),
 
   addSound: (service, data) => dispatch => {
     const subject = new Subject().throttleTime(250).distinctUntilChanged();
