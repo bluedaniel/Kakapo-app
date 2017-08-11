@@ -38,19 +38,22 @@ export default async function serve() {
     server.once('error', err => reject(err));
 
     // Next step of the build process
-    let webpackComplete = () => open(`http://localhost:${server.get('port')}`);
+    let webpackBuild = () => open(`http://localhost:${server.get('port')}`);
 
     if (argv.platform === 'desktop') {
       // Start electron app
-      webpackComplete = () =>
+      webpackBuild = () =>
         proc
           .spawn(electron, ['build'])
           .stdout.on('data', data => console.log(data.toString()));
     }
 
-    devMiddleware.waitUntilValid(webpackComplete);
+    devMiddleware.waitUntilValid(webpackBuild);
 
-    process.on('exit', server.close);
+    process.on('exit', () => {
+      console.log(`Shutting down the server`);
+      server.close();
+    });
     return server;
   });
 }

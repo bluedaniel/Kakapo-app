@@ -4,7 +4,6 @@ import constants from 'actions/constants/';
 import { createReducer, flatteni18n } from 'utils/';
 
 const {
-  SETTINGS_INITIAL_RENDER,
   SETTINGS_LANGUAGE,
   SETTINGS_MUTE,
   SETTINGS_DOCK,

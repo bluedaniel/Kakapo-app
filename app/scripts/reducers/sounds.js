@@ -89,16 +89,16 @@ const soundReducers = {
   },
 
   toggleMute(state) {
-    return mapObjIndexed(
+    mapObjIndexed(
       _s => this._getHowl(_s).then(howl => howl.mute(muteStatus())),
       state
     );
+    return state;
   },
 
   changeVolume(state, sound, volume) {
-    state = over(lensProp(sound.file), _s => ({ ..._s, volume }), state);
     this._getHowl(sound).then(howl => howl.volume(volume));
-    return state;
+    return over(lensProp(sound.file), _s => ({ ..._s, volume }), state);
   },
 
   editSound(state, sound, newData) {

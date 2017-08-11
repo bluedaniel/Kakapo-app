@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import Imagemin from 'imagemin';
 
 const copyFiles = file =>
-  fs.copy(`node_modules/kakapo-assets/${file}`, `build/${file}`, {});
+  fs.copy(`node_modules/kakapo-assets/${file}`, `build/${file}`);
 
 const minifyFiles = file =>
   new Promise((resolve, reject) =>

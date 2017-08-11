@@ -1,7 +1,6 @@
 import { createConstants } from 'utils/';
 
 export default createConstants(
-  'SETTINGS_INITIAL_RENDER',
   'SETTINGS_LANGUAGE',
   'SETTINGS_DOCK',
   'SETTINGS_MUTE',
