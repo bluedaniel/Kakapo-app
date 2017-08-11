@@ -1,13 +1,6 @@
 import { createConstants } from 'utils/';
 
 export default createConstants(
-  'SETTINGS_LANGUAGE',
-  'SETTINGS_DOCK',
-  'SETTINGS_MUTE',
-  'SETTINGS_DEVTOOLS',
-  'SETTINGS_UPDATE',
-  'NOTIFICATION_SEND',
-  'NOTIFICATION_CLEAR',
   'THEMES_CHANGE',
   'SOUNDS_ADD_LOCAL',
   'SOUNDS_REQUEST',

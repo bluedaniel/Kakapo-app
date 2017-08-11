@@ -1,8 +1,8 @@
 .header {
+  display: flex;
   margin: 0 auto;
   padding: 12px 0;
   z-index: 40;
-  lost-column: 1;
 
   .logo {
     lost-column: 3 / 5;

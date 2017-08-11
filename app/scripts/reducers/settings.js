@@ -1,16 +1,8 @@
 import { identity } from 'ramda';
 import kakapoAssets from 'kakapo-assets';
 import { bridgedSettings } from 'kakapoBridge';
-import constants from 'actions/constants/';
+import { settingTypes } from 'actions/';
 import { createReducer, flatteni18n } from 'utils/';
-
-const {
-  SETTINGS_LANGUAGE,
-  SETTINGS_MUTE,
-  SETTINGS_DOCK,
-  SETTINGS_DEVTOOLS,
-  SETTINGS_UPDATE
-} = constants;
 
 export let initialState = ['mute', 'lang'].reduce(
   (acc, k) => ({ ...acc, [k]: bridgedSettings.getItem(k) }),
@@ -53,9 +45,9 @@ const settingReducers = {
 };
 
 export default createReducer(initialState, {
-  [SETTINGS_LANGUAGE]: identity,
-  [SETTINGS_MUTE]: settingReducers.settingsMute,
-  [SETTINGS_DOCK]: settingReducers.settingsDock,
-  [SETTINGS_DEVTOOLS]: settingReducers.settingsDevtools,
-  [SETTINGS_UPDATE]: settingReducers.settingsUpdate
+  [settingTypes.LANGUAGE]: identity,
+  [settingTypes.MUTE]: settingReducers.settingsMute,
+  [settingTypes.DOCK]: settingReducers.settingsDock,
+  [settingTypes.DEVTOOLS]: settingReducers.settingsDevtools,
+  [settingTypes.UPDATE]: settingReducers.settingsUpdate
 });

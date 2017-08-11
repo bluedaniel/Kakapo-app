@@ -110,7 +110,7 @@ export default compose(
     onDrop: ({ dispatch }) => files =>
       map(x => dispatch(soundActions.addLocalSound(x)), files),
     onToggleMute: ({ dispatch }) => () => {
-      dispatch(settingActions.settingsMute());
+      dispatch(settingActions.mute());
       dispatch(soundActions.soundsMute());
     }
   })

@@ -15,13 +15,11 @@ beforeEach(() => {
 });
 
 test('[reducer/sounds] init sounds', () => {
-  expect.assertions(3);
-  return store.dispatch(soundActions.soundsInit()).then(data => {
-    expect(data.type).toBe('SOUNDS_RECEIVED');
-    expect(data.resp.length).toBe(14);
-    expect(compose(length, keys)(currState())).toBe(14);
-    defaultState = currState();
-  });
+  expect.assertions(1);
+  store.dispatch(soundActions.soundsRequestSuccess(kakapoRes));
+
+  expect(compose(length, keys)(currState())).toBe(14);
+  defaultState = currState();
 });
 
 test('[reducer/sounds] toggle play `on`', () => {
