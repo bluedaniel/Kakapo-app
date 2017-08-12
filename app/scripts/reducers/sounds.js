@@ -1,22 +1,9 @@
 import { mapObjIndexed, set, lensProp, over, prop, omit, reduce } from 'ramda';
 import { bridgedSounds } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
-import constants from 'actions/constants/';
+import { soundTypes } from 'actions/';
 import { createReducer } from 'utils/';
 import { observableStore, store } from 'stores/configureStore';
-
-const {
-  SOUNDS_MUTE,
-  SOUNDS_PLAY,
-  SOUNDS_VOLUME,
-  SOUNDS_EDIT,
-  SOUNDS_REMOVE,
-  SOUNDS_RECEIVED,
-  SOUNDS_DOWNLOADING,
-  SOUNDS_DOWNLOADED,
-  SOUNDS_ERROR,
-  SOUNDS_RESET
-} = constants;
 
 export let initialState = {};
 let defaultSounds = {};
@@ -147,19 +134,22 @@ const soundReducers = {
 };
 
 export default createReducer(initialState, {
-  [SOUNDS_RECEIVED]: (state, { resp }) => soundReducers.init(state, resp),
-  [SOUNDS_MUTE]: state => soundReducers.toggleMute(state),
-  [SOUNDS_PLAY]: (state, { sound }) => soundReducers.togglePlay(state, sound),
-  [SOUNDS_VOLUME]: (state, { sound, volume }) =>
+  [soundTypes.REQUEST_SUCCESS]: (state, { resp }) =>
+    soundReducers.init(state, resp),
+  [soundTypes.MUTE]: state => soundReducers.toggleMute(state),
+  [soundTypes.PLAY]: (state, { sound }) =>
+    soundReducers.togglePlay(state, sound),
+  [soundTypes.VOLUME]: (state, { sound, volume }) =>
     soundReducers.changeVolume(state, sound, volume),
-  [SOUNDS_EDIT]: (state, { sound, data }) =>
+  [soundTypes.EDIT]: (state, { sound, data }) =>
     soundReducers.editSound(state, sound, data),
-  [SOUNDS_REMOVE]: (state, { sound }) =>
+  [soundTypes.REMOVE]: (state, { sound }) =>
     soundReducers.removeSound(state, sound),
-  [SOUNDS_DOWNLOADING]: (state, { sound }) =>
+  [soundTypes.ADD_SOUND_DOWNLOADING]: (state, { sound }) =>
     soundReducers.soundDownloading(state, sound),
-  [SOUNDS_DOWNLOADED]: (state, { sound, notify }) =>
+  [soundTypes.ADD_SOUND_COMPLETE]: (state, { sound, notify }) =>
     soundReducers.soundDownloaded(state, sound, notify),
-  [SOUNDS_ERROR]: (state, { err }) => soundReducers.soundError(state, err),
-  [SOUNDS_RESET]: (state, { clear }) => soundReducers.resetSounds(state, clear)
+  [soundTypes.ERROR]: (state, { err }) => soundReducers.soundError(state, err),
+  [soundTypes.RESET]: (state, { clear }) =>
+    soundReducers.resetSounds(state, clear)
 });

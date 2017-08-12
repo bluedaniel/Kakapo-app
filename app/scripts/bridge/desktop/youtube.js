@@ -1,22 +1,15 @@
+import { eventChannel, END } from 'redux-saga';
 import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig, newSoundObj } from 'utils/';
+import { pathConfig, newSoundObj, noop } from 'utils/';
 
-let fileSize = 0;
-let dataRead = 0;
-let newSound = {};
-
-const actions = {
-  getYoutubeObj() {
-    return null;
-  },
-
-  getYoutubeURL(subject, data) {
-    fileSize = 0;
-    dataRead = 0;
-    newSound = {};
+const getYoutubeURL = data =>
+  eventChannel(emitter => {
+    let fileSize = 0;
+    let dataRead = 0;
+    let newSound = {};
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
@@ -47,18 +40,24 @@ const actions = {
           };
         }
       )
-      .on('error', e => subject.error(`Error: ${e.message}`))
+      .on('error', e => {
+        throw new Error(`Error: ${e.message}`);
+      })
       .on('data', data => {
         const progress = (dataRead += data.length) / fileSize;
-        subject.next({ ...newSound, progress });
+        emitter({ ...newSound, progress });
       })
       .on('finish', () => {
         fs.rename(tmpFile, newSound.file);
-        subject.next(newSound);
-        subject.complete(); // Completed download
+        emitter({ ...newSound, progress: 1 });
+        emitter(END); // Completed download
       })
       .pipe(fs.createWriteStream(tmpFile));
-  }
-};
 
-export default actions;
+    return noop;
+  });
+
+export default {
+  getYoutubeObj: noop,
+  getYoutubeURL
+};

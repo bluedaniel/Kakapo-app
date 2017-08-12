@@ -17,7 +17,7 @@ const observeAutocomplete = (dispatch, service) => {
     next: _s =>
       service === 'youtube'
         ? dispatch(searchActions.youtube(_s))
-        : dispatch(searchActions.soundCloud(_s))
+        : dispatch(searchActions.soundcloud(_s))
   });
 
   return subject;

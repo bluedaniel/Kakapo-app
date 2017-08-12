@@ -108,10 +108,10 @@ export default compose(
   injectIntl, // Add i18n
   withHandlers({
     onDrop: ({ dispatch }) => files =>
-      map(x => dispatch(soundActions.addLocalSound(x)), files),
+      map(x => dispatch(soundActions.addLocal(x)), files),
     onToggleMute: ({ dispatch }) => () => {
       dispatch(settingActions.mute());
-      dispatch(soundActions.soundsMute());
+      dispatch(soundActions.mute());
     }
   })
 )(App);

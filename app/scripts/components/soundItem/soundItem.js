@@ -9,7 +9,7 @@ function observeThrottleVolume(dispatch, sound) {
   const subject = new Subject().throttleTime(500).distinctUntilChanged();
 
   subject.subscribe({
-    next: _s => dispatch(soundActions.soundsVolume(sound, _s))
+    next: _s => dispatch(soundActions.volume(sound, _s))
   });
 
   return subject;
@@ -18,16 +18,16 @@ function observeThrottleVolume(dispatch, sound) {
 export default ({ sound, themes, dispatch }) => {
   const subject = observeThrottleVolume(dispatch, sound);
 
-  const handleToggle = () => dispatch(soundActions.soundsPlay(sound));
+  const handleToggle = () => dispatch(soundActions.play(sound));
 
   const handleDelete = el => {
     handleStopPropagation(el);
-    dispatch(soundActions.soundsRemove(sound));
+    dispatch(soundActions.remove(sound));
   };
 
   const handleEdit = el => {
     handleStopPropagation(el);
-    dispatch(soundActions.soundsEdit(sound));
+    dispatch(soundActions.edit(sound));
   };
 
   const renderActions = () =>

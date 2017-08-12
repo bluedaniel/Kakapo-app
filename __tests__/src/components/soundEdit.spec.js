@@ -44,7 +44,7 @@ test('<SoundEdit/> render 2 inputs', () => {
 test('<SoundEdit/> handleCancel', () => {
   expect.assertions(2);
   const dispatch = jest.fn();
-  const action = soundActions.soundsEdit(sound, null);
+  const action = soundActions.edit(sound, null);
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('.button').at(0).simulate('click', mockEvent);
   expect(dispatch).toBeCalled();
@@ -68,7 +68,7 @@ test('<SoundEdit/> handleSubmit empty', () => {
 test('<SoundEdit/> handleSubmit filled', () => {
   expect.assertions(2);
   const dispatch = jest.fn();
-  const action = soundActions.soundsEdit(sound, { name: 'hi' });
+  const action = soundActions.edit(sound, { name: 'hi' });
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,

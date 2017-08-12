@@ -1,4 +1,5 @@
-import { serialize, newSoundObj } from 'utils/';
+import { eventChannel, END } from 'redux-saga';
+import { serialize, newSoundObj, noop } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
@@ -34,24 +35,30 @@ export default {
     );
   },
 
-  getSoundCloudURL(subject, id) {
-    const url = `${SCAPI_TRACKS}/${id}${serialize({
-      client_id: SOUNDCLOUD_KEY
-    })}`;
-    fetch(url)
-      .then(response => response.json())
-      .then(({ data }) => {
-        subject.next({
-          ...newSoundObj,
-          file: data.stream_url,
-          img: data.artwork_url,
-          link: data.permalink_url,
-          name: data.title,
-          progress: 0,
-          source: 'soundcloudStream',
-          tags: data.tag_list
+  getSoundCloudURL(id) {
+    return eventChannel(emitter => {
+      const url = `${SCAPI_TRACKS}/${id}${serialize({
+        client_id: SOUNDCLOUD_KEY
+      })}`;
+      fetch(url)
+        .then(response => response.json())
+        .then(({ data }) => {
+          emitter({
+            ...newSoundObj,
+            file: data.stream_url,
+            img: data.artwork_url,
+            link: data.permalink_url,
+            name: data.title,
+            progress: 0,
+            source: 'soundcloudStream',
+            tags: data.tag_list
+          });
+          emitter(END);
+        })
+        .catch(({ data }) => {
+          throw new Error(data.errors[0].error_message);
         });
-      })
-      .catch(({ data }) => subject.error(data.errors[0].error_message));
+      return noop;
+    });
   }
 };

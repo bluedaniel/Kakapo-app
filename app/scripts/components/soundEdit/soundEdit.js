@@ -7,7 +7,7 @@ import TextInput from '../ui/textInput/textInput';
 export default ({ sound, themes, intl, dispatch }) => {
   const handleCancel = el => {
     handleStopPropagation(el);
-    dispatch(soundActions.soundsEdit(sound, null));
+    dispatch(soundActions.edit(sound, null));
   };
 
   const handleSubmit = el => {
@@ -26,7 +26,7 @@ export default ({ sound, themes, intl, dispatch }) => {
         notifyActions.send(intl.formatMessage({ id: 'import.error.empty' }))
       );
     }
-    return dispatch(soundActions.soundsEdit(sound, data));
+    return dispatch(soundActions.edit(sound, data));
   };
 
   return (

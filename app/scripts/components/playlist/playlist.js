@@ -24,7 +24,7 @@ const observeAutocomplete = dispatch => {
         if (err) dispatch(notifyActions.send(err));
         if (data.Item) {
           dispatch(push('/'));
-          dispatch(soundActions.resetSounds(true));
+          dispatch(soundActions.reset(true));
 
           const playlist = JSON.parse(atob(data.Item.playlistID.S));
           Object.keys(playlist).map(_p => {
@@ -63,7 +63,7 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
   }
 
   const resetSounds = () => {
-    dispatch(soundActions.resetSounds(false));
+    dispatch(soundActions.reset(false));
     dispatch(push('/'));
   };
 

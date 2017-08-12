@@ -69,7 +69,7 @@ const mapKakapo = map(_y => ({
   url: _y.url
 }));
 
-function* fetchService(service, term) {
+function* fetchService(service, { term }) {
   const { transform, provider } = cond([
     [
       equals('soundcloud'),

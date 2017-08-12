@@ -1,12 +1,18 @@
-import { put, call, takeLatest } from 'redux-saga/effects';
-import constants from 'actions/constants/';
-import { soundActions, notifyActions } from 'actions/';
-import { getDefaultSounds, getCustomFile } from 'api/';
+import { put, call, takeLatest, take } from 'redux-saga/effects';
+import { cond, equals, always, T } from 'ramda';
+import { soundActions, soundTypes, notifyActions } from 'actions/';
+import {
+  getDefaultSounds,
+  getCustomFile,
+  getYoutubeURL,
+  getCustomURL,
+  getSoundCloudURL
+} from 'api/';
 
 function* soundsRequest() {
   try {
     const resp = yield getDefaultSounds();
-    yield put(soundActions.soundsRequestSuccess(resp));
+    yield put(soundActions.requestSuccess(resp));
   } catch (err) {
     yield put(notifyActions.send(err));
   }
@@ -26,7 +32,32 @@ function* addLocal({ file }) {
   );
 }
 
+function* addSound({ service, data }) {
+  const channelFn = cond([
+    [equals('soundcloud'), always(getSoundCloudURL)],
+    [equals('youtube'), always(getYoutubeURL)],
+    [T, always(getCustomURL)]
+  ])(service);
+
+  const chan = yield call(channelFn, data);
+  try {
+    while (true) {
+      const resp = yield take(chan);
+      if (resp.progress === 1) {
+        yield put(soundActions.addSoundComplete(resp));
+      } else {
+        yield put(soundActions.addSoundDownloading(resp));
+      }
+    }
+  } catch (err) {
+    yield put(soundActions.addSoundError(err));
+  } finally {
+    console.log('Finished downloading');
+  }
+}
+
 export default function* rootSaga() {
   yield call(soundsRequest);
-  yield takeLatest(constants.SOUNDS_ADD_LOCAL, addLocal);
+  yield takeLatest(soundTypes.ADD_LOCAL, addLocal);
+  yield takeLatest(soundTypes.ADD_SOUND, addSound);
 }
