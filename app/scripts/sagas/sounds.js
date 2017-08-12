@@ -1,6 +1,15 @@
-import { put, call, takeLatest, take, throttle } from 'redux-saga/effects';
-import { cond, equals, always, T } from 'ramda';
+import {
+  put,
+  call,
+  takeLatest,
+  select,
+  takeEvery,
+  take,
+  throttle
+} from 'redux-saga/effects';
+import { values, compose, cond, equals, always, T, prop } from 'ramda';
 import { soundActions, soundTypes, notifyActions } from 'actions/';
+import { bridgedSounds } from 'kakapoBridge';
 import {
   getDefaultSounds,
   getCustomFile,
@@ -58,9 +67,15 @@ function* setVolume({ sound, volume }) {
   yield put(soundActions.volume(sound, volume));
 }
 
+function* saveToStorage() {
+  const sounds = yield select(prop('sounds'));
+  compose(bridgedSounds.saveToStorage, JSON.stringify, values)(sounds);
+}
+
 export default function* rootSaga() {
   yield call(soundsRequest);
   yield takeLatest(soundTypes.ADD_LOCAL, addLocal);
   yield takeLatest(soundTypes.ADD_SOUND, addSound);
   yield throttle(500, soundTypes.THROTTLE_VOLUME, setVolume);
+  yield takeEvery('*', saveToStorage);
 }

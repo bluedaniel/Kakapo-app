@@ -3,7 +3,6 @@ import color from 'color';
 import { bridgedThemes } from 'kakapoBridge';
 import { themeTypes } from 'actions/';
 import { createReducer, swatches } from 'utils/';
-import { observableStore } from 'stores/configureStore';
 import packageJson from '../../../package.json';
 
 const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
@@ -17,7 +16,7 @@ const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
 
 const themeFromStore = bridgedThemes.fromStorage();
 
-export let initialState = compose(length, keys)(themeFromStore)
+export const initialState = compose(length, keys)(themeFromStore)
   ? themeFromStore
   : createTheme();
 
@@ -28,19 +27,10 @@ const themeReducers = {
       props(['primary', 'btn']),
       set(lensProp(slotNo ? 'btn' : 'primary'), swatch)
     )(state);
-  },
-  saveToStorage() {
-    observableStore.subscribe(_x => {
-      if (initialState === _x.themes) return; // Still the same state
-      bridgedThemes.saveToStorage(JSON.stringify(_x.themes));
-      initialState = _x.themes;
-    });
   }
 };
 
 export default createReducer(initialState, {
-  [themeTypes.CHANGE]: (state, { swatch, slotNo }) => {
-    themeReducers.saveToStorage();
-    return themeReducers.generateStyles(state, swatch, slotNo);
-  }
+  [themeTypes.CHANGE]: (state, { swatch, slotNo }) =>
+    themeReducers.generateStyles(state, swatch, slotNo)
 });

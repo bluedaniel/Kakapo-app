@@ -1,19 +1,15 @@
-import { mapObjIndexed, set, lensProp, over, prop, omit, reduce } from 'ramda';
-import { bridgedSounds } from 'kakapoBridge';
+import { mapObjIndexed, set, lensProp, over, prop, omit } from 'ramda';
+import { bridgedSounds, bridgedSettings } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
 import { soundTypes } from 'actions/';
 import { createReducer } from 'utils/';
-import { observableStore, store } from 'stores/configureStore';
 
-export let initialState = {};
+export const initialState = {};
 let defaultSounds = {};
 let howls = {};
 
-const muteStatus = () => store.getState().settings.mute;
-
 const soundReducers = {
   init(state, initSounds) {
-    this.saveToStorage();
     defaultSounds = initSounds.data || initSounds;
     const newState = bridgedSounds.initWithDefault(defaultSounds);
     return this.setSounds(newState);
@@ -76,10 +72,8 @@ const soundReducers = {
   },
 
   toggleMute(state) {
-    mapObjIndexed(
-      _s => this._getHowl(_s).then(howl => howl.mute(muteStatus())),
-      state
-    );
+    const mute = bridgedSettings.getItem('mute');
+    mapObjIndexed(_s => this._getHowl(_s).then(howl => howl.mute(mute)), state);
     return state;
   },
 
@@ -113,19 +107,6 @@ const soundReducers = {
 
   soundDownloading(state, sound) {
     return set(lensProp(sound.file), { ...sound }, state);
-  },
-
-  saveToStorage() {
-    observableStore.subscribe(_x => {
-      if (initialState === _x.sounds) return; // Still the same state
-      const obj = reduce(
-        (acc, curr) => set(lensProp(curr.file), { ...curr }, acc),
-        {},
-        _x.sounds
-      );
-      bridgedSounds.saveToStorage(JSON.stringify(obj));
-      initialState = _x.sounds;
-    });
   }
 };
 
