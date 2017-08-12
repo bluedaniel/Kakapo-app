@@ -1,4 +1,3 @@
-import { FromEventPatternObservable } from 'rxjs/observable/FromEventPatternObservable';
 import createHashHistory from 'history/createHashHistory';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -10,7 +9,7 @@ export const history = createHashHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 
-const configureStore = () => {
+export default () => {
   const middlewares = [thunk, sagaMiddleware, routerMiddleware(history)];
 
   const enhancers = [applyMiddleware(...middlewares)];
@@ -35,11 +34,3 @@ const configureStore = () => {
 
   return store;
 };
-
-export const store = configureStore();
-
-export const observableStore = new FromEventPatternObservable(
-  handler => store.subscribe(handler),
-  (handler, unsubscribe) => unsubscribe(),
-  () => store.getState()
-);

@@ -1,8 +1,8 @@
 import { compose, keys, values, head, length } from 'ramda';
-
-import { store } from 'stores/configureStore';
-
+import configureStore from 'stores/configureStore';
 import { notifyActions } from 'actions/';
+
+const store = configureStore();
 
 const currState = () => store.getState().notifications;
 

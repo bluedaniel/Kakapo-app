@@ -1,6 +1,8 @@
 import { prop } from 'ramda';
 import { themeActions } from 'actions/';
-import { store } from 'stores/configureStore';
+import configureStore from 'stores/configureStore';
+
+const store = configureStore();
 
 const currState = () => store.getState().themes;
 

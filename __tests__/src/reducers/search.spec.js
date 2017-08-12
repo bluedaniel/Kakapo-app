@@ -1,8 +1,10 @@
 import { prop, compose, length } from 'ramda';
-import { store } from 'stores/configureStore';
+import configureStore from 'stores/configureStore';
 import { searchActions } from 'actions/';
 import search, { initialState } from 'reducers/search';
 import { youtubeRes, kakapoRes } from '../helper';
+
+const store = configureStore();
 
 beforeEach(() => {
   fetch.mockResponses(

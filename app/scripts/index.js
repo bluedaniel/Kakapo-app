@@ -2,12 +2,12 @@ import 'intl';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { history, store } from 'stores/configureStore';
+import configureStore, { history } from 'stores/configureStore';
 import sagas from 'sagas/';
 import { safe } from 'utils/';
 import 'styles/base.css';
 
-const state = store.getState();
+const store = configureStore();
 const target = document.querySelector('[app]');
 
 store.runSaga(sagas);
@@ -17,7 +17,7 @@ let render = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Root {...{ state, history }} />
+      <Root {...{ state: store.getState(), history }} />
     </Provider>,
     target
   );
