@@ -6,6 +6,7 @@ export const { Types, Creators } = createActions(
     requestSuccess: ['resp'],
     mute: null,
     play: ['sound'],
+    throttleVolume: ['sound', 'volume'],
     volume: ['sound', 'volume'],
     edit: ['sound', 'data'],
     remove: ['sound'],

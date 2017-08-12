@@ -1,5 +1,4 @@
 import React from 'react';
-import { Subject } from 'rxjs/Subject';
 import { compose, map, prop, addIndex } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
@@ -7,25 +6,12 @@ import SearchResult from './searchResult';
 
 const mapIndexed = addIndex(map);
 
-const observeAutocomplete = (dispatch, service) => {
-  const subject = new Subject()
-    .filter(text => text.length >= 2)
-    .debounceTime(750)
-    .distinctUntilChanged();
-
-  subject.subscribe({
-    next: _s =>
-      service === 'youtube'
-        ? dispatch(searchActions.youtube(_s))
-        : dispatch(searchActions.soundcloud(_s))
-  });
-
-  return subject;
-};
-
 export default ({ search, location, intl, dispatch }) => {
   const service = location.pathname.split('/')[1] || 'youtube';
-  const subject = observeAutocomplete(dispatch, service);
+  const onChange = ({ target: { value } }) =>
+    service === 'youtube'
+      ? dispatch(searchActions.youtube(value))
+      : dispatch(searchActions.soundcloud(value));
 
   return (
     <div className="youtube">
@@ -34,7 +20,7 @@ export default ({ search, location, intl, dispatch }) => {
         name="searchInput"
         spinner={prop('loading', search)}
         intl={intl}
-        onChange={({ target }) => subject.next(target.value)}
+        onChange={onChange}
       />
       <div className={`${service}-items`}>
         {compose(

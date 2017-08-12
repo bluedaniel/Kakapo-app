@@ -1,23 +1,10 @@
 import React from 'react';
-import { Subject } from 'rxjs/Subject';
 import { prop } from 'ramda';
 import { soundActions } from 'actions/';
 import { cx, handleStopPropagation, openLink } from 'utils/';
 import './soundItem.css';
 
-function observeThrottleVolume(dispatch, sound) {
-  const subject = new Subject().throttleTime(500).distinctUntilChanged();
-
-  subject.subscribe({
-    next: _s => dispatch(soundActions.volume(sound, _s))
-  });
-
-  return subject;
-}
-
 export default ({ sound, themes, dispatch }) => {
-  const subject = observeThrottleVolume(dispatch, sound);
-
   const handleToggle = () => dispatch(soundActions.play(sound));
 
   const handleDelete = el => {
@@ -96,7 +83,8 @@ export default ({ sound, themes, dispatch }) => {
           min="0"
           step="0.01"
           type="range"
-          onChange={({ target }) => subject.next(parseFloat(target.value))}
+          onChange={({ target: { value } }) =>
+            dispatch(soundActions.throttleVolume(sound, parseFloat(value)))}
           onClick={handleStopPropagation}
         />
       </div>
