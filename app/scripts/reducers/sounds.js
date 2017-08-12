@@ -115,10 +115,6 @@ const soundReducers = {
     return set(lensProp(sound.file), { ...sound }, state);
   },
 
-  soundError(state) {
-    return state;
-  },
-
   saveToStorage() {
     observableStore.subscribe(_x => {
       if (initialState === _x.sounds) return; // Still the same state
@@ -149,7 +145,6 @@ export default createReducer(initialState, {
     soundReducers.soundDownloading(state, sound),
   [soundTypes.ADD_SOUND_COMPLETE]: (state, { sound, notify }) =>
     soundReducers.soundDownloaded(state, sound, notify),
-  [soundTypes.ERROR]: (state, { err }) => soundReducers.soundError(state, err),
   [soundTypes.RESET]: (state, { clear }) =>
     soundReducers.resetSounds(state, clear)
 });

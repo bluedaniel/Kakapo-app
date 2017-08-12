@@ -13,7 +13,7 @@ const {
   getSoundCloudObj
 } = bridgedSoundcloud;
 
-export function getDefaultSounds() {
+export const getDefaultSounds = () => {
   /* istanbul ignore if */
   if (__DESKTOP__) {
     return new Promise((resolve, reject) =>
@@ -33,10 +33,10 @@ export function getDefaultSounds() {
       window.onYouTubeIframeAPIReady = res(true);
     }).then(resolve(defaultSounds))
   );
-}
+};
 
-export function createSoundObj(sound) {
-  return new Promise(resolve => {
+export const createSoundObj = sound =>
+  new Promise(resolve => {
     /* istanbul ignore if */
     if (__DESKTOP__) return resolve(getHowlerObj(sound));
     switch (sound.source) {
@@ -48,7 +48,6 @@ export function createSoundObj(sound) {
         return resolve(getHowlerObj(sound));
     }
   });
-}
 
 export {
   getCustomFile,

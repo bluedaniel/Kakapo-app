@@ -41,7 +41,7 @@ export default {
         client_id: SOUNDCLOUD_KEY
       })}`;
       fetch(url)
-        .then(response => response.json())
+        .then(resp => resp.json())
         .then(({ data }) => {
           emitter({
             ...newSoundObj,
@@ -55,9 +55,7 @@ export default {
           });
           emitter(END);
         })
-        .catch(({ data }) => {
-          throw new Error(data.errors[0].error_message);
-        });
+        .catch(({ data }) => emitter(new Error(data.errors[0].error_message)));
       return noop;
     });
   }

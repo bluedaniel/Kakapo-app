@@ -35,7 +35,7 @@ export default {
       const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
       if (!validHowl(data.file)) {
-        throw new Error(validHowl(data.file, true));
+        emitter(new Error(validHowl(data.file, true)));
       }
 
       const file = `${shortid.generate()}.${path
@@ -51,16 +51,14 @@ export default {
         .on('response', res => {
           fileSize = res.headers['content-length'];
           if (!fileSize) {
-            throw new Error('Error: Could not access file.');
+            emitter(new Error('Error: Could not access file.'));
           } else {
             res
               .on('data', data => {
                 const progress = (dataRead += data.length) / fileSize;
                 emitter({ ...newSound, progress });
               })
-              .on('error', e => {
-                throw new Error(`Error: ${e.message}`);
-              })
+              .on('error', e => emitter(new Error(`Error: ${e.message}`)))
               .on('end', () => {
                 fs.rename(tmpFile, newSound.file);
                 emitter(newSound);

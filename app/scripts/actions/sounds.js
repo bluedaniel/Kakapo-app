@@ -13,7 +13,6 @@ export const { Types, Creators } = createActions(
     addSound: ['service', 'data'],
     addSoundDownloading: ['sound'],
     addSoundComplete: ['sound'],
-    addSoundError: ['err'],
     reset: ['clear']
   },
   { prefix: 'SOUNDS_' }

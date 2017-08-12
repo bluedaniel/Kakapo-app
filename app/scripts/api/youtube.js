@@ -1,5 +1,7 @@
-import { inc } from 'ramda';
+import { compose, prop, addIndex, map } from 'ramda';
 import { serialize } from 'utils/';
+
+const mapIndexed = addIndex(map);
 
 const GAPI_URL = 'https://www.googleapis.com/youtube/v3';
 const GAPI_KEY = 'AIzaSyArV70XKUil3cEj4nKn1yuMXCHiuK2AytI';
@@ -15,7 +17,6 @@ const GAPI_OPTS_LIST = {
 };
 
 export const getStatistics = (resolve, reject, videos) => {
-  let _it = 0;
   const params = {
     ...GAPI_OPTS_LIST,
     ...{ id: videos.map(_i => _i.id.videoId).join(',') }
@@ -23,19 +24,18 @@ export const getStatistics = (resolve, reject, videos) => {
 
   fetch(`${GAPI_URL}/videos${serialize(params)}`)
     .then(resp => resp.json())
-    .then(({ items }) =>
-      resolve(
-        items.map(_v => {
-          _it = inc(_it);
-          return {
-            ...videos[_it],
-            duration: _v.contentDetails.duration,
-            viewCount: _v.statistics.viewCount
-          };
-        })
+    .then(
+      compose(
+        resolve,
+        mapIndexed((_v, i) => ({
+          ...videos[i],
+          duration: _v.contentDetails.duration,
+          viewCount: _v.statistics.viewCount
+        })),
+        prop('items')
       )
     )
-    .catch(response => reject(response));
+    .catch(reject);
 };
 
 export const getYoutubeSearch = q =>
@@ -43,5 +43,5 @@ export const getYoutubeSearch = q =>
     fetch(`${GAPI_URL}/search${serialize({ ...GAPI_OPTS_SEARCH, q })}`)
       .then(resp => resp.json())
       .then(({ items }) => getStatistics(resolve, reject, items))
-      .catch(err => reject(err))
+      .catch(reject)
   );

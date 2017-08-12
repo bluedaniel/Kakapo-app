@@ -50,9 +50,7 @@ function* addSound({ service, data }) {
       }
     }
   } catch (err) {
-    yield put(soundActions.addSoundError(err));
-  } finally {
-    console.log('Finished downloading');
+    yield put(notifyActions.send(err.message));
   }
 }
 
