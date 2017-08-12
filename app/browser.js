@@ -2,24 +2,21 @@ import { app, ipcMain, BrowserWindow, autoUpdater, Tray } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import proc from 'child_process';
+import devtron from 'devtron';
+
+const appPath = app.getAppPath();
+const userPath = app.getPath('userData');
 
 let appSettings;
 try {
-  appSettings = fs.readFileSync(
-    path.join(app.getPath('userData'), 'user-data/settings.json')
-  );
+  appSettings = fs.readFileSync(path.join(userPath, 'user-data/settings.json'));
 } catch (err) {
-  appSettings = fs.readFileSync(
-    path.join(app.getAppPath(), 'data/settings.json')
-  );
+  appSettings = fs.readFileSync(path.join(appPath, 'data/settings.json'));
 }
 appSettings = JSON.parse(appSettings);
 
-const iconIdle = path.join(app.getAppPath(), 'images/desktop/tray-idle.png');
-const iconActive = path.join(
-  app.getAppPath(),
-  'images/desktop/tray-active.png'
-);
+const trayIcon = (str = 'idle') =>
+  path.join(appPath, `images/desktop/tray-${str}.png`);
 
 const updateCmd = function updateCmd(args, cb) {
   const updateExe = path.resolve(
@@ -49,18 +46,13 @@ if (process.platform === 'win32') {
   }
 }
 
-function toggleDock(app, bool) {
-  if (bool) return app.dock.show();
-  return app.dock.hide();
-}
+const toggleDock = (app, bool) => (bool ? app.dock.show() : app.dock.hide());
 
-function toggleDevTools(app, bool) {
-  if (bool) return app.openDevTools({ detach: true });
-  return app.closeDevTools();
-}
+const toggleDevTools = (app, bool) =>
+  bool ? app.openDevTools({ detach: true }) : app.closeDevTools();
 
 app.on('ready', () => {
-  const appIcon = new Tray(iconIdle);
+  const appIcon = new Tray(trayIcon());
   const defaults = {
     frame: false,
     height: 600,
@@ -68,7 +60,7 @@ app.on('ready', () => {
     width: 400
   };
   appIcon.window = new BrowserWindow(defaults);
-  appIcon.window.loadURL(path.join('file://', app.getAppPath(), 'index.html'));
+  appIcon.window.loadURL(path.join('file://', appPath, 'index.html'));
 
   appIcon.window.webContents.on(
     'new-window',
@@ -76,6 +68,8 @@ app.on('ready', () => {
       opts.frame = true;
     }
   );
+
+  devtron.install();
 
   if (process.platform === 'darwin') {
     toggleDock(app, appSettings.dockIcon);
@@ -108,15 +102,15 @@ app.on('ready', () => {
   }
 
   ipcMain.on('update-icon', (event, arg) =>
-    appIcon.setImage(arg === 'TrayActive' ? iconActive : iconIdle)
+    appIcon.setImage(arg === 'TrayActive' ? trayIcon('active') : trayIcon())
   );
 
   ipcMain.on('app-quit', () => app.quit());
 
   appIcon.window.webContents.on('did-finish-load', () => {
     appIcon.window.setTitle('Kakapo');
-
     appIcon.setToolTip('Kakapo');
+
     if (process.env.NODE_ENV !== '"development"') {
       autoUpdater.setFeedUrl(
         `http://52.19.170.82:5000/update?version=${app.getVersion()}&platform=${process.platform}`
