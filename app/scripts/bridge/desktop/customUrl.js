@@ -21,21 +21,21 @@ export default {
   },
 
   getCustomURL: data =>
-    eventChannel(emitter => {
+    eventChannel(emit => {
       let fileSize = 0;
       let dataRead = 0;
       let newSound = {};
 
       if (data.source === 'file') {
-        emitter(data);
-        emitter(END);
+        emit(data);
+        emit(END);
         return noop;
       }
 
       const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
       if (!validHowl(data.file)) {
-        emitter(new Error(validHowl(data.file, true)));
+        emit(new Error(validHowl(data.file, true)));
       }
 
       const file = `${shortid.generate()}.${path
@@ -51,18 +51,18 @@ export default {
         .on('response', res => {
           fileSize = res.headers['content-length'];
           if (!fileSize) {
-            emitter(new Error('Error: Could not access file.'));
+            emit(new Error('Error: Could not access file.'));
           } else {
             res
               .on('data', data => {
                 const progress = (dataRead += data.length) / fileSize;
-                emitter({ ...newSound, progress });
+                emit({ ...newSound, progress });
               })
-              .on('error', e => emitter(new Error(`Error: ${e.message}`)))
+              .on('error', e => emit(new Error(`Error: ${e.message}`)))
               .on('end', () => {
                 fs.rename(tmpFile, newSound.file);
-                emitter(newSound);
-                emitter(END); // Completed download
+                emit(newSound);
+                emit(END); // Completed download
               });
           }
         })

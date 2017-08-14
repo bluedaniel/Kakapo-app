@@ -1,59 +1,15 @@
 import React from 'react';
 import { push } from 'react-router-redux';
-import { Subject } from 'rxjs/Subject';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
 import { soundActions, notifyActions } from 'actions/';
 import { cx, handleStopPropagation } from 'utils/';
 import 'aws-custom-build';
-import awsCredentials from '../../../../aws.json';
 import './playlist.css';
-
-const AWS = window.AWS;
-AWS.config.update(awsCredentials);
-
-const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
-
-const observeAutocomplete = dispatch => {
-  const subject = new Subject().throttleTime(1000).distinctUntilChanged();
-
-  subject.subscribe({
-    next: id => {
-      table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
-        if (err) dispatch(notifyActions.send(err));
-        if (data.Item) {
-          dispatch(push('/'));
-          dispatch(soundActions.reset(true));
-
-          const playlist = JSON.parse(atob(data.Item.playlistID.S));
-          Object.keys(playlist).map(_p => {
-            switch (playlist[_p].source) {
-              case 'youtubeStream':
-                return dispatch(soundActions.addSound('youtube', playlist[_p]));
-              case 'soundcloudStream':
-                return dispatch(
-                  soundActions.addSound('soundcloud', playlist[_p].file)
-                );
-              default:
-                return dispatch(soundActions.addSound('kakapo', playlist[_p]));
-            }
-          });
-        } else {
-          dispatch(notifyActions.send('Error: Playlist not found'));
-          dispatch(push('/'));
-        }
-      });
-    }
-  });
-
-  return subject;
-};
 
 export default ({ sounds, params = {}, intl, dispatch }) => {
   const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
-
-  const subject = observeAutocomplete(dispatch);
 
   if (params.shareId) {
     const clipboard = new Clipboard(`.${clipBoardClass}`);
@@ -139,8 +95,9 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
     </div>;
 
   if (params.playlistId) {
+    console.log(params.playlistId);
     // Loading new playlist
-    subject.next(params.playlistId);
+    // subject.next(params.playlistId);
   }
 
   return (
@@ -162,7 +119,8 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
             tabIndex={-1}
             className="button"
             key={_e}
-            onClick={() => subject.next(kakapoAssets.playlists[_e])}
+            onClick={() =>
+              dispatch(soundActions.playlist(kakapoAssets.playlists[_e]))}
           >
             {intl.formatMessage({ id: `playlist.list_${_e}` })}
           </span>

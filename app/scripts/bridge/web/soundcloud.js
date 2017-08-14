@@ -36,14 +36,14 @@ export default {
   },
 
   getSoundCloudURL(id) {
-    return eventChannel(emitter => {
+    return eventChannel(emit => {
       const url = `${SCAPI_TRACKS}/${id}${serialize({
         client_id: SOUNDCLOUD_KEY
       })}`;
       fetch(url)
         .then(resp => resp.json())
         .then(({ data }) => {
-          emitter({
+          emit({
             ...newSoundObj,
             file: data.stream_url,
             img: data.artwork_url,
@@ -53,9 +53,9 @@ export default {
             source: 'soundcloudStream',
             tags: data.tag_list
           });
-          emitter(END);
+          emit(END);
         })
-        .catch(({ data }) => emitter(new Error(data.errors[0].error_message)));
+        .catch(({ data }) => emit(new Error(data.errors[0].error_message)));
       return noop;
     });
   }

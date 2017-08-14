@@ -41,9 +41,9 @@ export default {
   },
 
   getYoutubeURL(data) {
-    return eventChannel(emitter => {
-      emitter({ ...newSoundObj, ...data });
-      emitter(END);
+    return eventChannel(emit => {
+      emit({ ...newSoundObj, ...data });
+      emit(END);
       return noop;
     });
   }

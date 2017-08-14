@@ -14,7 +14,8 @@ export const { Types, Creators } = createActions(
     addSound: ['service', 'data'],
     addSoundDownloading: ['sound'],
     addSoundComplete: ['sound'],
-    reset: ['clear']
+    reset: ['clear'],
+    playlist: ['id']
   },
   { prefix: 'SOUNDS_' }
 );

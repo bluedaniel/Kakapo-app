@@ -1,19 +1,18 @@
 import { eventChannel, END } from 'redux-saga';
 import { validHowl, newSoundObj, noop } from 'utils/';
 
-const actions = {
+export default {
   getCustomFile: noop,
   getCustomURL(data) {
-    return eventChannel(emitter => {
+    return eventChannel(emit => {
       if (data.source !== 'file' && !validHowl(data.file)) {
-        throw new Error(validHowl(data.file, true));
+        emit(Error(validHowl(data.file, true)));
       } else {
-        emitter({ ...newSoundObj, ...data });
-        emitter(END);
+        console.log({ ...newSoundObj, ...data });
+        emit({ ...newSoundObj, ...data });
+        emit(END);
       }
       return noop;
     });
   }
 };
-
-export default actions;

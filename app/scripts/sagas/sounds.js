@@ -1,14 +1,27 @@
 import {
-  put,
+  all,
   call,
-  takeLatest,
+  put,
   select,
-  takeEvery,
   take,
+  takeEvery,
+  takeLatest,
   throttle
 } from 'redux-saga/effects';
-import { values, compose, cond, equals, always, T, prop } from 'ramda';
-import { soundActions, soundTypes, notifyActions } from 'actions/';
+import {
+  apply,
+  map,
+  mapObjIndexed,
+  propEq,
+  values,
+  compose,
+  cond,
+  equals,
+  always,
+  T,
+  prop
+} from 'ramda';
+import { push } from 'react-router-redux';
 import { bridgedSounds } from 'kakapoBridge';
 import {
   getDefaultSounds,
@@ -17,6 +30,8 @@ import {
   getCustomURL,
   getSoundCloudURL
 } from 'api/';
+import { soundActions, soundTypes, notifyActions } from 'actions/';
+import awsCredentials from '../../../aws.json';
 
 function* soundsRequest() {
   try {
@@ -67,6 +82,47 @@ function* setVolume({ sound, volume }) {
   yield put(soundActions.volume(sound, volume));
 }
 
+const getItem = id => {
+  const AWS = window.AWS;
+  AWS.config.update(awsCredentials);
+  const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
+
+  return new Promise((resolve, reject) => {
+    table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
+      if (err) return reject(err);
+      return resolve(data);
+    });
+  });
+};
+
+const sourceEq = propEq('source');
+
+function* handlePlaylist({ id }) {
+  try {
+    const { Item: { playlistID: { S } } } = yield call(getItem, id);
+    yield put(push('/'));
+    yield put(soundActions.reset(true));
+
+    const mappedPlaylist = compose(
+      map(compose(put, apply(soundActions.addSound))),
+      values,
+      mapObjIndexed(
+        cond([
+          [sourceEq('youtubeStream'), x => ['youtube', x]],
+          [sourceEq('soundcloudStream'), x => ['soundcloud', x.file]],
+          [T, x => ['kakapo', x]]
+        ])
+      ),
+      JSON.parse,
+      atob
+    )(S);
+
+    yield all(mappedPlaylist);
+  } catch (err) {
+    yield put(notifyActions.send(err));
+  }
+}
+
 function* saveToStorage() {
   const sounds = yield select(prop('sounds'));
   compose(bridgedSounds.saveToStorage, JSON.stringify, values)(sounds);
@@ -77,5 +133,6 @@ export default function* rootSaga() {
   yield takeLatest(soundTypes.ADD_LOCAL, addLocal);
   yield takeLatest(soundTypes.ADD_SOUND, addSound);
   yield throttle(500, soundTypes.THROTTLE_VOLUME, setVolume);
+  yield throttle(1000, soundTypes.PLAYLIST, handlePlaylist);
   yield takeEvery('*', saveToStorage);
 }

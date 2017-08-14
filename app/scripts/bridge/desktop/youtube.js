@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import { pathConfig, newSoundObj, noop } from 'utils/';
 
 const getYoutubeURL = data =>
-  eventChannel(emitter => {
+  eventChannel(emit => {
     let fileSize = 0;
     let dataRead = 0;
     let newSound = {};
@@ -41,16 +41,16 @@ const getYoutubeURL = data =>
         }
       )
       .on('error', e => {
-        throw new Error(`Error: ${e.message}`);
+        emit(Error(`Error: ${e.message}`));
       })
       .on('data', data => {
         const progress = (dataRead += data.length) / fileSize;
-        emitter({ ...newSound, progress });
+        emit({ ...newSound, progress });
       })
       .on('finish', () => {
         fs.rename(tmpFile, newSound.file);
-        emitter({ ...newSound, progress: 1 });
-        emitter(END); // Completed download
+        emit({ ...newSound, progress: 1 });
+        emit(END); // Completed download
       })
       .pipe(fs.createWriteStream(tmpFile));
 

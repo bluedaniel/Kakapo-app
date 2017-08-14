@@ -18,7 +18,7 @@ export default {
   },
 
   getSoundCloudURL(soundcloudID) {
-    return eventChannel(emitter => {
+    return eventChannel(emit => {
       let fileSize = 0;
       let dataRead = 0;
       let newSound = {};
@@ -33,7 +33,7 @@ export default {
         .then(res => res.json())
         .then(res => {
           if (!res.downloadable) {
-            emitter(
+            emit(
               new Error('Sorry, that SoundCloud track cannot be downloaded.')
             );
           }
@@ -57,24 +57,24 @@ export default {
             .on('response', res => {
               fileSize = res.headers['content-length'];
               if (!fileSize) {
-                emitter(new Error('Error: Could not access file.'));
+                emit(new Error('Error: Could not access file.'));
               } else {
                 res
                   .on('data', data => {
                     const progress = (dataRead += data.length) / fileSize;
-                    emitter({ ...newSound, progress });
+                    emit({ ...newSound, progress });
                   })
-                  .on('error', e => emitter(new Error(`Error: ${e.message}`)))
+                  .on('error', e => emit(new Error(`Error: ${e.message}`)))
                   .on('end', () => {
                     fs.rename(tmpFile, newSound.file);
-                    emitter({ ...newSound, progress: 1 });
-                    emitter(END); // Completed download
+                    emit({ ...newSound, progress: 1 });
+                    emit(END); // Completed download
                   });
               }
             })
             .pipe(fs.createWriteStream(tmpFile));
         })
-        .catch(res => emitter(new Error(res)));
+        .catch(res => emit(new Error(res)));
 
       return noop;
     });
