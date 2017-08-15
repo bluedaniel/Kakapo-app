@@ -1,5 +1,5 @@
-import { eventChannel, END } from 'redux-saga';
-import { newSoundObj, noop } from 'utils/';
+import { merge } from 'ramda';
+import { newSoundObj } from 'utils/';
 
 const newYTPlayer = (elID, file, playing, resolve) =>
   new window.YT.Player(elID, {
@@ -40,11 +40,5 @@ export default {
     });
   },
 
-  getYoutubeURL(data) {
-    return eventChannel(emit => {
-      emit({ ...newSoundObj, ...data });
-      emit(END);
-      return noop;
-    });
-  }
+  getYoutubeURL: merge(newSoundObj)
 };

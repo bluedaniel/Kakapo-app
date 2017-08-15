@@ -9,17 +9,19 @@ import {
   throttle
 } from 'redux-saga/effects';
 import {
+  allPass,
+  always,
   apply,
-  map,
-  mapObjIndexed,
-  propEq,
-  values,
   compose,
   cond,
   equals,
-  always,
+  map,
+  mapObjIndexed,
+  prop,
+  propEq,
+  propIs,
   T,
-  prop
+  values
 } from 'ramda';
 import { push } from 'react-router-redux';
 import { bridgedSounds } from 'kakapoBridge';
@@ -56,21 +58,27 @@ function* addLocal({ file }) {
   );
 }
 
+const isChannel = allPass(map(propIs(Function), ['flush', 'take', 'close']));
+
 function* addSound({ service, data }) {
-  const channelFn = cond([
+  const actionFn = cond([
     [equals('soundcloud'), always(getSoundCloudURL)],
     [equals('youtube'), always(getYoutubeURL)],
     [T, always(getCustomURL)]
   ])(service);
 
-  const chan = yield call(channelFn, data);
   try {
-    while (true) {
-      const resp = yield take(chan);
-      if (resp.progress === 1) {
-        yield put(soundActions.addSoundComplete(resp));
-      } else {
-        yield put(soundActions.addSoundDownloading(resp));
+    const chan = yield call(actionFn, data);
+    if (!isChannel(chan)) {
+      yield put(soundActions.addSoundComplete(chan));
+    } else {
+      while (true) {
+        const resp = yield take(chan);
+        if (resp.progress === 1) {
+          yield put(soundActions.addSoundComplete(resp));
+        } else {
+          yield put(soundActions.addSoundDownloading(resp));
+        }
       }
     }
   } catch (err) {
