@@ -1,5 +1,6 @@
 import React from 'react';
 import { push } from 'react-router-redux';
+import { compose, prop, mapObjIndexed, values } from 'ramda';
 import Clipboard from 'clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
@@ -8,10 +9,12 @@ import { cx, handleStopPropagation } from 'utils/';
 import 'aws-custom-build';
 import './playlist.css';
 
-export default ({ params = {}, intl, dispatch, match }) => {
-  const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
-  console.log(match);
+export default ({ match: { params }, intl, dispatch }) => {
+  if (params.playlistId) {
+    dispatch(soundActions.playlist(params.playlistId)); // Load new playlist
+  }
 
+  const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
   if (params.shareId) {
     const clipboard = new Clipboard(`.${clipBoardClass}`);
     clipboard.on('success', () =>
@@ -91,12 +94,6 @@ export default ({ params = {}, intl, dispatch, match }) => {
       </form>
     </div>;
 
-  if (params.playlistId) {
-    console.log(params.playlistId);
-    // Loading new playlist
-    // subject.next(params.playlistId);
-  }
-
   return (
     <div className="modal playlist-pane">
       <div className="modal-inner">
@@ -110,18 +107,21 @@ export default ({ params = {}, intl, dispatch, match }) => {
         <a role="link" tabIndex={-1} className="button" onClick={resetSounds}>
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
-        {Object.keys(kakapoAssets.playlists).map(_e =>
-          <span
-            role="link"
-            tabIndex={-1}
-            className="button"
-            key={_e}
-            onClick={() =>
-              dispatch(soundActions.playlist(kakapoAssets.playlists[_e]))}
-          >
-            {intl.formatMessage({ id: `playlist.list_${_e}` })}
-          </span>
-        )}
+        {compose(
+          values,
+          mapObjIndexed((x, k) =>
+            <span
+              role="link"
+              tabIndex={-1}
+              className="button"
+              key={k}
+              onClick={() => dispatch(soundActions.playlist(x))}
+            >
+              {intl.formatMessage({ id: `playlist.list_${k}` })}
+            </span>
+          ),
+          prop('playlists')
+        )(kakapoAssets)}
         {__DESKTOP__ ? renderDesktopPlaylistInput() : null}
       </div>
     </div>
