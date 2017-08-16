@@ -45,7 +45,7 @@ export const mapRoute = (props = {}) => route =>
     exact={route.exact}
     path={route.path}
     render={x =>
-      <route.component {...{ ...x, ...props }} routes={route.routes} />}
+      <route.component {...{ ...props, ...x }} routes={route.routes} />}
   />;
 
 export const createReducer = (initialState, handlers) => (

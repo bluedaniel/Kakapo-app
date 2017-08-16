@@ -32,8 +32,8 @@ export default [
       { path: '/youtube', component: ImportSearch },
       { path: '/soundcloud', component: ImportSearch },
       { path: '/custom', component: ImportCustomUrl },
-      { path: '/playlist', component: Playlist },
       { path: '/playlist(/:playlistId)', component: Playlist },
+      { path: '/playlist', component: Playlist },
       { path: '/share-playlist(/:shareId)', component: Playlist }
     ]
   }
