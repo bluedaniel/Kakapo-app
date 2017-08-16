@@ -8,8 +8,9 @@ import { cx, handleStopPropagation } from 'utils/';
 import 'aws-custom-build';
 import './playlist.css';
 
-export default ({ sounds, params = {}, intl, dispatch }) => {
+export default ({ params = {}, intl, dispatch, match }) => {
   const clipBoardClass = `copy-clipboard-${shortid.generate()}`;
+  console.log(match);
 
   if (params.shareId) {
     const clipboard = new Clipboard(`.${clipBoardClass}`);
@@ -21,15 +22,6 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
   const resetSounds = () => {
     dispatch(soundActions.reset(false));
     dispatch(push('/'));
-  };
-
-  const createPlaylist = () => {
-    const playlistID = btoa(JSON.stringify(sounds));
-    const shareID = shortid.generate();
-    const putItem = {
-      Item: { shareID: { S: shareID }, playlistID: { S: playlistID } }
-    };
-    table.putItem(putItem, () => dispatch(push(`/share-playlist/${shareID}`)));
   };
 
   const handleDesktopPlaylistInput = e => {
@@ -70,7 +62,12 @@ export default ({ sounds, params = {}, intl, dispatch }) => {
       );
     }
     return (
-      <a className="button" role="link" tabIndex={-1} onClick={createPlaylist}>
+      <a
+        className="button"
+        role="link"
+        tabIndex={-1}
+        onClick={() => dispatch(soundActions.createPlaylist())}
+      >
         {intl.formatMessage({ id: 'playlist.share' })}
       </a>
     );

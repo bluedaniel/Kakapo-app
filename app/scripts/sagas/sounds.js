@@ -5,7 +5,6 @@ import {
   select,
   take,
   takeEvery,
-  takeLatest,
   throttle
 } from 'redux-saga/effects';
 import {
@@ -24,6 +23,7 @@ import {
   values
 } from 'ramda';
 import { push } from 'react-router-redux';
+import shortid from 'shortid';
 import { bridgedSounds } from 'kakapoBridge';
 import {
   getDefaultSounds,
@@ -34,6 +34,34 @@ import {
 } from 'api/';
 import { soundActions, soundTypes, notifyActions } from 'actions/';
 import awsCredentials from '../../../aws.json';
+
+const connectDynamoDB = () => {
+  const AWS = window.AWS;
+  AWS.config.update(awsCredentials);
+  return new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
+};
+
+const getPlaylist = id =>
+  new Promise((resolve, reject) => {
+    const table = connectDynamoDB();
+    table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
+      if (err) return reject(err);
+      return resolve(data);
+    });
+  });
+
+const savePlaylist = sounds =>
+  new Promise(resolve => {
+    const table = connectDynamoDB();
+    const playlistID = compose(btoa, JSON.stringify)(sounds);
+
+    const shareID = shortid.generate();
+    const putItem = {
+      Item: { shareID: { S: shareID }, playlistID: { S: playlistID } }
+    };
+
+    table.putItem(putItem, () => resolve(shareID));
+  });
 
 function* soundsRequest() {
   try {
@@ -90,24 +118,21 @@ function* setVolume({ sound, volume }) {
   yield put(soundActions.volume(sound, volume));
 }
 
-const getItem = id => {
-  const AWS = window.AWS;
-  AWS.config.update(awsCredentials);
-  const table = new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
-
-  return new Promise((resolve, reject) => {
-    table.getItem({ Key: { shareID: { S: id } } }, (err, data) => {
-      if (err) return reject(err);
-      return resolve(data);
-    });
-  });
-};
-
 const sourceEq = propEq('source');
+
+function* createPlaylist() {
+  try {
+    const sounds = yield select(prop('sounds'));
+    const shareID = yield call(savePlaylist, sounds);
+    yield put(push(`/share-playlist/${shareID}`));
+  } catch (err) {
+    yield put(notifyActions.send(err));
+  }
+}
 
 function* handlePlaylist({ id }) {
   try {
-    const { Item: { playlistID: { S } } } = yield call(getItem, id);
+    const { Item: { playlistID: { S } } } = yield call(getPlaylist, id);
     yield put(push('/'));
     yield put(soundActions.reset(true));
 
@@ -138,9 +163,10 @@ function* saveToStorage() {
 
 export default function* rootSaga() {
   yield call(soundsRequest);
-  yield takeLatest(soundTypes.ADD_LOCAL, addLocal);
-  yield takeLatest(soundTypes.ADD_SOUND, addSound);
+  yield takeEvery(soundTypes.ADD_LOCAL, addLocal);
+  yield takeEvery(soundTypes.ADD_SOUND, addSound);
   yield throttle(500, soundTypes.THROTTLE_VOLUME, setVolume);
   yield throttle(1000, soundTypes.PLAYLIST, handlePlaylist);
+  yield takeEvery(soundTypes.CREATE_PLAYLIST, createPlaylist);
   yield takeEvery('*', saveToStorage);
 }
