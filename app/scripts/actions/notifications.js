@@ -1,10 +1,11 @@
 import { createActions } from 'reduxsauce';
 
-export const { Types, Creators } = createActions(
-  {
-    send: ['msg', 'time'],
-    notify: ['id', 'msg'],
-    clear: ['id']
-  },
-  { prefix: 'NOTIFICATIONS_' }
-);
+const prefix = 'NOTIFICATIONS_';
+
+const actions = {
+  send: ['msg', 'time'],
+  notify: ['id', 'msg'],
+  clear: ['id']
+};
+
+export const { Types, Creators } = createActions(actions, { prefix });

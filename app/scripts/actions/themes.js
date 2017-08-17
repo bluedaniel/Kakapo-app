@@ -1,8 +1,9 @@
 import { createActions } from 'reduxsauce';
 
-export const { Types, Creators } = createActions(
-  {
-    change: ['swatch', 'slotNo']
-  },
-  { prefix: 'THEMES_' }
-);
+const prefix = 'THEMES_';
+
+const actions = {
+  change: ['swatch', 'slotNo']
+};
+
+export const { Types, Creators } = createActions(actions, { prefix });
