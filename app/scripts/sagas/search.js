@@ -70,19 +70,18 @@ const mapKakapo = map(_y => ({
 }));
 
 export function* fetchService(service, { term }) {
-  const { transform, provider } = cond([
-    [
-      equals('soundcloud'),
-      always({ transform: mapSoundcloud, provider: getSoundCloudSearch })
-    ],
-    [
-      equals('youtube'),
-      always({ transform: mapYoutube, provider: getYoutubeSearch })
-    ],
-    [T, always({ transform: mapKakapo, provider: getKakapoFavourites })]
-  ])(service);
-
   try {
+    const { transform, provider } = cond([
+      [
+        equals('soundcloud'),
+        always({ transform: mapSoundcloud, provider: getSoundCloudSearch })
+      ],
+      [
+        equals('youtube'),
+        always({ transform: mapYoutube, provider: getYoutubeSearch })
+      ],
+      [T, always({ transform: mapKakapo, provider: getKakapoFavourites })]
+    ])(service);
     const resp = yield provider(term);
     yield put(searchActions.requestSuccess(transform(resp), service));
   } catch (err) {

@@ -3,6 +3,7 @@ import kakapoAssets from 'kakapo-assets';
 import color from 'color';
 import { lensProp, set, reduce, compose, addIndex, map } from 'ramda';
 import { flatteni18n, swatches, newSoundObj } from 'utils/';
+import youtubeMock from '../../__mocks__/youtube.json';
 import packageJson from '../../package.json';
 
 export const getIntlProps = () => ({
@@ -90,59 +91,4 @@ export const stubFetchWith = data => {
 
 export const kakapoRes = kakapoAssets.sounds;
 
-export const youtubeRes = {
-  combined: [
-    {
-      duration: 'PT3M28S',
-      id: { videoId: 'YTg7fpGLsKE' },
-      snippet: {
-        description: 'Test',
-        thumbnails: { high: { url: 'http://test.com' } },
-        title: 'Test'
-      },
-      viewCount: 10000
-    },
-    {
-      duration: 'PT3M28S',
-      id: { videoId: 'vWyDDn2-5Gk' },
-      snippet: {
-        description: 'Test2',
-        thumbnails: { high: { url: 'http://test2.com' } },
-        title: 'Test2'
-      },
-      viewCount: 1000
-    }
-  ],
-  videos: {
-    items: [
-      {
-        id: { videoId: 'YTg7fpGLsKE' },
-        snippet: {
-          description: 'Test',
-          title: 'Test',
-          thumbnails: { high: { url: 'http://test.com' } }
-        }
-      },
-      {
-        id: { videoId: 'vWyDDn2-5Gk' },
-        snippet: {
-          description: 'Test2',
-          title: 'Test2',
-          thumbnails: { high: { url: 'http://test2.com' } }
-        }
-      }
-    ]
-  },
-  statistics: {
-    items: [
-      {
-        contentDetails: { duration: 'PT3M28S' },
-        statistics: { viewCount: 10000 }
-      },
-      {
-        contentDetails: { duration: 'PT3M28S' },
-        statistics: { viewCount: 1000 }
-      }
-    ]
-  }
-};
+export const youtubeRes = youtubeMock;

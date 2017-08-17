@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects';
-import { cloneableGenerator } from 'redux-saga/utils';
 import { fetchService } from 'sagas/search';
+import { searchActions } from 'actions/';
 import { youtubeRes, kakapoRes } from '../helper';
 
 beforeEach(() => {
@@ -10,12 +10,44 @@ beforeEach(() => {
   );
 });
 
-test('[sagas/search] search YouTube for `oceans`', async () => {
-  expect.assertions(3);
+test('[sagas/search] success search YouTube for `chess`', async () => {
+  expect.assertions(2);
+  const gen = fetchService('youtube', { term: 'chess' });
 
-  const data = {};
-  data.gen = cloneableGenerator(fetchService)('youtube', { term: 'chess' });
-  await expect(data.gen.next().value).resolves.toBe('lemon');
+  await expect(gen.next().value).resolves.toEqual(youtubeRes.combined);
 
-  expect(data.gen.next().value).toBe(put({ type: 'SHIT' }));
+  const items = [
+    {
+      desc: 'Test',
+      duration: 'NaN:NaN:NaN',
+      img: 'http://test.com',
+      name: 'Test',
+      tags: '',
+      videoId: 'YTg7fpGLsKE',
+      viewCount: 10000
+    },
+    {
+      desc: 'Test2',
+      duration: 'NaN:NaN:NaN',
+      img: 'http://test2.com',
+      name: 'Test2',
+      tags: '',
+      videoId: 'vWyDDn2-5Gk',
+      viewCount: 1000
+    }
+  ];
+
+  expect(gen.next(youtubeRes.combined).value).toEqual(
+    put(searchActions.requestSuccess(items, 'youtube'))
+  );
+});
+
+test('[sagas/search] failed search YouTube for `chess`', async () => {
+  expect.assertions(2);
+  const gen = fetchService('youtube', { term: 'chess' });
+
+  await expect(gen.next().value).resolves.toEqual(youtubeRes.combined);
+  expect(gen.throw('test').value).toEqual(
+    put(searchActions.requestError('test'))
+  );
 });
