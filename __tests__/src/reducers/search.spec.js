@@ -6,6 +6,8 @@ import { youtubeRes, kakapoRes } from '../helper';
 
 const store = configureStore();
 
+const currState = () => prop('search', store.getState());
+
 beforeEach(() => {
   fetch.mockResponses(
     [JSON.stringify(youtubeRes.videos), { status: 200 }],
@@ -28,11 +30,14 @@ test('[reducer/search] search YouTube for `oceans`', () => {
 
 test('[reducer/search] search Kakapo', () => {
   expect.assertions(3);
-  return store.dispatch(searchActions.kakapo()).then(data => {
-    expect(data.type).toBe('SEARCH_KAKAPO');
-    expect(data.items.length).toBe(14);
+  store.dispatch(searchActions.kakapo());
+  console.log(currState());
 
-    const reducer = search(initialState, data);
-    expect(compose(length, prop('kakapofavs'))(reducer)).toBe(14);
-  });
+  // .then(data => {
+  //   expect(data.type).toBe('SEARCH_KAKAPO');
+  //   expect(data.items.length).toBe(14);
+  //
+  //   const reducer = search(initialState, data);
+  //   expect(compose(length, prop('kakapofavs'))(reducer)).toBe(14);
+  // });
 });

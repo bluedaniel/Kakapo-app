@@ -91,22 +91,44 @@ export const stubFetchWith = data => {
 export const kakapoRes = kakapoAssets.sounds;
 
 export const youtubeRes = {
+  combined: [
+    {
+      duration: 'PT3M28S',
+      id: { videoId: 'YTg7fpGLsKE' },
+      snippet: {
+        description: 'Test',
+        thumbnails: { high: { url: 'http://test.com' } },
+        title: 'Test'
+      },
+      viewCount: 10000
+    },
+    {
+      duration: 'PT3M28S',
+      id: { videoId: 'vWyDDn2-5Gk' },
+      snippet: {
+        description: 'Test2',
+        thumbnails: { high: { url: 'http://test2.com' } },
+        title: 'Test2'
+      },
+      viewCount: 1000
+    }
+  ],
   videos: {
     items: [
       {
         id: { videoId: 'YTg7fpGLsKE' },
         snippet: {
-          description: '',
-          title: '',
-          thumbnails: { high: { url: '' } }
+          description: 'Test',
+          title: 'Test',
+          thumbnails: { high: { url: 'http://test.com' } }
         }
       },
       {
         id: { videoId: 'vWyDDn2-5Gk' },
         snippet: {
-          description: '',
-          title: '',
-          thumbnails: { high: { url: '' } }
+          description: 'Test2',
+          title: 'Test2',
+          thumbnails: { high: { url: 'http://test2.com' } }
         }
       }
     ]
