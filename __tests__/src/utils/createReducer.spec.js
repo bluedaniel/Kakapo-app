@@ -18,7 +18,6 @@ const reducer = createReducer(initialState, {
 });
 
 test('[utils/createReducer]', () => {
-  expect.assertions(2);
   const test1 = reducer(initialState, Creators.none());
   expect(test1).toBe(initialState);
 
@@ -26,7 +25,6 @@ test('[utils/createReducer]', () => {
   expect(test2).toBe(initialState.toUpperCase());
 
   test('[utils/createReducer] New state', () => {
-    expect.assertions(2);
     const newState = reducer(
       initialState,
       Creators.changeType([1, 2, 3, 4, 5])

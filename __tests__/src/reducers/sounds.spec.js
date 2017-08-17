@@ -17,7 +17,6 @@ beforeEach(() => {
 });
 
 test('[reducer/sounds] init sounds', () => {
-  expect.assertions(1);
   store.dispatch(soundActions.requestSuccess(kakapoRes));
 
   expect(compose(length, keys)(currState())).toBe(14);
@@ -25,21 +24,18 @@ test('[reducer/sounds] init sounds', () => {
 });
 
 test('[reducer/sounds] toggle play `on`', () => {
-  expect.assertions(2);
   const action = store.dispatch(soundActions.play(path(['wind'], currState())));
   expect(action.type).toBe('SOUNDS_PLAY');
   expect(path(['wind', 'playing'], currState())).toBe(true);
 });
 
 test('[reducer/sounds] toggle play `off`', () => {
-  expect.assertions(2);
   const action = store.dispatch(soundActions.play(path(['wind'], currState())));
   expect(action.type).toBe('SOUNDS_PLAY');
   expect(path(['wind', 'playing'], currState())).toBe(false);
 });
 
 test('[reducer/sounds] volume', () => {
-  expect.assertions(3);
   expect(path(['wind', 'volume'], currState())).toBe(0.5);
   const action = store.dispatch(
     soundActions.volume(path(['wind'], currState()), 0.25)
@@ -49,7 +45,6 @@ test('[reducer/sounds] volume', () => {
 });
 
 test('[reducer/sounds] edit', () => {
-  expect.assertions(2);
   const newData = { tags: 'newTag' };
   const action = store.dispatch(
     soundActions.edit(path(['wind'], currState()), newData)
@@ -59,7 +54,6 @@ test('[reducer/sounds] edit', () => {
 });
 
 test('[reducer/sounds] remove', () => {
-  expect.assertions(2);
   const action = store.dispatch(
     soundActions.remove(path(['wind'], currState()))
   );
@@ -68,14 +62,12 @@ test('[reducer/sounds] remove', () => {
 });
 
 test('[reducer/sounds] reset', () => {
-  expect.assertions(2);
   const action = store.dispatch(soundActions.reset(true));
   expect(action.type).toBe('SOUNDS_RESET');
   expect(currState()).toEqual({});
 });
 
 test('[reducer/sounds] clear', () => {
-  expect.assertions(2);
   const action = store.dispatch(soundActions.reset());
   expect(action.type).toBe('SOUNDS_RESET');
   expect(currState()).toEqual(defaultState);

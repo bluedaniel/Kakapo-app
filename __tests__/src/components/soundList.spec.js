@@ -14,19 +14,16 @@ function setup(props = {}) {
 }
 
 test('<SoundList/> render empty', () => {
-  expect.assertions(1);
   const { wrapper } = setup();
   expect(wrapper.html()).toBe('<div></div>');
 });
 
 test('<SoundList/> render', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ sounds: randomSounds(4) });
   expect(wrapper.type()).toBe('section');
 });
 
 test('<SoundList/> progress === 1', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ sounds: randomSounds(8) });
   expect(wrapper.find('.sound-item-wrap').length).toBe(5);
 });

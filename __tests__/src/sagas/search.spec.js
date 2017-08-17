@@ -11,7 +11,6 @@ beforeEach(() => {
 });
 
 test('[sagas/search] success search YouTube for `chess`', async () => {
-  expect.assertions(2);
   const gen = fetchService('youtube', { term: 'chess' });
 
   await expect(gen.next().value).resolves.toEqual(youtubeRes.combined);
@@ -43,7 +42,6 @@ test('[sagas/search] success search YouTube for `chess`', async () => {
 });
 
 test('[sagas/search] failed search YouTube for `chess`', async () => {
-  expect.assertions(2);
   const gen = fetchService('youtube', { term: 'chess' });
 
   await expect(gen.next().value).resolves.toEqual(youtubeRes.combined);

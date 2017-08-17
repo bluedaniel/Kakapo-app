@@ -24,14 +24,12 @@ function setup(props = {}) {
 }
 
 test('<KakapoItem/> render', () => {
-  expect.assertions(2);
   const { wrapper } = setup(soundProp());
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('kakapo-item disabled');
 });
 
 test('<KakapoItem/> render file', () => {
-  expect.assertions(2);
   const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('kakapo-item');

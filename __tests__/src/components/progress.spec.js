@@ -7,14 +7,12 @@ function setup(props = {}) {
 }
 
 test('<Progress/> render', () => {
-  expect.assertions(2);
   const { wrapper } = setup();
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('progress');
 });
 
 test('<Progress/> rounds 0.415 to 42% ', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ progress: 0.415 });
   expect(wrapper.find('.progress-text').text()).toBe('42%');
 });

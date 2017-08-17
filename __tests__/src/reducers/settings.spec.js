@@ -2,8 +2,6 @@ import { settingActions } from 'actions/';
 import settings, { initialState } from 'reducers/settings';
 
 test('[reducer/settings]', () => {
-  expect.assertions(8);
-
   const setup1 = settings(initialState, settingActions.update());
   expect(setup1.updateStatus).toBe(undefined);
   const newState1 = settings(setup1, settingActions.update('checking'));

@@ -13,19 +13,16 @@ function setup(props = {}) {
 }
 
 test('<Header/> render', () => {
-  expect.assertions(1);
   const { wrapper } = setup();
   expect(wrapper.type()).toBe('header');
 });
 
 test('<Header/> render mute icon', () => {
-  expect.assertions(1);
   const { wrapper } = setup();
   expect(wrapper.find('.toggle-mute').length).toBe(1);
 });
 
 test('<Header/> simulate toggle-mute click', () => {
-  expect.assertions(1);
   const onToggleMute = jest.fn();
   const { wrapper } = setup({ onToggleMute });
   wrapper.find('.toggle-mute').simulate('click');

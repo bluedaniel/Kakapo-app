@@ -24,14 +24,12 @@ const sound = {
 };
 
 test('<SearchResult/> render youtube', () => {
-  expect.assertions(2);
   const { wrapper } = setup({ sound });
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('youtube-item');
 });
 
 test('<SearchResult/> youtube view count in locale', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ sound });
   expect(
     contains(wrapper.find('.view-count').text(), [
@@ -42,14 +40,12 @@ test('<SearchResult/> youtube view count in locale', () => {
 });
 
 test('<SearchResult/> render soundcloud', () => {
-  expect.assertions(2);
   const { wrapper } = setup({ service: 'soundcloud', sound });
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('soundcloud-item');
 });
 
 test('<SearchResult/> soundcould view count in locale', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ service: 'soundcloud', sound });
   expect(
     contains(wrapper.find('.view-count').text(), [

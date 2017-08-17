@@ -18,7 +18,6 @@ function setup(props = {}, method = shallow) {
 }
 
 test('<Search/> render', () => {
-  expect.assertions(2);
   const { wrapper } = setup();
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('youtube');

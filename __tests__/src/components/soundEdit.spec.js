@@ -29,20 +29,17 @@ const soundProp = (props = {}) => {
 const sound = { ...soundProp() };
 
 test('<SoundEdit/> render', () => {
-  expect.assertions(2);
   const { wrapper } = setup(sound);
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('item editing');
 });
 
 test('<SoundEdit/> render 2 inputs', () => {
-  expect.assertions(1);
   const { wrapper } = setup(sound);
   expect(wrapper.find(TextInput).length).toBe(2);
 });
 
 test('<SoundEdit/> handleCancel', () => {
-  expect.assertions(2);
   const dispatch = jest.fn();
   const action = soundActions.edit(sound, null);
   const { wrapper } = setup({ sound, dispatch });
@@ -52,7 +49,6 @@ test('<SoundEdit/> handleCancel', () => {
 });
 
 test('<SoundEdit/> handleSubmit empty', () => {
-  expect.assertions(3);
   const dispatch = jest.fn();
   const action = notifyActions.send('Please fill out all fields');
   const { wrapper } = setup({ sound, dispatch });
@@ -66,7 +62,6 @@ test('<SoundEdit/> handleSubmit empty', () => {
 });
 
 test('<SoundEdit/> handleSubmit filled', () => {
-  expect.assertions(2);
   const dispatch = jest.fn();
   const action = soundActions.edit(sound, { name: 'hi' });
   const { wrapper } = setup({ sound, dispatch });

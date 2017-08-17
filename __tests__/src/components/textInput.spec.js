@@ -14,7 +14,6 @@ function setup(props = {}) {
 }
 
 test('<TextInput/> render', () => {
-  expect.assertions(6);
   const { wrapper } = setup();
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('group');
@@ -25,25 +24,21 @@ test('<TextInput/> render', () => {
 });
 
 test('<TextInput/> w/o translation', () => {
-  expect.assertions(1);
   const { wrapper } = setup();
   expect(wrapper.find('label').text()).toBe('without.translation');
 });
 
 test('<TextInput/> correct value', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ value: 42 });
   expect(wrapper.find('input').props().defaultValue).toBe(42);
 });
 
 test('<TextInput/> correct translation', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ placeholder: 'nav.settings' });
   expect(wrapper.find('label').text()).toBe('Settings');
 });
 
 test('<TextInput/> loading spinner', () => {
-  expect.assertions(1);
   const { wrapper } = setup({ spinner: true });
   expect(wrapper.find('.spinner').length).toBe(1);
 });

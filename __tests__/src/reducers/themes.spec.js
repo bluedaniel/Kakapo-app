@@ -7,7 +7,6 @@ const store = configureStore();
 const currState = () => prop('themes', store.getState());
 
 test('[reducer/themes]', () => {
-  expect.assertions(7);
   store.dispatch(themeActions.change('#E91E63', 0));
   expect(prop('primary', currState())).toBe('#E91E63');
   expect(prop('btn', currState())).toBe('#4CAF50');

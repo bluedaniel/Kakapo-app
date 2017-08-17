@@ -19,14 +19,12 @@ function setup(props = {}) {
 }
 
 test('<Kakapo/> render', () => {
-  expect.assertions(2);
   const { wrapper } = setup();
   expect(wrapper.type()).toBe('div');
   expect(wrapper.prop('className')).toBe('kakapo');
 });
 
 test('<Kakapo/> render items', () => {
-  expect.assertions(1);
   const { wrapper } = setup({
     search: { kakapofavs: values(randomSounds(5)) }
   });

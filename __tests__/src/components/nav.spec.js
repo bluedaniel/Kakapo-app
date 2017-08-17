@@ -13,7 +13,6 @@ function setup(props = {}) {
 }
 
 test('<Nav/> render', () => {
-  expect.assertions(1);
   const { wrapper } = setup();
   expect(wrapper.prop('className')).toBe('topbar');
 });
