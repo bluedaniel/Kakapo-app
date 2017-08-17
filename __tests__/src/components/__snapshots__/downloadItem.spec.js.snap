@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DownloadItem/> render 1`] = `
+<div
+  className="download active"
+>
+  <div
+    className="preview"
+    style={
+      Object {
+        "backgroundImage": "url(http://data.kakapo.co/v2/images/light_wind.png)",
+      }
+    }
+  />
+  <span
+    className="title"
+  >
+    wind
+  </span>
+  <div
+    className="progress"
+  >
+    <div
+      className="progress-barberpole"
+      style={
+        Object {
+          "width": "80%",
+        }
+      }
+    />
+    <div
+      className="progress-text"
+    >
+      80
+      %
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<DownloadItem/> w/o image should render \`no-image\` 1`] = `
+<div
+  className="download active"
+>
+  <div
+    className="no-image"
+  />
+  <span
+    className="title"
+  >
+    wind
+  </span>
+  <div
+    className="progress"
+  >
+    <div
+      className="progress-barberpole"
+      style={
+        Object {
+          "width": "80%",
+        }
+      }
+    />
+    <div
+      className="progress-text"
+    >
+      80
+      %
+    </div>
+  </div>
+</div>
+`;

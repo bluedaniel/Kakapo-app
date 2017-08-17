@@ -24,6 +24,7 @@ export const randomSounds = compose(
       ...acc,
       [curr]: {
         ...newSoundObj,
+        file: curr,
         progress: curr > 2 ? 1 : 0.5,
         editing: curr > 2
       }
