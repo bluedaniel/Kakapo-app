@@ -1,11 +1,11 @@
-import { compose, path, length, keys } from 'ramda';
+import { compose, path, length, keys, prop } from 'ramda';
 import configureStore from 'stores/configureStore';
 import { soundActions } from 'actions/';
 import { kakapoRes } from '../helper';
 
 const store = configureStore();
 
-const currState = () => store.getState().sounds;
+const currState = () => prop('sounds', store.getState());
 
 let defaultState;
 

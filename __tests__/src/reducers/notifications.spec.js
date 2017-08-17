@@ -1,10 +1,10 @@
-import { compose, keys, values, head, length } from 'ramda';
+import { compose, keys, values, head, prop, length } from 'ramda';
 import configureStore from 'stores/configureStore';
 import { notifyActions } from 'actions/';
 
 const store = configureStore();
 
-const currState = () => store.getState().notifications;
+const currState = () => prop('notifications', store.getState());
 
 test.skip('[reducer/notifications]', done => {
   expect.assertions(4);

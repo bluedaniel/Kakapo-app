@@ -4,7 +4,7 @@ import configureStore from 'stores/configureStore';
 
 const store = configureStore();
 
-const currState = () => store.getState().themes;
+const currState = () => prop('themes', store.getState());
 
 test('[reducer/themes]', () => {
   expect.assertions(7);
