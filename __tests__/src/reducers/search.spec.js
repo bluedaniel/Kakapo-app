@@ -1,40 +1,18 @@
-import { prop, compose, length } from 'ramda';
+import { prop } from 'ramda';
 import configureStore from 'stores/configureStore';
 import { searchActions } from 'actions/';
-import search, { initialState } from 'reducers/search';
-import { youtubeRes, kakapoRes } from '../helper';
+import { kakapoRes } from '../helper';
 
 const store = configureStore();
 
 const currState = () => prop('search', store.getState());
 
-beforeEach(() => {
-  fetch.mockResponses(
-    [JSON.stringify(youtubeRes.videos), { status: 200 }],
-    [JSON.stringify(youtubeRes.statistics), { status: 200 }],
-    [JSON.stringify(kakapoRes), { status: 200 }]
-  );
+test('[reducer/search] request loading', () => {
+  store.dispatch(searchActions.request());
+  expect(currState()).toMatchSnapshot();
 });
 
-test('[reducer/search] search YouTube for `oceans`', () => {
-  return store.dispatch(searchActions.youtube('oceans')).then(data => {
-    expect(data.type).toBe('SEARCH_YOUTUBE');
-    expect(data.items.length).toBe(2);
-
-    const reducer = search(initialState, data);
-    expect(compose(length, prop('youtube'))(reducer)).toBe(2);
-  });
-});
-
-test('[reducer/search] search Kakapo', () => {
-  store.dispatch(searchActions.kakapo());
-  console.log(currState());
-
-  // .then(data => {
-  //   expect(data.type).toBe('SEARCH_KAKAPO');
-  //   expect(data.items.length).toBe(14);
-  //
-  //   const reducer = search(initialState, data);
-  //   expect(compose(length, prop('kakapofavs'))(reducer)).toBe(14);
-  // });
+test('[reducer/search] request success', () => {
+  store.dispatch(searchActions.requestSuccess(kakapoRes, 'kakapofavs'));
+  expect(currState()).toMatchSnapshot();
 });

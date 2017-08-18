@@ -1,24 +1,33 @@
+import { prop } from 'ramda';
+import configureStore from 'stores/configureStore';
 import { settingActions } from 'actions/';
-import settings, { initialState } from 'reducers/settings';
+
+const store = configureStore();
+
+const currState = () => prop('settings', store.getState());
 
 test('[reducer/settings]', () => {
-  const setup1 = settings(initialState, settingActions.update());
-  expect(setup1.updateStatus).toBe(undefined);
-  const newState1 = settings(setup1, settingActions.update('checking'));
-  expect(newState1.updateStatus).toBe('checking');
+  store.dispatch(settingActions.update());
+  expect(currState()).toMatchSnapshot();
 
-  const setup2 = settings(initialState, settingActions.mute());
-  expect(setup2.mute).toBe(true);
-  const newState2 = settings(setup2, settingActions.mute());
-  expect(newState2.mute).toBe(false);
+  store.dispatch(settingActions.update('checking'));
+  expect(currState()).toMatchSnapshot();
 
-  const setup3 = settings(initialState, settingActions.dock(true));
-  expect(setup3.dockIcon).toBe(true);
-  const newState3 = settings(setup3, settingActions.dock(!setup3.dockIcon));
-  expect(newState3.dockIcon).toBe(false);
+  store.dispatch(settingActions.mute());
+  expect(currState()).toMatchSnapshot();
 
-  const setup4 = settings(initialState, settingActions.devtools(true));
-  expect(setup4.devTools).toBe(true);
-  const newState4 = settings(setup4, settingActions.devtools(!setup4.devTools));
-  expect(newState4.devTools).toBe(false);
+  store.dispatch(settingActions.mute());
+  expect(currState()).toMatchSnapshot();
+
+  store.dispatch(settingActions.dock(true));
+  expect(currState()).toMatchSnapshot();
+
+  store.dispatch(settingActions.dock(false));
+  expect(currState()).toMatchSnapshot();
+
+  store.dispatch(settingActions.devtools(true));
+  expect(currState()).toMatchSnapshot();
+
+  store.dispatch(settingActions.devtools(false));
+  expect(currState()).toMatchSnapshot();
 });

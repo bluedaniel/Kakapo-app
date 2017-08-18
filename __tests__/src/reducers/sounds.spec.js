@@ -1,4 +1,4 @@
-import { compose, path, length, keys, prop } from 'ramda';
+import { path, prop } from 'ramda';
 import configureStore from 'stores/configureStore';
 import { soundActions } from 'actions/';
 import { kakapoRes } from '../helper';
@@ -6,8 +6,7 @@ import { kakapoRes } from '../helper';
 const store = configureStore();
 
 const currState = () => prop('sounds', store.getState());
-
-let defaultState;
+const windSound = () => path(['wind'], currState());
 
 beforeEach(() => {
   localStorage.setItem('version', false);
@@ -18,57 +17,41 @@ beforeEach(() => {
 
 test('[reducer/sounds] init sounds', () => {
   store.dispatch(soundActions.requestSuccess(kakapoRes));
-
-  expect(compose(length, keys)(currState())).toBe(14);
-  defaultState = currState();
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] toggle play `on`', () => {
-  const action = store.dispatch(soundActions.play(path(['wind'], currState())));
-  expect(action.type).toBe('SOUNDS_PLAY');
-  expect(path(['wind', 'playing'], currState())).toBe(true);
+  store.dispatch(soundActions.play(windSound()));
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] toggle play `off`', () => {
-  const action = store.dispatch(soundActions.play(path(['wind'], currState())));
-  expect(action.type).toBe('SOUNDS_PLAY');
-  expect(path(['wind', 'playing'], currState())).toBe(false);
+  store.dispatch(soundActions.play(windSound()));
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] volume', () => {
-  expect(path(['wind', 'volume'], currState())).toBe(0.5);
-  const action = store.dispatch(
-    soundActions.volume(path(['wind'], currState()), 0.25)
-  );
-  expect(action.type).toBe('SOUNDS_VOLUME');
-  expect(path(['wind', 'volume'], currState())).toBe(0.25);
+  store.dispatch(soundActions.volume(windSound(), 0.25));
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] edit', () => {
   const newData = { tags: 'newTag' };
-  const action = store.dispatch(
-    soundActions.edit(path(['wind'], currState()), newData)
-  );
-  expect(action.type).toBe('SOUNDS_EDIT');
-  expect(path(['wind', 'tags'], currState())).toBe(newData.tags);
+  store.dispatch(soundActions.edit(windSound(), newData));
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] remove', () => {
-  const action = store.dispatch(
-    soundActions.remove(path(['wind'], currState()))
-  );
-  expect(action.type).toBe('SOUNDS_REMOVE');
-  expect(path(['wind'], currState())).toBe(undefined);
+  store.dispatch(soundActions.remove(windSound()));
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] reset', () => {
-  const action = store.dispatch(soundActions.reset(true));
-  expect(action.type).toBe('SOUNDS_RESET');
-  expect(currState()).toEqual({});
+  store.dispatch(soundActions.reset(true));
+  expect(currState()).toMatchSnapshot();
 });
 
 test('[reducer/sounds] clear', () => {
-  const action = store.dispatch(soundActions.reset());
-  expect(action.type).toBe('SOUNDS_RESET');
-  expect(currState()).toEqual(defaultState);
+  store.dispatch(soundActions.reset());
+  expect(currState()).toMatchSnapshot();
 });

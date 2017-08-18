@@ -8,19 +8,17 @@ const currState = () => prop('themes', store.getState());
 
 test('[reducer/themes]', () => {
   store.dispatch(themeActions.change('#E91E63', 0));
-  expect(prop('primary', currState())).toBe('#E91E63');
-  expect(prop('btn', currState())).toBe('#4CAF50');
+  expect(currState()).toMatchSnapshot();
 
   store.dispatch(themeActions.change('#03A9F4', 0));
-  expect(prop('primary', currState())).toBe('#03A9F4');
+  expect(currState()).toMatchSnapshot();
 
   store.dispatch(themeActions.change('#9C27B0', 1));
-  expect(prop('btn', currState())).toBe('#9C27B0');
+  expect(currState()).toMatchSnapshot();
 
   store.dispatch(themeActions.change('#8BC34A', 1));
-  expect(prop('btn', currState())).toBe('#8BC34A');
+  expect(currState()).toMatchSnapshot();
 
   store.dispatch(themeActions.change('#FFEB3B', 0));
-  expect(prop('primary', currState())).toBe('#FFEB3B');
-  expect(prop('darkUI', currState())).toBe(true);
+  expect(currState()).toMatchSnapshot();
 });
