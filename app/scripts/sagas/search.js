@@ -20,7 +20,7 @@ import {
   sum,
   T
 } from 'ramda';
-import { put, throttle } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import { searchActions, searchTypes } from 'actions/';
 import {
   getYoutubeSearch,
@@ -128,7 +128,7 @@ export function* fetchService(service, { term }) {
 }
 
 export default function* rootSaga() {
-  yield throttle(500, searchTypes.YOUTUBE, fetchService, 'youtube');
-  yield throttle(500, searchTypes.KAKAPO, fetchService, 'kakapofavs');
-  yield throttle(500, searchTypes.SOUNDCLOUD, fetchService, 'soundcloud');
+  yield takeLatest(searchTypes.YOUTUBE, fetchService, 'youtube');
+  yield takeLatest(searchTypes.KAKAPO, fetchService, 'kakapofavs');
+  yield takeLatest(searchTypes.SOUNDCLOUD, fetchService, 'soundcloud');
 }
