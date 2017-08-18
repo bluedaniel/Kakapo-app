@@ -18,11 +18,6 @@ test('<TextInput/> render', () => {
   expect(tree).toMatchSnapshot();
 });
 
-test('<TextInput/> w/o translation', () => {
-  const { tree } = setup();
-  expect(tree).toMatchSnapshot();
-});
-
 test('<TextInput/> correct value', () => {
   const { tree } = setup({ value: 42 });
   expect(tree).toMatchSnapshot();

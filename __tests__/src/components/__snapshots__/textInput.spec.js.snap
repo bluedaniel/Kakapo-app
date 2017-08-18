@@ -113,29 +113,3 @@ exports[`<TextInput/> render 1`] = `
   </label>
 </div>
 `;
-
-exports[`<TextInput/> w/o translation 1`] = `
-<div
-  className="group"
->
-  <input
-    autoComplete="off"
-    defaultValue={undefined}
-    name="test"
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-    type="text"
-  />
-  <span
-    className="highlight"
-  />
-  <span
-    className="bar"
-  />
-  <label>
-    without.translation
-  </label>
-</div>
-`;
