@@ -1,7 +1,7 @@
 import { put } from 'redux-saga/effects';
 import { fetchService } from 'sagas/search';
 import { searchActions } from 'actions/';
-import { youtubeRes, kakapoRes } from '../helper';
+import { youtubeRes } from '../helper';
 
 beforeEach(() => {
   fetch.mockResponses(
