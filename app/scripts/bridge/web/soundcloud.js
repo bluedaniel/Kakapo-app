@@ -1,5 +1,5 @@
-import { newSoundClass } from 'classes/';
-import { serialize } from 'utils/';
+import { merge } from 'ramda';
+import { serialize, newSoundObj } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
 const SCAPI_TRACKS = `${SCAPI}/tracks`;
@@ -29,26 +29,29 @@ export default {
   },
 
   getSoundCloudSearch(q) {
-    if (!window.SC) window.SC.initialize({ client_id: SOUNDCLOUD_KEY });
+    window.SC.initialize({ client_id: SOUNDCLOUD_KEY });
     return new Promise(resolve =>
-      window.SC.get('/tracks', { q }, tracks => resolve(tracks)));
+      window.SC.get('/tracks', { q }, tracks => resolve(tracks))
+    );
   },
 
-  getSoundCloudURL(subject, id) {
-    const url = `${SCAPI_TRACKS}/${id}${serialize({ client_id: SOUNDCLOUD_KEY })}`;
-    fetch(url)
-    .then(response => response.json())
-    .then(({ data }) => {
-      subject.next({ ...newSoundClass,
-        file: data.stream_url,
-        img: data.artwork_url,
-        link: data.permalink_url,
-        name: data.title,
-        progress: 0,
-        source: 'soundcloudStream',
-        tags: data.tag_list
-      });
-    })
-    .catch(({ data }) => subject.error(data.errors[0].error_message));
+  getSoundCloudURL(id) {
+    const url = `${SCAPI_TRACKS}/${id}${serialize({
+      client_id: SOUNDCLOUD_KEY
+    })}`;
+    return fetch(url)
+      .then(resp => resp.json())
+      .then(({ stream_url, artwork_url, permalink_url, title, tag_list }) =>
+        merge(newSoundObj, {
+          file: stream_url,
+          img: artwork_url,
+          link: permalink_url,
+          name: title,
+          progress: 0,
+          source: 'soundcloudStream',
+          tags: tag_list
+        })
+      )
+      .catch(({ message }) => message);
   }
 };

@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ColorPicker/> 1`] = `
+<div
+  className="color-picker"
+>
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#FFEB3B",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#FFC107",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#FF9800",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#F44336",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#E91E63",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#9C27B0",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#673AB7",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#3F51B5",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#2196F3",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#03A9F4",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#00BCD4",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#009688",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#4CAF50",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#8BC34A",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#CDDC39",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#FF5722",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#795548",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#9E9E9E",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#607D8B",
+      }
+    }
+    tabIndex={-1}
+  />
+  <div
+    onClick={[Function]}
+    role="button"
+    style={
+      Object {
+        "backgroundColor": "#001",
+      }
+    }
+    tabIndex={-1}
+  />
+</div>
+`;

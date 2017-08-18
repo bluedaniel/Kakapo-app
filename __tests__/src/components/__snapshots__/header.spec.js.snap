@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header/> render 1`] = `
+<header
+  className="header"
+  style={
+    Object {
+      "backgroundColor": "#673AB7",
+    }
+  }
+>
+  <span
+    className="toggle-mute"
+    onClick={undefined}
+    role="button"
+    tabIndex={-1}
+  >
+    <span
+      className="hint--right"
+      data-hint="Mute"
+    >
+      <i
+        className="icon-volume_up"
+      />
+    </span>
+  </span>
+  <div
+    className="logo"
+  >
+    <h3
+      className=""
+    >
+      <span
+        className="logo-bg icon-img-logo"
+      />
+      <span
+        className="logo-text"
+      >
+        Kakapo
+      </span>
+    </h3>
+  </div>
+</header>
+`;

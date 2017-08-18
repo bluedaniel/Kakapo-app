@@ -1,24 +1,15 @@
-/* eslint camelcase:0 */
+import { eventChannel, END } from 'redux-saga';
 import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig } from 'utils/';
-import { newSoundClass } from 'classes/';
+import { pathConfig, newSoundObj, noop } from 'utils/';
 
-let fileSize = 0;
-let dataRead = 0;
-let newSound = {};
-
-const actions = {
-  getYoutubeObj() {
-    return null;
-  },
-
-  getYoutubeURL(subject, data) {
-    fileSize = 0;
-    dataRead = 0;
-    newSound = {};
+const getYoutubeURL = data =>
+  eventChannel(emit => {
+    let fileSize = 0;
+    let dataRead = 0;
+    let newSound = {};
 
     const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
 
@@ -26,31 +17,47 @@ const actions = {
       format: 'audioonly',
       debug: true
     })
-    .on('response', ({ headers }) => {
-      fileSize = headers['content-length'];
-    })
-    .on('info', ({ title, keywords, thumbnail_url, video_id }, { container }) => {
-      newSound = { ...newSoundClass,
-        file: path.join(pathConfig.userSoundDir, `${shortid.generate()}.${container}`),
-        img: thumbnail_url,
-        link: `https://www.youtube.com/watch?v=${video_id}`,
-        name: title,
-        source: 'youtubeStream',
-        tags: keywords ? keywords.join(' ') : ''
-      };
-    })
-    .on('error', e => subject.error(`Error: ${e.message}`))
-    .on('data', data => {
-      const progress = (dataRead += data.length) / fileSize;
-      subject.next({ ...newSound, progress });
-    })
-    .on('finish', () => {
-      fs.rename(tmpFile, newSound.file);
-      subject.next(newSound);
-      subject.complete(); // Completed download
-    })
-    .pipe(fs.createWriteStream(tmpFile));
-  }
-};
+      .on('response', ({ headers }) => {
+        fileSize = headers['content-length'];
+      })
+      .on(
+        'info',
+        (
+          { title, keywords, thumbnail_url, video_id: videoID },
+          { container }
+        ) => {
+          newSound = {
+            ...newSoundObj,
+            file: path.join(
+              pathConfig.userSoundDir,
+              `${shortid.generate()}.${container}`
+            ),
+            img: thumbnail_url,
+            link: `https://www.youtube.com/watch?v=${videoID}`,
+            name: title,
+            source: 'youtubeStream',
+            tags: keywords ? keywords.join(' ') : ''
+          };
+        }
+      )
+      .on('error', e => {
+        emit(Error(`Error: ${e.message}`));
+      })
+      .on('data', data => {
+        const progress = (dataRead += data.length) / fileSize;
+        emit({ ...newSound, progress });
+      })
+      .on('finish', () => {
+        fs.rename(tmpFile, newSound.file);
+        emit({ ...newSound, progress: 1 });
+        emit(END); // Completed download
+      })
+      .pipe(fs.createWriteStream(tmpFile));
 
-export default actions;
+    return noop;
+  });
+
+export default {
+  getYoutubeObj: noop,
+  getYoutubeURL
+};

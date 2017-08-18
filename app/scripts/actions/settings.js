@@ -1,15 +1,13 @@
-import constants from 'constants/';
+import { createActions } from 'reduxsauce';
 
-const {
-  SETTINGS_INITIAL_RENDER, SETTINGS_MUTE, SETTINGS_DOCK,
-  SETTINGS_DEVTOOLS, SETTINGS_LANGUAGE, SETTINGS_UPDATE
-} = constants;
+const prefix = 'SETTINGS_';
 
-export default {
-  initialRender: () => ({ type: SETTINGS_INITIAL_RENDER }),
-  toggleMute: bool => ({ type: SETTINGS_MUTE, bool }),
-  toggleDock: bool => ({ type: SETTINGS_DOCK, bool }),
-  toggleDevTools: bool => ({ type: SETTINGS_DEVTOOLS, bool }),
-  settingsLanguage: locale => ({ type: SETTINGS_LANGUAGE, locale }),
-  desktopUpdate: status => ({ type: SETTINGS_UPDATE, status })
+const actions = {
+  mute: ['bool'],
+  dock: ['bool'],
+  devtools: ['bool'],
+  language: ['locale'],
+  update: ['status']
 };
+
+export const { Types, Creators } = createActions(actions, { prefix });

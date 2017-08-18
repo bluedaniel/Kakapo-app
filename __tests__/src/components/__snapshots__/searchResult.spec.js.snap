@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchResult/> render soundcloud 1`] = `
+<div
+  className="soundcloud-item"
+  onClick={[Function]}
+  role="button"
+  tabIndex={undefined}
+>
+  <div
+    className="thumbnail"
+  >
+    <img
+      alt="Testing name"
+      src="https://i.ytimg.com/vi/YTg7fpGLsKE/hqdefault.jpg"
+    />
+    <span
+      className="duration"
+    >
+      03:48
+    </span>
+  </div>
+  <span
+    className="title"
+  >
+    Testing name
+    <span
+      className="view-count"
+    >
+      319,609
+       
+      plays
+    </span>
+  </span>
+</div>
+`;
+
+exports[`<SearchResult/> render youtube 1`] = `
+<div
+  className="youtube-item"
+  onClick={[Function]}
+  role="button"
+  tabIndex={undefined}
+>
+  <div
+    className="thumbnail"
+  >
+    <img
+      alt="Testing name"
+      src="https://i.ytimg.com/vi/YTg7fpGLsKE/hqdefault.jpg"
+    />
+    <span
+      className="duration"
+    >
+      03:48
+    </span>
+  </div>
+  <span
+    className="title"
+  >
+    Testing name
+    <span
+      className="view-count"
+    >
+      319,609
+       
+      views
+    </span>
+  </span>
+</div>
+`;

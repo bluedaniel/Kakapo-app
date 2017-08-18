@@ -4,6 +4,7 @@
     overflow: hidden;
     position: relative;
   }
+
   .divider {
     background: color(#f5f5f5 blackness(30%));
 
@@ -20,6 +21,7 @@
       margin: 1rem 0;
     }
   }
+
   .add-sounds-title {
     display: none;
 
@@ -27,6 +29,7 @@
       display: block;
     }
   }
+
   .option-ul {
     margin: 0;
     padding: 0;
@@ -37,6 +40,7 @@
       display: block;
     }
   }
+
   .option {
     display: inline-block;
     vertical-align: middle;
@@ -47,10 +51,12 @@
       margin-bottom: 1em;
       display: block;
     }
+
     &:last-child {
       margin-bottom: 0;
       margin-right: 0;
     }
+
     span.text {
       font-size: 14px;
       line-height: 20px;
@@ -60,6 +66,7 @@
         display: inline-block;
       }
     }
+
     i {
       width: 42px;
       height: 42px;
@@ -68,6 +75,7 @@
       @media (min-width: 40rem) {
         margin-right: 14px;
       }
+
       &.icon-add {
         top: 4px;
         position: relative;
@@ -76,6 +84,7 @@
           top: 0;
         }
       }
+
       &.icon-add,
       &.icon-settings,
       &.icon-playlist {
@@ -93,6 +102,7 @@
   padding: 15px 10px;
   text-align: center;
   width: auto;
+
   &.active {
     border: 2px solid #333;
   }

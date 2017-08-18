@@ -1,5 +1,5 @@
-import { Map } from 'immutable';
 import semver from 'semver';
+import { compose, concat, filter, length } from 'ramda';
 import packageJson from '../../../../package.json';
 
 export default {
@@ -8,19 +8,20 @@ export default {
   },
   initWithDefault(defaultSounds) {
     const localState = JSON.parse(localStorage.getItem('sounds'));
-    const initialState = localState ? new Map(localState) : new Map();
+    const initialState = localState || [];
 
-    if (!initialState.size) {
+    if (!length(initialState)) {
       this.setVersion();
       return defaultSounds;
     }
 
-    if (semver.lt(localStorage.getItem('version') || '0.0.1', packageJson.version)) {
+    if (
+      semver.lt(localStorage.getItem('version') || '0.0.1', packageJson.version)
+    ) {
       this.setVersion();
-      return initialState
-      .filterNot(_s => _s.source === 'file')
-      .toArray()
-      .concat(defaultSounds);
+      return compose(concat(defaultSounds), filter(_s => _s.source !== 'file'))(
+        initialState
+      );
     }
 
     return initialState;

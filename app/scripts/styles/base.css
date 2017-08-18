@@ -1,15 +1,15 @@
 @import "hint.css/hint";
-@import "./animation";
-@import "./fonts";
-@import "./type";
-@import "./buttons";
-@import "./icons";
-@import "./input";
-@import "./switch";
-@import "./spinner";
-@import "./search";
-@import "./media";
-@import "./update";
+@import "animation";
+@import "fonts";
+@import "type";
+@import "buttons";
+@import "icons";
+@import "input";
+@import "switch";
+@import "spinner";
+@import "search";
+@import "media";
+@import "update";
 
 .initial-loading {
   display: none;

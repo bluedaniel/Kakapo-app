@@ -1,0 +1,197 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DownloadList/> render 1`] = `
+<div
+  className="download-list"
+>
+  <div
+    className="download active"
+  >
+    <div
+      className="no-image"
+    />
+    <span
+      className="title"
+    >
+      thunder
+    </span>
+    <div
+      className="progress"
+    >
+      <div
+        className="progress-barberpole"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      />
+      <div
+        className="progress-text"
+      >
+        50
+        %
+      </div>
+    </div>
+  </div>
+  <div
+    className="download active"
+  >
+    <div
+      className="no-image"
+    />
+    <span
+      className="title"
+    >
+      thunder
+    </span>
+    <div
+      className="progress"
+    >
+      <div
+        className="progress-barberpole"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      />
+      <div
+        className="progress-text"
+      >
+        50
+        %
+      </div>
+    </div>
+  </div>
+  <div
+    className="download active"
+  >
+    <div
+      className="no-image"
+    />
+    <span
+      className="title"
+    >
+      thunder
+    </span>
+    <div
+      className="progress"
+    >
+      <div
+        className="progress-barberpole"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      />
+      <div
+        className="progress-text"
+      >
+        50
+        %
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<DownloadList/> render empty 1`] = `<div />`;
+
+exports[`<DownloadList/> render sounds with \`progress\` < 1 1`] = `
+<div
+  className="download-list"
+>
+  <div
+    className="download active"
+  >
+    <div
+      className="no-image"
+    />
+    <span
+      className="title"
+    >
+      thunder
+    </span>
+    <div
+      className="progress"
+    >
+      <div
+        className="progress-barberpole"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      />
+      <div
+        className="progress-text"
+      >
+        50
+        %
+      </div>
+    </div>
+  </div>
+  <div
+    className="download active"
+  >
+    <div
+      className="no-image"
+    />
+    <span
+      className="title"
+    >
+      thunder
+    </span>
+    <div
+      className="progress"
+    >
+      <div
+        className="progress-barberpole"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      />
+      <div
+        className="progress-text"
+      >
+        50
+        %
+      </div>
+    </div>
+  </div>
+  <div
+    className="download active"
+  >
+    <div
+      className="no-image"
+    />
+    <span
+      className="title"
+    >
+      thunder
+    </span>
+    <div
+      className="progress"
+    >
+      <div
+        className="progress-barberpole"
+        style={
+          Object {
+            "width": "50%",
+          }
+        }
+      />
+      <div
+        className="progress-text"
+      >
+        50
+        %
+      </div>
+    </div>
+  </div>
+</div>
+`;

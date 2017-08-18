@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CustomUrl/> 1`] = `
+<div
+  className="customurl"
+>
+  <h5>
+    Add a custom stream
+  </h5>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="media-import"
+    >
+      <div
+        className="group"
+      >
+        <input
+          autoComplete="off"
+          defaultValue={undefined}
+          name="name"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={true}
+          type="text"
+        />
+        <span
+          className="highlight"
+        />
+        <span
+          className="bar"
+        />
+        <label>
+          Choose a name for this sound
+        </label>
+      </div>
+      <div
+        className="group"
+      >
+        <input
+          autoComplete="off"
+          defaultValue={undefined}
+          name="url"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={true}
+          type="text"
+        />
+        <span
+          className="highlight"
+        />
+        <span
+          className="bar"
+        />
+        <label>
+          Enter a link to an audio file
+        </label>
+      </div>
+      <button
+        className="button"
+        style={
+          Object {
+            "backgroundColor": "#4CAF50",
+            "borderColor": "#4CAF50",
+          }
+        }
+      >
+        Save
+      </button>
+    </div>
+  </form>
+</div>
+`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[reducer/notifications] 1`] = `
+Object {
+  "testID": "test",
+}
+`;
+
+exports[`[reducer/notifications] 2`] = `Object {}`;

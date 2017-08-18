@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<KakapoItem/> render 1`] = `
+<div
+  className="kakapo-item disabled"
+  onClick={[Function]}
+  role="link"
+  tabIndex={-1}
+>
+  <div
+    className="thumbnail"
+  >
+    <i
+      className="icon-wind"
+    />
+  </div>
+  <span
+    className="title"
+  >
+    Wind
+  </span>
+</div>
+`;
+
+exports[`<KakapoItem/> render file 1`] = `
+<div
+  className="kakapo-item"
+  onClick={[Function]}
+  role="link"
+  tabIndex={-1}
+>
+  <div
+    className="thumbnail"
+  >
+    <i
+      className="icon-wind"
+    />
+  </div>
+  <span
+    className="title"
+  >
+    Wind
+  </span>
+</div>
+`;

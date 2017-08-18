@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Progress/> render 1`] = `
+<div
+  className="progress"
+>
+  <div
+    className="progress-barberpole"
+    style={
+      Object {
+        "width": "0%",
+      }
+    }
+  />
+  <div
+    className="progress-text"
+  >
+    0
+    %
+  </div>
+</div>
+`;
+
+exports[`<Progress/> rounds 0.415 to 42%  1`] = `
+<div
+  className="progress"
+>
+  <div
+    className="progress-barberpole"
+    style={
+      Object {
+        "width": "42%",
+      }
+    }
+  />
+  <div
+    className="progress-text"
+  >
+    42
+    %
+  </div>
+</div>
+`;

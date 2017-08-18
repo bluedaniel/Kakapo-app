@@ -1,4 +1,3 @@
-
 export { default as Header } from './header/header';
 export { default as Nav } from './nav/nav';
 
@@ -16,3 +15,6 @@ export { default as ImportSearch } from './import/search';
 
 export { default as ImportKakapoItem } from './import/kakapoItem';
 export { default as ImportSearchResult } from './import/searchResult';
+
+export { default as Playlist } from './playlist/playlist';
+export { default as Settings } from './settings/settings';

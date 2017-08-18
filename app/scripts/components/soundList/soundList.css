@@ -1,10 +1,15 @@
-
 .sound-list {
-  lost-column: 1/2 0 0;
+  lost-column: 1/2;
   overflow: hidden;
+
+  @media (max-width: 40rem) {
+    width: 100%;
+  }
+
   &:first-child {
     border-top: none;
   }
+
   > div {
     position: relative;
   }

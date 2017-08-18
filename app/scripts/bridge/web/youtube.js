@@ -1,5 +1,31 @@
-/* eslint no-new:0 */
-import { newSoundClass } from 'classes/';
+import { merge } from 'ramda';
+import { newSoundObj } from 'utils/';
+
+const newYTPlayer = (elID, file, playing, resolve) =>
+  new window.YT.Player(elID, {
+    videoId: file,
+    height: 225,
+    width: 400,
+    playerVars: {
+      iv_load_policy: 3,
+      autoplay: playing ? 1 : 0,
+      controls: 0,
+      loop: 1,
+      playlist: file,
+      showinfo: 0
+    },
+    events: {
+      onReady: ({ target }) => {
+        resolve({
+          play: () => target.playVideo(),
+          pause: () => target.pauseVideo(),
+          volume: vol => target.setVolume(vol * 100),
+          mute: toggle => (toggle ? target.mute() : target.unMute()),
+          unload: () => target.destroy()
+        });
+      }
+    }
+  });
 
 export default {
   getYoutubeObj({ file, playing }) {
@@ -7,42 +33,12 @@ export default {
       const elID = `video-${file}`;
       const checkExist = setInterval(() => {
         if (document.getElementById(elID)) {
-          new window.YT.Player(elID, {
-            videoId: file,
-            height: 225,
-            width: 400,
-            playerVars: {
-              iv_load_policy: 3,
-              autoplay: playing ? 1 : 0,
-              controls: 0,
-              loop: 1,
-              playlist: file,
-              showinfo: 0
-            },
-            events: {
-              onReady: (el) => {
-                resolve({
-                  play: () => el.target.playVideo(),
-                  pause: () => el.target.pauseVideo(),
-                  volume: vol => el.target.setVolume(vol * 100),
-                  mute: toggle => {
-                    if (toggle) return el.target.mute();
-                    return el.target.unMute();
-                  },
-
-                  unload: () => el.target.destroy()
-                });
-              }
-            }
-          });
+          newYTPlayer(elID, file, playing, resolve);
           clearInterval(checkExist);
         }
       }, 250); // iFrame wont exist until after render
     });
   },
 
-  getYoutubeURL(subject, data) {
-    subject.next({ ...newSoundClass, ...data });
-    subject.complete();
-  }
+  getYoutubeURL: merge(newSoundObj)
 };

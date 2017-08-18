@@ -8,7 +8,9 @@ export default {
     let themeData;
     try {
       themeData = fs.readJsonSync(pathConfig.userThemeFile, { throws: false });
-      if (semver.lt(themeData.version || '0.0.1', packageJson.config.themeVersion)) {
+      if (
+        semver.lt(themeData.version || '0.0.1', packageJson.config.themeVersion)
+      ) {
         themeData = {};
       }
     } catch (e) {
@@ -17,6 +19,6 @@ export default {
     return themeData;
   },
   saveToStorage(json) {
-    fs.writeFile(pathConfig.userThemeFile, json);
+    fs.writeFileSync(pathConfig.userThemeFile, json);
   }
 };

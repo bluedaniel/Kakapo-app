@@ -1,0 +1,330 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SoundItem/> render 1`] = `
+<div
+  className="item waves-effect waves-block paused"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "color": "#121212",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="inner"
+  >
+    <i
+      className="preview icon-wind"
+    />
+    <ul
+      className="actions dark"
+    >
+      <li>
+        <a
+          href="wind"
+          onClick={[Function]}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <i
+            className="icon-share"
+          />
+        </a>
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-edit"
+        />
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-delete"
+        />
+      </li>
+    </ul>
+    <span
+      className="title"
+    >
+      wind
+    </span>
+    <input
+      defaultValue={0.5}
+      max="1"
+      min="0"
+      onChange={[Function]}
+      onClick={[Function]}
+      step="0.01"
+      type="range"
+    />
+  </div>
+  <div />
+</div>
+`;
+
+exports[`<SoundItem/> render playing 1`] = `
+<div
+  className="item waves-effect waves-block playing"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "backgroundColor": "#673AB7",
+      "color": "#fff",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="inner"
+  >
+    <i
+      className="preview icon-wind"
+    />
+    <ul
+      className="actions"
+    >
+      <li>
+        <a
+          href="wind"
+          onClick={[Function]}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <i
+            className="icon-share"
+          />
+        </a>
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-edit"
+        />
+      </li>
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-delete"
+        />
+      </li>
+    </ul>
+    <span
+      className="title"
+    >
+      wind
+    </span>
+    <input
+      defaultValue={0.5}
+      max="1"
+      min="0"
+      onChange={[Function]}
+      onClick={[Function]}
+      step="0.01"
+      type="range"
+    />
+  </div>
+  <div />
+</div>
+`;
+
+exports[`<SoundItem/> w/o image 1`] = `
+<div
+  className="item waves-effect waves-block paused youtube-stream"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "color": "#121212",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="inner"
+  >
+    <div
+      className="no-image"
+    />
+    <ul
+      className="actions dark"
+    >
+      <li>
+        <a
+          href="wind"
+          onClick={[Function]}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <i
+            className="icon-share"
+          />
+        </a>
+      </li>
+      
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-delete"
+        />
+      </li>
+    </ul>
+    <span
+      className="title"
+    >
+      wind
+    </span>
+    <input
+      defaultValue={0.5}
+      max="1"
+      min="0"
+      onChange={[Function]}
+      onClick={[Function]}
+      step="0.01"
+      type="range"
+    />
+  </div>
+  <div
+    className="youtube-video"
+    id="video-wind"
+  />
+</div>
+`;
+
+exports[`<SoundItem/> youtube render 1`] = `
+<div
+  className="item waves-effect waves-block paused youtube-stream"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "color": "#121212",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="inner"
+  >
+    <img
+      alt="wind"
+      src="wind"
+    />
+    <ul
+      className="actions dark"
+    >
+      <li>
+        <a
+          href="wind"
+          onClick={[Function]}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <i
+            className="icon-share"
+          />
+        </a>
+      </li>
+      
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-delete"
+        />
+      </li>
+    </ul>
+    <span
+      className="title"
+    >
+      wind
+    </span>
+    <input
+      defaultValue={0.5}
+      max="1"
+      min="0"
+      onChange={[Function]}
+      onClick={[Function]}
+      step="0.01"
+      type="range"
+    />
+  </div>
+  <div
+    className="youtube-video"
+    id="video-wind"
+  />
+</div>
+`;
+
+exports[`<SoundItem/> youtube render test-id 1`] = `
+<div
+  className="item waves-effect waves-block paused youtube-stream"
+  onClick={[Function]}
+  role="button"
+  style={
+    Object {
+      "color": "#121212",
+    }
+  }
+  tabIndex={-1}
+>
+  <div
+    className="inner"
+  >
+    <img
+      alt="wind"
+      src="wind"
+    />
+    <ul
+      className="actions dark"
+    >
+      <li>
+        <a
+          href="wind"
+          onClick={[Function]}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <i
+            className="icon-share"
+          />
+        </a>
+      </li>
+      
+      <li
+        onClick={[Function]}
+      >
+        <i
+          className="icon-delete"
+        />
+      </li>
+    </ul>
+    <span
+      className="title"
+    >
+      wind
+    </span>
+    <input
+      defaultValue={0.5}
+      max="1"
+      min="0"
+      onChange={[Function]}
+      onClick={[Function]}
+      step="0.01"
+      type="range"
+    />
+  </div>
+  <div
+    className="youtube-video"
+    id="video-7ccQyyCLtx8"
+  />
+</div>
+`;

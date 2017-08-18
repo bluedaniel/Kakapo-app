@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox/> 1`] = `
+<label
+  className="switch"
+  htmlFor="testName"
+>
+  <span
+    className="switch-label"
+  >
+    testLabel
+  </span>
+  <input
+    checked={false}
+    id="testName"
+    name="testName"
+    onChange={[Function]}
+    type="checkbox"
+    value={false}
+  />
+</label>
+`;

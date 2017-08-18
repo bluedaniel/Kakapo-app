@@ -1,18 +1,11 @@
-import { newSoundClass } from 'classes/';
-import { validHowl } from 'utils/';
+import { validHowl, newSoundObj, noop } from 'utils/';
 
-const actions = {
-  getCustomFile() {
-
-  },
-  getCustomURL(subject, data) {
+export default {
+  getCustomFile: noop,
+  getCustomURL(data) {
     if (data.source !== 'file' && !validHowl(data.file)) {
-      subject.error(validHowl(data.file, true));
-    } else {
-      subject.next({ ...newSoundClass, ...data });
-      subject.complete();
+      throw new Error(validHowl(data.file, true));
     }
+    return { ...newSoundObj, ...data };
   }
 };
-
-export default actions;

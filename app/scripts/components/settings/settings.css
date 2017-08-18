@@ -1,0 +1,51 @@
+.settings-pane {
+  .opt {
+    align-items: center;
+    border-top: 1px solid #efefef;
+    display: flex;
+    padding: 1.1em 0;
+
+    span:first-child {
+      flex: 1.75 0 0;
+    }
+
+    select,
+    .swatches {
+      flex: 1.25 0 0;
+      margin: 0;
+
+      a {
+        float: left;
+        height: 35px;
+        width: 50%;
+      }
+    }
+
+    .github,
+    .icon-img-github {
+      height: 48px;
+      width: 48px;
+    }
+
+    .icon-exit {
+      margin-right: 5px;
+      height: 23px;
+      width: 23px;
+    }
+
+    &.first {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    &.opt-repo {
+      display: block;
+      padding-bottom: 0;
+
+      .version {
+        float: right;
+        font-size: 14px;
+      }
+    }
+  }
+}

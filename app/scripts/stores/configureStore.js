@@ -1,22 +1,35 @@
-import {
-  FromEventPatternObservable
-} from 'rxjs/observable/FromEventPatternObservable';
-import { applyMiddleware, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
+import createHashHistory from 'history/createHashHistory';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { routerMiddleware } from 'react-router-redux';
 import rootReducer from 'reducers';
 
-function configureStore() {
-  const enhancer = [ applyMiddleware(thunk) ];
+export const history = createHashHistory();
 
-  return compose(...enhancer)(createStore)(
+const sagaMiddleware = createSagaMiddleware();
+
+export default () => {
+  const middlewares = [sagaMiddleware, routerMiddleware(history)];
+
+  const enhancers = [applyMiddleware(...middlewares)];
+
+  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
+  /* eslint-disable no-underscore-dangle */
+  const composeEnhancers =
+    process.env.NODE_ENV !== 'production' &&
+    typeof window === 'object' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      : compose;
+  /* eslint-enable */
+
+  const store = createStore(
     rootReducer,
-    window.__INITIAL_STATE__
+    window.__INITIAL_STATE__,
+    composeEnhancers(...enhancers)
   );
-}
 
-export const store = configureStore();
+  store.runSaga = sagaMiddleware.run;
 
-export const observableStore = new FromEventPatternObservable(
-  handler => store.subscribe(handler),
-  (handler, unsubscribe) => unsubscribe(),
-  () => store.getState());
+  return store;
+};

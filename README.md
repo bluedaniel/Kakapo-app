@@ -13,17 +13,18 @@ See also: [Kakapo for iOS & Android](https://github.com/bluedaniel/Kakapo-native
 It's built using:
 
 - [Electron](https://github.com/atom/electron) - Wraps app for desktop.
-- [ReactJS](https://github.com/facebook/react) - UI & view components (mostly stateless).
-- [Babel 6](https://github.com/babel/babel) - To transform ES6 code.
+- [React](https://github.com/facebook/react) - UI & view components.
 - [Redux](https://github.com/rackt/redux) - State management.
-- [ImmutableJs](https://github.com/facebook/immutable-js) - All stores are immutable maps/lists.
+- [Redux Sagas](https://github.com/redux-saga/redux-saga) - Handles side effects.
+- [Ramda](https://github.com/ramda/ramda) - For functional Javascript.
 - [HowlerJs](https://github.com/goldfire/howler.js) - Handles audio objects.
 - [ReactIntl](https://github.com/yahoo/react-intl) - Internationalisation.
-- [RxJS](https://github.com/Reactive-Extensions/RxJS) - Search autocomplete and state changes use observables.
 - [PostCSS](https://github.com/postcss/postcss) - Transform JS styles.
 - [Webpack](https://github.com/webpack/webpack) - Bundling JS and hot module replacement.
 
-Tests are run using [Karma](https://github.com/karma-runner/karma), [Mocha](https://github.com/mochajs/mocha), [Chai](https://github.com/chaijs/chai) and [Enzyme](https://github.com/airbnb/enzyme). Code coverage & reporting provided by [Isparta](https://github.com/douglasduteil/isparta) and [Coveralls](https://coveralls.io/).
+Tests using [Jest](https://github.com/facebook/jest) and a bit of [Enzyme](https://github.com/airbnb/enzyme).
+
+Code coverage reporting provided by [Coveralls](https://coveralls.io/).
 
 <img src="https://raw.githubusercontent.com/bluedaniel/Kakapo-assets/master/images/screenshots/web_app.jpg" />
 
