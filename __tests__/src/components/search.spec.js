@@ -1,24 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { ImportSearch as Search } from 'components/';
 import { getData } from '../helper';
 
-function setup(props = {}, method = shallow) {
-  const propData = {
+test('<Search/> render', () => {
+  const props = {
     location: { pathname: '/youtube' },
     ...getData('intl'),
-    ...getData('search'),
-    ...props
+    ...getData('search')
   };
-  const wrapper = method(<Search {...propData} />);
-  return {
-    props,
-    wrapper
-  };
-}
-
-test('<Search/> render', () => {
-  const { wrapper } = setup();
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('youtube');
+  const tree = renderer.create(<Search {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

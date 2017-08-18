@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { newSoundObj } from 'utils/';
 import { ImportKakapoItem as KakapoItem } from 'components/';
 import { getData } from '../helper';
@@ -20,17 +20,18 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  return { props, wrapper: shallow(<KakapoItem {...propData} />) };
+  return {
+    props,
+    tree: renderer.create(<KakapoItem {...propData} />).toJSON()
+  };
 }
 
 test('<KakapoItem/> render', () => {
-  const { wrapper } = setup(soundProp());
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('kakapo-item disabled');
+  const { tree } = setup(soundProp());
+  expect(tree).toMatchSnapshot();
 });
 
 test('<KakapoItem/> render file', () => {
-  const { wrapper } = setup(soundProp({ file: 'someNewFile' }));
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('kakapo-item');
+  const { tree } = setup(soundProp({ file: 'someNewFile' }));
+  expect(tree).toMatchSnapshot();
 });

@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Notifications/> className 1`] = `
+<aside
+  className="notify notify-visible"
+>
+  <div>
+    test
+  </div>
+</aside>
+`;
+
+exports[`<Notifications/> list order 1`] = `
+<aside
+  className="notify notify-visible"
+>
+  <div>
+    test
+  </div>
+  <div>
+    test2
+  </div>
+</aside>
+`;
+
+exports[`<Notifications/> render 1`] = `
+<aside
+  className="notify"
+/>
+`;

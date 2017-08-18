@@ -18,7 +18,7 @@ const KakapoImport = ({ sounds, search, intl, dispatch }) =>
       {compose(
         map(_y =>
           <KakapoItem
-            key={_y.name}
+            key={_y.file}
             sound={_y}
             {...{ ...{ sounds, intl, dispatch } }}
           />

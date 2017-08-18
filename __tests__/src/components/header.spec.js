@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { Header } from 'components/';
 import { getData } from '../helper';
 
@@ -9,17 +10,17 @@ function setup(props = {}) {
     ...getData('settings'),
     ...props
   };
-  return { props, wrapper: shallow(<Header {...propData} />) };
+  const comp = <Header {...propData} />;
+  return {
+    props,
+    tree: renderer.create(comp).toJSON(),
+    wrapper: shallow(comp)
+  };
 }
 
 test('<Header/> render', () => {
-  const { wrapper } = setup();
-  expect(wrapper.type()).toBe('header');
-});
-
-test('<Header/> render mute icon', () => {
-  const { wrapper } = setup();
-  expect(wrapper.find('.toggle-mute').length).toBe(1);
+  const { tree } = setup();
+  expect(tree).toMatchSnapshot();
 });
 
 test('<Header/> simulate toggle-mute click', () => {

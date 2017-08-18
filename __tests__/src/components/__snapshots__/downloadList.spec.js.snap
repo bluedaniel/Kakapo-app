@@ -12,7 +12,9 @@ exports[`<DownloadList/> render 1`] = `
     />
     <span
       className="title"
-    />
+    >
+      thunder
+    </span>
     <div
       className="progress"
     >
@@ -40,7 +42,9 @@ exports[`<DownloadList/> render 1`] = `
     />
     <span
       className="title"
-    />
+    >
+      thunder
+    </span>
     <div
       className="progress"
     >
@@ -68,7 +72,9 @@ exports[`<DownloadList/> render 1`] = `
     />
     <span
       className="title"
-    />
+    >
+      thunder
+    </span>
     <div
       className="progress"
     >
@@ -105,7 +111,9 @@ exports[`<DownloadList/> render sounds with \`progress\` < 1 1`] = `
     />
     <span
       className="title"
-    />
+    >
+      thunder
+    </span>
     <div
       className="progress"
     >
@@ -133,7 +141,9 @@ exports[`<DownloadList/> render sounds with \`progress\` < 1 1`] = `
     />
     <span
       className="title"
-    />
+    >
+      thunder
+    </span>
     <div
       className="progress"
     >
@@ -161,7 +171,9 @@ exports[`<DownloadList/> render sounds with \`progress\` < 1 1`] = `
     />
     <span
       className="title"
-    />
+    >
+      thunder
+    </span>
     <div
       className="progress"
     >

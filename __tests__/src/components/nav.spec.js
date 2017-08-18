@@ -1,18 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { Nav } from 'components/';
 import { getData } from '../helper';
 
-function setup(props = {}) {
-  const propData = {
-    ...getData('themes'),
-    ...getData('intl'),
-    ...props
-  };
-  return { props, wrapper: shallow(<Nav {...propData} />) };
-}
-
 test('<Nav/> render', () => {
-  const { wrapper } = setup();
-  expect(wrapper.prop('className')).toBe('topbar');
+  const props = {
+    ...getData('themes'),
+    ...getData('intl')
+  };
+  const tree = renderer.create(<Nav {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

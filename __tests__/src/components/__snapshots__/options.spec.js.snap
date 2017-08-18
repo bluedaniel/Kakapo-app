@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Options/> render 1`] = `
+<div
+  className="downloads"
+>
+  <div
+    className="media"
+  >
+    <h4
+      className="add-sounds-title"
+    >
+      Add a sound
+    </h4>
+    <ul
+      className="option-ul"
+    >
+      <li
+        className="option options-kakapo"
+      >
+        <a
+          href="/kakapo"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-img-kakapo"
+          />
+          <span
+            className="text"
+          >
+            Kakapo favourites
+          </span>
+        </a>
+      </li>
+      <li
+        className="option options-youtube"
+      >
+        <a
+          href="/youtube"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-img-youtube"
+          />
+          <span
+            className="text"
+          >
+            YouTube
+          </span>
+        </a>
+      </li>
+      <li
+        className="option options-soundcloud"
+      >
+        <a
+          href="/soundcloud"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-img-soundcloud"
+          />
+          <span
+            className="text"
+          >
+            SoundCloud
+          </span>
+        </a>
+      </li>
+      <li
+        className="option options-custom"
+      >
+        <a
+          href="/custom"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-img-custom icon-add"
+          />
+          <span
+            className="text"
+          >
+            Custom link
+          </span>
+        </a>
+      </li>
+    </ul>
+    <div
+      className="divider"
+    />
+    <ul
+      className="option-ul"
+    >
+      <li
+        className="option"
+      >
+        <a
+          href="/playlist"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-playlist"
+          />
+          <span
+            className="text"
+          >
+            Playlists
+          </span>
+        </a>
+      </li>
+      <li
+        className="option"
+      >
+        <a
+          href="/settings"
+          onClick={[Function]}
+        >
+          <i
+            className="icon-settings"
+          />
+          <span
+            className="text"
+          >
+            Settings
+          </span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

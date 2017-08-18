@@ -1,25 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import Notifications from 'components/ui/notifications/notifications';
 
 function setup(props = {}) {
-  return { props, wrapper: shallow(<Notifications {...props} />) };
+  return {
+    props,
+    tree: renderer.create(<Notifications {...props} />).toJSON()
+  };
 }
 
 test('<Notifications/> render', () => {
-  const { wrapper } = setup({ notifications: {} });
-  expect(wrapper.type()).toBe('aside');
-  expect(wrapper.prop('className')).toBe('notify');
+  const { tree } = setup({ notifications: {} });
+  expect(tree).toMatchSnapshot();
 });
 
 test('<Notifications/> className', () => {
-  const { wrapper } = setup({ notifications: { a: 'test' } });
-  expect(wrapper.prop('className')).toBe('notify notify-visible');
+  const { tree } = setup({ notifications: { a: 'test' } });
+  expect(tree).toMatchSnapshot();
 });
 
 test('<Notifications/> list order', () => {
-  const { wrapper } = setup({ notifications: { a: 'test', b: 'test2' } });
-  expect(wrapper.children().length).toBe(2);
-  expect(wrapper.childAt(0).text()).toBe('test');
-  expect(wrapper.childAt(1).text()).toBe('test2');
+  const { tree } = setup({ notifications: { a: 'test', b: 'test2' } });
+  expect(tree).toMatchSnapshot();
 });
