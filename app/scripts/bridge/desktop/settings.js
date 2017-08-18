@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
 import shortid from 'shortid';
 import path from 'path';
-import { omit } from 'ramda';
+import { compose, set, lensProp, omit } from 'ramda';
 import { pathConfig } from 'utils/';
 
 const tmpUpdateStatus = path.join(
@@ -41,18 +41,11 @@ export default {
     return data[option];
   },
   setItem(option, value) {
-    const data = this._fromSettings();
-    data[option] = value;
+    const data = compose(set(lensProp(option), value))(this._fromSettings());
     fs.writeJson(pathConfig.userSettingsFile, omit('updateStatus', data));
 
-    if (option === 'dockIcon') {
-      ipcRenderer.send('toggle-dock', value);
-    }
-    if (option === 'devTools') {
-      ipcRenderer.send('toggle-devtools', value);
-    }
-    if (option === 'updateStatus') {
-      fs.writeJson(tmpUpdateStatus, value);
-    }
+    if (option === 'dockIcon') ipcRenderer.send('toggle-dock', value);
+    if (option === 'devTools') ipcRenderer.send('toggle-devtools', value);
+    if (option === 'updateStatus') fs.writeJson(tmpUpdateStatus, value);
   }
 };

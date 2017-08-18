@@ -5,15 +5,13 @@ import { compose, length, filter, prop, concat } from 'ramda';
 import { pathConfig } from 'utils/';
 import packageJson from '../../../../package.json';
 
-const latestVersion = packageJson.config.soundsVersion;
-
 const isPlaying = compose(length, filter(prop('playing')), JSON.parse);
 
 export default {
   setVersion() {
     fs.writeFile(
       pathConfig.userInstallFile,
-      JSON.stringify({ version: latestVersion })
+      JSON.stringify({ version: packageJson.version })
     );
   },
   initWithDefault(defaultSounds) {
@@ -21,19 +19,14 @@ export default {
     let appDetails;
 
     try {
-      initialState = fs.readJsonSync(
-        pathConfig.userSoundFile,
-        { throws: false },
-        (err, data) => {
-          if (err) return [];
-          return data;
-        }
-      );
+      initialState = fs.readJsonSync(pathConfig.userSoundFile, {
+        throws: false
+      });
     } catch (e) {
       initialState = [];
     }
 
-    if (!initialState.size) {
+    if (!length(initialState)) {
       this.setVersion();
       return defaultSounds;
     }

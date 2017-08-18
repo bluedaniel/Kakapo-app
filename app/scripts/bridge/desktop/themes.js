@@ -19,6 +19,6 @@ export default {
     return themeData;
   },
   saveToStorage(json) {
-    fs.writeFile(pathConfig.userThemeFile, json);
+    fs.writeFileSync(pathConfig.userThemeFile, json);
   }
 };
