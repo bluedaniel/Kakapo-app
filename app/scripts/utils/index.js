@@ -3,16 +3,7 @@ import fs from 'fs-extra';
 import { remote, shell } from 'electron';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { Observable } from 'rxjs/Observable';
 import { flatten } from 'ramda';
-import 'rxjs/add/observable/fromEvent';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/windowCount';
-import 'rxjs/add/operator/throttleTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/debounceTime';
 import { Howler } from 'howler/dist/howler.core.min.js';
 
 export const noop = () => {};
@@ -129,17 +120,6 @@ export const openLink = (e, link) => {
     shell.openExternal(link);
   }
 };
-
-// Konami keycode
-export const Konami = () =>
-  Observable.fromEvent(window, 'keyup')
-    .map(el => el.keyCode)
-    .windowWithCount(10, 1)
-    .mergeMap(_x => _x.toArray())
-    .filter(
-      seq =>
-        seq.toString() === [38, 38, 40, 40, 37, 39, 37, 39, 66, 65].toString()
-    );
 
 // file.mp6 -> invalid
 export const validHowl = (url, msg) => {
