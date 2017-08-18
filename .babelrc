@@ -6,7 +6,7 @@
       {
         "root": ["./app/scripts"],
         "alias": {
-          "aws-custom-build": "./app/vendor/aws-sdk-2.2.31.min"
+          "aws-custom-build": "./app/vendor/aws-sdk-2.100.0.min"
         }
       }
     ]
@@ -19,7 +19,7 @@
           {
             "root": ["./app/scripts"],
             "alias": {
-              "aws-custom-build": "./app/vendor/aws-sdk-2.2.31.min",
+              "aws-custom-build": "./app/vendor/aws-sdk-2.100.0.min",
               "kakapoBridge": "./app/scripts/bridge/web/index.js"
             }
           }
