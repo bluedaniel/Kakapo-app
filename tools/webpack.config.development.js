@@ -6,6 +6,7 @@ const config = {
   ...baseConfig,
   entry: {
     index: [
+      'babel-polyfill',
       './app/scripts/index',
       'webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr'
     ]

@@ -39,10 +39,8 @@ const config = {
     new webpack.ProvidePlugin({
       Promise:
         'imports-loader?this=>global!exports-loader?global.Promise!es6-promise',
-      fetch: `imports-loader?this=>global!exports-loader?global.fetch!${process
-        .env.NODE_ENV === 'test'
-        ? 'isomorphic-fetch'
-        : 'whatwg-fetch'}`
+      fetch:
+        'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch'
     }),
     new webpack.NormalModuleReplacementPlugin(/\/iconv-loader$/, () => {}),
     new webpack.IgnorePlugin(/vertx|react\/addons|react\/lib\/ReactContext/)
@@ -77,12 +75,6 @@ const config = {
       )
     }
   },
-
-  // postcss: webpack =>
-  //   [postcssImport({ addDependencyTo: webpack })].concat(
-  //     postcssPlugins(!DEBUG && platformDevice === 'desktop')
-  //   ),
-
   stats: {
     colors: true,
     reasons: DEBUG,

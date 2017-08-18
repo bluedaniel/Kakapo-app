@@ -5,7 +5,7 @@ import baseConfig from './webpack.config.base';
 const config = {
   ...baseConfig,
   entry: {
-    index: ['./app/scripts/index']
+    index: ['babel-polyfill', './app/scripts/index']
   },
   plugins: [
     ...baseConfig.plugins,
