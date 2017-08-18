@@ -4,6 +4,7 @@ import color from 'color';
 import { lensProp, set, reduce, compose, addIndex, map } from 'ramda';
 import { flatteni18n, swatches, newSoundObj } from 'utils/';
 import youtubeMock from '../../__mocks__/youtube.json';
+import soundcloudMock from '../../__mocks__/soundcloud.json';
 import packageJson from '../../package.json';
 
 export const getIntlProps = () => ({
@@ -92,5 +93,5 @@ export const stubFetchWith = data => {
 };
 
 export const kakapoRes = kakapoAssets.sounds;
-
 export const youtubeRes = youtubeMock;
+export const soundcloudRes = soundcloudMock;

@@ -60,17 +60,20 @@ const mapYoutube = map(
 );
 
 // SoundCloud Listeners
-const mapSoundcloud = map(_y => ({
-  desc: _y.description,
-  duration: formatDuration(_y.duration / 1000),
-  img:
-    'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
-  name: _y.title,
-  tags: _y.tag_list,
-  scId: parseInt(_y.id, 0),
-  userAvatar: _y.user.avatar_url,
-  viewCount: _y.playback_count
-}));
+const mapSoundcloud = map(
+  applySpec({
+    desc: prop('description'),
+    duration: compose(formatDuration, x => x / 1000, prop('duration')),
+    img: always(
+      'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png'
+    ),
+    name: prop('title'),
+    tags: prop('tag_list'),
+    scId: compose(parseInt, prop('id')),
+    userAvatar: pathOr('', ['user', 'avatar_url']),
+    viewCount: prop('playback_count')
+  })
+);
 
 // KakapoFavourites Listeners
 const mapKakapo = map(

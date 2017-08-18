@@ -1,10 +1,10 @@
 import { put } from 'redux-saga/effects';
-import { map } from 'ramda';
+import { map, merge, __ } from 'ramda';
 import { fetchService } from 'sagas/search';
 import { searchActions } from 'actions/';
-import { youtubeRes, kakapoRes } from '../helper';
+import { youtubeRes, kakapoRes, soundcloudRes } from '../helper';
 
-test('[sagas/search] success search YouTube for `chess`', async () => {
+test('[sagas/search] success search YouTube', async () => {
   fetch.mockResponses(
     [JSON.stringify(youtubeRes.videos), { status: 200 }],
     [JSON.stringify(youtubeRes.statistics), { status: 200 }]
@@ -40,7 +40,7 @@ test('[sagas/search] success search YouTube for `chess`', async () => {
   );
 });
 
-test('[sagas/search] failed search YouTube for `chess`', async () => {
+test('[sagas/search] failed search YouTube', async () => {
   fetch.mockResponses(
     [JSON.stringify(youtubeRes.videos), { status: 200 }],
     [JSON.stringify(youtubeRes.statistics), { status: 200 }]
@@ -61,9 +61,36 @@ test('[sagas/search] success search Kakapo', async () => {
 
   await expect(gen.next().value).resolves.toEqual(kakapoRes);
 
-  const items = map(x => ({ ...x, desc: '', url: '' }), kakapoRes);
+  const items = map(merge(__, { desc: '', url: '' }), kakapoRes);
 
   expect(gen.next(kakapoRes).value).toEqual(
     put(searchActions.requestSuccess(items, 'kakapofavs'))
+  );
+});
+
+test('[sagas/search] success search soundcloud', async () => {
+  fetch.mockResponses([JSON.stringify(soundcloudRes), { status: 200 }]);
+
+  const gen = fetchService('soundcloud', { term: '' });
+
+  await expect(gen.next().value).resolves.toEqual(soundcloudRes);
+
+  const items = [
+    {
+      desc: null,
+      duration: '00:18.109',
+      img:
+        'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
+      name: 'Munching at Tiannas house',
+      scId: 13158665,
+      tags: 'soundcloud:source=iphone-record',
+      userAvatar:
+        'http://a1.sndcdn.com/images/default_avatar_large.png?142a848',
+      viewCount: 0
+    }
+  ];
+
+  expect(gen.next(soundcloudRes).value).toEqual(
+    put(searchActions.requestSuccess(items, 'soundcloud'))
   );
 });
