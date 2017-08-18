@@ -8,14 +8,14 @@ exports[`<Progress/> render 1`] = `
     className="progress-barberpole"
     style={
       Object {
-        "width": "NaN%",
+        "width": "0%",
       }
     }
   />
   <div
     className="progress-text"
   >
-    NaN
+    0
     %
   </div>
 </div>

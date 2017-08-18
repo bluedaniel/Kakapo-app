@@ -1,7 +1,7 @@
 import React from 'react';
 import './progress.css';
 
-export default ({ progress }) =>
+export default ({ progress = 0 }) =>
   <div className="progress">
     <div
       className="progress-barberpole"
