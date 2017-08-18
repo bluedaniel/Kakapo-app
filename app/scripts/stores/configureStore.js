@@ -1,5 +1,4 @@
 import createHashHistory from 'history/createHashHistory';
-import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
@@ -10,7 +9,7 @@ export const history = createHashHistory();
 const sagaMiddleware = createSagaMiddleware();
 
 export default () => {
-  const middlewares = [thunk, sagaMiddleware, routerMiddleware(history)];
+  const middlewares = [sagaMiddleware, routerMiddleware(history)];
 
   const enhancers = [applyMiddleware(...middlewares)];
 
