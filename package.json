@@ -133,6 +133,7 @@
     "react-addons-test-utils": "^15.3.0",
     "react-test-renderer": "^15.6.1",
     "redbox-react": "^1.2.10",
+    "redux-mock-store": "^1.2.3",
     "request": "^2.74.0",
     "style-loader": "^0.18.2",
     "stylefmt": "^6.0.0",

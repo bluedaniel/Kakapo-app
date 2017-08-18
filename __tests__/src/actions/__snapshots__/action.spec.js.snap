@@ -1,56 +1,153 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[action/searchActions/input] 1`] = `
-Object {
-  "input": "test",
-  "type": "SEARCH_INPUT",
-}
+exports[`[action/notifyActions] 1`] = `
+Array [
+  Object {
+    "msg": "test",
+    "time": "test",
+    "type": "NOTIFICATIONS_SEND",
+  },
+  Object {
+    "id": "test",
+    "msg": "test",
+    "type": "NOTIFICATIONS_NOTIFY",
+  },
+  Object {
+    "id": "test",
+    "type": "NOTIFICATIONS_CLEAR",
+  },
+]
 `;
 
 exports[`[action/searchActions] 1`] = `
-Object {
-  "input": "test",
-  "type": "SEARCH_INPUT",
-}
+Array [
+  Object {
+    "input": "test",
+    "type": "SEARCH_INPUT",
+  },
+  Object {
+    "type": "SEARCH_KAKAPO",
+  },
+  Object {
+    "term": "test",
+    "type": "SEARCH_YOUTUBE",
+  },
+  Object {
+    "term": "test",
+    "type": "SEARCH_SOUNDCLOUD",
+  },
+  Object {
+    "type": "SEARCH_REQUEST",
+  },
+  Object {
+    "items": "test",
+    "service": "test",
+    "type": "SEARCH_REQUEST_SUCCESS",
+  },
+  Object {
+    "err": "test",
+    "type": "SEARCH_REQUEST_ERROR",
+  },
+]
 `;
 
-exports[`[action/searchActions] 2`] = `
-Object {
-  "type": "SEARCH_KAKAPO",
-}
+exports[`[action/settingActions] 1`] = `
+Array [
+  Object {
+    "bool": "test",
+    "type": "SETTINGS_MUTE",
+  },
+  Object {
+    "bool": "test",
+    "type": "SETTINGS_DOCK",
+  },
+  Object {
+    "bool": "test",
+    "type": "SETTINGS_DEVTOOLS",
+  },
+  Object {
+    "locale": "test",
+    "type": "SETTINGS_LANGUAGE",
+  },
+  Object {
+    "status": "test",
+    "type": "SETTINGS_UPDATE",
+  },
+]
 `;
 
-exports[`[action/searchActions] 3`] = `
-Object {
-  "term": "test",
-  "type": "SEARCH_YOUTUBE",
-}
+exports[`[action/soundActions] 1`] = `
+Array [
+  Object {
+    "type": "SOUNDS_REQUEST",
+  },
+  Object {
+    "resp": "test",
+    "type": "SOUNDS_REQUEST_SUCCESS",
+  },
+  Object {
+    "type": "SOUNDS_MUTE",
+  },
+  Object {
+    "sound": "test",
+    "type": "SOUNDS_PLAY",
+  },
+  Object {
+    "sound": "test",
+    "type": "SOUNDS_THROTTLE_VOLUME",
+    "volume": "test",
+  },
+  Object {
+    "sound": "test",
+    "type": "SOUNDS_VOLUME",
+    "volume": "test",
+  },
+  Object {
+    "data": "test",
+    "sound": "test",
+    "type": "SOUNDS_EDIT",
+  },
+  Object {
+    "sound": "test",
+    "type": "SOUNDS_REMOVE",
+  },
+  Object {
+    "file": "test",
+    "type": "SOUNDS_ADD_LOCAL",
+  },
+  Object {
+    "data": "test",
+    "service": "test",
+    "type": "SOUNDS_ADD_SOUND",
+  },
+  Object {
+    "sound": "test",
+    "type": "SOUNDS_ADD_SOUND_DOWNLOADING",
+  },
+  Object {
+    "sound": "test",
+    "type": "SOUNDS_ADD_SOUND_COMPLETE",
+  },
+  Object {
+    "clear": "test",
+    "type": "SOUNDS_RESET",
+  },
+  Object {
+    "id": "test",
+    "type": "SOUNDS_PLAYLIST",
+  },
+  Object {
+    "type": "SOUNDS_CREATE_PLAYLIST",
+  },
+]
 `;
 
-exports[`[action/searchActions] 4`] = `
-Object {
-  "term": "test",
-  "type": "SEARCH_SOUNDCLOUD",
-}
-`;
-
-exports[`[action/searchActions] 5`] = `
-Object {
-  "type": "SEARCH_REQUEST",
-}
-`;
-
-exports[`[action/searchActions] 6`] = `
-Object {
-  "items": "test",
-  "service": "test",
-  "type": "SEARCH_REQUEST_SUCCESS",
-}
-`;
-
-exports[`[action/searchActions] 7`] = `
-Object {
-  "err": "test",
-  "type": "SEARCH_REQUEST_ERROR",
-}
+exports[`[action/themeActions] 1`] = `
+Array [
+  Object {
+    "slotNo": "test",
+    "swatch": "test",
+    "type": "THEMES_CHANGE",
+  },
+]
 `;
