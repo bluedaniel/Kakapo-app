@@ -1,17 +1,7 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { contains } from 'ramda';
+import renderer from 'react-test-renderer';
 import { ImportSearchResult as SearchResult } from 'components/';
 import { getData } from '../helper';
-
-function setup(props = {}) {
-  const propData = {
-    service: 'youtube',
-    ...getData('intl'),
-    ...props
-  };
-  return { props, wrapper: shallow(<SearchResult {...propData} />) };
-}
 
 const sound = {
   desc: 'Testing description',
@@ -24,33 +14,21 @@ const sound = {
 };
 
 test('<SearchResult/> render youtube', () => {
-  const { wrapper } = setup({ sound });
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('youtube-item');
-});
-
-test('<SearchResult/> youtube view count in locale', () => {
-  const { wrapper } = setup({ sound });
-  expect(
-    contains(wrapper.find('.view-count').text(), [
-      '319609 views',
-      '319,609 views'
-    ])
-  ).toBeTruthy();
+  const props = {
+    service: 'youtube',
+    ...getData('intl'),
+    sound
+  };
+  const tree = renderer.create(<SearchResult {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SearchResult/> render soundcloud', () => {
-  const { wrapper } = setup({ service: 'soundcloud', sound });
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('soundcloud-item');
-});
-
-test('<SearchResult/> soundcould view count in locale', () => {
-  const { wrapper } = setup({ service: 'soundcloud', sound });
-  expect(
-    contains(wrapper.find('.view-count').text(), [
-      '319609 plays',
-      '319,609 plays'
-    ])
-  ).toBeTruthy();
+  const props = {
+    service: 'soundcloud',
+    ...getData('intl'),
+    sound
+  };
+  const tree = renderer.create(<SearchResult {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

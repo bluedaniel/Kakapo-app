@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { notifyActions, soundActions } from 'actions/';
 import { SoundEdit } from 'components/';
-import TextInput from 'components/ui/textInput/textInput';
 import { newSoundObj } from 'utils/';
 import { getData, mockEvent } from '../helper';
 
@@ -13,7 +13,12 @@ function setup(props = {}) {
     soundActions: {},
     ...props
   };
-  return { props, wrapper: shallow(<SoundEdit {...propData} />) };
+  const comp = <SoundEdit {...propData} />;
+  return {
+    props,
+    wrapper: shallow(comp),
+    tree: renderer.create(comp).toJSON()
+  };
 }
 
 const soundProp = (props = {}) => {
@@ -29,14 +34,8 @@ const soundProp = (props = {}) => {
 const sound = { ...soundProp() };
 
 test('<SoundEdit/> render', () => {
-  const { wrapper } = setup(sound);
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('item editing');
-});
-
-test('<SoundEdit/> render 2 inputs', () => {
-  const { wrapper } = setup(sound);
-  expect(wrapper.find(TextInput).length).toBe(2);
+  const { tree } = setup(sound);
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundEdit/> handleCancel', () => {

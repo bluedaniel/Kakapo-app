@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SoundEdit/> render 1`] = `
+<div
+  className="item editing"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="group"
+    >
+      <input
+        autoComplete="off"
+        defaultValue="wind"
+        name="name"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={true}
+        type="text"
+      />
+      <span
+        className="highlight"
+      />
+      <span
+        className="bar"
+      />
+      <label>
+        Name
+      </label>
+    </div>
+    <div
+      className="group"
+    >
+      <input
+        autoComplete="off"
+        defaultValue="wind"
+        name="tags"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={true}
+        type="text"
+      />
+      <span
+        className="highlight"
+      />
+      <span
+        className="bar"
+      />
+      <label>
+        Tag
+      </label>
+    </div>
+    <a
+      className="button"
+      onClick={[Function]}
+      role="link"
+      tabIndex={-1}
+    >
+      Cancel
+    </a>
+    <button
+      className="button"
+      style={
+        Object {
+          "backgroundColor": "#4CAF50",
+          "borderColor": "#4CAF50",
+        }
+      }
+    >
+      Save
+    </button>
+  </form>
+</div>
+`;

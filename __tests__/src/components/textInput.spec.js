@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import TextInput from 'components/ui/textInput/textInput';
 import { getData } from '../helper';
 
@@ -10,35 +10,30 @@ function setup(props = {}) {
     ...getData('intl'),
     ...props
   };
-  return { props, wrapper: shallow(<TextInput {...propData} />) };
+  return { props, tree: renderer.create(<TextInput {...propData} />).toJSON() };
 }
 
 test('<TextInput/> render', () => {
-  const { wrapper } = setup();
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe('group');
-  expect(wrapper.find('input').length).toBe(1);
-  expect(wrapper.find('.highlight').length).toBe(1);
-  expect(wrapper.find('.bar').length).toBe(1);
-  expect(wrapper.find('label').length).toBe(1);
+  const { tree } = setup();
+  expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput/> w/o translation', () => {
-  const { wrapper } = setup();
-  expect(wrapper.find('label').text()).toBe('without.translation');
+  const { tree } = setup();
+  expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput/> correct value', () => {
-  const { wrapper } = setup({ value: 42 });
-  expect(wrapper.find('input').props().defaultValue).toBe(42);
+  const { tree } = setup({ value: 42 });
+  expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput/> correct translation', () => {
-  const { wrapper } = setup({ placeholder: 'nav.settings' });
-  expect(wrapper.find('label').text()).toBe('Settings');
+  const { tree } = setup({ placeholder: 'nav.settings' });
+  expect(tree).toMatchSnapshot();
 });
 
 test('<TextInput/> loading spinner', () => {
-  const { wrapper } = setup({ spinner: true });
-  expect(wrapper.find('.spinner').length).toBe(1);
+  const { tree } = setup({ spinner: true });
+  expect(tree).toMatchSnapshot();
 });

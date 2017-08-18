@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { newSoundObj } from 'utils/';
 import { SoundItem } from 'components/';
 import { getData } from '../helper';
@@ -11,7 +11,7 @@ function setup(props = {}) {
     soundActions: {},
     ...props
   };
-  return { props, wrapper: shallow(<SoundItem {...propData} />) };
+  return { props, tree: renderer.create(<SoundItem {...propData} />).toJSON() };
 }
 
 const soundProp = (props = {}) => {
@@ -24,50 +24,29 @@ const soundProp = (props = {}) => {
   };
 };
 
-const defaultClassName = 'item waves-effect waves-block';
-const youtubeTestId = '7ccQyyCLtx8';
-
 test('<SoundItem/> render', () => {
-  const { wrapper } = setup(soundProp());
-  expect(wrapper.type()).toBe('div');
-  expect(wrapper.prop('className')).toBe(`${defaultClassName} paused`);
+  const { tree } = setup(soundProp());
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundItem/> w/o image', () => {
-  const { wrapper } = setup(soundProp({ source: 'youtubeStream', img: '' }));
-  expect(wrapper.find('.no-image').length).toBe(1);
-});
-
-test('<SoundItem/> render 3 icons', () => {
-  const { wrapper } = setup(soundProp());
-  expect(wrapper.find('.icon-share').length).toBe(1);
-  expect(wrapper.find('.icon-edit').length).toBe(1);
-  expect(wrapper.find('.icon-delete').length).toBe(1);
+  const { tree } = setup(soundProp({ source: 'youtubeStream', img: '' }));
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundItem/> youtube render', () => {
-  const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
-  expect(wrapper.prop('className')).toBe(
-    `${defaultClassName} paused youtube-stream`
-  );
-});
-
-test('<SoundItem/> youtube render 2 icons', () => {
-  const { wrapper } = setup(soundProp({ source: 'youtubeStream' }));
-  expect(wrapper.find('.icon-edit').length).toBe(0);
+  const { tree } = setup(soundProp({ source: 'youtubeStream' }));
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundItem/> youtube render test-id', () => {
-  const { wrapper } = setup(
-    soundProp({ file: youtubeTestId, source: 'youtubeStream' })
+  const { tree } = setup(
+    soundProp({ file: '7ccQyyCLtx8', source: 'youtubeStream' })
   );
-  expect(wrapper.find('.youtube-video').length).toBe(1);
-  expect(wrapper.find('.youtube-video').prop('id')).toBe(
-    `video-${youtubeTestId}`
-  );
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundItem/> render playing', () => {
-  const { wrapper } = setup(soundProp({ playing: true }));
-  expect(wrapper.prop('className')).toBe(`${defaultClassName} playing`);
+  const { tree } = setup(soundProp({ playing: true }));
+  expect(tree).toMatchSnapshot();
 });

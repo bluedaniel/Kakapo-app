@@ -1,29 +1,36 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import renderer from 'react-test-renderer';
 import { SoundList } from 'components/';
 import { getData, randomSounds } from '../helper';
 
-function setup(props = {}) {
-  const propData = {
+test('<SoundList/> render empty', () => {
+  const props = {
     ...getData('sounds'),
     ...getData('themes'),
-    ...getData('intl'),
-    ...props
+    ...getData('intl')
   };
-  return { props, wrapper: shallow(<SoundList {...propData} />) };
-}
-
-test('<SoundList/> render empty', () => {
-  const { wrapper } = setup();
-  expect(wrapper.html()).toBe('<div></div>');
+  const tree = renderer.create(<SoundList {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundList/> render', () => {
-  const { wrapper } = setup({ sounds: randomSounds(4) });
-  expect(wrapper.type()).toBe('section');
+  const props = {
+    ...getData('sounds'),
+    ...getData('themes'),
+    ...getData('intl'),
+    sounds: randomSounds(4)
+  };
+  const tree = renderer.create(<SoundList {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });
 
 test('<SoundList/> progress === 1', () => {
-  const { wrapper } = setup({ sounds: randomSounds(8) });
-  expect(wrapper.find('.sound-item-wrap').length).toBe(5);
+  const props = {
+    ...getData('sounds'),
+    ...getData('themes'),
+    ...getData('intl'),
+    sounds: randomSounds(8)
+  };
+  const tree = renderer.create(<SoundList {...props} />).toJSON();
+  expect(tree).toMatchSnapshot();
 });

@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextInput/> correct translation 1`] = `
+<div
+  className="group"
+>
+  <input
+    autoComplete="off"
+    defaultValue={undefined}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    required={true}
+    type="text"
+  />
+  <span
+    className="highlight"
+  />
+  <span
+    className="bar"
+  />
+  <label>
+    Settings
+  </label>
+</div>
+`;
+
+exports[`<TextInput/> correct value 1`] = `
+<div
+  className="group"
+>
+  <input
+    autoComplete="off"
+    defaultValue={42}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    required={true}
+    type="text"
+  />
+  <span
+    className="highlight"
+  />
+  <span
+    className="bar"
+  />
+  <label>
+    without.translation
+  </label>
+</div>
+`;
+
+exports[`<TextInput/> loading spinner 1`] = `
+<div
+  className="group"
+>
+  <input
+    autoComplete="off"
+    defaultValue={undefined}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    required={true}
+    type="text"
+  />
+  <span
+    className="highlight"
+  />
+  <span
+    className="bar"
+  />
+  <label>
+    without.translation
+  </label>
+  <div
+    className="input-add-on-item spinner active"
+  >
+    <div
+      className="double-bounce1"
+    />
+    <div
+      className="double-bounce2"
+    />
+  </div>
+</div>
+`;
+
+exports[`<TextInput/> render 1`] = `
+<div
+  className="group"
+>
+  <input
+    autoComplete="off"
+    defaultValue={undefined}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    required={true}
+    type="text"
+  />
+  <span
+    className="highlight"
+  />
+  <span
+    className="bar"
+  />
+  <label>
+    without.translation
+  </label>
+</div>
+`;
+
+exports[`<TextInput/> w/o translation 1`] = `
+<div
+  className="group"
+>
+  <input
+    autoComplete="off"
+    defaultValue={undefined}
+    name="test"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+    required={true}
+    type="text"
+  />
+  <span
+    className="highlight"
+  />
+  <span
+    className="bar"
+  />
+  <label>
+    without.translation
+  </label>
+</div>
+`;
