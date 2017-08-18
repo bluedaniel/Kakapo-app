@@ -1,14 +1,24 @@
 import {
-  cond,
-  T,
-  equals,
   always,
-  map,
-  prop,
-  pathOr,
-  propOr,
+  applySpec,
   compose,
-  applySpec
+  concat,
+  cond,
+  divide,
+  dropLast,
+  equals,
+  flip,
+  identity,
+  last,
+  map,
+  match,
+  multiply,
+  pathOr,
+  prop,
+  propOr,
+  subtract,
+  sum,
+  T
 } from 'ramda';
 import { put, throttle } from 'redux-saga/effects';
 import { searchActions, searchTypes } from 'actions/';
@@ -18,33 +28,43 @@ import {
   getKakapoFavourites
 } from 'api/';
 
-const formatDuration = timestamp => {
-  const hours = Math.floor(timestamp / 3600);
-  const minutes = Math.floor((timestamp - hours * 3600) / 60);
-  const seconds = timestamp - hours * 3600 - minutes * 60;
-  let time = '';
+const [concatF, divideF, subtractF] = map(flip, [concat, divide, subtract]);
 
-  if (hours !== 0) time += `${hours}:`;
-  time += minutes < 10 ? `0${minutes}:` : `${String(minutes)}:`;
-  return !time ? seconds : time + (seconds < 10 ? `0${seconds}` : seconds);
+// Convert timestamp to pretty date
+// '7209' //=> "2:00:09"
+const formatDuration = t => {
+  const hours = compose(Math.floor, divideF(3600))(t);
+  const minutes = compose(Math.floor, divideF(60), subtractF(hours * 3600))(t);
+  const concatSeconds = compose(
+    x => (x < 10 ? concatF(`0${x}`) : concatF(String(x))),
+    subtractF(minutes * 60),
+    subtractF(hours * 3600)
+  )(t);
+
+  return compose(
+    x => (!x ? concatSeconds('') : concatSeconds(x)),
+    minutes < 10 ? concatF(`0${minutes}:`) : concatF(`${minutes}:`),
+    hours !== 0 ? concatF(`${hours}:`) : identity
+  )('');
 };
 
 // Convert YouTube ISO8061 duration string
-const parseDuration = duration =>
-  duration.match(/[0-9]+[HMS]/g).forEach(part => {
-    const unit = part.charAt(part.length - 1);
-    const amount = parseInt(part.slice(0, -1), 0);
-    switch (unit) {
-      case 'H':
-        return amount * 60 * 60;
-      case 'M':
-        return amount * 60;
-      case 'S':
-        return amount;
-      default:
-        return 0;
-    }
-  });
+// 'PT120M9S' //=> 7209
+const parseDuration = compose(
+  sum,
+  map(
+    compose(
+      Number,
+      cond([
+        [compose(equals('H'), last), compose(multiply(60 * 60), dropLast(1))],
+        [compose(equals('M'), last), compose(multiply(60), dropLast(1))],
+        [compose(equals('S'), last), dropLast(1)],
+        [T, always(0)]
+      ])
+    )
+  ),
+  match(/[0-9]+[HMS]/g)
+);
 
 // YouTube Listeners
 const mapYoutube = map(

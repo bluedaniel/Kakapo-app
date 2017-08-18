@@ -17,7 +17,7 @@ test('[sagas/search] success search YouTube', async () => {
   const items = [
     {
       desc: 'Test',
-      duration: 'NaN:NaN:NaN',
+      duration: '03:28',
       img: 'http://test.com',
       name: 'Test',
       tags: '',
@@ -26,7 +26,7 @@ test('[sagas/search] success search YouTube', async () => {
     },
     {
       desc: 'Test2',
-      duration: 'NaN:NaN:NaN',
+      duration: '03:28',
       img: 'http://test2.com',
       name: 'Test2',
       tags: '',
