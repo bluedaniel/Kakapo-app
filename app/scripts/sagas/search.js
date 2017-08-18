@@ -66,68 +66,62 @@ const parseDuration = compose(
   match(/[0-9]+[HMS]/g)
 );
 
-// YouTube Listeners
-const mapYoutube = map(
-  applySpec({
-    desc: pathOr('', ['snippet', 'description']),
-    duration: compose(formatDuration, parseDuration, propOr(0, 'duration')),
-    img: pathOr('', ['snippet', 'thumbnails', 'high', 'url']),
-    name: pathOr('', ['snippet', 'title']),
-    tags: always(''),
-    videoId: pathOr('', ['id', 'videoId']),
-    viewCount: compose(parseInt, propOr(0, 'viewCount'))
-  })
-);
+// YouTube schema
+const specYoutube = applySpec({
+  desc: pathOr('', ['snippet', 'description']),
+  duration: compose(formatDuration, parseDuration, propOr(0, 'duration')),
+  img: pathOr('', ['snippet', 'thumbnails', 'high', 'url']),
+  name: pathOr('', ['snippet', 'title']),
+  tags: always(''),
+  videoId: pathOr('', ['id', 'videoId']),
+  viewCount: compose(parseInt, propOr(0, 'viewCount'))
+});
 
-// SoundCloud Listeners
-const mapSoundcloud = map(
-  applySpec({
-    desc: prop('description'),
-    duration: compose(formatDuration, x => x / 1000, prop('duration')),
-    img: always(
-      'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png'
-    ),
-    name: prop('title'),
-    tags: prop('tag_list'),
-    scId: compose(parseInt, prop('id')),
-    userAvatar: pathOr('', ['user', 'avatar_url']),
-    viewCount: prop('playback_count')
-  })
-);
+// SoundCloud schema
+const specSoundcloud = applySpec({
+  desc: prop('description'),
+  duration: compose(formatDuration, divideF(1000), prop('duration')),
+  img: always(
+    'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png'
+  ),
+  name: prop('title'),
+  tags: prop('tag_list'),
+  scId: compose(parseInt, prop('id')),
+  userAvatar: pathOr('', ['user', 'avatar_url']),
+  viewCount: prop('playback_count')
+});
 
-// KakapoFavourites Listeners
-const mapKakapo = map(
-  applySpec({
-    source: prop('source'),
-    name: prop('name'),
-    desc: propOr('', 'description'),
-    file: prop('file'),
-    tags: prop('tags'),
-    volume: always(0.5),
-    playing: always(false),
-    editing: always(false),
-    progress: always(1),
-    img: prop('img'),
-    recentlyDownloaded: always(false),
-    url: propOr('', 'url')
-  })
-);
+// KakapoFavourites schema
+const specKakapo = applySpec({
+  source: prop('source'),
+  name: prop('name'),
+  desc: propOr('', 'description'),
+  file: prop('file'),
+  tags: prop('tags'),
+  volume: always(0.5),
+  playing: always(false),
+  editing: always(false),
+  progress: always(1),
+  img: prop('img'),
+  recentlyDownloaded: always(false),
+  url: propOr('', 'url')
+});
 
 export function* fetchService(service, { term }) {
   try {
     const { transform, provider } = cond([
       [
         equals('soundcloud'),
-        always({ transform: mapSoundcloud, provider: getSoundCloudSearch })
+        always({ transform: specSoundcloud, provider: getSoundCloudSearch })
       ],
       [
         equals('youtube'),
-        always({ transform: mapYoutube, provider: getYoutubeSearch })
+        always({ transform: specYoutube, provider: getYoutubeSearch })
       ],
-      [T, always({ transform: mapKakapo, provider: getKakapoFavourites })]
+      [T, always({ transform: specKakapo, provider: getKakapoFavourites })]
     ])(service);
     const resp = yield provider(term);
-    yield put(searchActions.requestSuccess(transform(resp), service));
+    yield put(searchActions.requestSuccess(map(transform, resp), service));
   } catch (err) {
     yield put(searchActions.requestError(err));
   }
