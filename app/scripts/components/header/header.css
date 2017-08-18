@@ -5,7 +5,7 @@
   z-index: 40;
 
   .logo {
-    lost-column: 3 / 5;
+    lost-column: 3/5;
     color: #fff;
     font-size: 0.8em;
     text-align: center;
@@ -32,7 +32,7 @@
   }
 
   .toggle-mute {
-    lost-column: 1 / 5;
+    lost-column: 1/5;
     font-size: 28px;
     padding: 0 7px;
     margin: 0 7px;
