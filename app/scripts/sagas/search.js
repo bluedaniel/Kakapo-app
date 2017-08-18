@@ -1,4 +1,15 @@
-import { cond, T, equals, always, map, pathOr, propOr } from 'ramda';
+import {
+  cond,
+  T,
+  equals,
+  always,
+  map,
+  prop,
+  pathOr,
+  propOr,
+  compose,
+  applySpec
+} from 'ramda';
 import { put, throttle } from 'redux-saga/effects';
 import { searchActions, searchTypes } from 'actions/';
 import {
@@ -36,15 +47,17 @@ const parseDuration = duration =>
   });
 
 // YouTube Listeners
-const mapYoutube = map(_y => ({
-  desc: pathOr('', ['snippet', 'description'], _y),
-  duration: formatDuration(parseDuration(propOr(0, 'duration', _y))),
-  img: pathOr('', ['snippet', 'thumbnails', 'high', 'url'], _y),
-  name: pathOr('', ['snippet', 'title'], _y),
-  tags: '',
-  videoId: pathOr('', ['id', 'videoId'], _y),
-  viewCount: parseInt(propOr(0, 'viewCount', _y), 10)
-}));
+const mapYoutube = map(
+  applySpec({
+    desc: pathOr('', ['snippet', 'description']),
+    duration: compose(formatDuration, parseDuration, propOr(0, 'duration')),
+    img: pathOr('', ['snippet', 'thumbnails', 'high', 'url']),
+    name: pathOr('', ['snippet', 'title']),
+    tags: always(''),
+    videoId: pathOr('', ['id', 'videoId']),
+    viewCount: compose(parseInt, propOr(0, 'viewCount'))
+  })
+);
 
 // SoundCloud Listeners
 const mapSoundcloud = map(_y => ({
@@ -60,14 +73,22 @@ const mapSoundcloud = map(_y => ({
 }));
 
 // KakapoFavourites Listeners
-const mapKakapo = map(_y => ({
-  ..._y,
-  desc: _y.description,
-  img: _y.img,
-  name: _y.name,
-  tags: _y.tags,
-  url: _y.url
-}));
+const mapKakapo = map(
+  applySpec({
+    source: prop('source'),
+    name: prop('name'),
+    desc: propOr('', 'description'),
+    file: prop('file'),
+    tags: prop('tags'),
+    volume: always(0.5),
+    playing: always(false),
+    editing: always(false),
+    progress: always(1),
+    img: prop('img'),
+    recentlyDownloaded: always(false),
+    url: propOr('', 'url')
+  })
+);
 
 export function* fetchService(service, { term }) {
   try {
