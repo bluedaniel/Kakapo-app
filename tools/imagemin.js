@@ -14,7 +14,7 @@ const minifyFiles = file =>
     {
       plugins: [imageminJpegtran(), imageminPngquant({ quality: '65-80' })]
     }
-  ).catch(err => console.log(err));
+  );
 
 export default async function imagemin() {
   await Promise.all(['images'].map(argv.production ? minifyFiles : copyFiles));
