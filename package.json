@@ -109,6 +109,8 @@
     "fs-extra": "^4.0.1",
     "husky": "^0.14.3",
     "imagemin": "^5.2.2",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-pngquant": "^5.0.1",
     "imports-loader": "^0.7.1",
     "jest": "^20.0.4",
     "jest-fetch-mock": "^1.2.1",
