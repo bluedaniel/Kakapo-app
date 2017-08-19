@@ -28,9 +28,9 @@ const config = {
   devtool: DEBUG ? '#eval' : false,
   plugins: [
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify(DEBUG ? 'development' : 'production')
-      },
+      'process.env.NODE_ENV': JSON.stringify(
+        DEBUG ? 'development' : 'production'
+      ),
       __DESKTOP__: platformDevice === 'desktop',
       __WEB__: platformDevice === 'web',
       __DEV__: DEBUG,

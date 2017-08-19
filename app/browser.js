@@ -18,7 +18,7 @@ appSettings = JSON.parse(appSettings);
 const trayIcon = (str = 'idle') =>
   path.join(appPath, `images/desktop/tray-${str}.png`);
 
-const updateCmd = function updateCmd(args, cb) {
+const updateCmd = (args, cb) => {
   const updateExe = path.resolve(
     path.dirname(process.execPath),
     '..',

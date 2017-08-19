@@ -18,10 +18,10 @@ exports[`<SoundItem/> render 1`] = `
     <i
       className="preview icon-wind"
     />
-    <ul
+    <div
       className="actions dark"
     >
-      <li>
+      <div>
         <a
           href="wind"
           onClick={[Function]}
@@ -32,22 +32,24 @@ exports[`<SoundItem/> render 1`] = `
             className="icon-share"
           />
         </a>
-      </li>
-      <li
+      </div>
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-edit"
         />
-      </li>
-      <li
+      </div>
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-delete"
         />
-      </li>
-    </ul>
+      </div>
+    </div>
     <span
       className="title"
     >
@@ -86,10 +88,10 @@ exports[`<SoundItem/> render playing 1`] = `
     <i
       className="preview icon-wind"
     />
-    <ul
+    <div
       className="actions"
     >
-      <li>
+      <div>
         <a
           href="wind"
           onClick={[Function]}
@@ -100,22 +102,24 @@ exports[`<SoundItem/> render playing 1`] = `
             className="icon-share"
           />
         </a>
-      </li>
-      <li
+      </div>
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-edit"
         />
-      </li>
-      <li
+      </div>
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-delete"
         />
-      </li>
-    </ul>
+      </div>
+    </div>
     <span
       className="title"
     >
@@ -153,10 +157,10 @@ exports[`<SoundItem/> w/o image 1`] = `
     <div
       className="no-image"
     />
-    <ul
+    <div
       className="actions dark"
     >
-      <li>
+      <div>
         <a
           href="wind"
           onClick={[Function]}
@@ -167,16 +171,17 @@ exports[`<SoundItem/> w/o image 1`] = `
             className="icon-share"
           />
         </a>
-      </li>
+      </div>
       
-      <li
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-delete"
         />
-      </li>
-    </ul>
+      </div>
+    </div>
     <span
       className="title"
     >
@@ -218,10 +223,10 @@ exports[`<SoundItem/> youtube render 1`] = `
       alt="wind"
       src="wind"
     />
-    <ul
+    <div
       className="actions dark"
     >
-      <li>
+      <div>
         <a
           href="wind"
           onClick={[Function]}
@@ -232,16 +237,17 @@ exports[`<SoundItem/> youtube render 1`] = `
             className="icon-share"
           />
         </a>
-      </li>
+      </div>
       
-      <li
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-delete"
         />
-      </li>
-    </ul>
+      </div>
+    </div>
     <span
       className="title"
     >
@@ -283,10 +289,10 @@ exports[`<SoundItem/> youtube render test-id 1`] = `
       alt="wind"
       src="wind"
     />
-    <ul
+    <div
       className="actions dark"
     >
-      <li>
+      <div>
         <a
           href="wind"
           onClick={[Function]}
@@ -297,16 +303,17 @@ exports[`<SoundItem/> youtube render test-id 1`] = `
             className="icon-share"
           />
         </a>
-      </li>
+      </div>
       
-      <li
+      <div
         onClick={[Function]}
+        role="presentation"
       >
         <i
           className="icon-delete"
         />
-      </li>
-    </ul>
+      </div>
+    </div>
     <span
       className="title"
     >
