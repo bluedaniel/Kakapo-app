@@ -7,13 +7,14 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import proc from 'child_process';
 import electron from 'electron';
 import open from 'open';
+import { writeStats } from './helper';
 import config from './webpack.config.development';
 
 export default async function serve() {
   return new Promise((resolve, reject) => {
     const server = express();
     global.server = server;
-    const bundler = webpack(config);
+    const bundler = webpack(config, (err, stats) => writeStats(stats));
 
     const devMiddleware = webpackDevMiddleware(bundler, {
       publicPath: config.output.publicPath,
