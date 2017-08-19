@@ -1,7 +1,6 @@
 import webpack from 'webpack';
 import fs from 'fs-extra';
 import zlib from 'zlib';
-import { writeStats } from './helper';
 import webpackConfigDev from './webpack.config.development';
 import webpackConfigProd from './webpack.config.production';
 
@@ -14,7 +13,7 @@ export default async function bundle() {
     const onComplete = (err, stats) => {
       if (err) return reject(err);
 
-      writeStats(stats);
+      fs.writeFile('stats.json', JSON.stringify(stats.toJson(), null, 4));
 
       if (!global.WATCH) {
         // Compress js with Gzip
