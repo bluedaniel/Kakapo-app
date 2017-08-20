@@ -18,9 +18,9 @@ export default ({ sound, themes, dispatch }) => {
   };
 
   const renderActions = () =>
-    <ul className={cx('actions', { dark: !sound.playing })}>
+    <div className={cx('actions', { dark: !sound.playing })}>
       {sound.link
-        ? <li>
+        ? <div>
             <a
               href={sound.link}
               onClick={e => openLink(e, sound.link)}
@@ -29,17 +29,17 @@ export default ({ sound, themes, dispatch }) => {
             >
               <i className="icon-share" />
             </a>
-          </li>
+          </div>
         : ''}
       {sound.source !== 'youtubeStream'
-        ? <li onClick={handleEdit}>
+        ? <div role="presentation" onClick={handleEdit}>
             <i className="icon-edit" />
-          </li>
+          </div>
         : ''}
-      <li onClick={handleDelete}>
+      <div role="presentation" onClick={handleDelete}>
         <i className="icon-delete" />
-      </li>
-    </ul>;
+      </div>
+    </div>;
 
   let objStyle = { color: '#121212' };
   if (sound.playing) {

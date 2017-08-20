@@ -11,16 +11,25 @@ const opts = {
 };
 
 export default async function pkg() {
-  await Promise.all([ 'linux', 'win32', 'darwin' ].map(plat =>
-    new Promise((resolve, reject) =>
-      packager({ ...opts, ... {
-        platform: plat,
-        arch: 'x64',
-        out: `./release/${plat}`
-      } }, (err, path) => {
-        if (err) reject(err);
-        resolve(path);
-      })
+  await Promise.all(
+    ['linux', 'win32', 'darwin'].map(
+      plat =>
+        new Promise((resolve, reject) =>
+          packager(
+            {
+              ...opts,
+              ...{
+                platform: plat,
+                arch: 'x64',
+                out: `./release/${plat}`
+              }
+            },
+            (err, path) => {
+              if (err) reject(err);
+              resolve(path);
+            }
+          )
+        )
     )
-  ));
+  );
 }

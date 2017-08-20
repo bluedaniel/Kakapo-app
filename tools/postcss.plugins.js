@@ -5,16 +5,16 @@ import postcssUrl from 'postcss-url';
 import lost from 'lost';
 import stylelint from 'stylelint';
 
-export { postcssImport as postcssImport };
-export { stylelint as stylelint };
+export { postcssImport };
+export { stylelint };
 
-export default function (URL) {
-  const pluginArr = [
-    lost(),
-    postcssNested(),
-    postcssCssnext()
-  ];
-  return URL ? pluginArr.concat(postcssUrl({
-    url: (url) => url.replace(/^\/+/, '')
-  })) : pluginArr;
+export default function(URL) {
+  const pluginArr = [lost(), postcssNested(), postcssCssnext()];
+  return URL
+    ? pluginArr.concat(
+        postcssUrl({
+          url: url => url.replace(/^\/+/, '')
+        })
+      )
+    : pluginArr;
 }
