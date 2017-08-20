@@ -14,7 +14,7 @@
     "themeVersion": "1.0.0"
   },
   "scripts": {
-    "build": "npm run lint && babel-node tools/run build",
+    "build": "babel-node tools/run build",
     "clean": "babel-node tools/run clean",
     "eslint-check": "eslint --print-config .eslintrc | eslint-config-prettier-check",
     "installer-mac": "babel-node tools/run installer-mac",
@@ -118,6 +118,7 @@
     "lint-staged": "^4.0.3",
     "null-loader": "^0.1.1",
     "open": "0.0.5",
+    "ora": "^1.3.0",
     "postcss": "^6.0.9",
     "postcss-browser-reporter": "^0.5.0",
     "postcss-cssnext": "^3.0.2",

@@ -6,16 +6,16 @@ process.env.NODE_ENV = JSON.stringify(
 );
 
 export default async function build() {
-  await run(require('./clean'));
-  await run(require('./copy'));
-  await run(require('./imagemin'));
-  await run(require('./styles')); // External CSS for downloads.css
+  await run('clean');
+  await run('copy');
+  await run('imagemin');
+  await run('styles'); // External CSS for downloads.css
 
   if (argv.production) {
-    await run(require('./bundle')); // Bundle production JS
+    await run('bundle'); // Bundle production JS
   }
 
   if (argv.platform === 'desktop' && argv.production) {
-    await run(require('./pkg')); // Package app into asar format
+    await run('pkg'); // Package app into asar format
   }
 }
