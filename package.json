@@ -46,7 +46,11 @@
       "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",
       "^kakapoBridge$": "<rootDir>/app/scripts/bridge/web/index.js"
     },
-    "collectCoverage": true
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "app/scripts/**/*.{js,jsx}",
+      "!app/scripts/bridge/desktop/**"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
@@ -87,6 +91,7 @@
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0",
+    "compression-webpack-plugin": "^1.0.0",
     "coveralls": "^2.13.1",
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.5",
