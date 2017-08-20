@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import CompressionPlugin from 'compression-webpack-plugin';
 import baseConfig from './webpack.config.base';
 
 const config = {
@@ -16,7 +17,14 @@ const config = {
         warnings: false
       }
     }),
-    new webpack.optimize.AggressiveMergingPlugin()
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new CompressionPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: /\.(js|css|html)$/,
+      threshold: 10240,
+      minRatio: 0.8
+    })
   ],
   module: {
     rules: [
