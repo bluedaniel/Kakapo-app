@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[bridge/customUrl/getCustomFile] 1`] = `undefined`;
+
+exports[`[bridge/customUrl/getCustomFile] 2`] = `undefined`;
+
+exports[`[bridge/customUrl/getCustomURL success] 1`] = `
+Object {
+  "editing": false,
+  "file": null,
+  "img": null,
+  "link": null,
+  "name": "Testing",
+  "playing": false,
+  "progress": 0,
+  "recentlyDownloaded": true,
+  "source": "file",
+  "tags": null,
+  "volume": 0.5,
+}
+`;
