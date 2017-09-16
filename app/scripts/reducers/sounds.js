@@ -1,4 +1,14 @@
-import { mapObjIndexed, set, lensProp, over, prop, omit } from 'ramda';
+import {
+  compose,
+  filter,
+  propEq,
+  mapObjIndexed,
+  set,
+  lensProp,
+  over,
+  prop,
+  omit
+} from 'ramda';
 import { bridgedSounds, bridgedSettings } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
 import { soundTypes } from 'actions/';
@@ -11,8 +21,13 @@ let howls = {};
 const soundReducers = {
   init(state, initSounds) {
     defaultSounds = initSounds.data || initSounds;
-    const newState = bridgedSounds.initWithDefault(defaultSounds);
-    return this.setSounds(newState);
+
+    const sounds = compose(
+      filter(propEq('progress', 1)),
+      bridgedSounds.initWithDefault
+    )(defaultSounds);
+
+    return this.setSounds(sounds);
   },
 
   _getHowl(_s) {

@@ -23,14 +23,11 @@ test('[utils/createReducer]', () => {
 
   const test2 = reducer(initialState, Creators.upper());
   expect(test2).toBe(initialState.toUpperCase());
+});
 
-  test('[utils/createReducer] New state', () => {
-    const newState = reducer(
-      initialState,
-      Creators.changeType([1, 2, 3, 4, 5])
-    );
+test('[utils/createReducer] New state', () => {
+  const newState = reducer(initialState, Creators.changeType([1, 2, 3, 4, 5]));
 
-    expect(newState).toEqual([1, 2, 3, 4, 5]);
-    expect(reducer(newState, Creators.multiply(2)).toEqual([2, 4, 6, 8, 10]));
-  });
+  expect(newState).toEqual([1, 2, 3, 4, 5]);
+  expect(reducer(newState, Creators.multiply(2))).toEqual([2, 4, 6, 8, 10]);
 });
