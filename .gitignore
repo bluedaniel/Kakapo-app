@@ -8,6 +8,7 @@
 !.eslintignore
 !.travis.yml
 !.stylelintrc
+!.prettierrc
 
 # Logs
 logs
