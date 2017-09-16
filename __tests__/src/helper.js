@@ -46,7 +46,9 @@ export const getData = (slice, opts = {}) => {
           darkUI: swatches('light').indexOf('#673AB7') !== -1,
           colorPickerActive: false, // Close the color picker
           btn: '#4CAF50',
-          darkPrimary: color('#673AB7').darken(0.2).toString(),
+          darkPrimary: color('#673AB7')
+            .darken(0.2)
+            .toString(),
           primary: '#673AB7'
         }
       };

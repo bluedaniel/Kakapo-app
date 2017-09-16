@@ -42,7 +42,10 @@ test('<SoundEdit/> handleCancel', () => {
   const dispatch = jest.fn();
   const action = soundActions.edit(sound, null);
   const { wrapper } = setup({ sound, dispatch });
-  wrapper.find('.button').at(0).simulate('click', mockEvent);
+  wrapper
+    .find('.button')
+    .at(0)
+    .simulate('click', mockEvent);
   expect(dispatch).toBeCalled();
   expect(dispatch.mock.calls[0][0]).toEqual(action);
 });
