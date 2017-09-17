@@ -1,13 +1,17 @@
 import {
   compose,
+  empty,
   filter,
-  propEq,
-  mapObjIndexed,
-  set,
   lensProp,
+  mapObjIndexed,
+  omit,
   over,
   prop,
-  omit
+  propEq,
+  merge,
+  __,
+  reduce,
+  set
 } from 'ramda';
 import { bridgedSounds, bridgedSettings } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
@@ -18,129 +22,116 @@ export const initialState = {};
 let defaultSounds = {};
 let howls = {};
 
-const soundReducers = {
-  init(state, initSounds) {
-    defaultSounds = initSounds.data || initSounds;
+const getHowl = _s =>
+  new Promise(resolve => {
+    const currentHowl = prop(_s.file, howls);
+    if (currentHowl) return resolve(currentHowl);
+    return createSoundObj(_s)
+      .then(res => {
+        howls = set(lensProp(_s.file), res, howls);
+      })
+      .then(() => resolve(prop(_s.file, howls)));
+  });
 
-    const sounds = compose(
-      filter(propEq('progress', 1)),
-      bridgedSounds.initWithDefault
-    )(defaultSounds);
+const toggleMute = state => {
+  const mute = bridgedSettings.getItem('mute');
+  mapObjIndexed(_s => getHowl(_s).then(howl => howl.mute(mute)), state);
+  return state;
+};
 
-    return this.setSounds(sounds);
-  },
-
-  _getHowl(_s) {
-    return new Promise(resolve => {
-      const currentHowl = prop(_s.file, howls);
-      if (currentHowl) return resolve(currentHowl);
-      return createSoundObj(_s)
-        .then(res => {
-          howls = set(lensProp(_s.file), res, howls);
-        })
-        .then(() => resolve(prop(_s.file, howls)));
-    });
-  },
-
-  setSounds(data) {
-    let newState = {};
-    data.map(_s => {
-      if (_s.playing) this._getHowl(_s).then(howl => howl.play()); // Autoplay
-      newState = set(
-        lensProp(_s.file),
-        { ..._s, recentlyDownloaded: false },
-        newState
+const setSounds = data => {
+  const newState = reduce(
+    (acc, curr) => {
+      if (curr.playing) getHowl(curr).then(howl => howl.play()); // Autoplay
+      return set(
+        lensProp(curr.file),
+        merge(curr, { recentlyDownloaded: false }),
+        acc
       );
-      return newState;
-    });
-    this.toggleMute(newState); // Auto mute
-    return newState;
-  },
+    },
+    {},
+    data
+  );
+  toggleMute(newState);
+  return newState;
+};
 
-  resetSounds(state, clear) {
-    mapObjIndexed(
-      _s =>
-        this._getHowl(_s).then(howl => {
-          if (howl) howl.unload(); // Remove sound object
-        }),
-      state
-    );
-    howls = {};
-    if (clear) return {};
-    return this.setSounds(defaultSounds);
-  },
+const resetSounds = (state, { clear }) => {
+  mapObjIndexed(
+    _s =>
+      getHowl(_s).then(howl => {
+        if (howl) howl.unload(); // Remove sound object
+      }),
+    state
+  );
+  howls = empty(howls);
+  return clear ? empty(state) : setSounds(defaultSounds);
+};
 
-  togglePlay(state, sound) {
-    state = over(
-      lensProp(sound.file),
-      _s => ({ ..._s, playing: !_s.playing }),
-      state
-    );
-    this._getHowl(sound).then(howl => {
-      if (sound.playing) {
-        howl.pause();
-      } else {
-        howl.play();
-      }
-    });
-    return state;
-  },
+const togglePlay = (state, { sound }) => {
+  const newState = over(
+    lensProp(sound.file),
+    _s => merge(_s, { playing: !_s.playing }),
+    state
+  );
+  getHowl(sound).then(howl => {
+    if (sound.playing) {
+      howl.pause();
+    } else {
+      howl.play();
+    }
+  });
+  return newState;
+};
 
-  toggleMute(state) {
-    const mute = bridgedSettings.getItem('mute');
-    mapObjIndexed(_s => this._getHowl(_s).then(howl => howl.mute(mute)), state);
-    return state;
-  },
+const changeVolume = (state, { sound, volume }) => {
+  getHowl(sound).then(howl => howl.volume(volume));
+  return over(lensProp(sound.file), merge(__, { volume }), state);
+};
 
-  changeVolume(state, sound, volume) {
-    this._getHowl(sound).then(howl => howl.volume(volume));
-    return over(lensProp(sound.file), _s => ({ ..._s, volume }), state);
-  },
+const editSound = (state, { sound, data }) => {
+  let opts = { editing: !sound.editing };
+  if (typeof data !== 'undefined') opts = merge(opts, data);
+  return over(lensProp(sound.file), merge(__, opts), state);
+};
 
-  editSound(state, sound, newData) {
-    let opts = { editing: !sound.editing };
-    if (typeof newData !== 'undefined') opts = { ...opts, ...newData };
-    return over(lensProp(sound.file), _s => ({ ..._s, ...opts }), state);
-  },
+const removeSound = (state, { sound }) => {
+  getHowl(sound).then(howl => howl.unload());
+  if (__DESKTOP__ && sound.source !== 'file')
+    bridgedSounds.removeFromDisk(sound);
+  return omit([sound.file], state);
+};
 
-  removeSound(state, sound) {
-    this._getHowl(sound).then(howl => howl.unload());
-    state = omit([sound.file], state);
-    if (__DESKTOP__ && sound.source !== 'file')
-      bridgedSounds.removeFromDisk(sound);
-    return state;
-  },
+const soundDownloaded = (state, { sound }) => {
+  const newSound = merge(sound, { progress: 1 });
+  const newState = set(lensProp(newSound.file), newSound, state);
+  howls = set(lensProp(newSound.file), createSoundObj(newSound), howls);
+  if (newSound.playing) getHowl(newSound).then(howl => howl.play());
+  toggleMute(newState);
+  return newState;
+};
 
-  soundDownloaded(state, sound) {
-    sound = { ...sound, progress: 1 };
-    state = set(lensProp(sound.file), sound, state);
-    howls = set(lensProp(sound.file), createSoundObj(sound), howls);
-    if (sound.playing) this._getHowl(sound).then(howl => howl.play());
-    this.toggleMute(state);
-    return state;
-  },
+const soundDownloading = (state, { sound }) =>
+  set(lensProp(sound.file), sound, state);
 
-  soundDownloading(state, sound) {
-    return set(lensProp(sound.file), { ...sound }, state);
-  }
+const init = (state, { resp }) => {
+  defaultSounds = resp.data || resp;
+
+  return compose(
+    setSounds,
+    filter(propEq('progress', 1)),
+    bridgedSounds.initWithDefault
+  )(defaultSounds);
 };
 
 export default createReducer(initialState, {
-  [soundTypes.REQUEST_SUCCESS]: (state, { resp }) =>
-    soundReducers.init(state, resp),
-  [soundTypes.MUTE]: state => soundReducers.toggleMute(state),
-  [soundTypes.PLAY]: (state, { sound }) =>
-    soundReducers.togglePlay(state, sound),
-  [soundTypes.VOLUME]: (state, { sound, volume }) =>
-    soundReducers.changeVolume(state, sound, volume),
-  [soundTypes.EDIT]: (state, { sound, data }) =>
-    soundReducers.editSound(state, sound, data),
-  [soundTypes.REMOVE]: (state, { sound }) =>
-    soundReducers.removeSound(state, sound),
-  [soundTypes.ADD_SOUND_DOWNLOADING]: (state, { sound }) =>
-    soundReducers.soundDownloading(state, sound),
-  [soundTypes.ADD_SOUND_COMPLETE]: (state, { sound, notify }) =>
-    soundReducers.soundDownloaded(state, sound, notify),
-  [soundTypes.RESET]: (state, { clear }) =>
-    soundReducers.resetSounds(state, clear)
+  [soundTypes.REQUEST_SUCCESS]: init,
+  [soundTypes.MUTE]: toggleMute,
+  [soundTypes.PLAY]: togglePlay,
+  [soundTypes.VOLUME]: changeVolume,
+  [soundTypes.EDIT]: editSound,
+  [soundTypes.REMOVE]: removeSound,
+  [soundTypes.ADD_SOUND_DOWNLOADING]: soundDownloading,
+  [soundTypes.ADD_SOUND_COMPLETE]: soundDownloaded,
+  [soundTypes.RESET]: resetSounds
 });

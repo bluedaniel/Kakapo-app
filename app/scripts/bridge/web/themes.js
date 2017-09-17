@@ -1,5 +1,4 @@
 import semver from 'semver';
-import packageJson from '../../../../package.json';
 
 export default {
   fromStorage() {
@@ -7,7 +6,10 @@ export default {
 
     if (
       !theme ||
-      semver.lt(theme.version || '0.0.1', packageJson.config.themeVersion)
+      semver.lt(
+        theme.version || '0.0.1',
+        process.env.npm_package_config_themeVersion
+      )
     ) {
       return {};
     }

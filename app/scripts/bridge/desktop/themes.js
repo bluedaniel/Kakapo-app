@@ -1,7 +1,6 @@
 import fs from 'fs-extra';
 import semver from 'semver';
 import { pathConfig } from 'utils/';
-import packageJson from '../../../../package.json';
 
 export default {
   fromStorage() {
@@ -9,7 +8,10 @@ export default {
     try {
       themeData = fs.readJsonSync(pathConfig.userThemeFile, { throws: false });
       if (
-        semver.lt(themeData.version || '0.0.1', packageJson.config.themeVersion)
+        semver.lt(
+          themeData.version || '0.0.1',
+          process.env.npm_package_config_themeVersion
+        )
       ) {
         themeData = {};
       }
