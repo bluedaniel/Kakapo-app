@@ -21,17 +21,13 @@ export const initialState = compose(length, keys)(themeFromStore)
   ? themeFromStore
   : createTheme();
 
-const themeReducers = {
-  generateStyles(state, swatch, slotNo) {
-    return compose(
-      apply(createTheme),
-      props(['primary', 'btn']),
-      set(lensProp(slotNo ? 'btn' : 'primary'), swatch)
-    )(state);
-  }
-};
+const generateStyles = (state, { swatch, slotNo }) =>
+  compose(
+    apply(createTheme),
+    props(['primary', 'btn']),
+    set(lensProp(slotNo ? 'btn' : 'primary'), swatch)
+  )(state);
 
 export default createReducer(initialState, {
-  [themeTypes.CHANGE]: (state, { swatch, slotNo }) =>
-    themeReducers.generateStyles(state, swatch, slotNo)
+  [themeTypes.CHANGE]: generateStyles
 });
