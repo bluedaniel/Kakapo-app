@@ -31,7 +31,10 @@ const updateSetting = (item, fn) => (state, action) => {
   return set(lensProp(item), val, state);
 };
 
-const setMute = updateSetting('mute', () => bridgedSettings.getItem('mute'));
+const setMute = updateSetting(
+  'mute',
+  () => bridgedSettings.getItem('mute') || false
+);
 const setDock = updateSetting('dockIcon', prop('bool'));
 const setDevtools = updateSetting('devTools', prop('bool'));
 const setUpdate = updateSetting('updateStatus', prop('status'));
