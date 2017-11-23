@@ -166,33 +166,37 @@ let desktopPathConfig = {};
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
-  const { app } = remote;
-
   // Setup directories
   ['user-sounds', 'user-data'].forEach(_d =>
-    fs.ensureDir(path.join(app.getPath('userData'), _d))
+    fs.ensureDir(path.join(remote.app.getPath('userData'), _d))
   );
 
   desktopPathConfig = {
     // Default json objects & dirs
-    gradientFile: path.join(app.getAppPath(), 'data/gradients.json'),
-    settingsFile: path.join(app.getAppPath(), 'data/settings.json'),
-    soundFile: path.join(app.getAppPath(), 'data/sounds.json'),
-    soundDir: path.join(app.getAppPath(), 'sounds'),
+    gradientFile: path.join(remote.app.getAppPath(), 'data/gradients.json'),
+    settingsFile: path.join(remote.app.getAppPath(), 'data/settings.json'),
+    soundFile: path.join(remote.app.getAppPath(), 'data/sounds.json'),
+    soundDir: path.join(remote.app.getAppPath(), 'sounds'),
 
     // User data & dirs
-    userSoundDir: path.join(app.getPath('userData'), 'user-sounds'),
+    userSoundDir: path.join(remote.app.getPath('userData'), 'user-sounds'),
     userSettingsFile: path.join(
-      app.getPath('userData'),
+      remote.app.getPath('userData'),
       'user-data/settings.json'
     ),
-    userSoundFile: path.join(app.getPath('userData'), 'user-data/sounds.json'),
-    userThemeFile: path.join(app.getPath('userData'), 'user-data/theme.json'),
+    userSoundFile: path.join(
+      remote.app.getPath('userData'),
+      'user-data/sounds.json'
+    ),
+    userThemeFile: path.join(
+      remote.app.getPath('userData'),
+      'user-data/theme.json'
+    ),
     userInstallFile: path.join(
-      app.getPath('userData'),
+      remote.app.getPath('userData'),
       'user-data/app-details.json'
     ),
-    tempDir: app.getPath('temp'),
+    tempDir: remote.app.getPath('temp'),
   };
 }
 

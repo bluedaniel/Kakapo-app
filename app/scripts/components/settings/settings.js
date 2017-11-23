@@ -10,8 +10,6 @@ import Checkbox from '../ui/checkbox/checkbox';
 import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
-const { app, autoUpdater } = __DESKTOP__ ? remote : {};
-
 export default ({ settings, themes, intl, dispatch, routing }) => {
   const palette = compose(
     propOr(0, 'palette'),
@@ -21,19 +19,12 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
 
   /* istanbul ignore if */
   if (__DESKTOP__) {
-    autoUpdater
-      .on('checking-for-update', () =>
-        dispatch(settingActions.update('checking'))
-      )
-      .on('update-available', () =>
-        dispatch(settingActions.update('downloading'))
-      )
-      .on('update-not-available', () =>
-        dispatch(settingActions.update('latest'))
-      )
-      .on('update-downloaded', () =>
-        dispatch(settingActions.update('downloaded'))
-      );
+    const updateStatus = x => () => dispatch(settingActions.update(x));
+    remote.autoUpdater
+      .on('checking-for-update', updateStatus('checking'))
+      .on('update-available', updateStatus('downloading'))
+      .on('update-not-available', updateStatus('latest'))
+      .on('update-downloaded', updateStatus('downloaded'));
   }
 
   const handleSwatch = swatch => {
@@ -42,7 +33,7 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
   };
 
   const checkForUpdates = () => {
-    if (!settings.updateStatus) autoUpdater.checkForUpdates();
+    if (!settings.updateStatus) remote.autoUpdater.checkForUpdates();
     if (settings.updateStatus === 'downloaded')
       ipcRenderer.send('application:quit-install');
   };
@@ -91,7 +82,8 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
           role="link"
           onClick={checkForUpdates}
         >
-          {!settings.updateStatus && `Check for update - v${app.getVersion()}`}
+          {!settings.updateStatus &&
+            `Check for update - v${remote.app.getVersion()}`}
           {settings.updateStatus === 'checking' && 'Checking for updates ...'}
           {settings.updateStatus === 'downloading' && 'Downloading update ...'}
           {settings.updateStatus === 'latest' && 'You have the latest version.'}
