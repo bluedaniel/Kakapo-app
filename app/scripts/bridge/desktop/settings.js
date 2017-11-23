@@ -3,7 +3,6 @@ import { ipcRenderer } from 'electron';
 import shortid from 'shortid';
 import path from 'path';
 import {
-  __,
   always,
   applySpec,
   compose,
@@ -11,31 +10,25 @@ import {
   omit,
   prop,
   propOr,
-  set
+  set,
+  merge
 } from 'ramda';
 import { pathConfig } from 'utils/';
 
-const tmpUpdateStatus = path.join(
+const tmpFilePath = path.join(
   pathConfig.tempDir,
   `kakapo-${shortid.generate()}`
 );
+fs.ensureFileSync(tmpFilePath);
 
 const fromSettings = () => {
-  let appSettings = fs.readJsonSync(pathConfig.settingsFile, {
-    throws: false
-  });
-  try {
-    appSettings = fs.readJsonSync(pathConfig.userSettingsFile);
-  } catch (err) {
-    fs.writeJson(pathConfig.userSettingsFile, appSettings);
-  }
+  const opts = { throws: false };
+  const appSettings = fs.readJsonSync(pathConfig.settingsFile, opts);
+  const userSettings = fs.readJsonSync(pathConfig.userSettingsFile, opts);
 
-  let updateStatus = false;
-  try {
-    updateStatus = fs.readJsonSync(tmpUpdateStatus, { throws: false });
-  } catch (err) {
-    fs.writeJson(tmpUpdateStatus, updateStatus);
-  }
+  const settings = merge(appSettings, userSettings);
+
+  const updateStatus = fs.readJsonSync(tmpFilePath, opts) || false;
 
   return applySpec({
     mute: propOr(false, 'mute'),
@@ -43,18 +36,18 @@ const fromSettings = () => {
     devTools: propOr(false, 'devTools'),
     dockIcon: prop('dockIcon'),
     updateStatus: always(updateStatus)
-  })(appSettings);
+  })(settings);
 };
 
-const getItem = prop(__, fromSettings());
+const getItem = x => prop(x, fromSettings());
 
 const setItem = (option, value) => {
   const data = compose(set(lensProp(option), value))(fromSettings());
-  fs.writeJson(pathConfig.userSettingsFile, omit('updateStatus', data));
+  fs.outputJsonSync(pathConfig.userSettingsFile, omit(['updateStatus'], data));
 
   if (option === 'dockIcon') ipcRenderer.send('toggle-dock', value);
   if (option === 'devTools') ipcRenderer.send('toggle-devtools', value);
-  if (option === 'updateStatus') fs.writeJson(tmpUpdateStatus, value);
+  if (option === 'updateStatus') fs.outputJsonSync(tmpFilePath, value);
 };
 
 export default {

@@ -1,27 +1,22 @@
-import { set, lensProp, identity, prop, merge, reduce } from 'ramda';
+import { __, set, lensProp, identity, prop, merge } from 'ramda';
 import kakapoAssets from 'kakapo-assets';
 import { bridgedSettings } from 'kakapoBridge';
 import { settingTypes } from 'actions/';
 import { createReducer, flatteni18n } from 'utils/';
 
-const defaultState = {
+export const initialState = {
   intlData: merge(kakapoAssets.i18n.en, {
     messages: flatteni18n(kakapoAssets.i18n.en.messages)
   }),
-  updateStatus: false
+  updateStatus: false,
+  mute: bridgedSettings.getItem('mute'),
+  lang: bridgedSettings.getItem('lang')
 };
 
-export const initialState = reduce(
-  (acc, k) => set(lensProp(k), bridgedSettings.getItem(k), acc),
-  defaultState,
-  ['mute', 'lang']
-);
-
-const getDesktopState = state =>
-  merge(state, {
-    dockIcon: bridgedSettings.getItem('dockIcon'),
-    devTools: bridgedSettings.getItem('devTools')
-  });
+const getDesktopState = merge(__, {
+  dockIcon: bridgedSettings.getItem('dockIcon'),
+  devTools: bridgedSettings.getItem('devTools')
+});
 
 const updateSetting = (item, fn) => (state, action) => {
   const val = fn(action);
@@ -29,21 +24,16 @@ const updateSetting = (item, fn) => (state, action) => {
   return set(lensProp(item), val, state);
 };
 
-const setMute = updateSetting(
-  'mute',
-  () => bridgedSettings.getItem('mute') || false
-);
-const setDock = updateSetting('dockIcon', prop('bool'));
-const setDevtools = updateSetting('devTools', prop('bool'));
-const setUpdate = updateSetting('updateStatus', prop('status'));
-
 export default createReducer(
   __DESKTOP__ ? getDesktopState(initialState) : initialState,
   {
     [settingTypes.LANGUAGE]: identity,
-    [settingTypes.MUTE]: setMute,
-    [settingTypes.DOCK]: setDock,
-    [settingTypes.DEVTOOLS]: setDevtools,
-    [settingTypes.UPDATE]: setUpdate
+    [settingTypes.MUTE]: updateSetting(
+      'mute',
+      () => !bridgedSettings.getItem('mute')
+    ),
+    [settingTypes.DOCK]: updateSetting('dockIcon', prop('bool')),
+    [settingTypes.DEVTOOLS]: updateSetting('devTools', prop('bool')),
+    [settingTypes.UPDATE]: updateSetting('updateStatus', prop('status'))
   }
 );
