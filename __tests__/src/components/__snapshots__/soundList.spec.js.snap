@@ -18,48 +18,52 @@ exports[`<SoundList/> progress === 1 1`] = `
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue="thunder"
-                name="name"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="name"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue="thunder"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Name
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Name
-              </label>
             </div>
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue={null}
-                name="tags"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="tags"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue={null}
+                  name="tags"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Tag
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Tag
-              </label>
             </div>
             <a
               className="button"
@@ -97,48 +101,52 @@ exports[`<SoundList/> progress === 1 1`] = `
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue="thunder"
-                name="name"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="name"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue="thunder"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Name
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Name
-              </label>
             </div>
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue={null}
-                name="tags"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="tags"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue={null}
+                  name="tags"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Tag
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Tag
-              </label>
             </div>
             <a
               className="button"
@@ -180,48 +188,52 @@ exports[`<SoundList/> progress === 1 1`] = `
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue="thunder"
-                name="name"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="name"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue="thunder"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Name
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Name
-              </label>
             </div>
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue={null}
-                name="tags"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="tags"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue={null}
+                  name="tags"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Tag
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Tag
-              </label>
             </div>
             <a
               className="button"
@@ -259,48 +271,52 @@ exports[`<SoundList/> progress === 1 1`] = `
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue="thunder"
-                name="name"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="name"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue="thunder"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Name
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Name
-              </label>
             </div>
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue={null}
-                name="tags"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="tags"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue={null}
+                  name="tags"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Tag
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Tag
-              </label>
             </div>
             <a
               className="button"
@@ -338,48 +354,52 @@ exports[`<SoundList/> progress === 1 1`] = `
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue="thunder"
-                name="name"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="name"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue="thunder"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Name
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Name
-              </label>
             </div>
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue={null}
-                name="tags"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="tags"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue={null}
+                  name="tags"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Tag
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Tag
-              </label>
             </div>
             <a
               className="button"
@@ -429,48 +449,52 @@ exports[`<SoundList/> render 1`] = `
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue="thunder"
-                name="name"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="name"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue="thunder"
+                  name="name"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Name
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Name
-              </label>
             </div>
             <div
               className="group"
             >
-              <input
-                autoComplete="off"
-                defaultValue={null}
-                name="tags"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                required={true}
-                type="text"
-              />
+              <label
+                htmlFor="tags"
+              >
+                <input
+                  autoComplete="off"
+                  defaultValue={null}
+                  name="tags"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={true}
+                  type="text"
+                />
+                Tag
+              </label>
               <span
                 className="highlight"
               />
               <span
                 className="bar"
               />
-              <label>
-                Tag
-              </label>
             </div>
             <a
               className="button"

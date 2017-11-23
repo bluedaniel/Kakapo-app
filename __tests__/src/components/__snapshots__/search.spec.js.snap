@@ -7,25 +7,27 @@ exports[`<Search/> render 1`] = `
   <div
     className="group"
   >
-    <input
-      autoComplete="off"
-      defaultValue={undefined}
-      name="searchInput"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onFocus={[Function]}
-      required={true}
-      type="text"
-    />
+    <label
+      htmlFor="searchInput"
+    >
+      <input
+        autoComplete="off"
+        defaultValue={undefined}
+        name="searchInput"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        required={true}
+        type="text"
+      />
+      Search YouTube (or enter a YouTube Link)
+    </label>
     <span
       className="highlight"
     />
     <span
       className="bar"
     />
-    <label>
-      Search YouTube (or enter a YouTube Link)
-    </label>
   </div>
   <div
     className="youtube-items"

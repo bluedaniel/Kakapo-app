@@ -4,25 +4,27 @@ exports[`<TextInput/> correct translation 1`] = `
 <div
   className="group"
 >
-  <input
-    autoComplete="off"
-    defaultValue={undefined}
-    name="test"
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-    type="text"
-  />
+  <label
+    htmlFor="test"
+  >
+    <input
+      autoComplete="off"
+      defaultValue={undefined}
+      name="test"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      required={true}
+      type="text"
+    />
+    Settings
+  </label>
   <span
     className="highlight"
   />
   <span
     className="bar"
   />
-  <label>
-    Settings
-  </label>
 </div>
 `;
 
@@ -30,25 +32,27 @@ exports[`<TextInput/> correct value 1`] = `
 <div
   className="group"
 >
-  <input
-    autoComplete="off"
-    defaultValue={42}
-    name="test"
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-    type="text"
-  />
+  <label
+    htmlFor="test"
+  >
+    <input
+      autoComplete="off"
+      defaultValue={42}
+      name="test"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      required={true}
+      type="text"
+    />
+    without.translation
+  </label>
   <span
     className="highlight"
   />
   <span
     className="bar"
   />
-  <label>
-    without.translation
-  </label>
 </div>
 `;
 
@@ -56,25 +60,27 @@ exports[`<TextInput/> loading spinner 1`] = `
 <div
   className="group"
 >
-  <input
-    autoComplete="off"
-    defaultValue={undefined}
-    name="test"
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-    type="text"
-  />
+  <label
+    htmlFor="test"
+  >
+    <input
+      autoComplete="off"
+      defaultValue={undefined}
+      name="test"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      required={true}
+      type="text"
+    />
+    without.translation
+  </label>
   <span
     className="highlight"
   />
   <span
     className="bar"
   />
-  <label>
-    without.translation
-  </label>
   <div
     className="input-add-on-item spinner active"
   >
@@ -92,24 +98,26 @@ exports[`<TextInput/> render 1`] = `
 <div
   className="group"
 >
-  <input
-    autoComplete="off"
-    defaultValue={undefined}
-    name="test"
-    onBlur={[Function]}
-    onChange={[Function]}
-    onFocus={[Function]}
-    required={true}
-    type="text"
-  />
+  <label
+    htmlFor="test"
+  >
+    <input
+      autoComplete="off"
+      defaultValue={undefined}
+      name="test"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      required={true}
+      type="text"
+    />
+    without.translation
+  </label>
   <span
     className="highlight"
   />
   <span
     className="bar"
   />
-  <label>
-    without.translation
-  </label>
 </div>
 `;
