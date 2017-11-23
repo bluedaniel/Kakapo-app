@@ -54,12 +54,12 @@ export default {
           };
 
           request(`${res.download_url}?client_id=${SOUNDCLOUD_KEY}`)
-            .on('response', res => {
-              fileSize = res.headers['content-length'];
+            .on('response', resp => {
+              fileSize = resp.headers['content-length'];
               if (!fileSize) {
                 emit(new Error('Error: Could not access file.'));
               } else {
-                res
+                resp
                   .on('data', data => {
                     const progress = (dataRead += data.length) / fileSize;
                     emit({ ...newSound, progress });

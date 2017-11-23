@@ -43,8 +43,8 @@ const getYoutubeURL = data =>
       .on('error', e => {
         emit(Error(`Error: ${e.message}`));
       })
-      .on('data', data => {
-        const progress = (dataRead += data.length) / fileSize;
+      .on('data', stream => {
+        const progress = (dataRead += stream.length) / fileSize;
         emit({ ...newSound, progress });
       })
       .on('finish', () => {

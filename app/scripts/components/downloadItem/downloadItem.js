@@ -3,19 +3,22 @@ import { cx } from 'utils/';
 import Progress from '../ui/progress/progress';
 import './downloadItem.css';
 
-export default ({ sound }) => {
-  let img = sound.img;
-  if (sound.source === 'file')
-    img = `http://data.kakapo.co/v2/images/light_${img}.png`;
-  return (
-    <div className={cx('download', { active: sound.progress < 1 })}>
-      {img
-        ? <div className="preview" style={{ backgroundImage: `url(${img})` }} />
-        : <div className="no-image" />}
-      <span className="title">
-        {sound.name}
-      </span>
-      <Progress key={`${sound.file}progress`} progress={sound.progress} />
-    </div>
+const getImg = (source, img) => {
+  const url =
+    source === 'file'
+      ? `http://data.kakapo.co/v2/images/light_${img}.png`
+      : img;
+  return url ? (
+    <div className="preview" style={{ backgroundImage: `url(${url})` }} />
+  ) : (
+    <div className="no-image" />
   );
 };
+
+export default ({ sound: { source, name, file, progress, img } }) => (
+  <div className={cx('download', { active: progress < 1 })}>
+    {getImg(source, img)}
+    <span className="title">{name}</span>
+    <Progress key={`${file}progress`} progress={progress} />
+  </div>
+);

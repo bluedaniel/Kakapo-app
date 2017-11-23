@@ -10,14 +10,7 @@ import Checkbox from '../ui/checkbox/checkbox';
 import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
-let app;
-let autoUpdater;
-
-/* istanbul ignore if */
-if (__DESKTOP__) {
-  app = remote.app;
-  autoUpdater = remote.autoUpdater;
-}
+const { app, autoUpdater } = __DESKTOP__ ? remote : {};
 
 export default ({ settings, themes, intl, dispatch, routing }) => {
   const palette = compose(
@@ -54,7 +47,7 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
       ipcRenderer.send('application:quit-install');
   };
 
-  const renderDockOpt = () =>
+  const renderDockOpt = () => (
     <div>
       <div className="opt">
         <Checkbox
@@ -74,11 +67,12 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
           dispatch={dispatch}
         />
       </div>
-    </div>;
+    </div>
+  );
 
   // && !__DEV__
 
-  const renderGitRepo = () =>
+  const renderGitRepo = () => (
     <div className="opt opt-repo">
       <a
         className="github hint--right"
@@ -90,27 +84,25 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
       >
         <i className="icon-img-github" />
       </a>
-      {__DESKTOP__ && !__DEV__
-        ? <a
-            className="version"
-            tabIndex="0"
-            role="link"
-            onClick={checkForUpdates}
-          >
-            {!settings.updateStatus &&
-              `Check for update - v${app.getVersion()}`}
-            {settings.updateStatus === 'checking' && 'Checking for updates ...'}
-            {settings.updateStatus === 'downloading' &&
-              'Downloading update ...'}
-            {settings.updateStatus === 'latest' &&
-              'You have the latest version.'}
-            {settings.updateStatus === 'downloaded' &&
-              'Click to restart and update.'}
-          </a>
-        : null}
-    </div>;
+      {__DESKTOP__ && !__DEV__ ? (
+        <a
+          className="version"
+          tabIndex="0"
+          role="link"
+          onClick={checkForUpdates}
+        >
+          {!settings.updateStatus && `Check for update - v${app.getVersion()}`}
+          {settings.updateStatus === 'checking' && 'Checking for updates ...'}
+          {settings.updateStatus === 'downloading' && 'Downloading update ...'}
+          {settings.updateStatus === 'latest' && 'You have the latest version.'}
+          {settings.updateStatus === 'downloaded' &&
+            'Click to restart and update.'}
+        </a>
+      ) : null}
+    </div>
+  );
 
-  const renderDesktopOpts = () =>
+  const renderDesktopOpts = () => (
     <div>
       {process.platform === 'darwin' ? renderDockOpt() : null}
       <div className="opt quit">
@@ -122,7 +114,8 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
           Quit Kakapo
         </a>
       </div>
-    </div>;
+    </div>
+  );
 
   return (
     <div className="settings-pane">

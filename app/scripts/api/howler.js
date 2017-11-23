@@ -1,4 +1,4 @@
-import { Howl } from 'howler/dist/howler.core.min.js';
+import { Howl } from 'howler/dist/howler.core.min';
 import path from 'path';
 import { pathConfig } from 'utils/';
 

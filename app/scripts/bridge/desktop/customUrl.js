@@ -54,8 +54,8 @@ export default {
             emit(new Error('Error: Could not access file.'));
           } else {
             res
-              .on('data', data => {
-                const progress = (dataRead += data.length) / fileSize;
+              .on('data', stream => {
+                const progress = (dataRead += stream.length) / fileSize;
                 emit({ ...newSound, progress });
               })
               .on('error', e => emit(new Error(`Error: ${e.message}`)))

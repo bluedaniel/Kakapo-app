@@ -36,7 +36,7 @@ import { soundActions, soundTypes, notifyActions } from 'actions/';
 import awsCredentials from '../../../aws.json';
 
 const connectDynamoDB = () => {
-  const AWS = window.AWS;
+  const { AWS } = window;
   AWS.config.update(awsCredentials);
   return new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 };

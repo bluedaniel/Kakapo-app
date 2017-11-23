@@ -4,7 +4,7 @@ import { remote, shell } from 'electron';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { flatten } from 'ramda';
-import { Howler } from 'howler/dist/howler.core.min.js';
+import { Howler } from 'howler/dist/howler.core.min';
 
 export const noop = () => {};
 
@@ -30,14 +30,16 @@ export const newSoundObj = {
   volume: 0.5
 };
 
-export const mapRoute = (props = {}) => route =>
+export const mapRoute = (props = {}) => route => (
   <Route
     key={route.path}
     exact={route.exact}
     path={route.path}
-    render={x =>
-      <route.component {...{ ...props, ...x }} routes={route.routes} />}
-  />;
+    render={x => (
+      <route.component {...{ ...props, ...x }} routes={route.routes} />
+    )}
+  />
+);
 
 export const createReducer = (initialState, handlers) => (
   state = initialState,
@@ -74,7 +76,9 @@ export const flatteni18n = obj =>
   }, {});
 
 const filterObj = obj =>
-  Object.keys(obj).map(_k => (obj[_k] ? _k : false)).filter(_v => _v);
+  Object.keys(obj)
+    .map(_k => (obj[_k] ? _k : false))
+    .filter(_v => _v);
 
 // cx('one', { two: true, three: false }) = 'one two'
 export const cx = (...args) =>
@@ -157,7 +161,7 @@ let desktopPathConfig = {};
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
-  const app = remote.app;
+  const { app } = remote;
 
   // Setup directories
   ['user-sounds', 'user-data'].forEach(_d =>
