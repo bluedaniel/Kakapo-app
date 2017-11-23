@@ -5,7 +5,6 @@ import { lensProp, set, reduce, compose, addIndex, map } from 'ramda';
 import { flatteni18n, swatches, newSoundObj } from 'utils/';
 import youtubeMock from '../../__mocks__/youtube.json';
 import soundcloudMock from '../../__mocks__/soundcloud.json';
-import packageJson from '../../package.json';
 
 export const getIntlProps = () => ({
   locale: 'en',
@@ -42,7 +41,7 @@ export const getData = (slice, opts = {}) => {
     case 'themes': {
       return {
         themes: {
-          version: packageJson.config.themeVersion,
+          version: '0.0.1',
           darkUI: swatches('light').indexOf('#673AB7') !== -1,
           colorPickerActive: false, // Close the color picker
           btn: '#4CAF50',

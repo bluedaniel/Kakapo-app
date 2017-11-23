@@ -158,7 +158,7 @@ function* handlePlaylist({ id }) {
 
 function* saveToStorage() {
   const sounds = yield select(prop('sounds'));
-  compose(bridgedSounds.saveToStorage, JSON.stringify, values)(sounds);
+  bridgedSounds.saveToStorage(values(sounds));
 }
 
 export default function* rootSaga() {

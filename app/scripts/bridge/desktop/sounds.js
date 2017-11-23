@@ -2,15 +2,15 @@ import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
 import { compose, length, filter, prop, concat } from 'ramda';
+import appConfig from 'config/';
 import { pathConfig } from 'utils/';
 
-const isPlaying = compose(length, filter(prop('playing')), JSON.parse);
+const isPlaying = compose(length, filter(prop('playing')));
 
 const setVersion = () =>
-  fs.writeFile(
-    pathConfig.userInstallFile,
-    JSON.stringify({ version: process.env.npm_package_version })
-  );
+  fs.outputJsonSync(pathConfig.userInstallFile, {
+    version: appConfig.appVersion
+  });
 
 const initWithDefault = defaultSounds => {
   let initialState;
@@ -37,9 +37,7 @@ const initWithDefault = defaultSounds => {
     appDetails = {};
   }
 
-  if (
-    semver.lt(appDetails.version || '0.0.1', process.env.npm_package_version)
-  ) {
+  if (semver.lt(appDetails.version || '0.0.1', appConfig.appVersion)) {
     setVersion();
     return compose(concat(defaultSounds), filter(_s => _s.source !== 'file'))(
       initialState
@@ -52,7 +50,7 @@ const initWithDefault = defaultSounds => {
 const saveToStorage = data => {
   const trayIcon = isPlaying(data);
   ipcRenderer.send('update-icon', trayIcon ? 'TrayActive' : 'TrayIdle');
-  fs.writeFile(pathConfig.userSoundFile, data);
+  fs.outputJsonSync(pathConfig.userSoundFile, data);
 };
 
 const removeFromDisk = sound => fs.unlinkSync(sound.file);

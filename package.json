@@ -10,9 +10,6 @@
     "url": "https://github.com/bluedaniel/Kakapo-app/issues"
   },
   "homepage": "https://github.com/bluedaniel/Kakapo-app#readme",
-  "config": {
-    "themeVersion": "1.0.0"
-  },
   "scripts": {
     "build": "babel-node tools/run build",
     "clean": "babel-node tools/run clean",

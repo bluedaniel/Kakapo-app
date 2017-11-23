@@ -1,22 +1,16 @@
 import semver from 'semver';
+import appConfig from 'config/';
 
 export default {
   fromStorage() {
-    const theme = JSON.parse(localStorage.getItem('theme'));
+    const theme = JSON.parse(localStorage.getItem('theme')) || {};
 
-    if (
-      !theme ||
-      semver.lt(
-        theme.version || '0.0.1',
-        process.env.npm_package_config_themeVersion
-      )
-    ) {
+    if (semver.lt(theme.version || '0.0.1', appConfig.themeVersion)) {
       return {};
     }
-
-    return JSON.parse(localStorage.getItem('theme'));
+    return theme;
   },
-  saveToStorage(json) {
-    localStorage.setItem('theme', json);
+  saveToStorage(data) {
+    localStorage.setItem('theme', JSON.stringify(data));
   }
 };
