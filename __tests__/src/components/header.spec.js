@@ -1,8 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import { Header } from 'components/';
 import { getData } from '../helper';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 function setup(props = {}) {
   const propData = {

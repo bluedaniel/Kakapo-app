@@ -1,3 +1,4 @@
+import raf from 'raf';
 import fetchMock from 'jest-fetch-mock';
 import soundcloudMock from '../__mocks__/soundcloud.json';
 
@@ -20,6 +21,4 @@ global.SC = {
   get: (name, obj, cb) => cb(soundcloudMock)
 };
 
-if (process.env.NODE_ENV === 'test') {
-  require('raf').polyfill(global);
-}
+raf.polyfill(global);

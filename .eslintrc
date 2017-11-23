@@ -32,7 +32,7 @@
     "prettier/prettier": [0, { "singleQuote": true }],
     "import/no-extraneous-dependencies": [
       2,
-      { "devDependencies": ["**/*.spec.js"] }
+      { "devDependencies": ["**/*.spec.js", "jest/*.js"] }
     ],
     "jsx-a11y/anchor-is-valid": [1, { "aspects": ["invalidHref"] }],
     "jsx-a11y/click-events-have-key-events": 0,

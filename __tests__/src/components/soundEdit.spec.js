@@ -1,11 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import { map } from 'ramda';
 import { notifyActions, soundActions } from 'actions/';
 import { SoundEdit } from 'components/';
 import { newSoundObj } from 'utils/';
 import { getData, mockEvent } from '../helper';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 function setup(props = {}) {
   const propData = {
