@@ -15,20 +15,19 @@ import {
 } from 'ramda';
 import { pathConfig } from 'utils/';
 
-const tmpFilePath = path.join(
-  pathConfig.tempDir,
-  `kakapo-${shortid.generate()}`
-);
-fs.ensureFileSync(tmpFilePath);
+const tmpFile = path.join(pathConfig.tempDir, `kakapo-${shortid.generate()}`);
+
+fs.ensureFileSync(pathConfig.settingsFile);
+fs.ensureFileSync(pathConfig.userSettingsFile);
+fs.ensureFileSync(tmpFile);
 
 const fromSettings = () => {
   const opts = { throws: false };
-  const appSettings = fs.readJsonSync(pathConfig.settingsFile, opts);
-  const userSettings = fs.readJsonSync(pathConfig.userSettingsFile, opts);
+  const appSettings = fs.readJsonSync(pathConfig.settingsFile, opts) || {};
+  const userSettings = fs.readJsonSync(pathConfig.userSettingsFile, opts) || {};
+  const updateStatus = fs.readJsonSync(tmpFile, opts) || false;
 
   const settings = merge(appSettings, userSettings);
-
-  const updateStatus = fs.readJsonSync(tmpFilePath, opts) || false;
 
   return applySpec({
     mute: propOr(false, 'mute'),
@@ -47,7 +46,7 @@ const setItem = (option, value) => {
 
   if (option === 'dockIcon') ipcRenderer.send('toggle-dock', value);
   if (option === 'devTools') ipcRenderer.send('toggle-devtools', value);
-  if (option === 'updateStatus') fs.outputJsonSync(tmpFilePath, value);
+  if (option === 'updateStatus') fs.outputJsonSync(tmpFile, value);
 };
 
 export default {
