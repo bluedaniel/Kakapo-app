@@ -25,21 +25,19 @@
   "settings": {
     "import/resolver": {
       "babel-module": {}
-    }
+    },
+    "import/core-modules": ["electron", "kakapoBridge"]
   },
   "rules": {
-    "prettier/prettier": ["off", { "singleQuote": true }],
-    "react/prop-types": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "prettier/prettier": [0, { "singleQuote": true }],
     "import/no-extraneous-dependencies": [
-      "error",
+      2,
       { "devDependencies": ["**/*.spec.js"] }
     ],
-    "no-underscore-dangle": 0,
+    "jsx-a11y/anchor-is-valid": [1, { "aspects": ["invalidHref"] }],
     "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/label-has-for": 0,
-    "jsx-a11y/href-no-hash": "off",
-    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/prop-types": 0
   },
   "plugins": ["react", "prettier", "import"]
 }

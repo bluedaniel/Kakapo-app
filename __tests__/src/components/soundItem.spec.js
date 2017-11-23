@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { map } from 'ramda';
 import { newSoundObj } from 'utils/';
 import { SoundItem } from 'components/';
 import { getData } from '../helper';
@@ -16,12 +17,7 @@ function setup(props = {}) {
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundObj, source: 'file', progress: 1, ...props };
-  return {
-    sound: Object.keys(obj).reduce((newObj, _e) => {
-      newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-      return newObj;
-    }, {})
-  };
+  return { sound: map(x => (x === null ? 'wind' : x), obj) };
 };
 
 test('<SoundItem/> render', () => {

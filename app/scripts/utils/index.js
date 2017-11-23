@@ -3,7 +3,17 @@ import fs from 'fs-extra';
 import { remote, shell } from 'electron';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { flatten } from 'ramda';
+import {
+  chain,
+  compose,
+  flatten,
+  fromPairs,
+  identity,
+  is,
+  map,
+  prop,
+  toPairs
+} from 'ramda';
 import { Howler } from 'howler/dist/howler.core.min';
 
 export const noop = () => {};
@@ -58,34 +68,29 @@ export const camelCase = str =>
     (match, p1, p2) => (p2 ? p2.toUpperCase() : p1.toLowerCase())
   );
 
-export const toArray = x => (Array.isArray(x) ? x : [x]);
+export const toArray = x => (is(Array, x) ? x : [x]);
 
 // { 'a':{ 'b':{ 'b2':2 }, 'c':{ 'c2':2 } } } → { 'a.b.b2':2, 'a.c.c2':2 }
-export const flatteni18n = obj =>
-  Object.keys(obj).reduce((_r, _k) => {
-    if (typeof obj[_k] === 'object') {
-      const flatObj = flatteni18n(obj[_k]);
-      Object.keys(flatObj).map(_f => {
-        _r[_f ? `${_k}.${_f}` : _k] = flatObj[_f];
-        return _f;
-      });
-    } else {
-      _r[_k] = obj[_k];
-    }
-    return _r;
-  }, {});
+const go = obj =>
+  chain(([k, v]) => {
+    if (is(Object, v))
+      return map(([newKey, newVal]) => [`${k}.${newKey}`, newVal], go(v));
+    return [[k, v]];
+  }, toPairs(obj));
+
+export const flatteni18n = compose(fromPairs, go);
 
 const filterObj = obj =>
   Object.keys(obj)
-    .map(_k => (obj[_k] ? _k : false))
-    .filter(_v => _v);
+    .map(curr => (obj[curr] ? curr : false))
+    .filter(identity);
 
 // cx('one', { two: true, three: false }) = 'one two'
 export const cx = (...args) =>
   flatten(
     args.map(_a => {
-      if (Array.isArray(_a)) return flatten(_a).join(' ');
-      if (typeof _a === 'object') return filterObj(_a);
+      if (is(Array, _a)) return flatten(_a).join(' ');
+      if (is(Object, _a)) return filterObj(_a);
       return _a;
     })
   ).join(' ');
@@ -127,7 +132,7 @@ export const openLink = (e, link) => {
 
 // file.mp6 -> invalid
 export const validHowl = (url, msg) => {
-  const codecs = Howler._codecs;
+  const codecs = prop('_codecs', Howler);
   const testCodecs = ['mp3', 'opus', 'ogg', 'wav', 'aac', 'm4a', 'mp4', 'weba'];
   const supported = codecs.length ? Object.keys(codecs) : testCodecs;
   const ext = path.extname(url).substring(1);

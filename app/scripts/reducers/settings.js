@@ -11,19 +11,17 @@ const defaultState = {
   updateStatus: false
 };
 
-export let initialState = reduce(
+export const initialState = reduce(
   (acc, k) => set(lensProp(k), bridgedSettings.getItem(k), acc),
   defaultState,
   ['mute', 'lang']
 );
 
-/* istanbul ignore if */
-if (__DESKTOP__) {
-  initialState = merge(initialState, {
+const getDesktopState = state =>
+  merge(state, {
     dockIcon: bridgedSettings.getItem('dockIcon'),
     devTools: bridgedSettings.getItem('devTools')
   });
-}
 
 const updateSetting = (item, fn) => (state, action) => {
   const val = fn(action);
@@ -39,10 +37,13 @@ const setDock = updateSetting('dockIcon', prop('bool'));
 const setDevtools = updateSetting('devTools', prop('bool'));
 const setUpdate = updateSetting('updateStatus', prop('status'));
 
-export default createReducer(initialState, {
-  [settingTypes.LANGUAGE]: identity,
-  [settingTypes.MUTE]: setMute,
-  [settingTypes.DOCK]: setDock,
-  [settingTypes.DEVTOOLS]: setDevtools,
-  [settingTypes.UPDATE]: setUpdate
-});
+export default createReducer(
+  __DESKTOP__ ? getDesktopState(initialState) : initialState,
+  {
+    [settingTypes.LANGUAGE]: identity,
+    [settingTypes.MUTE]: setMute,
+    [settingTypes.DOCK]: setDock,
+    [settingTypes.DEVTOOLS]: setDevtools,
+    [settingTypes.UPDATE]: setUpdate
+  }
+);

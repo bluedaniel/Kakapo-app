@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
+import { map } from 'ramda';
 import { notifyActions, soundActions } from 'actions/';
 import { SoundEdit } from 'components/';
 import { newSoundObj } from 'utils/';
@@ -23,12 +24,7 @@ function setup(props = {}) {
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundObj, source: 'file', progress: 1, ...props };
-  return {
-    sound: Object.keys(obj).reduce((newObj, _e) => {
-      newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-      return newObj;
-    }, {})
-  };
+  return { sound: map(x => (x === null ? 'wind' : x), obj) };
 };
 
 const sound = { ...soundProp() };
