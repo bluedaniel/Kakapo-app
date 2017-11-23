@@ -226,7 +226,7 @@ Object {
     },
   },
   "lang": "en",
-  "mute": false,
+  "mute": true,
   "updateStatus": "checking",
 }
 `;

@@ -12,17 +12,17 @@ export default ({
   intl
 }) => (
   <div className="group">
+    <input
+      type="text"
+      name={name}
+      onChange={onChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
+      defaultValue={value}
+      autoComplete="off"
+      required
+    />
     <label htmlFor={name}>
-      <input
-        type="text"
-        name={name}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        defaultValue={value}
-        autoComplete="off"
-        required
-      />
       {intl.formatMessage({ id: placeholder, defaultMessage: placeholder })}
     </label>
     <span className="highlight" />

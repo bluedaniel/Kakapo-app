@@ -16,19 +16,19 @@ exports[`<CustomUrl/> 1`] = `
       <div
         className="group"
       >
+        <input
+          autoComplete="off"
+          defaultValue={undefined}
+          name="name"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={true}
+          type="text"
+        />
         <label
           htmlFor="name"
         >
-          <input
-            autoComplete="off"
-            defaultValue={undefined}
-            name="name"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            required={true}
-            type="text"
-          />
           Choose a name for this sound
         </label>
         <span
@@ -41,19 +41,19 @@ exports[`<CustomUrl/> 1`] = `
       <div
         className="group"
       >
+        <input
+          autoComplete="off"
+          defaultValue={undefined}
+          name="url"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          required={true}
+          type="text"
+        />
         <label
           htmlFor="url"
         >
-          <input
-            autoComplete="off"
-            defaultValue={undefined}
-            name="url"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            required={true}
-            type="text"
-          />
           Enter a link to an audio file
         </label>
         <span
