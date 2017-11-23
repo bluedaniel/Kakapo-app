@@ -18,5 +18,5 @@ export default {
   },
   saveToStorage(data) {
     fs.outputJsonSync(pathConfig.userThemeFile, data);
-  }
+  },
 };

@@ -7,7 +7,7 @@ const actions = {
   dock: ['bool'],
   devtools: ['bool'],
   language: ['locale'],
-  update: ['status']
+  update: ['status'],
 };
 
 export const { Types, Creators } = createActions(actions, { prefix });

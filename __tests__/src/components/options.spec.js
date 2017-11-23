@@ -6,7 +6,7 @@ import { getData } from '../helper';
 
 test('<Options/> render', () => {
   const props = {
-    ...getData('intl')
+    ...getData('intl'),
   };
   const tree = renderer
     .create(

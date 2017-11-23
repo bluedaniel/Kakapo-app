@@ -7,14 +7,14 @@ const { Types, Creators } = createActions({
   upper: null,
   changeType: ['newValue'],
   none: null,
-  multiply: ['modifier']
+  multiply: ['modifier'],
 });
 
 const reducer = createReducer(initialState, {
   [Types.NONE]: state => state,
   [Types.UPPER]: state => state.toUpperCase(),
   [Types.CHANGE_TYPE]: (state, { newValue }) => newValue,
-  [Types.MULTIPLY]: (state, { modifier }) => state.map(_s => _s * modifier)
+  [Types.MULTIPLY]: (state, { modifier }) => state.map(_s => _s * modifier),
 });
 
 test('[utils/createReducer]', () => {

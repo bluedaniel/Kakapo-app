@@ -9,7 +9,7 @@ const isPlaying = compose(length, filter(prop('playing')));
 
 const setVersion = () =>
   fs.outputJsonSync(pathConfig.userInstallFile, {
-    version: appConfig.appVersion
+    version: appConfig.appVersion,
   });
 
 const initWithDefault = defaultSounds => {
@@ -18,7 +18,7 @@ const initWithDefault = defaultSounds => {
 
   try {
     initialState = fs.readJsonSync(pathConfig.userSoundFile, {
-      throws: false
+      throws: false,
     });
   } catch (e) {
     initialState = [];
@@ -31,7 +31,7 @@ const initWithDefault = defaultSounds => {
 
   try {
     appDetails = fs.readJsonSync(pathConfig.userInstallFile, {
-      throws: false
+      throws: false,
     });
   } catch (e) {
     appDetails = {};

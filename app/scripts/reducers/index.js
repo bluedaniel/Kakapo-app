@@ -12,5 +12,5 @@ export default combineReducers({
   themes,
   search,
   notifications,
-  routing: routerReducer
+  routing: routerReducer,
 });

@@ -11,7 +11,7 @@ import {
   merge,
   __,
   reduce,
-  set
+  set,
 } from 'ramda';
 import { bridgedSounds, bridgedSettings } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
@@ -133,5 +133,5 @@ export default createReducer(initialState, {
   [soundTypes.REMOVE]: removeSound,
   [soundTypes.ADD_SOUND_DOWNLOADING]: soundDownloading,
   [soundTypes.ADD_SOUND_COMPLETE]: soundDownloaded,
-  [soundTypes.RESET]: resetSounds
+  [soundTypes.RESET]: resetSounds,
 });

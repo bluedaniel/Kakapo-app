@@ -13,7 +13,7 @@ const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
   darkPrimary: color(palette1)
     .darken(0.2)
     .toString(),
-  primary: palette1
+  primary: palette1,
 });
 
 const themeFromStore = bridgedThemes.fromStorage();
@@ -30,5 +30,5 @@ const generateStyles = (state, { swatch, slotNo }) =>
   )(state);
 
 export default createReducer(initialState, {
-  [themeTypes.CHANGE]: generateStyles
+  [themeTypes.CHANGE]: generateStyles,
 });

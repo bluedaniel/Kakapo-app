@@ -15,7 +15,7 @@ const getYoutubeURL = data =>
 
     ytdl(`https://www.youtube.com/watch?v=${data.file}`, {
       format: 'audioonly',
-      debug: true
+      debug: true,
     })
       .on('response', ({ headers }) => {
         fileSize = headers['content-length'];
@@ -36,7 +36,7 @@ const getYoutubeURL = data =>
             link: `https://www.youtube.com/watch?v=${videoID}`,
             name: title,
             source: 'youtubeStream',
-            tags: keywords ? keywords.join(' ') : ''
+            tags: keywords ? keywords.join(' ') : '',
           };
         }
       )
@@ -59,5 +59,5 @@ const getYoutubeURL = data =>
 
 export default {
   getYoutubeObj: noop,
-  getYoutubeURL
+  getYoutubeURL,
 };

@@ -17,7 +17,7 @@ const actions = {
   addSoundComplete: ['sound'],
   reset: ['clear'],
   playlist: ['id'],
-  createPlaylist: null
+  createPlaylist: null,
 };
 
 export const { Types, Creators } = createActions(actions, { prefix });

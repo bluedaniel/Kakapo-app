@@ -27,7 +27,7 @@ export default {
 
       fetch(
         `${SCAPI_TRACKS}/${soundcloudID}${serialize({
-          client_id: SOUNDCLOUD_KEY
+          client_id: SOUNDCLOUD_KEY,
         })}`
       )
         .then(res => res.json())
@@ -50,7 +50,7 @@ export default {
             img:
               res.artwork_url ||
               'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
-            link: res.permalink_url
+            link: res.permalink_url,
           };
 
           request(`${res.download_url}?client_id=${SOUNDCLOUD_KEY}`)
@@ -78,5 +78,5 @@ export default {
 
       return noop;
     });
-  }
+  },
 };

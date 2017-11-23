@@ -28,13 +28,13 @@ export default ({ themes, intl }) => {
     >
       {renderDragOrDownload()}
       <div className="share">
-        {__WEB__
-          ? <div
-              className="fb-share-button"
-              data-href="http://www.kakapo.co"
-              data-layout="button_count"
-            />
-          : null}
+        {__WEB__ ? (
+          <div
+            className="fb-share-button"
+            data-href="http://www.kakapo.co"
+            data-layout="button_count"
+          />
+        ) : null}
         <a
           href="https://twitter.com/share"
           className="twitter-share-button"

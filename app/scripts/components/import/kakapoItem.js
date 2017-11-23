@@ -27,7 +27,7 @@ export default ({ sounds, sound, intl, dispatch }) => {
       </div>
       <span className="title">
         {intl.formatMessage({
-          id: `sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`
+          id: `sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`,
         })}
       </span>
     </div>

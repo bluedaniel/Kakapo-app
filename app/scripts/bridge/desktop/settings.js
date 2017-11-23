@@ -11,7 +11,7 @@ import {
   prop,
   propOr,
   set,
-  merge
+  merge,
 } from 'ramda';
 import { pathConfig } from 'utils/';
 
@@ -34,7 +34,7 @@ const fromSettings = () => {
     lang: propOr('en', 'lang'),
     devTools: propOr(false, 'devTools'),
     dockIcon: prop('dockIcon'),
-    updateStatus: always(updateStatus)
+    updateStatus: always(updateStatus),
   })(settings);
 };
 
@@ -52,5 +52,5 @@ const setItem = (option, value) => {
 export default {
   fromSettings,
   getItem,
-  setItem
+  setItem,
 };

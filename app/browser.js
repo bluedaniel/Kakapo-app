@@ -57,7 +57,7 @@ app.on('ready', () => {
     frame: false,
     height: 600,
     resizable: false,
-    width: 400
+    width: 400,
   };
   appIcon.window = new BrowserWindow(defaults);
   appIcon.window.loadURL(path.join('file://', appPath, 'index.html'));
@@ -88,7 +88,7 @@ app.on('ready', () => {
       appIcon.window.setPosition(
         ...[
           bounds.x - 200 + bounds.width / 2,
-          process.platform === 'darwin' ? bounds.y : bounds.y - 600
+          process.platform === 'darwin' ? bounds.y : bounds.y - 600,
         ]
       );
       appIcon.window.show();
@@ -113,7 +113,9 @@ app.on('ready', () => {
 
     if (process.env.NODE_ENV !== '"development"') {
       autoUpdater.setFeedUrl(
-        `http://52.19.170.82:5000/update?version=${app.getVersion()}&platform=${process.platform}`
+        `http://52.19.170.82:5000/update?version=${app.getVersion()}&platform=${
+          process.platform
+        }`
       );
     }
   });

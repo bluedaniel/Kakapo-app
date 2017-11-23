@@ -8,7 +8,7 @@ test('<Checkbox/>', () => {
     dispatch: e => e,
     handleChange: () => 'checkbox changed!',
     label: 'testLabel',
-    name: 'testName'
+    name: 'testName',
   };
   const tree = renderer.create(<Checkbox {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

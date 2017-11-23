@@ -14,7 +14,7 @@ import Subroutes from 'components/ui/subroutes/subroutes';
 import { cx } from 'utils/';
 import './app.css';
 
-const renderUpload = () =>
+const renderUpload = () => (
   <div className="uploadFiles">
     <div className="inner">
       <h3>
@@ -22,21 +22,25 @@ const renderUpload = () =>
       </h3>
       <p className="text">Drop files to upload</p>
     </div>
-  </div>;
+  </div>
+);
 
-const renderLoading = themes =>
+const renderLoading = themes => (
   <div
     className="loading"
     style={{
-      background: color(prop('primary', themes)).alpha(0.5).toString()
+      background: color(prop('primary', themes))
+        .alpha(0.5)
+        .toString(),
     }}
   >
     <div className="sk-fading-circle">
-      {Array.from(new Array(12), (x, i) => i + 1).map(a =>
+      {Array.from(new Array(12), (x, i) => i + 1).map(a => (
         <div className={`sk-circle${a} sk-circle`} key={`sk-circle${a}`} />
-      )}
+      ))}
     </div>
-  </div>;
+  </div>
+);
 
 const App = props => {
   const {
@@ -47,14 +51,14 @@ const App = props => {
     intl,
     dispatch,
     onDrop,
-    onToggleMute
+    onToggleMute,
   } = props;
 
   return (
     <div
       className={cx('app-container', {
         web: __WEB__,
-        desktop: __DESKTOP__
+        desktop: __DESKTOP__,
       })}
     >
       <Dropzone
@@ -70,20 +74,22 @@ const App = props => {
         <div className="main-panel">
           {__DESKTOP__ ? renderUpload() : null}
 
-          {settings.updateStatus === 'downloaded'
-            ? <a
-                className="update-now"
-                onClick={() => ipcRenderer.send('application:quit-install')}
-              >
-                Hi, there is a new version of Kakapo!<br />Click here to update
-              </a>
-            : null}
+          {settings.updateStatus === 'downloaded' ? (
+            <a
+              className="update-now"
+              onClick={() => ipcRenderer.send('application:quit-install')}
+            >
+              Hi, there is a new version of Kakapo!<br />Click here to update
+            </a>
+          ) : null}
 
           <Header {...{ settings, themes, onToggleMute }} />
 
-          {compose(length, keys)(sounds)
-            ? <SoundList {...{ sounds, themes, intl, dispatch }} />
-            : renderLoading(themes)}
+          {compose(length, keys)(sounds) ? (
+            <SoundList {...{ sounds, themes, intl, dispatch }} />
+          ) : (
+            renderLoading(themes)
+          )}
 
           <Notifications {...{ notifications }} />
           <DownloadList {...{ sounds }} />
@@ -99,7 +105,7 @@ const mapStateToProps = pick([
   'sounds',
   'search',
   'themes',
-  'routing'
+  'routing',
 ]);
 
 export default compose(
@@ -112,6 +118,6 @@ export default compose(
     onToggleMute: ({ dispatch }) => () => {
       dispatch(settingActions.mute());
       dispatch(soundActions.mute());
-    }
+    },
   })
 )(App);

@@ -8,7 +8,7 @@ function setup(props = {}) {
     name: 'test',
     placeholder: 'without.translation',
     ...getData('intl'),
-    ...props
+    ...props,
   };
   return { props, tree: renderer.create(<TextInput {...propData} />).toJSON() };
 }

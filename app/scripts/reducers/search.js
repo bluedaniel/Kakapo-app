@@ -6,7 +6,7 @@ export const initialState = {
   youtube: [],
   soundcloud: [],
   kakapofavs: [],
-  loading: false
+  loading: false,
 };
 
 const updateList = (state, { service, items }) =>
@@ -14,5 +14,5 @@ const updateList = (state, { service, items }) =>
 
 export default createReducer(initialState, {
   [searchTypes.REQUEST]: set(lensProp('loading'), true),
-  [searchTypes.REQUEST_SUCCESS]: updateList
+  [searchTypes.REQUEST_SUCCESS]: updateList,
 });

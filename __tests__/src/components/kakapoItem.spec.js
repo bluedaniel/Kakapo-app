@@ -14,11 +14,11 @@ function setup(props = {}) {
   const propData = {
     ...getData('sounds', { full: true }),
     ...getData('intl'),
-    ...props
+    ...props,
   };
   return {
     props,
-    tree: renderer.create(<KakapoItem {...propData} />).toJSON()
+    tree: renderer.create(<KakapoItem {...propData} />).toJSON(),
   };
 }
 

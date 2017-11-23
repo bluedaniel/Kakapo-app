@@ -22,7 +22,7 @@ test('[sagas/search] success search YouTube', async () => {
       name: 'Test',
       tags: '',
       videoId: 'YTg7fpGLsKE',
-      viewCount: 10000
+      viewCount: 10000,
     },
     {
       desc: 'Test2',
@@ -31,8 +31,8 @@ test('[sagas/search] success search YouTube', async () => {
       name: 'Test2',
       tags: '',
       videoId: 'vWyDDn2-5Gk',
-      viewCount: 1000
-    }
+      viewCount: 1000,
+    },
   ];
 
   expect(gen.next(youtubeRes.combined).value).toEqual(
@@ -86,8 +86,8 @@ test('[sagas/search] success search soundcloud', async () => {
       tags: 'soundcloud:source=iphone-record',
       userAvatar:
         'http://a1.sndcdn.com/images/default_avatar_large.png?142a848',
-      viewCount: 0
-    }
+      viewCount: 0,
+    },
   ];
 
   expect(gen.next(soundcloudRes).value).toEqual(

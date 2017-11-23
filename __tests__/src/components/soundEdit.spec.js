@@ -15,13 +15,13 @@ function setup(props = {}) {
     ...getData('themes'),
     ...getData('intl'),
     soundActions: {},
-    ...props
+    ...props,
   };
   const comp = <SoundEdit {...propData} />;
   return {
     props,
     wrapper: shallow(comp),
-    tree: renderer.create(comp).toJSON()
+    tree: renderer.create(comp).toJSON(),
   };
 }
 
@@ -55,7 +55,7 @@ test('<SoundEdit/> handleSubmit empty', () => {
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,
-    target: { getElementsByTagName: () => ({}) }
+    target: { getElementsByTagName: () => ({}) },
   });
   expect(dispatch).toBeCalled();
   expect(dispatch.mock.calls[0][0].type).toBe(action.type);
@@ -68,7 +68,7 @@ test('<SoundEdit/> handleSubmit filled', () => {
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,
-    target: { getElementsByTagName: () => [{ name: 'name', value: 'hi' }] }
+    target: { getElementsByTagName: () => [{ name: 'name', value: 'hi' }] },
   });
   expect(dispatch).toBeCalled();
   expect(dispatch.mock.calls[0][0]).toEqual(action);

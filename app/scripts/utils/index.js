@@ -12,7 +12,7 @@ import {
   is,
   map,
   prop,
-  toPairs
+  toPairs,
 } from 'ramda';
 import { Howler } from 'howler/dist/howler.core.min';
 
@@ -37,7 +37,7 @@ export const newSoundObj = {
   recentlyDownloaded: true,
   tags: null,
   source: null,
-  volume: 0.5
+  volume: 0.5,
 };
 
 export const mapRoute = (props = {}) => route => (
@@ -192,7 +192,7 @@ if (__DESKTOP__) {
       app.getPath('userData'),
       'user-data/app-details.json'
     ),
-    tempDir: app.getPath('temp')
+    tempDir: app.getPath('temp'),
   };
 }
 
@@ -217,7 +217,7 @@ export const swatches = type => {
     '#795548',
     '#9E9E9E',
     '#607D8B',
-    '#001'
+    '#001',
   ];
   switch (type) {
     case 'light':

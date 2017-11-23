@@ -10,7 +10,7 @@ function setup(props = {}) {
     ...getData('themes'),
     ...getData('intl'),
     soundActions: {},
-    ...props
+    ...props,
   };
   return { props, tree: renderer.create(<SoundItem {...propData} />).toJSON() };
 }

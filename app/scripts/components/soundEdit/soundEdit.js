@@ -16,7 +16,7 @@ export default ({ sound, themes, intl, dispatch }) => {
     const data = Array.from(inputs).reduce(
       (acc, a) => ({
         ...acc,
-        [a.name]: a.value
+        [a.name]: a.value,
       }),
       {}
     );
@@ -51,7 +51,7 @@ export default ({ sound, themes, intl, dispatch }) => {
           className="button"
           style={{
             backgroundColor: prop('btn', themes),
-            borderColor: prop('btn', themes)
+            borderColor: prop('btn', themes),
           }}
         >
           {intl.formatMessage({ id: 'list.save' })}

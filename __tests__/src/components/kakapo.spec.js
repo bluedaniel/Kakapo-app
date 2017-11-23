@@ -10,11 +10,11 @@ function setup(props = {}) {
     soundActions: {},
     ...getData('intl'),
     dispatch: identity,
-    ...props
+    ...props,
   };
   return {
     props,
-    tree: renderer.create(<ImportKakapo {...propData} />).toJSON()
+    tree: renderer.create(<ImportKakapo {...propData} />).toJSON(),
   };
 }
 
@@ -25,7 +25,7 @@ test('<Kakapo/> render', () => {
 
 test('<Kakapo/> render items', () => {
   const { tree } = setup({
-    search: { kakapofavs: values(randomSounds(5)) }
+    search: { kakapofavs: values(randomSounds(5)) },
   });
   expect(tree).toMatchSnapshot();
 });

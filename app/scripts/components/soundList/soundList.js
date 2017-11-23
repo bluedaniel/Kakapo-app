@@ -8,7 +8,7 @@ import {
   filter,
   length,
   values,
-  propEq
+  propEq,
 } from 'ramda';
 import { CSSTransition } from 'react-transition-group';
 import { SoundItem, SoundEdit } from 'components/';

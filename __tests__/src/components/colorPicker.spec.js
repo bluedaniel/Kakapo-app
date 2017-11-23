@@ -5,7 +5,7 @@ import ColorPicker from 'components/ui/colorPicker/colorPicker';
 test('<ColorPicker/>', () => {
   const props = {
     active: false,
-    handleSwatch: () => 'checkbox changed!'
+    handleSwatch: () => 'checkbox changed!',
   };
   const tree = renderer.create(<ColorPicker {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

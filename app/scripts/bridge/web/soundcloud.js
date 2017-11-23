@@ -24,7 +24,7 @@ export default {
       unload: () => {
         soundCloudObj.pause();
         soundCloudObj.src = '';
-      }
+      },
     };
   },
 
@@ -37,7 +37,7 @@ export default {
 
   getSoundCloudURL(id) {
     const url = `${SCAPI_TRACKS}/${id}${serialize({
-      client_id: SOUNDCLOUD_KEY
+      client_id: SOUNDCLOUD_KEY,
     })}`;
     return fetch(url)
       .then(resp => resp.json())
@@ -49,9 +49,9 @@ export default {
           name: title,
           progress: 0,
           source: 'soundcloudStream',
-          tags: tag_list
+          tags: tag_list,
         })
       )
       .catch(({ message }) => message);
-  }
+  },
 };

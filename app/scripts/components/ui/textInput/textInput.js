@@ -9,7 +9,7 @@ export default ({
   placeholder,
   value,
   spinner,
-  intl
+  intl,
 }) => (
   <div className="group">
     <input

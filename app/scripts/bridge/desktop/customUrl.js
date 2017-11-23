@@ -13,7 +13,7 @@ export default {
       file: path.join(pathConfig.userSoundDir, file),
       img: '',
       name,
-      source: 'customFile'
+      source: 'customFile',
     };
 
     fs.copySync(filePath, newSound.file);
@@ -44,7 +44,7 @@ export default {
       newSound = {
         ...newSoundObj,
         ...data,
-        file: path.join(pathConfig.userSoundDir, file)
+        file: path.join(pathConfig.userSoundDir, file),
       };
 
       request(data.file)
@@ -69,5 +69,5 @@ export default {
         .pipe(fs.createWriteStream(tmpFile));
 
       return noop;
-    })
+    }),
 };

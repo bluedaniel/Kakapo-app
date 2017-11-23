@@ -18,14 +18,14 @@ import {
   propOr,
   subtract,
   sum,
-  T
+  T,
 } from 'ramda';
 import { put, takeLatest } from 'redux-saga/effects';
 import { searchActions, searchTypes } from 'actions/';
 import {
   getYoutubeSearch,
   getSoundCloudSearch,
-  getKakapoFavourites
+  getKakapoFavourites,
 } from 'api/';
 
 const [concatF, divideF, subtractF] = map(flip, [concat, divide, subtract]);
@@ -59,7 +59,7 @@ const parseDuration = compose(
         [compose(equals('H'), last), compose(multiply(60 * 60), dropLast(1))],
         [compose(equals('M'), last), compose(multiply(60), dropLast(1))],
         [compose(equals('S'), last), dropLast(1)],
-        [T, always(0)]
+        [T, always(0)],
       ])
     )
   ),
@@ -74,7 +74,7 @@ const specYoutube = applySpec({
   name: pathOr('', ['snippet', 'title']),
   tags: always(''),
   videoId: pathOr('', ['id', 'videoId']),
-  viewCount: compose(parseInt, propOr(0, 'viewCount'))
+  viewCount: compose(parseInt, propOr(0, 'viewCount')),
 });
 
 // SoundCloud schema
@@ -88,7 +88,7 @@ const specSoundcloud = applySpec({
   tags: prop('tag_list'),
   scId: compose(parseInt, prop('id')),
   userAvatar: pathOr('', ['user', 'avatar_url']),
-  viewCount: prop('playback_count')
+  viewCount: prop('playback_count'),
 });
 
 // KakapoFavourites schema
@@ -104,7 +104,7 @@ const specKakapo = applySpec({
   progress: always(1),
   img: prop('img'),
   recentlyDownloaded: always(false),
-  url: propOr('', 'url')
+  url: propOr('', 'url'),
 });
 
 export function* fetchService(service, { term }) {
@@ -112,13 +112,13 @@ export function* fetchService(service, { term }) {
     const { transform, provider } = cond([
       [
         equals('soundcloud'),
-        always({ transform: specSoundcloud, provider: getSoundCloudSearch })
+        always({ transform: specSoundcloud, provider: getSoundCloudSearch }),
       ],
       [
         equals('youtube'),
-        always({ transform: specYoutube, provider: getYoutubeSearch })
+        always({ transform: specYoutube, provider: getYoutubeSearch }),
       ],
-      [T, always({ transform: specKakapo, provider: getKakapoFavourites })]
+      [T, always({ transform: specKakapo, provider: getKakapoFavourites })],
     ])(service);
     const resp = yield provider(term);
     yield put(searchActions.requestSuccess(map(transform, resp), service));

@@ -17,36 +17,41 @@ export default ({ sound, themes, dispatch }) => {
     dispatch(soundActions.edit(sound));
   };
 
-  const renderActions = () =>
+  const renderActions = () => (
     <div className={cx('actions', { dark: !sound.playing })}>
-      {sound.link
-        ? <div>
-            <a
-              href={sound.link}
-              onClick={e => openLink(e, sound.link)}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <i className="icon-share" />
-            </a>
-          </div>
-        : ''}
-      {sound.source !== 'youtubeStream'
-        ? <div role="presentation" onClick={handleEdit}>
-            <i className="icon-edit" />
-          </div>
-        : ''}
+      {sound.link ? (
+        <div>
+          <a
+            href={sound.link}
+            onClick={e => openLink(e, sound.link)}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <i className="icon-share" />
+          </a>
+        </div>
+      ) : (
+        ''
+      )}
+      {sound.source !== 'youtubeStream' ? (
+        <div role="presentation" onClick={handleEdit}>
+          <i className="icon-edit" />
+        </div>
+      ) : (
+        ''
+      )}
       <div role="presentation" onClick={handleDelete}>
         <i className="icon-delete" />
       </div>
-    </div>;
+    </div>
+  );
 
   let objStyle = { color: '#121212' };
   if (sound.playing) {
     objStyle = {
       ...objStyle,
       backgroundColor: prop('primary', themes),
-      color: '#fff'
+      color: '#fff',
     };
   }
 
@@ -54,9 +59,11 @@ export default ({ sound, themes, dispatch }) => {
   if (sound.source === 'file') {
     icon = <i className={cx('preview', `icon-${sound.img}`)} />;
   } else {
-    icon = sound.img
-      ? <img src={sound.img} alt={sound.name} />
-      : <div className="no-image" />;
+    icon = sound.img ? (
+      <img src={sound.img} alt={sound.name} />
+    ) : (
+      <div className="no-image" />
+    );
   }
 
   return (
@@ -68,15 +75,13 @@ export default ({ sound, themes, dispatch }) => {
       className={cx('item', 'waves-effect', 'waves-block', {
         playing: sound.playing,
         paused: !sound.playing,
-        'youtube-stream': sound.source === 'youtubeStream'
+        'youtube-stream': sound.source === 'youtubeStream',
       })}
     >
       <div className="inner">
         {icon}
         {renderActions()}
-        <span className="title">
-          {sound.name}
-        </span>
+        <span className="title">{sound.name}</span>
         <input
           defaultValue={sound.volume}
           max="1"
@@ -84,13 +89,16 @@ export default ({ sound, themes, dispatch }) => {
           step="0.01"
           type="range"
           onChange={({ target: { value } }) =>
-            dispatch(soundActions.throttleVolume(sound, parseFloat(value)))}
+            dispatch(soundActions.throttleVolume(sound, parseFloat(value)))
+          }
           onClick={handleStopPropagation}
         />
       </div>
-      {sound.source === 'youtubeStream'
-        ? <div className="youtube-video" id={`video-${sound.file}`} />
-        : <div />}
+      {sound.source === 'youtubeStream' ? (
+        <div className="youtube-video" id={`video-${sound.file}`} />
+      ) : (
+        <div />
+      )}
     </div>
   );
 };

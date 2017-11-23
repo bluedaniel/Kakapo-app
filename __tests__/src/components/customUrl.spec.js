@@ -6,7 +6,7 @@ import { getData } from '../helper';
 test('<CustomUrl/>', () => {
   const props = {
     ...getData('intl'),
-    ...getData('themes')
+    ...getData('themes'),
   };
   const tree = renderer.create(<CustomUrl {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

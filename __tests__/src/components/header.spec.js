@@ -11,13 +11,13 @@ function setup(props = {}) {
   const propData = {
     ...getData('themes'),
     ...getData('settings'),
-    ...props
+    ...props,
   };
   const comp = <Header {...propData} />;
   return {
     props,
     tree: renderer.create(comp).toJSON(),
-    wrapper: shallow(comp)
+    wrapper: shallow(comp),
   };
 }
 

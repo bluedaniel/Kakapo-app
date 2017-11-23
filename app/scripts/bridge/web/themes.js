@@ -12,5 +12,5 @@ export default {
   },
   saveToStorage(data) {
     localStorage.setItem('theme', JSON.stringify(data));
-  }
+  },
 };

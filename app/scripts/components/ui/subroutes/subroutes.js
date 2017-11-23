@@ -9,17 +9,16 @@ const getChildRoutes = compose(prop('routes'), head);
 
 const getKey = compose(camelCase, path(['routing', 'location', 'pathname']));
 
-export default props =>
+export default props => (
   <div
     className={cx('secondary-panel', {
-      'with-close': getKey(props) !== '/'
+      'with-close': getKey(props) !== '/',
     })}
   >
     {getKey(props) !== '/' ? <Link className="icon-close" to="/" /> : null}
 
     <div className="inner">
-      <Switch>
-        {compose(map(mapRoute(props)), getChildRoutes)(routes)}
-      </Switch>
+      <Switch>{compose(map(mapRoute(props)), getChildRoutes)(routes)}</Switch>
     </div>
-  </div>;
+  </div>
+);

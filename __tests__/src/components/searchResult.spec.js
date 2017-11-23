@@ -10,14 +10,14 @@ const sound = {
   name: 'Testing name',
   tags: '',
   videoId: 'YTg7fpGLsKE',
-  viewCount: 319609
+  viewCount: 319609,
 };
 
 test('<SearchResult/> render youtube', () => {
   const props = {
     service: 'youtube',
     ...getData('intl'),
-    sound
+    sound,
   };
   const tree = renderer.create(<SearchResult {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
@@ -27,7 +27,7 @@ test('<SearchResult/> render soundcloud', () => {
   const props = {
     service: 'soundcloud',
     ...getData('intl'),
-    sound
+    sound,
   };
   const tree = renderer.create(<SearchResult {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

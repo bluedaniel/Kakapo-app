@@ -9,17 +9,17 @@ const GAPI_OPTS_SEARCH = {
   key: GAPI_KEY,
   maxResults: 15,
   part: 'snippet',
-  type: 'video'
+  type: 'video',
 };
 const GAPI_OPTS_LIST = {
   key: GAPI_KEY,
-  part: 'contentDetails,statistics,status'
+  part: 'contentDetails,statistics,status',
 };
 
 export const getStatistics = (resolve, reject, videos) => {
   const params = {
     ...GAPI_OPTS_LIST,
-    ...{ id: videos.map(_i => _i.id.videoId).join(',') }
+    ...{ id: videos.map(_i => _i.id.videoId).join(',') },
   };
 
   fetch(`${GAPI_URL}/videos${serialize(params)}`)
@@ -30,7 +30,7 @@ export const getStatistics = (resolve, reject, videos) => {
         mapIndexed((_v, i) => ({
           ...videos[i],
           duration: _v.contentDetails.duration,
-          viewCount: _v.statistics.viewCount
+          viewCount: _v.statistics.viewCount,
         })),
         prop('items')
       )

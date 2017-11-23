@@ -6,16 +6,16 @@ import { createReducer, flatteni18n } from 'utils/';
 
 export const initialState = {
   intlData: merge(kakapoAssets.i18n.en, {
-    messages: flatteni18n(kakapoAssets.i18n.en.messages)
+    messages: flatteni18n(kakapoAssets.i18n.en.messages),
   }),
   updateStatus: false,
   mute: bridgedSettings.getItem('mute'),
-  lang: bridgedSettings.getItem('lang')
+  lang: bridgedSettings.getItem('lang'),
 };
 
 const getDesktopState = merge(__, {
   dockIcon: bridgedSettings.getItem('dockIcon'),
-  devTools: bridgedSettings.getItem('devTools')
+  devTools: bridgedSettings.getItem('devTools'),
 });
 
 const updateSetting = (item, fn) => (state, action) => {
@@ -34,6 +34,6 @@ export default createReducer(
     ),
     [settingTypes.DOCK]: updateSetting('dockIcon', prop('bool')),
     [settingTypes.DEVTOOLS]: updateSetting('devTools', prop('bool')),
-    [settingTypes.UPDATE]: updateSetting('updateStatus', prop('status'))
+    [settingTypes.UPDATE]: updateSetting('updateStatus', prop('status')),
   }
 );

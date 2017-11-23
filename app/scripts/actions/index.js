@@ -4,5 +4,5 @@ export { Creators as soundActions, Types as soundTypes } from './sounds';
 export { Creators as themeActions, Types as themeTypes } from './themes';
 export {
   Creators as notifyActions,
-  Types as notifyTypes
+  Types as notifyTypes,
 } from './notifications';

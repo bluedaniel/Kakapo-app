@@ -8,12 +8,12 @@ import soundcloudMock from '../../__mocks__/soundcloud.json';
 
 export const getIntlProps = () => ({
   locale: 'en',
-  messages: flatteni18n(kakapoAssets.i18n.en.messages)
+  messages: flatteni18n(kakapoAssets.i18n.en.messages),
 });
 
 export const mockEvent = {
   preventDefault: () => ({}),
-  stopPropagation: () => ({})
+  stopPropagation: () => ({}),
 };
 
 const mapIndexed = addIndex(map);
@@ -27,8 +27,8 @@ export const randomSounds = compose(
         name: 'thunder',
         file: curr,
         progress: curr > 2 ? 1 : 0.5,
-        editing: curr > 2
-      }
+        editing: curr > 2,
+      },
     }),
     {}
   ),
@@ -48,8 +48,8 @@ export const getData = (slice, opts = {}) => {
           darkPrimary: color('#673AB7')
             .darken(0.2)
             .toString(),
-          primary: '#673AB7'
-        }
+          primary: '#673AB7',
+        },
       };
     }
     case 'search': {
@@ -57,8 +57,8 @@ export const getData = (slice, opts = {}) => {
         search: {
           youtube: [],
           soundcloud: [],
-          kakapofavs: []
-        }
+          kakapofavs: [],
+        },
       };
     }
     case 'sounds': {

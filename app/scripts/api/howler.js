@@ -18,6 +18,6 @@ export default ({ file, source, volume }) => {
     src: [soundFile],
     html5: true,
     loop: true,
-    volume
+    volume,
   });
 };
