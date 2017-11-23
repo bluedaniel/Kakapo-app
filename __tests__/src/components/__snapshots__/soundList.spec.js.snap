@@ -8,168 +8,164 @@ exports[`<SoundList/> progress === 1 1`] = `
     <div
       className="sound-item-wrap"
     >
-      <span>
-        <div
-          className="item editing"
+      <div
+        className="item editing"
+      >
+        <form
+          onSubmit={[Function]}
         >
-          <form
-            onSubmit={[Function]}
+          <div
+            className="group"
           >
-            <div
-              className="group"
+            <label
+              htmlFor="name"
             >
-              <label
-                htmlFor="name"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue="thunder"
-                  name="name"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Name
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue="thunder"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <div
-              className="group"
+              Name
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <div
+            className="group"
+          >
+            <label
+              htmlFor="tags"
             >
-              <label
-                htmlFor="tags"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue={null}
-                  name="tags"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Tag
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue={null}
+                name="tags"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <a
-              className="button"
-              onClick={[Function]}
-              role="link"
-              tabIndex={-1}
-            >
-              Cancel
-            </a>
-            <button
-              className="button"
-              style={
-                Object {
-                  "backgroundColor": "#4CAF50",
-                  "borderColor": "#4CAF50",
-                }
+              Tag
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <a
+            className="button"
+            onClick={[Function]}
+            role="link"
+            tabIndex={-1}
+          >
+            Cancel
+          </a>
+          <button
+            className="button"
+            style={
+              Object {
+                "backgroundColor": "#4CAF50",
+                "borderColor": "#4CAF50",
               }
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      </span>
+            }
+          >
+            Save
+          </button>
+        </form>
+      </div>
     </div>
     <div
       className="sound-item-wrap"
     >
-      <span>
-        <div
-          className="item editing"
+      <div
+        className="item editing"
+      >
+        <form
+          onSubmit={[Function]}
         >
-          <form
-            onSubmit={[Function]}
+          <div
+            className="group"
           >
-            <div
-              className="group"
+            <label
+              htmlFor="name"
             >
-              <label
-                htmlFor="name"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue="thunder"
-                  name="name"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Name
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue="thunder"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <div
-              className="group"
+              Name
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <div
+            className="group"
+          >
+            <label
+              htmlFor="tags"
             >
-              <label
-                htmlFor="tags"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue={null}
-                  name="tags"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Tag
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue={null}
+                name="tags"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <a
-              className="button"
-              onClick={[Function]}
-              role="link"
-              tabIndex={-1}
-            >
-              Cancel
-            </a>
-            <button
-              className="button"
-              style={
-                Object {
-                  "backgroundColor": "#4CAF50",
-                  "borderColor": "#4CAF50",
-                }
+              Tag
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <a
+            className="button"
+            onClick={[Function]}
+            role="link"
+            tabIndex={-1}
+          >
+            Cancel
+          </a>
+          <button
+            className="button"
+            style={
+              Object {
+                "backgroundColor": "#4CAF50",
+                "borderColor": "#4CAF50",
               }
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      </span>
+            }
+          >
+            Save
+          </button>
+        </form>
+      </div>
     </div>
   </div>
   <div
@@ -178,251 +174,245 @@ exports[`<SoundList/> progress === 1 1`] = `
     <div
       className="sound-item-wrap"
     >
-      <span>
-        <div
-          className="item editing"
+      <div
+        className="item editing"
+      >
+        <form
+          onSubmit={[Function]}
         >
-          <form
-            onSubmit={[Function]}
+          <div
+            className="group"
           >
-            <div
-              className="group"
+            <label
+              htmlFor="name"
             >
-              <label
-                htmlFor="name"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue="thunder"
-                  name="name"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Name
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue="thunder"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <div
-              className="group"
+              Name
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <div
+            className="group"
+          >
+            <label
+              htmlFor="tags"
             >
-              <label
-                htmlFor="tags"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue={null}
-                  name="tags"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Tag
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue={null}
+                name="tags"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <a
-              className="button"
-              onClick={[Function]}
-              role="link"
-              tabIndex={-1}
-            >
-              Cancel
-            </a>
-            <button
-              className="button"
-              style={
-                Object {
-                  "backgroundColor": "#4CAF50",
-                  "borderColor": "#4CAF50",
-                }
+              Tag
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <a
+            className="button"
+            onClick={[Function]}
+            role="link"
+            tabIndex={-1}
+          >
+            Cancel
+          </a>
+          <button
+            className="button"
+            style={
+              Object {
+                "backgroundColor": "#4CAF50",
+                "borderColor": "#4CAF50",
               }
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      </span>
+            }
+          >
+            Save
+          </button>
+        </form>
+      </div>
     </div>
     <div
       className="sound-item-wrap"
     >
-      <span>
-        <div
-          className="item editing"
+      <div
+        className="item editing"
+      >
+        <form
+          onSubmit={[Function]}
         >
-          <form
-            onSubmit={[Function]}
+          <div
+            className="group"
           >
-            <div
-              className="group"
+            <label
+              htmlFor="name"
             >
-              <label
-                htmlFor="name"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue="thunder"
-                  name="name"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Name
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue="thunder"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <div
-              className="group"
+              Name
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <div
+            className="group"
+          >
+            <label
+              htmlFor="tags"
             >
-              <label
-                htmlFor="tags"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue={null}
-                  name="tags"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Tag
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue={null}
+                name="tags"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <a
-              className="button"
-              onClick={[Function]}
-              role="link"
-              tabIndex={-1}
-            >
-              Cancel
-            </a>
-            <button
-              className="button"
-              style={
-                Object {
-                  "backgroundColor": "#4CAF50",
-                  "borderColor": "#4CAF50",
-                }
+              Tag
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <a
+            className="button"
+            onClick={[Function]}
+            role="link"
+            tabIndex={-1}
+          >
+            Cancel
+          </a>
+          <button
+            className="button"
+            style={
+              Object {
+                "backgroundColor": "#4CAF50",
+                "borderColor": "#4CAF50",
               }
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      </span>
+            }
+          >
+            Save
+          </button>
+        </form>
+      </div>
     </div>
     <div
       className="sound-item-wrap"
     >
-      <span>
-        <div
-          className="item editing"
+      <div
+        className="item editing"
+      >
+        <form
+          onSubmit={[Function]}
         >
-          <form
-            onSubmit={[Function]}
+          <div
+            className="group"
           >
-            <div
-              className="group"
+            <label
+              htmlFor="name"
             >
-              <label
-                htmlFor="name"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue="thunder"
-                  name="name"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Name
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue="thunder"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <div
-              className="group"
+              Name
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <div
+            className="group"
+          >
+            <label
+              htmlFor="tags"
             >
-              <label
-                htmlFor="tags"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue={null}
-                  name="tags"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Tag
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue={null}
+                name="tags"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <a
-              className="button"
-              onClick={[Function]}
-              role="link"
-              tabIndex={-1}
-            >
-              Cancel
-            </a>
-            <button
-              className="button"
-              style={
-                Object {
-                  "backgroundColor": "#4CAF50",
-                  "borderColor": "#4CAF50",
-                }
+              Tag
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <a
+            className="button"
+            onClick={[Function]}
+            role="link"
+            tabIndex={-1}
+          >
+            Cancel
+          </a>
+          <button
+            className="button"
+            style={
+              Object {
+                "backgroundColor": "#4CAF50",
+                "borderColor": "#4CAF50",
               }
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      </span>
+            }
+          >
+            Save
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
@@ -439,85 +429,83 @@ exports[`<SoundList/> render 1`] = `
     <div
       className="sound-item-wrap"
     >
-      <span>
-        <div
-          className="item editing"
+      <div
+        className="item editing"
+      >
+        <form
+          onSubmit={[Function]}
         >
-          <form
-            onSubmit={[Function]}
+          <div
+            className="group"
           >
-            <div
-              className="group"
+            <label
+              htmlFor="name"
             >
-              <label
-                htmlFor="name"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue="thunder"
-                  name="name"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Name
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue="thunder"
+                name="name"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <div
-              className="group"
+              Name
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <div
+            className="group"
+          >
+            <label
+              htmlFor="tags"
             >
-              <label
-                htmlFor="tags"
-              >
-                <input
-                  autoComplete="off"
-                  defaultValue={null}
-                  name="tags"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  required={true}
-                  type="text"
-                />
-                Tag
-              </label>
-              <span
-                className="highlight"
+              <input
+                autoComplete="off"
+                defaultValue={null}
+                name="tags"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                required={true}
+                type="text"
               />
-              <span
-                className="bar"
-              />
-            </div>
-            <a
-              className="button"
-              onClick={[Function]}
-              role="link"
-              tabIndex={-1}
-            >
-              Cancel
-            </a>
-            <button
-              className="button"
-              style={
-                Object {
-                  "backgroundColor": "#4CAF50",
-                  "borderColor": "#4CAF50",
-                }
+              Tag
+            </label>
+            <span
+              className="highlight"
+            />
+            <span
+              className="bar"
+            />
+          </div>
+          <a
+            className="button"
+            onClick={[Function]}
+            role="link"
+            tabIndex={-1}
+          >
+            Cancel
+          </a>
+          <button
+            className="button"
+            style={
+              Object {
+                "backgroundColor": "#4CAF50",
+                "borderColor": "#4CAF50",
               }
-            >
-              Save
-            </button>
-          </form>
-        </div>
-      </span>
+            }
+          >
+            Save
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </section>

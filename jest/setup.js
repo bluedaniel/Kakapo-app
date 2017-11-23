@@ -19,3 +19,7 @@ global.SC = {
   initialize: () => {},
   get: (name, obj, cb) => cb(soundcloudMock)
 };
+
+if (process.env.NODE_ENV === 'test') {
+  require('raf').polyfill(global);
+}

@@ -10,7 +10,7 @@ import {
   values,
   propEq
 } from 'ramda';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+import { CSSTransition } from 'react-transition-group';
 import { SoundItem, SoundEdit } from 'components/';
 import './soundList.css';
 
@@ -30,15 +30,13 @@ export default ({ sounds, themes, intl, dispatch }) => {
 
       return (
         <div className="sound-item-wrap" key={_s.file}>
-          <CSSTransitionGroup
-            transitionEnterTimeout={450}
-            transitionLeaveTimeout={450}
-            transitionName="list-animation"
-          >
-            {_s.editing
-              ? <SoundEdit key={`${_s.file}editing`} {...soundProps} />
-              : <SoundItem key={_s.file} {...soundProps} />}
-          </CSSTransitionGroup>
+          <CSSTransition timeout={450} classNames="list-animation">
+            {_s.editing ? (
+              <SoundEdit key={`${_s.file}editing`} {...soundProps} />
+            ) : (
+              <SoundItem key={_s.file} {...soundProps} />
+            )}
+          </CSSTransition>
         </div>
       );
     })
@@ -47,10 +45,11 @@ export default ({ sounds, themes, intl, dispatch }) => {
   return (
     <section>
       {mapIndexed(
-        (x, i) =>
+        (x, i) => (
           <div key={i} className="sound-list">
             {x}
-          </div>,
+          </div>
+        ),
         listSounds
       )}
     </section>
