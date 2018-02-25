@@ -26,15 +26,17 @@ exports[`<CustomUrl/> 1`] = `
           required={true}
           type="text"
         />
+        <label
+          htmlFor="name"
+        >
+          Choose a name for this sound
+        </label>
         <span
           className="highlight"
         />
         <span
           className="bar"
         />
-        <label>
-          Choose a name for this sound
-        </label>
       </div>
       <div
         className="group"
@@ -49,15 +51,17 @@ exports[`<CustomUrl/> 1`] = `
           required={true}
           type="text"
         />
+        <label
+          htmlFor="url"
+        >
+          Enter a link to an audio file
+        </label>
         <span
           className="highlight"
         />
         <span
           className="bar"
         />
-        <label>
-          Enter a link to an audio file
-        </label>
       </div>
       <button
         className="button"

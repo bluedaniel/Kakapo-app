@@ -3,8 +3,18 @@ import fs from 'fs-extra';
 import { remote, shell } from 'electron';
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { flatten } from 'ramda';
-import { Howler } from 'howler/dist/howler.core.min.js';
+import {
+  chain,
+  compose,
+  flatten,
+  fromPairs,
+  identity,
+  is,
+  map,
+  prop,
+  toPairs,
+} from 'ramda';
+import { Howler } from 'howler/dist/howler.core.min';
 
 export const noop = () => {};
 
@@ -27,17 +37,19 @@ export const newSoundObj = {
   recentlyDownloaded: true,
   tags: null,
   source: null,
-  volume: 0.5
+  volume: 0.5,
 };
 
-export const mapRoute = (props = {}) => route =>
+export const mapRoute = (props = {}) => route => (
   <Route
     key={route.path}
     exact={route.exact}
     path={route.path}
-    render={x =>
-      <route.component {...{ ...props, ...x }} routes={route.routes} />}
-  />;
+    render={x => (
+      <route.component {...{ ...props, ...x }} routes={route.routes} />
+    )}
+  />
+);
 
 export const createReducer = (initialState, handlers) => (
   state = initialState,
@@ -56,32 +68,29 @@ export const camelCase = str =>
     (match, p1, p2) => (p2 ? p2.toUpperCase() : p1.toLowerCase())
   );
 
-export const toArray = x => (Array.isArray(x) ? x : [x]);
+export const toArray = x => (is(Array, x) ? x : [x]);
 
 // { 'a':{ 'b':{ 'b2':2 }, 'c':{ 'c2':2 } } } → { 'a.b.b2':2, 'a.c.c2':2 }
-export const flatteni18n = obj =>
-  Object.keys(obj).reduce((_r, _k) => {
-    if (typeof obj[_k] === 'object') {
-      const flatObj = flatteni18n(obj[_k]);
-      Object.keys(flatObj).map(_f => {
-        _r[_f ? `${_k}.${_f}` : _k] = flatObj[_f];
-        return _f;
-      });
-    } else {
-      _r[_k] = obj[_k];
-    }
-    return _r;
-  }, {});
+const go = obj =>
+  chain(([k, v]) => {
+    if (is(Object, v))
+      return map(([newKey, newVal]) => [`${k}.${newKey}`, newVal], go(v));
+    return [[k, v]];
+  }, toPairs(obj));
+
+export const flatteni18n = compose(fromPairs, go);
 
 const filterObj = obj =>
-  Object.keys(obj).map(_k => (obj[_k] ? _k : false)).filter(_v => _v);
+  Object.keys(obj)
+    .map(curr => (obj[curr] ? curr : false))
+    .filter(identity);
 
 // cx('one', { two: true, three: false }) = 'one two'
 export const cx = (...args) =>
   flatten(
     args.map(_a => {
-      if (Array.isArray(_a)) return flatten(_a).join(' ');
-      if (typeof _a === 'object') return filterObj(_a);
+      if (is(Array, _a)) return flatten(_a).join(' ');
+      if (is(Object, _a)) return filterObj(_a);
       return _a;
     })
   ).join(' ');
@@ -123,7 +132,7 @@ export const openLink = (e, link) => {
 
 // file.mp6 -> invalid
 export const validHowl = (url, msg) => {
-  const codecs = Howler._codecs;
+  const codecs = prop('_codecs', Howler);
   const testCodecs = ['mp3', 'opus', 'ogg', 'wav', 'aac', 'm4a', 'mp4', 'weba'];
   const supported = codecs.length ? Object.keys(codecs) : testCodecs;
   const ext = path.extname(url).substring(1);
@@ -157,33 +166,37 @@ let desktopPathConfig = {};
 
 /* istanbul ignore if */
 if (__DESKTOP__) {
-  const app = remote.app;
-
   // Setup directories
   ['user-sounds', 'user-data'].forEach(_d =>
-    fs.ensureDir(path.join(app.getPath('userData'), _d))
+    fs.ensureDir(path.join(remote.app.getPath('userData'), _d))
   );
 
   desktopPathConfig = {
     // Default json objects & dirs
-    gradientFile: path.join(app.getAppPath(), 'data/gradients.json'),
-    settingsFile: path.join(app.getAppPath(), 'data/settings.json'),
-    soundFile: path.join(app.getAppPath(), 'data/sounds.json'),
-    soundDir: path.join(app.getAppPath(), 'sounds'),
+    gradientFile: path.join(remote.app.getAppPath(), 'data/gradients.json'),
+    settingsFile: path.join(remote.app.getAppPath(), 'data/settings.json'),
+    soundFile: path.join(remote.app.getAppPath(), 'data/sounds.json'),
+    soundDir: path.join(remote.app.getAppPath(), 'sounds'),
 
     // User data & dirs
-    userSoundDir: path.join(app.getPath('userData'), 'user-sounds'),
+    userSoundDir: path.join(remote.app.getPath('userData'), 'user-sounds'),
     userSettingsFile: path.join(
-      app.getPath('userData'),
+      remote.app.getPath('userData'),
       'user-data/settings.json'
     ),
-    userSoundFile: path.join(app.getPath('userData'), 'user-data/sounds.json'),
-    userThemeFile: path.join(app.getPath('userData'), 'user-data/theme.json'),
+    userSoundFile: path.join(
+      remote.app.getPath('userData'),
+      'user-data/sounds.json'
+    ),
+    userThemeFile: path.join(
+      remote.app.getPath('userData'),
+      'user-data/theme.json'
+    ),
     userInstallFile: path.join(
-      app.getPath('userData'),
+      remote.app.getPath('userData'),
       'user-data/app-details.json'
     ),
-    tempDir: app.getPath('temp')
+    tempDir: remote.app.getPath('temp'),
   };
 }
 
@@ -208,7 +221,7 @@ export const swatches = type => {
     '#795548',
     '#9E9E9E',
     '#607D8B',
-    '#001'
+    '#001',
   ];
   switch (type) {
     case 'light':
@@ -219,3 +232,6 @@ export const swatches = type => {
       return light.concat(dark);
   }
 };
+
+export const getProgress = (downloaded, fileSize) =>
+  (downloaded / fileSize).toFixed(2);

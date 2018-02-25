@@ -10,7 +10,7 @@ const { getYoutubeObj, getYoutubeURL } = bridgedYoutube;
 const {
   getSoundCloudSearch,
   getSoundCloudURL,
-  getSoundCloudObj
+  getSoundCloudObj,
 } = bridgedSoundcloud;
 
 export const getDefaultSounds = () => {
@@ -24,9 +24,9 @@ export const getDefaultSounds = () => {
     );
   }
 
-  const defaultSounds = fetch(
-    'http://data.kakapo.co/v2/data/sounds.json'
-  ).then(resp => resp.json());
+  const defaultSounds = fetch('http://data.kakapo.co/v2/data/sounds.json').then(
+    resp => resp.json()
+  );
 
   return new Promise(resolve =>
     new Promise(res => {
@@ -57,5 +57,5 @@ export {
   getSoundCloudURL,
   getYoutubeObj,
   getYoutubeSearch,
-  getYoutubeURL
+  getYoutubeURL,
 };

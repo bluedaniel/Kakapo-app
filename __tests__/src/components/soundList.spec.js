@@ -7,7 +7,7 @@ test('<SoundList/> render empty', () => {
   const props = {
     ...getData('sounds'),
     ...getData('themes'),
-    ...getData('intl')
+    ...getData('intl'),
   };
   const tree = renderer.create(<SoundList {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
@@ -18,7 +18,7 @@ test('<SoundList/> render', () => {
     ...getData('sounds'),
     ...getData('themes'),
     ...getData('intl'),
-    sounds: randomSounds(4)
+    sounds: randomSounds(4),
   };
   const tree = renderer.create(<SoundList {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
@@ -29,7 +29,7 @@ test('<SoundList/> progress === 1', () => {
     ...getData('sounds'),
     ...getData('themes'),
     ...getData('intl'),
-    sounds: randomSounds(8)
+    sounds: randomSounds(8),
   };
   const tree = renderer.create(<SoundList {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

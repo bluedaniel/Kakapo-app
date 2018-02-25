@@ -1,7 +1,7 @@
 import React from 'react';
 import { push } from 'react-router-redux';
-import { compose, prop, mapObjIndexed, values } from 'ramda';
-import Clipboard from 'clipboard';
+import { compose, mapObjIndexed, prop, values } from 'ramda';
+import Clipboard from 'clipboard/dist/clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
 import { soundActions, notifyActions } from 'actions/';
@@ -36,14 +36,11 @@ export default ({ match: { params }, intl, dispatch }) => {
 
   const renderShare = () => {
     if (params.shareId) {
-      const baseUrl = `http://${location.hostname}${__DEV__
-        ? `:${location.port}`
-        : 'kakapo.co'}`;
+      const { location: { hostname, port } } = window;
+      const baseUrl = `http://${hostname}${__DEV__ ? `:${port}` : 'kakapo.co'}`;
       return (
         <div>
-          <p>
-            {intl.formatMessage({ id: 'playlist.share_created' })}
-          </p>
+          <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
           <form className="form">
             <div className="InputAddOn">
               <input
@@ -76,12 +73,10 @@ export default ({ match: { params }, intl, dispatch }) => {
     );
   };
 
-  const renderDesktopPlaylistInput = () =>
+  const renderDesktopPlaylistInput = () => (
     <div>
       <hr />
-      <p>
-        {intl.formatMessage({ id: 'playlist.input_playlist' })}
-      </p>
+      <p>{intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
       <form className="form">
         <div className="InputAddOn">
           <span className="InputAddOn-item">kakapo.co/#/playlist/</span>
@@ -92,24 +87,21 @@ export default ({ match: { params }, intl, dispatch }) => {
           />
         </div>
       </form>
-    </div>;
+    </div>
+  );
 
   return (
     <div className="modal playlist-pane">
       <div className="modal-inner">
-        <h3>
-          {intl.formatMessage({ id: 'playlist.header' })}
-        </h3>
+        <h3>{intl.formatMessage({ id: 'playlist.header' })}</h3>
         {renderShare()}
-        <p>
-          {intl.formatMessage({ id: 'playlist.subheading' })}
-        </p>
+        <p>{intl.formatMessage({ id: 'playlist.subheading' })}</p>
         <a role="link" tabIndex={-1} className="button" onClick={resetSounds}>
           {intl.formatMessage({ id: 'playlist.list_reset' })}
         </a>
         {compose(
           values,
-          mapObjIndexed((x, k) =>
+          mapObjIndexed((x, k) => (
             <span
               role="link"
               tabIndex={-1}
@@ -119,7 +111,7 @@ export default ({ match: { params }, intl, dispatch }) => {
             >
               {intl.formatMessage({ id: `playlist.list_${k}` })}
             </span>
-          ),
+          )),
           prop('playlists')
         )(kakapoAssets)}
         {__DESKTOP__ ? renderDesktopPlaylistInput() : null}

@@ -21,13 +21,13 @@ export default () => {
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
       : compose;
-  /* eslint-enable */
 
   const store = createStore(
     rootReducer,
     window.__INITIAL_STATE__,
     composeEnhancers(...enhancers)
   );
+  /* eslint-enable */
 
   store.runSaga = sagaMiddleware.run;
 

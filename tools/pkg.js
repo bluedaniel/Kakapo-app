@@ -1,35 +1,19 @@
 import packager from 'electron-packager';
-import packagejson from '../package.json';
-
-const opts = {
-  'app-version': packagejson.version,
-  asar: true,
-  dir: 'build',
-  icon: 'build/images/desktop/app',
-  name: 'Kakapo',
-  ignore: []
-};
 
 export default async function pkg() {
-  await Promise.all(
-    ['linux', 'win32', 'darwin'].map(
-      plat =>
-        new Promise((resolve, reject) =>
-          packager(
-            {
-              ...opts,
-              ...{
-                platform: plat,
-                arch: 'x64',
-                out: `./release/${plat}`
-              }
-            },
-            (err, path) => {
-              if (err) reject(err);
-              resolve(path);
-            }
-          )
-        )
-    )
-  );
+  await packager({
+    asar: true,
+    dir: 'build',
+    icon: 'build/images/app',
+    ignore: [],
+    name: 'Kakapo',
+    out: './release',
+    platform: 'all',
+
+    // OSX
+    appBundleId: 'com.supercerebral.mac.kakapo',
+    appCategoryType: 'public.app-category.productivity',
+    extendInfo: { ElectronTeamID: 'A6K3VKBW43' },
+    osxSign: true,
+  });
 }

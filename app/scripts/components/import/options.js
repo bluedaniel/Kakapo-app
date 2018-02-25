@@ -2,22 +2,22 @@ import React from 'react';
 import { cx } from 'utils/';
 import { Link } from 'react-router-dom';
 
-export default ({ intl }) =>
+export default ({ intl }) => (
   <div className="downloads">
     <div className="media">
       <h4 className="add-sounds-title">
         {intl.formatMessage({
           id: 'import.downloads.header',
-          defaultMessage: 'Add a sound'
+          defaultMessage: 'Add a sound',
         })}
       </h4>
       <ul className="option-ul">
-        {['kakapo', 'youtube', 'soundcloud', 'custom'].map(item =>
+        {['kakapo', 'youtube', 'soundcloud', 'custom'].map(item => (
           <li className={`option options-${item}`} key={item}>
             <Link to={`/${item}`}>
               <i
                 className={cx(`icon-img-${item}`, {
-                  'icon-add': item === 'custom'
+                  'icon-add': item === 'custom',
                 })}
               />
               <span className="text">
@@ -25,7 +25,7 @@ export default ({ intl }) =>
               </span>
             </Link>
           </li>
-        )}
+        ))}
       </ul>
       <div className="divider" />
       <ul className="option-ul">
@@ -47,4 +47,5 @@ export default ({ intl }) =>
         </li>
       </ul>
     </div>
-  </div>;
+  </div>
+);

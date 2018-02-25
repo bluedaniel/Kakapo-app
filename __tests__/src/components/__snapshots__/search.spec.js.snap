@@ -17,15 +17,17 @@ exports[`<Search/> render 1`] = `
       required={true}
       type="text"
     />
+    <label
+      htmlFor="searchInput"
+    >
+      Search YouTube (or enter a YouTube Link)
+    </label>
     <span
       className="highlight"
     />
     <span
       className="bar"
     />
-    <label>
-      Search YouTube (or enter a YouTube Link)
-    </label>
   </div>
   <div
     className="youtube-items"

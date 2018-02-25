@@ -12,7 +12,7 @@ const newYTPlayer = (elID, file, playing, resolve) =>
       controls: 0,
       loop: 1,
       playlist: file,
-      showinfo: 0
+      showinfo: 0,
     },
     events: {
       onReady: ({ target }) => {
@@ -21,10 +21,10 @@ const newYTPlayer = (elID, file, playing, resolve) =>
           pause: () => target.pauseVideo(),
           volume: vol => target.setVolume(vol * 100),
           mute: toggle => (toggle ? target.mute() : target.unMute()),
-          unload: () => target.destroy()
+          unload: () => target.destroy(),
         });
-      }
-    }
+      },
+    },
   });
 
 export default {
@@ -40,5 +40,5 @@ export default {
     });
   },
 
-  getYoutubeURL: merge(newSoundObj)
+  getYoutubeURL: merge(newSoundObj),
 };

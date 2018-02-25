@@ -1,34 +1,33 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
+import { map } from 'ramda';
 import { notifyActions, soundActions } from 'actions/';
 import { SoundEdit } from 'components/';
 import { newSoundObj } from 'utils/';
 import { getData, mockEvent } from '../helper';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 function setup(props = {}) {
   const propData = {
     ...getData('themes'),
     ...getData('intl'),
     soundActions: {},
-    ...props
+    ...props,
   };
   const comp = <SoundEdit {...propData} />;
   return {
     props,
     wrapper: shallow(comp),
-    tree: renderer.create(comp).toJSON()
+    tree: renderer.create(comp).toJSON(),
   };
 }
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundObj, source: 'file', progress: 1, ...props };
-  return {
-    sound: Object.keys(obj).reduce((newObj, _e) => {
-      newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-      return newObj;
-    }, {})
-  };
+  return { sound: map(x => (x === null ? 'wind' : x), obj) };
 };
 
 const sound = { ...soundProp() };
@@ -42,7 +41,10 @@ test('<SoundEdit/> handleCancel', () => {
   const dispatch = jest.fn();
   const action = soundActions.edit(sound, null);
   const { wrapper } = setup({ sound, dispatch });
-  wrapper.find('.button').at(0).simulate('click', mockEvent);
+  wrapper
+    .find('.button')
+    .at(0)
+    .simulate('click', mockEvent);
   expect(dispatch).toBeCalled();
   expect(dispatch.mock.calls[0][0]).toEqual(action);
 });
@@ -53,7 +55,7 @@ test('<SoundEdit/> handleSubmit empty', () => {
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,
-    target: { getElementsByTagName: () => ({}) }
+    target: { getElementsByTagName: () => ({}) },
   });
   expect(dispatch).toBeCalled();
   expect(dispatch.mock.calls[0][0].type).toBe(action.type);
@@ -66,7 +68,7 @@ test('<SoundEdit/> handleSubmit filled', () => {
   const { wrapper } = setup({ sound, dispatch });
   wrapper.find('form').simulate('submit', {
     ...mockEvent,
-    target: { getElementsByTagName: () => [{ name: 'name', value: 'hi' }] }
+    target: { getElementsByTagName: () => [{ name: 'name', value: 'hi' }] },
   });
   expect(dispatch).toBeCalled();
   expect(dispatch.mock.calls[0][0]).toEqual(action);

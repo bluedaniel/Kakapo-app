@@ -11,5 +11,5 @@ export {
   bridgedYoutube,
   bridgedSettings,
   bridgedSoundcloud,
-  bridgedCustom
+  bridgedCustom,
 };

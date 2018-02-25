@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, map, prop, addIndex } from 'ramda';
+import { addIndex, compose, map, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';
@@ -24,7 +24,7 @@ export default ({ search, location, intl, dispatch }) => {
       />
       <div className={`${service}-items`}>
         {compose(
-          mapIndexed((_y, i) =>
+          mapIndexed((_y, i) => (
             <SearchResult
               key={_y.videoId || _y.scId}
               {...{
@@ -32,10 +32,10 @@ export default ({ search, location, intl, dispatch }) => {
                 sound: _y,
                 service,
                 intl,
-                dispatch
+                dispatch,
               }}
             />
-          ),
+          )),
           prop(service)
         )(search)}
       </div>

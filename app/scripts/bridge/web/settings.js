@@ -4,7 +4,7 @@ export default {
   getItem(option) {
     const data = {
       lang: localStorage.getItem('lang') || 'en',
-      mute: localStorage.getItem('mute')
+      mute: localStorage.getItem('mute'),
     };
     const obj = data[option];
     return safe(() => JSON.parse(obj), obj);
@@ -12,5 +12,5 @@ export default {
   setItem(option, value) {
     if (option === 'updateStatus') return;
     localStorage.setItem(option, JSON.stringify(value));
-  }
+  },
 };

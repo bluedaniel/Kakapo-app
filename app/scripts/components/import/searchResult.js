@@ -12,7 +12,7 @@ export default ({ i, service, sound, intl, dispatch }) => {
         link: `https://www.youtube.com/watch?v=${sound.videoId}`,
         name: sound.name,
         source: 'youtubeStream',
-        tags: sound.tags
+        tags: sound.tags,
       };
     }
     if (service === 'soundcloud') {
@@ -35,9 +35,7 @@ export default ({ i, service, sound, intl, dispatch }) => {
     >
       <div className="thumbnail">
         <img src={sound.img} alt={sound.name} />
-        <span className="duration">
-          {sound.duration}
-        </span>
+        <span className="duration">{sound.duration}</span>
       </div>
       <span className="title">
         {sound.name}

@@ -3,7 +3,7 @@ import { prop } from 'ramda';
 import { cx } from 'utils/';
 import './header.css';
 
-export default ({ settings, themes, onToggleMute }) =>
+export default ({ settings, themes, onToggleMute }) => (
   <header
     className="header"
     style={{ backgroundColor: prop('primary', themes) }}
@@ -20,7 +20,7 @@ export default ({ settings, themes, onToggleMute }) =>
       >
         <i
           className={cx(settings.mute ? 'icon-volume_off' : 'icon-volume_up', {
-            dark: prop('darkUI', themes)
+            dark: prop('darkUI', themes),
           })}
         />
       </span>
@@ -31,4 +31,5 @@ export default ({ settings, themes, onToggleMute }) =>
         <span className="logo-text">Kakapo</span>
       </h3>
     </div>
-  </header>;
+  </header>
+);

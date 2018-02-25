@@ -20,15 +20,17 @@ exports[`<SoundEdit/> render 1`] = `
         required={true}
         type="text"
       />
+      <label
+        htmlFor="name"
+      >
+        Name
+      </label>
       <span
         className="highlight"
       />
       <span
         className="bar"
       />
-      <label>
-        Name
-      </label>
     </div>
     <div
       className="group"
@@ -43,15 +45,17 @@ exports[`<SoundEdit/> render 1`] = `
         required={true}
         type="text"
       />
+      <label
+        htmlFor="tags"
+      >
+        Tag
+      </label>
       <span
         className="highlight"
       />
       <span
         className="bar"
       />
-      <label>
-        Tag
-      </label>
     </div>
     <a
       className="button"

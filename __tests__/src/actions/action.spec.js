@@ -4,7 +4,7 @@ import {
   settingActions,
   soundActions,
   themeActions,
-  notifyActions
+  notifyActions,
 } from 'actions/';
 
 test('[action/searchActions]', () => {

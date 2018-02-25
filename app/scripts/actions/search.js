@@ -9,7 +9,7 @@ const actions = {
   soundcloud: ['term'],
   request: null,
   requestSuccess: ['items', 'service'],
-  requestError: ['err']
+  requestError: ['err'],
 };
 
 export const { Types, Creators } = createActions(actions, { prefix });

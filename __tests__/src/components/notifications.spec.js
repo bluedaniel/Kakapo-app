@@ -5,7 +5,7 @@ import Notifications from 'components/ui/notifications/notifications';
 function setup(props = {}) {
   return {
     props,
-    tree: renderer.create(<Notifications {...props} />).toJSON()
+    tree: renderer.create(<Notifications {...props} />).toJSON(),
   };
 }
 

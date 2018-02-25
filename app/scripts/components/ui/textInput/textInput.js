@@ -9,8 +9,8 @@ export default ({
   placeholder,
   value,
   spinner,
-  intl
-}) =>
+  intl,
+}) => (
   <div className="group">
     <input
       type="text"
@@ -22,14 +22,16 @@ export default ({
       autoComplete="off"
       required
     />
-    <span className="highlight" />
-    <span className="bar" />
-    <label>
+    <label htmlFor={name}>
       {intl.formatMessage({ id: placeholder, defaultMessage: placeholder })}
     </label>
-    {spinner &&
+    <span className="highlight" />
+    <span className="bar" />
+    {spinner && (
       <div className="input-add-on-item spinner active">
         <div className="double-bounce1" />
         <div className="double-bounce2" />
-      </div>}
-  </div>;
+      </div>
+    )}
+  </div>
+);

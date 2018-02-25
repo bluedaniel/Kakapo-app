@@ -5,7 +5,7 @@ import {
   select,
   take,
   takeEvery,
-  throttle
+  throttle,
 } from 'redux-saga/effects';
 import {
   allPass,
@@ -20,7 +20,7 @@ import {
   propEq,
   propIs,
   T,
-  values
+  values,
 } from 'ramda';
 import { push } from 'react-router-redux';
 import shortid from 'shortid';
@@ -30,13 +30,13 @@ import {
   getCustomFile,
   getYoutubeURL,
   getCustomURL,
-  getSoundCloudURL
+  getSoundCloudURL,
 } from 'api/';
 import { soundActions, soundTypes, notifyActions } from 'actions/';
 import awsCredentials from '../../../aws.json';
 
 const connectDynamoDB = () => {
-  const AWS = window.AWS;
+  const { AWS } = window;
   AWS.config.update(awsCredentials);
   return new AWS.DynamoDB({ params: { TableName: 'kakapo-playlists' } });
 };
@@ -57,7 +57,7 @@ const savePlaylist = sounds =>
 
     const shareID = shortid.generate();
     const putItem = {
-      Item: { shareID: { S: shareID }, playlistID: { S: playlistID } }
+      Item: { shareID: { S: shareID }, playlistID: { S: playlistID } },
     };
 
     table.putItem(putItem, () => resolve(shareID));
@@ -92,7 +92,7 @@ function* addSound({ service, data }) {
   const actionFn = cond([
     [equals('soundcloud'), always(getSoundCloudURL)],
     [equals('youtube'), always(getYoutubeURL)],
-    [T, always(getCustomURL)]
+    [T, always(getCustomURL)],
   ])(service);
 
   try {
@@ -143,7 +143,7 @@ function* handlePlaylist({ id }) {
         cond([
           [sourceEq('youtubeStream'), x => ['youtube', x]],
           [sourceEq('soundcloudStream'), x => ['soundcloud', x.file]],
-          [T, x => ['kakapo', x]]
+          [T, x => ['kakapo', x]],
         ])
       ),
       JSON.parse,
@@ -158,7 +158,7 @@ function* handlePlaylist({ id }) {
 
 function* saveToStorage() {
   const sounds = yield select(prop('sounds'));
-  compose(bridgedSounds.saveToStorage, JSON.stringify, values)(sounds);
+  bridgedSounds.saveToStorage(values(sounds));
 }
 
 export default function* rootSaga() {

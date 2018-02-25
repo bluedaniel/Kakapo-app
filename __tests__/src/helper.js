@@ -5,16 +5,15 @@ import { lensProp, set, reduce, compose, addIndex, map } from 'ramda';
 import { flatteni18n, swatches, newSoundObj } from 'utils/';
 import youtubeMock from '../../__mocks__/youtube.json';
 import soundcloudMock from '../../__mocks__/soundcloud.json';
-import packageJson from '../../package.json';
 
 export const getIntlProps = () => ({
   locale: 'en',
-  messages: flatteni18n(kakapoAssets.i18n.en.messages)
+  messages: flatteni18n(kakapoAssets.i18n.en.messages),
 });
 
 export const mockEvent = {
   preventDefault: () => ({}),
-  stopPropagation: () => ({})
+  stopPropagation: () => ({}),
 };
 
 const mapIndexed = addIndex(map);
@@ -28,8 +27,8 @@ export const randomSounds = compose(
         name: 'thunder',
         file: curr,
         progress: curr > 2 ? 1 : 0.5,
-        editing: curr > 2
-      }
+        editing: curr > 2,
+      },
     }),
     {}
   ),
@@ -42,13 +41,15 @@ export const getData = (slice, opts = {}) => {
     case 'themes': {
       return {
         themes: {
-          version: packageJson.config.themeVersion,
+          version: '0.0.1',
           darkUI: swatches('light').indexOf('#673AB7') !== -1,
           colorPickerActive: false, // Close the color picker
           btn: '#4CAF50',
-          darkPrimary: color('#673AB7').darken(0.2).toString(),
-          primary: '#673AB7'
-        }
+          darkPrimary: color('#673AB7')
+            .darken(0.2)
+            .toString(),
+          primary: '#673AB7',
+        },
       };
     }
     case 'search': {
@@ -56,8 +57,8 @@ export const getData = (slice, opts = {}) => {
         search: {
           youtube: [],
           soundcloud: [],
-          kakapofavs: []
-        }
+          kakapofavs: [],
+        },
       };
     }
     case 'sounds': {

@@ -19,8 +19,8 @@ async function winRcedit() {
           ProductName: 'Kakapo',
           FileDescription: 'Kakapo',
           InternalName: 'Kakapo.exe',
-          OriginalFilename: 'Kakapo.exe'
-        }
+          OriginalFilename: 'Kakapo.exe',
+        },
       },
       () => resolve(console.log(`[${new Date()}] Finished winRcedit`))
     );
@@ -28,7 +28,7 @@ async function winRcedit() {
 }
 
 async function winZip() {
-  return await new Promise((resolve, reject) => {
+  await new Promise((resolve, reject) => {
     console.log(`[${new Date()}] Starting winZip ...`);
     const output = fs.createWriteStream(
       `./release/Kakapo-${packagejson.version}-Win.zip`
@@ -45,15 +45,15 @@ async function winZip() {
       {
         expand: true,
         cwd: './release/win32/Kakapo-win32-x64',
-        src: ['**/*']
-      }
+        src: ['**/*'],
+      },
     ]);
     archive.finalize();
   });
 }
 
 async function winSetupExe() {
-  return await new Promise((resolve, reject) => {
+  await new Promise((resolve, reject) => {
     console.log(`[${new Date()}] Starting winSetupExe ...`);
     try {
       createWindowsInstaller({
@@ -67,7 +67,7 @@ async function winSetupExe() {
         description: 'Kakapo',
         title: 'Kakapo',
         exe: 'Kakapo.exe',
-        version: packagejson.version
+        version: packagejson.version,
       }).then(
         () => resolve(console.log(`[${new Date()}] Finished winSetupExe`)),
         e => reject(console.log(`Error: ${e}`))

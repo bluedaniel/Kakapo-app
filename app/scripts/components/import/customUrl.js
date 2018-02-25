@@ -17,7 +17,7 @@ export default ({ themes, intl, dispatch }) => {
     const data = Array.from(inputs).reduce(
       (acc, a) => ({
         ...acc,
-        [a.name]: a.value
+        [a.name]: a.value,
       }),
       { source: 'customStream' }
     );
@@ -33,9 +33,7 @@ export default ({ themes, intl, dispatch }) => {
 
   return (
     <div className="customurl">
-      <h5>
-        {intl.formatMessage({ id: 'import.custom.header' })}
-      </h5>
+      <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
       <form onSubmit={handleSubmit}>
         <div className="media-import">
           <TextInput
@@ -52,7 +50,7 @@ export default ({ themes, intl, dispatch }) => {
             className="button"
             style={{
               backgroundColor: prop('btn', themes),
-              borderColor: prop('btn', themes)
+              borderColor: prop('btn', themes),
             }}
           >
             {intl.formatMessage({ id: 'import.save' })}

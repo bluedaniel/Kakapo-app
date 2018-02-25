@@ -6,7 +6,7 @@ import { getData } from '../helper';
 test('<Nav/> render', () => {
   const props = {
     ...getData('themes'),
-    ...getData('intl')
+    ...getData('intl'),
   };
   const tree = renderer.create(<Nav {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

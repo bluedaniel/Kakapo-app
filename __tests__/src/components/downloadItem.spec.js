@@ -1,14 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { map } from 'ramda';
 import { newSoundObj } from 'utils/';
 import { DownloadItem } from 'components/';
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundObj, source: 'file', progress: 0.8, ...props };
-  return Object.keys(obj).reduce((newObj, _e) => {
-    newObj[_e] = obj[_e] === null ? 'wind' : obj[_e];
-    return newObj;
-  }, {});
+  return map(x => (x === null ? 'wind' : x), obj);
 };
 
 test('<DownloadItem/> render', () => {

@@ -3,6 +3,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
+import { compose, equals, not } from 'ramda';
 import { pathConfig, serialize, newSoundObj, noop } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
@@ -19,6 +20,7 @@ export default {
 
   getSoundCloudURL(soundcloudID) {
     return eventChannel(emit => {
+      let progress = 0;
       let fileSize = 0;
       let dataRead = 0;
       let newSound = {};
@@ -27,7 +29,7 @@ export default {
 
       fetch(
         `${SCAPI_TRACKS}/${soundcloudID}${serialize({
-          client_id: SOUNDCLOUD_KEY
+          client_id: SOUNDCLOUD_KEY,
         })}`
       )
         .then(res => res.json())
@@ -50,19 +52,24 @@ export default {
             img:
               res.artwork_url ||
               'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png',
-            link: res.permalink_url
+            link: res.permalink_url,
           };
 
           request(`${res.download_url}?client_id=${SOUNDCLOUD_KEY}`)
-            .on('response', res => {
-              fileSize = res.headers['content-length'];
+            .on('response', resp => {
+              fileSize = resp.headers['content-length'];
               if (!fileSize) {
                 emit(new Error('Error: Could not access file.'));
               } else {
-                res
+                resp
                   .on('data', data => {
-                    const progress = (dataRead += data.length) / fileSize;
-                    emit({ ...newSound, progress });
+                    const newProgress = (
+                      (dataRead += data.length) / fileSize
+                    ).toFixed(2);
+                    if (compose(not, equals(progress))(newProgress)) {
+                      progress = newProgress;
+                      emit({ ...newSound, progress });
+                    }
                   })
                   .on('error', e => emit(new Error(`Error: ${e.message}`)))
                   .on('end', () => {
@@ -78,5 +85,5 @@ export default {
 
       return noop;
     });
-  }
+  },
 };

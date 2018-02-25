@@ -1,10 +1,10 @@
 import React from 'react';
-import { values } from 'ramda';
+import { compose, propEq, reject, values } from 'ramda';
 import { DownloadItem } from 'components/';
 import './downloadList.css';
 
 export default ({ sounds }) => {
-  const downloads = values(sounds).filter(_s => _s.progress < 1);
+  const downloads = compose(reject(propEq('progress', 1)), values)(sounds);
   if (!downloads.length) return <div />;
   return (
     <div className="download-list">

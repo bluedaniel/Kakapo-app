@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, pathOr, propOr, prop } from 'ramda';
+import { compose, pathOr, prop, propOr } from 'ramda';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';
@@ -10,15 +10,6 @@ import Checkbox from '../ui/checkbox/checkbox';
 import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
-let app;
-let autoUpdater;
-
-/* istanbul ignore if */
-if (__DESKTOP__) {
-  app = remote.app;
-  autoUpdater = remote.autoUpdater;
-}
-
 export default ({ settings, themes, intl, dispatch, routing }) => {
   const palette = compose(
     propOr(0, 'palette'),
@@ -28,19 +19,12 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
 
   /* istanbul ignore if */
   if (__DESKTOP__) {
-    autoUpdater
-      .on('checking-for-update', () =>
-        dispatch(settingActions.update('checking'))
-      )
-      .on('update-available', () =>
-        dispatch(settingActions.update('downloading'))
-      )
-      .on('update-not-available', () =>
-        dispatch(settingActions.update('latest'))
-      )
-      .on('update-downloaded', () =>
-        dispatch(settingActions.update('downloaded'))
-      );
+    const updateStatus = x => () => dispatch(settingActions.update(x));
+    remote.autoUpdater
+      .on('checking-for-update', updateStatus('checking'))
+      .on('update-available', updateStatus('downloading'))
+      .on('update-not-available', updateStatus('latest'))
+      .on('update-downloaded', updateStatus('downloaded'));
   }
 
   const handleSwatch = swatch => {
@@ -49,12 +33,12 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
   };
 
   const checkForUpdates = () => {
-    if (!settings.updateStatus) autoUpdater.checkForUpdates();
+    if (!settings.updateStatus) remote.autoUpdater.checkForUpdates();
     if (settings.updateStatus === 'downloaded')
       ipcRenderer.send('application:quit-install');
   };
 
-  const renderDockOpt = () =>
+  const renderDockOpt = () => (
     <div>
       <div className="opt">
         <Checkbox
@@ -74,11 +58,12 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
           dispatch={dispatch}
         />
       </div>
-    </div>;
+    </div>
+  );
 
   // && !__DEV__
 
-  const renderGitRepo = () =>
+  const renderGitRepo = () => (
     <div className="opt opt-repo">
       <a
         className="github hint--right"
@@ -90,27 +75,26 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
       >
         <i className="icon-img-github" />
       </a>
-      {__DESKTOP__ && !__DEV__
-        ? <a
-            className="version"
-            tabIndex="0"
-            role="link"
-            onClick={checkForUpdates}
-          >
-            {!settings.updateStatus &&
-              `Check for update - v${app.getVersion()}`}
-            {settings.updateStatus === 'checking' && 'Checking for updates ...'}
-            {settings.updateStatus === 'downloading' &&
-              'Downloading update ...'}
-            {settings.updateStatus === 'latest' &&
-              'You have the latest version.'}
-            {settings.updateStatus === 'downloaded' &&
-              'Click to restart and update.'}
-          </a>
-        : null}
-    </div>;
+      {__DESKTOP__ && !__DEV__ ? (
+        <a
+          className="version"
+          tabIndex="0"
+          role="link"
+          onClick={checkForUpdates}
+        >
+          {!settings.updateStatus &&
+            `Check for update - v${remote.app.getVersion()}`}
+          {settings.updateStatus === 'checking' && 'Checking for updates ...'}
+          {settings.updateStatus === 'downloading' && 'Downloading update ...'}
+          {settings.updateStatus === 'latest' && 'You have the latest version.'}
+          {settings.updateStatus === 'downloaded' &&
+            'Click to restart and update.'}
+        </a>
+      ) : null}
+    </div>
+  );
 
-  const renderDesktopOpts = () =>
+  const renderDesktopOpts = () => (
     <div>
       {process.platform === 'darwin' ? renderDockOpt() : null}
       <div className="opt quit">
@@ -122,7 +106,8 @@ export default ({ settings, themes, intl, dispatch, routing }) => {
           Quit Kakapo
         </a>
       </div>
-    </div>;
+    </div>
+  );
 
   return (
     <div className="settings-pane">

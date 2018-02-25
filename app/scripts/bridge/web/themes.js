@@ -1,20 +1,16 @@
 import semver from 'semver';
-import packageJson from '../../../../package.json';
+import appConfig from 'config/';
 
 export default {
   fromStorage() {
-    const theme = JSON.parse(localStorage.getItem('theme'));
+    const theme = JSON.parse(localStorage.getItem('theme')) || {};
 
-    if (
-      !theme ||
-      semver.lt(theme.version || '0.0.1', packageJson.config.themeVersion)
-    ) {
+    if (semver.lt(theme.version || '0.0.1', appConfig.themeVersion)) {
       return {};
     }
-
-    return JSON.parse(localStorage.getItem('theme'));
+    return theme;
   },
-  saveToStorage(json) {
-    localStorage.setItem('theme', json);
-  }
+  saveToStorage(data) {
+    localStorage.setItem('theme', JSON.stringify(data));
+  },
 };

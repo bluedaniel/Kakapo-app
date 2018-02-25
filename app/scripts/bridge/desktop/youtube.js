@@ -3,10 +3,12 @@ import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig, newSoundObj, noop } from 'utils/';
+import { compose, equals, not } from 'ramda';
+import { pathConfig, newSoundObj, noop, getProgress } from 'utils/';
 
 const getYoutubeURL = data =>
   eventChannel(emit => {
+    let progress = 0;
     let fileSize = 0;
     let dataRead = 0;
     let newSound = {};
@@ -15,7 +17,7 @@ const getYoutubeURL = data =>
 
     ytdl(`https://www.youtube.com/watch?v=${data.file}`, {
       format: 'audioonly',
-      debug: true
+      debug: true,
     })
       .on('response', ({ headers }) => {
         fileSize = headers['content-length'];
@@ -23,7 +25,7 @@ const getYoutubeURL = data =>
       .on(
         'info',
         (
-          { title, keywords, thumbnail_url, video_id: videoID },
+          { title, keywords, thumbnail_url: img, video_id: videoID },
           { container }
         ) => {
           newSound = {
@@ -32,20 +34,23 @@ const getYoutubeURL = data =>
               pathConfig.userSoundDir,
               `${shortid.generate()}.${container}`
             ),
-            img: thumbnail_url,
+            img,
             link: `https://www.youtube.com/watch?v=${videoID}`,
             name: title,
             source: 'youtubeStream',
-            tags: keywords ? keywords.join(' ') : ''
+            tags: keywords ? keywords.join(' ') : '',
           };
         }
       )
       .on('error', e => {
         emit(Error(`Error: ${e.message}`));
       })
-      .on('data', data => {
-        const progress = (dataRead += data.length) / fileSize;
-        emit({ ...newSound, progress });
+      .on('data', stream => {
+        const newProgress = getProgress((dataRead += stream.length), fileSize);
+        if (compose(not, equals(progress))(newProgress)) {
+          progress = newProgress;
+          emit({ ...newSound, progress });
+        }
       })
       .on('finish', () => {
         fs.rename(tmpFile, newSound.file);
@@ -59,5 +64,5 @@ const getYoutubeURL = data =>
 
 export default {
   getYoutubeObj: noop,
-  getYoutubeURL
+  getYoutubeURL,
 };

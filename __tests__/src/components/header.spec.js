@@ -1,20 +1,23 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import renderer from 'react-test-renderer';
 import { Header } from 'components/';
 import { getData } from '../helper';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 function setup(props = {}) {
   const propData = {
     ...getData('themes'),
     ...getData('settings'),
-    ...props
+    ...props,
   };
   const comp = <Header {...propData} />;
   return {
     props,
     tree: renderer.create(comp).toJSON(),
-    wrapper: shallow(comp)
+    wrapper: shallow(comp),
   };
 }
 

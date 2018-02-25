@@ -7,5 +7,5 @@ export default {
       throw new Error(validHowl(data.file, true));
     }
     return { ...newSoundObj, ...data };
-  }
+  },
 };

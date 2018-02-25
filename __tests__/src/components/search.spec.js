@@ -7,7 +7,7 @@ test('<Search/> render', () => {
   const props = {
     location: { pathname: '/youtube' },
     ...getData('intl'),
-    ...getData('search')
+    ...getData('search'),
   };
   const tree = renderer.create(<Search {...props} />).toJSON();
   expect(tree).toMatchSnapshot();

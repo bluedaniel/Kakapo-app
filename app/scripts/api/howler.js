@@ -1,4 +1,4 @@
-import { Howl } from 'howler/dist/howler.core.min.js';
+import { Howl } from 'howler/dist/howler.core.min';
 import path from 'path';
 import { pathConfig } from 'utils/';
 
@@ -18,6 +18,6 @@ export default ({ file, source, volume }) => {
     src: [soundFile],
     html5: true,
     loop: true,
-    volume
+    volume,
   });
 };

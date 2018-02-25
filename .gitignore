@@ -1,4 +1,4 @@
-# Ignore dot files, except git stuff
+# Ignore dot files, except git
 .*
 !.git*
 !.eslintrc
@@ -8,8 +8,9 @@
 !.eslintignore
 !.travis.yml
 !.stylelintrc
+!.prettierrc
 
-# Logs
+# Log files
 logs
 *.log
 npm-debug.log.*

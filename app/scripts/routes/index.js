@@ -4,7 +4,7 @@ import {
   ImportSearch,
   ImportCustomUrl,
   Playlist,
-  Settings
+  Settings,
 } from 'components/';
 import App from 'containers/app/app';
 
@@ -16,7 +16,7 @@ export default [
       {
         path: '/',
         exact: true,
-        component: ImportOptions
+        component: ImportOptions,
       },
       {
         path: '/settings',
@@ -24,9 +24,9 @@ export default [
         routes: [
           {
             path: '/theme(/:slotNo)',
-            component: Settings
-          }
-        ]
+            component: Settings,
+          },
+        ],
       },
       { path: '/kakapo', component: ImportKakapo },
       { path: '/youtube', component: ImportSearch },
@@ -34,7 +34,7 @@ export default [
       { path: '/custom', component: ImportCustomUrl },
       { path: '/playlist(/:playlistId)', component: Playlist },
       { path: '/playlist', component: Playlist },
-      { path: '/share-playlist(/:shareId)', component: Playlist }
-    ]
-  }
+      { path: '/share-playlist(/:shareId)', component: Playlist },
+    ],
+  },
 ];

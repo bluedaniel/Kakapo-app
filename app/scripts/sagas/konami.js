@@ -1,6 +1,6 @@
 import { eventChannel } from 'redux-saga';
 import { fork, call, take, put } from 'redux-saga/effects';
-import { compose, join, equals, append, takeLast } from 'ramda';
+import { append, compose, equals, join, takeLast } from 'ramda';
 import { notifyActions } from 'actions/';
 import { noop } from 'utils/';
 

@@ -1,59 +1,58 @@
 import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { compose, length, filter, prop, concat } from 'ramda';
+import { compose, concat, filter, length, prop, propEq, reject } from 'ramda';
+import appConfig from 'config/';
 import { pathConfig } from 'utils/';
-import packageJson from '../../../../package.json';
 
-const isPlaying = compose(length, filter(prop('playing')), JSON.parse);
+const isPlaying = compose(length, filter(prop('playing')));
 
-export default {
-  setVersion() {
-    fs.writeFile(
-      pathConfig.userInstallFile,
-      JSON.stringify({ version: packageJson.version })
-    );
-  },
-  initWithDefault(defaultSounds) {
-    let initialState;
-    let appDetails;
+const setVersion = () =>
+  fs.outputJsonSync(pathConfig.userInstallFile, {
+    version: appConfig.appVersion,
+  });
 
-    try {
-      initialState = fs.readJsonSync(pathConfig.userSoundFile, {
-        throws: false
-      });
-    } catch (e) {
-      initialState = [];
-    }
+const initWithDefault = defaultSounds => {
+  let initialState;
+  let appDetails;
 
-    if (!length(initialState)) {
-      this.setVersion();
-      return defaultSounds;
-    }
-
-    try {
-      appDetails = fs.readJsonSync(pathConfig.userInstallFile, {
-        throws: false
-      });
-    } catch (e) {
-      appDetails = {};
-    }
-
-    if (semver.lt(appDetails.version || '0.0.1', packageJson.version)) {
-      this.setVersion();
-      return compose(concat(defaultSounds), filter(_s => _s.source !== 'file'))(
-        initialState
-      );
-    }
-
-    return initialState;
-  },
-  saveToStorage(data) {
-    const trayIcon = isPlaying(data);
-    ipcRenderer.send('update-icon', trayIcon ? 'TrayActive' : 'TrayIdle');
-    fs.writeFile(pathConfig.userSoundFile, data);
-  },
-  removeFromDisk(sound) {
-    fs.unlinkSync(sound.file);
+  try {
+    initialState = fs.readJsonSync(pathConfig.userSoundFile, {
+      throws: false,
+    });
+  } catch (e) {
+    initialState = [];
   }
+
+  if (!length(initialState)) {
+    setVersion();
+    return defaultSounds;
+  }
+
+  try {
+    appDetails = fs.readJsonSync(pathConfig.userInstallFile, {
+      throws: false,
+    });
+  } catch (e) {
+    appDetails = {};
+  }
+
+  if (semver.lt(appDetails.version || '0.0.1', appConfig.appVersion)) {
+    setVersion();
+    return compose(concat(defaultSounds), reject(propEq('source', 'file')))(
+      initialState
+    );
+  }
+
+  return initialState;
 };
+
+const saveToStorage = data => {
+  const trayIcon = isPlaying(data);
+  ipcRenderer.send('update-icon', trayIcon ? 'TrayActive' : 'TrayIdle');
+  fs.outputJsonSync(pathConfig.userSoundFile, data);
+};
+
+const removeFromDisk = sound => fs.unlinkSync(sound.file);
+
+export default { setVersion, saveToStorage, removeFromDisk, initWithDefault };
