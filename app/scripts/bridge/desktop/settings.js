@@ -7,11 +7,11 @@ import {
   applySpec,
   compose,
   lensProp,
+  merge,
   omit,
   prop,
   propOr,
   set,
-  merge,
 } from 'ramda';
 import { pathConfig } from 'utils/';
 

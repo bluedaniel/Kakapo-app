@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, map, prop, addIndex } from 'ramda';
+import { addIndex, compose, map, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';

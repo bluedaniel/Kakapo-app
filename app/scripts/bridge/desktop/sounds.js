@@ -1,7 +1,7 @@
 import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { compose, length, filter, prop, concat } from 'ramda';
+import { compose, concat, filter, length, prop, propEq, reject } from 'ramda';
 import appConfig from 'config/';
 import { pathConfig } from 'utils/';
 
@@ -39,7 +39,7 @@ const initWithDefault = defaultSounds => {
 
   if (semver.lt(appDetails.version || '0.0.1', appConfig.appVersion)) {
     setVersion();
-    return compose(concat(defaultSounds), filter(_s => _s.source !== 'file'))(
+    return compose(concat(defaultSounds), reject(propEq('source', 'file')))(
       initialState
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, prop, head, map, path } from 'ramda';
+import { compose, head, map, path, prop } from 'ramda';
 import { Link, Switch } from 'react-router-dom';
 import { camelCase, cx, mapRoute } from 'utils/';
 import routes from 'routes/';

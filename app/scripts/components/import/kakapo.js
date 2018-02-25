@@ -1,6 +1,6 @@
 import React from 'react';
 import { lifecycle } from 'recompose';
-import { compose, prop, map, length } from 'ramda';
+import { compose, length, map, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import { cx } from 'utils/';
 import KakapoItem from './kakapoItem';

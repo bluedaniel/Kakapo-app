@@ -1,4 +1,4 @@
-import { set, lensProp, omit } from 'ramda';
+import { lensProp, omit, set } from 'ramda';
 import { notifyTypes } from 'actions/';
 import { createReducer } from 'utils/';
 

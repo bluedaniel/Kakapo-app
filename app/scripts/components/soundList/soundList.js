@@ -1,14 +1,14 @@
 import React from 'react';
 import {
   addIndex,
-  splitAt,
-  map,
-  divide,
   compose,
+  divide,
   filter,
   length,
-  values,
+  map,
   propEq,
+  splitAt,
+  values,
 } from 'ramda';
 import { CSSTransition } from 'react-transition-group';
 import { SoundItem, SoundEdit } from 'components/';

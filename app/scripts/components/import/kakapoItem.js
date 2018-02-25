@@ -1,5 +1,16 @@
 import React from 'react';
-import { equals, length, filter, values, compose } from 'ramda';
+import {
+  compose,
+  concat,
+  equals,
+  filter,
+  length,
+  prop,
+  propEq,
+  replace,
+  toLower,
+  values,
+} from 'ramda';
 import { soundActions } from 'actions/';
 import { cx } from 'utils/';
 
@@ -7,7 +18,7 @@ export default ({ sounds, sound, intl, dispatch }) => {
   const disabled = compose(
     equals(1),
     length,
-    filter(_s => sound.file === _s.file),
+    filter(propEq('file', sound.file)),
     values
   )(sounds);
 
@@ -27,7 +38,12 @@ export default ({ sounds, sound, intl, dispatch }) => {
       </div>
       <span className="title">
         {intl.formatMessage({
-          id: `sounds.${sound.name.replace(/\s+/g, '_').toLowerCase()}`,
+          id: compose(
+            concat('sounds.'),
+            toLower,
+            replace(/\s+/g, '_'),
+            prop('name')
+          ),
         })}
       </span>
     </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, keys, length, pick, prop, map } from 'ramda';
+import { compose, keys, length, map, pick, prop } from 'ramda';
 import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
 import { withRouter } from 'react-router-dom';

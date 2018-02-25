@@ -1,5 +1,5 @@
 import semver from 'semver';
-import { compose, concat, filter, length } from 'ramda';
+import { compose, concat, length, propEq, reject } from 'ramda';
 import appConfig from 'config/';
 
 const setVersion = () => localStorage.setItem('version', appConfig.appVersion);
@@ -17,7 +17,7 @@ const initWithDefault = defaultSounds => {
     semver.lt(localStorage.getItem('version') || '0.0.1', appConfig.appVersion)
   ) {
     setVersion();
-    return compose(concat(defaultSounds), filter(_s => _s.source !== 'file'))(
+    return compose(concat(defaultSounds), reject(propEq('source', 'file')))(
       initialState
     );
   }

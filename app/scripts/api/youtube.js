@@ -1,4 +1,4 @@
-import { compose, prop, addIndex, map } from 'ramda';
+import { addIndex, compose, map, prop } from 'ramda';
 import { serialize } from 'utils/';
 
 const mapIndexed = addIndex(map);

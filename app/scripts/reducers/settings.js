@@ -1,4 +1,4 @@
-import { __, set, lensProp, identity, prop, merge } from 'ramda';
+import { __, identity, lensProp, merge, prop, set } from 'ramda';
 import kakapoAssets from 'kakapo-assets';
 import { bridgedSettings } from 'kakapoBridge';
 import { settingTypes } from 'actions/';

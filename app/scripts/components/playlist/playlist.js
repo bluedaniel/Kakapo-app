@@ -1,6 +1,6 @@
 import React from 'react';
 import { push } from 'react-router-redux';
-import { compose, prop, mapObjIndexed, values } from 'ramda';
+import { compose, mapObjIndexed, prop, values } from 'ramda';
 import Clipboard from 'clipboard/dist/clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';

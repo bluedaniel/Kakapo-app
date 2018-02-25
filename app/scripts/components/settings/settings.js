@@ -1,5 +1,5 @@
 import React from 'react';
-import { compose, pathOr, propOr, prop } from 'ramda';
+import { compose, pathOr, prop, propOr } from 'ramda';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
 import { push } from 'react-router-redux';

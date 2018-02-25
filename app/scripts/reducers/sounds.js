@@ -1,15 +1,15 @@
 import {
+  __,
   compose,
   empty,
   filter,
   lensProp,
   mapObjIndexed,
+  merge,
   omit,
   over,
   prop,
   propEq,
-  merge,
-  __,
   reduce,
   set,
 } from 'ramda';

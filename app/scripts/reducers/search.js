@@ -1,4 +1,4 @@
-import { merge, set, lensProp } from 'ramda';
+import { lensProp, merge, set } from 'ramda';
 import { searchTypes } from 'actions/';
 import { createReducer } from 'utils/';
 

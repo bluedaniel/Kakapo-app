@@ -1,4 +1,4 @@
-import { apply, set, props, compose, keys, length, lensProp } from 'ramda';
+import { apply, compose, keys, length, lensProp, props, set } from 'ramda';
 import color from 'color';
 import { bridgedThemes } from 'kakapoBridge';
 import { themeTypes } from 'actions/';
