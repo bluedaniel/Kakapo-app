@@ -1,7 +1,18 @@
-import { app, ipcMain, BrowserWindow, autoUpdater, Tray } from 'electron';
+import {
+  app,
+  autoUpdater,
+  BrowserWindow,
+  dialog,
+  ipcMain,
+  Tray,
+} from 'electron';
 import fs from 'fs';
 import path from 'path';
 import proc from 'child_process';
+import installExtension, {
+  REDUX_DEVTOOLS,
+  REACT_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer';
 
 const appPath = app.getAppPath();
 const userPath = app.getPath('userData');
@@ -60,12 +71,11 @@ app.on('ready', () => {
   const win = new BrowserWindow(defaults);
   win.loadURL(path.join('file://', appPath, 'index.html'));
 
-  win.webContents.on(
-    'new-window',
-    (event, url, frameName, disposition, opts) => {
-      opts.frame = true;
-    }
-  );
+  // DevTools
+  Promise.all([
+    installExtension(REDUX_DEVTOOLS),
+    installExtension(REACT_DEVELOPER_TOOLS),
+  ]).catch(err => dialog.showErrorBox('Dev Tools Error', err));
 
   if (process.platform === 'darwin') {
     toggleDock(app, appSettings.dockIcon);

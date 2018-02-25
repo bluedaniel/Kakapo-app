@@ -43,7 +43,7 @@ export default ({ sounds, sound, intl, dispatch }) => {
             toLower,
             replace(/\s+/g, '_'),
             prop('name')
-          ),
+          )(sound),
         })}
       </span>
     </div>
