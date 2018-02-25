@@ -23,7 +23,7 @@ const getYoutubeURL = data =>
       .on(
         'info',
         (
-          { title, keywords, thumbnail_url, video_id: videoID },
+          { title, keywords, thumbnail_url: img, video_id: videoID },
           { container }
         ) => {
           newSound = {
@@ -32,7 +32,7 @@ const getYoutubeURL = data =>
               pathConfig.userSoundDir,
               `${shortid.generate()}.${container}`
             ),
-            img: thumbnail_url,
+            img,
             link: `https://www.youtube.com/watch?v=${videoID}`,
             name: title,
             source: 'youtubeStream',

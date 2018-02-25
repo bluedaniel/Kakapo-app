@@ -41,16 +41,23 @@ export default {
     })}`;
     return fetch(url)
       .then(resp => resp.json())
-      .then(({ stream_url, artwork_url, permalink_url, title, tag_list }) =>
-        merge(newSoundObj, {
-          file: stream_url,
-          img: artwork_url,
-          link: permalink_url,
-          name: title,
-          progress: 0,
-          source: 'soundcloudStream',
-          tags: tag_list,
-        })
+      .then(
+        ({
+          stream_url: file,
+          artwork_url: img,
+          permalink_url: link,
+          title,
+          tag_list: tags,
+        }) =>
+          merge(newSoundObj, {
+            file,
+            img,
+            link,
+            name: title,
+            progress: 0,
+            source: 'soundcloudStream',
+            tags,
+          })
       )
       .catch(({ message }) => message);
   },
