@@ -232,3 +232,6 @@ export const swatches = type => {
       return light.concat(dark);
   }
 };
+
+export const getProgress = (downloaded, fileSize) =>
+  (downloaded / fileSize).toFixed(2);

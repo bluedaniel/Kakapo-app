@@ -3,7 +3,8 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig, validHowl, newSoundObj, noop } from 'utils/';
+import { compose, equals, not } from 'ramda';
+import { pathConfig, validHowl, newSoundObj, noop, getProgress } from 'utils/';
 
 export default {
   getCustomFile(name, filePath) {
@@ -21,53 +22,59 @@ export default {
   },
 
   getCustomURL: data =>
-    eventChannel(emit => {
-      let fileSize = 0;
-      let dataRead = 0;
-      let newSound = {};
+    data.source === 'file'
+      ? data
+      : eventChannel(emit => {
+          let progress = 0;
+          let fileSize = 0;
+          let dataRead = 0;
+          let newSound = {};
 
-      if (data.source === 'file') {
-        emit(data);
-        emit(END);
-        return noop;
-      }
+          const tmpFile = path.join(
+            pathConfig.userSoundDir,
+            shortid.generate()
+          );
 
-      const tmpFile = path.join(pathConfig.userSoundDir, shortid.generate());
-
-      if (!validHowl(data.file)) {
-        emit(new Error(validHowl(data.file, true)));
-      }
-
-      const file = `${shortid.generate()}.${path
-        .extname(data.file)
-        .substring(1)}`;
-      newSound = {
-        ...newSoundObj,
-        ...data,
-        file: path.join(pathConfig.userSoundDir, file),
-      };
-
-      request(data.file)
-        .on('response', res => {
-          fileSize = res.headers['content-length'];
-          if (!fileSize) {
-            emit(new Error('Error: Could not access file.'));
-          } else {
-            res
-              .on('data', stream => {
-                const progress = (dataRead += stream.length) / fileSize;
-                emit({ ...newSound, progress });
-              })
-              .on('error', e => emit(new Error(`Error: ${e.message}`)))
-              .on('end', () => {
-                fs.rename(tmpFile, newSound.file);
-                emit(newSound);
-                emit(END); // Completed download
-              });
+          if (!validHowl(data.file)) {
+            emit(new Error(validHowl(data.file, true)));
           }
-        })
-        .pipe(fs.createWriteStream(tmpFile));
 
-      return noop;
-    }),
+          const file = `${shortid.generate()}.${path
+            .extname(data.file)
+            .substring(1)}`;
+          newSound = {
+            ...newSoundObj,
+            ...data,
+            file: path.join(pathConfig.userSoundDir, file),
+          };
+
+          request(data.file)
+            .on('response', res => {
+              fileSize = res.headers['content-length'];
+              if (!fileSize) {
+                emit(new Error('Error: Could not access file.'));
+              } else {
+                res
+                  .on('data', stream => {
+                    const newProgress = getProgress(
+                      (dataRead += stream.length),
+                      fileSize
+                    );
+                    if (compose(not, equals(progress))(newProgress)) {
+                      progress = newProgress;
+                      emit({ ...newSound, progress });
+                    }
+                  })
+                  .on('error', e => emit(new Error(`Error: ${e.message}`)))
+                  .on('end', () => {
+                    fs.rename(tmpFile, newSound.file);
+                    emit(newSound);
+                    emit(END); // Completed download
+                  });
+              }
+            })
+            .pipe(fs.createWriteStream(tmpFile));
+
+          return noop;
+        }),
 };

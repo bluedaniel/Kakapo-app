@@ -3,6 +3,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
+import { compose, equals, not } from 'ramda';
 import { pathConfig, serialize, newSoundObj, noop } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
@@ -19,6 +20,7 @@ export default {
 
   getSoundCloudURL(soundcloudID) {
     return eventChannel(emit => {
+      let progress = 0;
       let fileSize = 0;
       let dataRead = 0;
       let newSound = {};
@@ -61,8 +63,13 @@ export default {
               } else {
                 resp
                   .on('data', data => {
-                    const progress = (dataRead += data.length) / fileSize;
-                    emit({ ...newSound, progress });
+                    const newProgress = (
+                      (dataRead += data.length) / fileSize
+                    ).toFixed(2);
+                    if (compose(not, equals(progress))(newProgress)) {
+                      progress = newProgress;
+                      emit({ ...newSound, progress });
+                    }
                   })
                   .on('error', e => emit(new Error(`Error: ${e.message}`)))
                   .on('end', () => {

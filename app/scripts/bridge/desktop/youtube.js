@@ -3,10 +3,12 @@ import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { pathConfig, newSoundObj, noop } from 'utils/';
+import { compose, equals, not } from 'ramda';
+import { pathConfig, newSoundObj, noop, getProgress } from 'utils/';
 
 const getYoutubeURL = data =>
   eventChannel(emit => {
+    let progress = 0;
     let fileSize = 0;
     let dataRead = 0;
     let newSound = {};
@@ -44,8 +46,11 @@ const getYoutubeURL = data =>
         emit(Error(`Error: ${e.message}`));
       })
       .on('data', stream => {
-        const progress = (dataRead += stream.length) / fileSize;
-        emit({ ...newSound, progress });
+        const newProgress = getProgress((dataRead += stream.length), fileSize);
+        if (compose(not, equals(progress))(newProgress)) {
+          progress = newProgress;
+          emit({ ...newSound, progress });
+        }
       })
       .on('finish', () => {
         fs.rename(tmpFile, newSound.file);
