@@ -141,7 +141,7 @@
     "style-loader": "^0.20.2",
     "stylefmt": "^6.0.0",
     "stylelint": "^9.1.1",
-    "stylelint-config-standard": "^17.0.0",
+    "stylelint-config-standard": "^18.1.0",
     "webpack": "^4.0.0",
     "webpack-dev-middleware": "^2.0.6",
     "webpack-hot-middleware": "^2.21.0",

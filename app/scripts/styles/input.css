@@ -2,9 +2,58 @@
   outline: 0;
 }
 
+.highlight {
+  height: 60%;
+  left: 0;
+  opacity: 0.5;
+  pointer-events: none;
+  position: absolute;
+  top: 25%;
+}
+
 .group {
   margin-bottom: 35px;
   position: relative;
+
+  label {
+    color: #999;
+    font-weight: normal;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    transition: 0.2s ease all;
+  }
+
+  input,
+  label {
+    font-size: 0.9em;
+    padding: 7px 0;
+  }
+
+  .bar {
+    position: relative;
+    display: block;
+
+    &::before {
+      left: 50%;
+    }
+
+    &::after {
+      right: 50%;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      background: #5264ae;
+      bottom: 1px;
+      height: 1px;
+      position: absolute;
+      transition: 0.2s ease all;
+      width: 0;
+    }
+  }
 
   input {
     background: transparent;
@@ -31,55 +80,6 @@
       }
     }
   }
-
-  input,
-  label {
-    font-size: 0.9em;
-    padding: 7px 0;
-  }
-
-  label {
-    color: #999;
-    font-weight: normal;
-    left: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    transition: 0.2s ease all;
-  }
-
-  .bar {
-    position: relative;
-    display: block;
-
-    &::before,
-    &::after {
-      content: "";
-      background: #5264ae;
-      bottom: 1px;
-      height: 1px;
-      position: absolute;
-      transition: 0.2s ease all;
-      width: 0;
-    }
-
-    &::before {
-      left: 50%;
-    }
-
-    &::after {
-      right: 50%;
-    }
-  }
-}
-
-.highlight {
-  height: 60%;
-  left: 0;
-  opacity: 0.5;
-  pointer-events: none;
-  position: absolute;
-  top: 25%;
 }
 
 .InputAddOn {
@@ -88,14 +88,6 @@
 
   .InputAddOn-field {
     flex: 1;
-  }
-
-  .InputAddOn-field:not(:first-child) {
-    border-left: 0;
-  }
-
-  .InputAddOn-field:not(:last-child) {
-    border-right: 0;
   }
 
   .InputAddOn-item {
@@ -119,5 +111,13 @@
   .InputAddOn-field:last-child,
   .InputAddOn-item:last-child {
     border-radius: 0 4px 4px 0;
+  }
+
+  .InputAddOn-field:not(:first-child) {
+    border-left: 0;
+  }
+
+  .InputAddOn-field:not(:last-child) {
+    border-right: 0;
   }
 }

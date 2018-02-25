@@ -14,6 +14,28 @@
   }
 }
 
+.kakapo-item {
+  cursor: pointer;
+  height: 40px;
+  margin-bottom: 35px;
+
+  &.disabled,
+  &.disabled img {
+    color: #bbb;
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  .thumbnail {
+    height: 40px;
+
+    img {
+      height: 40px;
+      max-width: 100%;
+    }
+  }
+}
+
 .kakapo-item,
 .youtube-item,
 .soundcloud-item {
@@ -65,27 +87,5 @@
   .view-count {
     display: block;
     font-size: 11px;
-  }
-}
-
-.kakapo-item {
-  cursor: pointer;
-  height: 40px;
-  margin-bottom: 35px;
-
-  &.disabled,
-  &.disabled img {
-    color: #bbb;
-    cursor: default;
-    opacity: 0.5;
-  }
-
-  .thumbnail {
-    height: 40px;
-
-    img {
-      height: 40px;
-      max-width: 100%;
-    }
   }
 }
