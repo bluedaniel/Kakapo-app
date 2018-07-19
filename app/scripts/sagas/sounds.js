@@ -32,7 +32,7 @@ import {
   getCustomURL,
   getSoundCloudURL,
 } from 'api/';
-import { soundActions, soundTypes, notifyActions } from 'actions/';
+import { soundActions, notifyActions } from 'actions/';
 import awsCredentials from '../../../aws.json';
 
 const connectDynamoDB = () => {
@@ -72,7 +72,7 @@ function* soundsRequest() {
   }
 }
 
-function* addLocal({ file }) {
+function* addLocal({ payload: { file } }) {
   if (!__DESKTOP__) {
     return yield put(
       notifyActions.send(
@@ -88,7 +88,7 @@ function* addLocal({ file }) {
 
 const isChannel = allPass(map(propIs(Function), ['flush', 'take', 'close']));
 
-function* addSound({ service, data }) {
+function* addSound({ payload: { service, data } }) {
   const actionFn = cond([
     [equals('soundcloud'), always(getSoundCloudURL)],
     [equals('youtube'), always(getYoutubeURL)],
@@ -114,7 +114,7 @@ function* addSound({ service, data }) {
   }
 }
 
-function* setVolume({ sound, volume }) {
+function* setVolume({ payload: { sound, volume } }) {
   yield put(soundActions.volume(sound, volume));
 }
 
@@ -130,7 +130,7 @@ function* createPlaylist() {
   }
 }
 
-function* handlePlaylist({ id }) {
+function* handlePlaylist({ payload: { id } }) {
   try {
     const { Item: { playlistID: { S } } } = yield call(getPlaylist, id);
     yield put(push('/'));
@@ -163,10 +163,10 @@ function* saveToStorage() {
 
 export default function* rootSaga() {
   yield call(soundsRequest);
-  yield takeEvery(soundTypes.ADD_LOCAL, addLocal);
-  yield takeEvery(soundTypes.ADD_SOUND, addSound);
-  yield throttle(500, soundTypes.THROTTLE_VOLUME, setVolume);
-  yield throttle(1000, soundTypes.PLAYLIST, handlePlaylist);
-  yield takeEvery(soundTypes.CREATE_PLAYLIST, createPlaylist);
+  yield takeEvery(soundActions.SOUNDS_ADD_LOCAL, addLocal);
+  yield takeEvery(soundActions.SOUNDS_ADD_SOUND, addSound);
+  yield throttle(500, soundActions.SOUNDS_THROTTLE_VOLUME, setVolume);
+  yield throttle(1000, soundActions.SOUNDS_PLAYLIST, handlePlaylist);
+  yield takeEvery(soundActions.SOUNDS_CREATE_PLAYLIST, createPlaylist);
   yield takeEvery('*', saveToStorage);
 }

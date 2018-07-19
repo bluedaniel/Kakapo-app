@@ -1,4 +1,4 @@
-import { createActions } from 'reduxsauce';
+import { createActions } from 'utils/';
 
 const prefix = 'SEARCH_';
 
@@ -12,4 +12,4 @@ const actions = {
   requestError: ['err'],
 };
 
-export const { Types, Creators } = createActions(actions, { prefix });
+export default createActions(actions, { prefix });

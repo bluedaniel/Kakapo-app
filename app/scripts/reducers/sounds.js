@@ -15,7 +15,7 @@ import {
 } from 'ramda';
 import { bridgedSounds, bridgedSettings } from 'kakapoBridge';
 import { createSoundObj } from 'api/';
-import { soundTypes } from 'actions/';
+import { soundActions } from 'actions/';
 import { createReducer } from 'utils/';
 
 export const initialState = {};
@@ -56,7 +56,7 @@ const setSounds = data => {
   return newState;
 };
 
-const resetSounds = (state, { clear }) => {
+const resetSounds = (state, { payload: { clear } }) => {
   mapObjIndexed(
     _s =>
       getHowl(_s).then(howl => {
@@ -68,7 +68,7 @@ const resetSounds = (state, { clear }) => {
   return clear ? empty(state) : setSounds(defaultSounds);
 };
 
-const togglePlay = (state, { sound }) => {
+const togglePlay = (state, { payload: { sound } }) => {
   const newState = over(
     lensProp(sound.file),
     _s => merge(_s, { playing: !_s.playing }),
@@ -84,25 +84,25 @@ const togglePlay = (state, { sound }) => {
   return newState;
 };
 
-const changeVolume = (state, { sound, volume }) => {
+const changeVolume = (state, { payload: { sound, volume } }) => {
   getHowl(sound).then(howl => howl.volume(volume));
   return over(lensProp(sound.file), merge(__, { volume }), state);
 };
 
-const editSound = (state, { sound, data }) => {
+const editSound = (state, { payload: { sound, data } }) => {
   let opts = { editing: !sound.editing };
   if (typeof data !== 'undefined') opts = merge(opts, data);
   return over(lensProp(sound.file), merge(__, opts), state);
 };
 
-const removeSound = (state, { sound }) => {
+const removeSound = (state, { payload: { sound } }) => {
   getHowl(sound).then(howl => howl.unload());
   if (__DESKTOP__ && sound.source !== 'file')
     bridgedSounds.removeFromDisk(sound);
   return omit([sound.file], state);
 };
 
-const soundDownloaded = (state, { sound }) => {
+const soundDownloaded = (state, { payload: { sound } }) => {
   const newSound = merge(sound, { progress: 1 });
   const newState = set(lensProp(newSound.file), newSound, state);
   howls = set(lensProp(newSound.file), createSoundObj(newSound), howls);
@@ -111,10 +111,10 @@ const soundDownloaded = (state, { sound }) => {
   return newState;
 };
 
-const soundDownloading = (state, { sound }) =>
+const soundDownloading = (state, { payload: { sound } }) =>
   set(lensProp(sound.file), sound, state);
 
-const init = (state, { resp }) => {
+const init = (state, { payload: { resp } }) => {
   defaultSounds = resp.data || resp;
 
   return compose(
@@ -125,13 +125,13 @@ const init = (state, { resp }) => {
 };
 
 export default createReducer(initialState, {
-  [soundTypes.REQUEST_SUCCESS]: init,
-  [soundTypes.MUTE]: toggleMute,
-  [soundTypes.PLAY]: togglePlay,
-  [soundTypes.VOLUME]: changeVolume,
-  [soundTypes.EDIT]: editSound,
-  [soundTypes.REMOVE]: removeSound,
-  [soundTypes.ADD_SOUND_DOWNLOADING]: soundDownloading,
-  [soundTypes.ADD_SOUND_COMPLETE]: soundDownloaded,
-  [soundTypes.RESET]: resetSounds,
+  [soundActions.SOUNDS_REQUEST_SUCCESS]: init,
+  [soundActions.SOUNDS_MUTE]: toggleMute,
+  [soundActions.SOUNDS_PLAY]: togglePlay,
+  [soundActions.SOUNDS_VOLUME]: changeVolume,
+  [soundActions.SOUNDS_EDIT]: editSound,
+  [soundActions.SOUNDS_REMOVE]: removeSound,
+  [soundActions.SOUNDS_ADD_SOUND_DOWNLOADING]: soundDownloading,
+  [soundActions.SOUNDS_ADD_SOUND_COMPLETE]: soundDownloaded,
+  [soundActions.SOUNDS_RESET]: resetSounds,
 });

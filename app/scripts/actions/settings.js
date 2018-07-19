@@ -1,4 +1,4 @@
-import { createActions } from 'reduxsauce';
+import { createActions } from 'utils/';
 
 const prefix = 'SETTINGS_';
 
@@ -10,4 +10,4 @@ const actions = {
   update: ['status'],
 };
 
-export const { Types, Creators } = createActions(actions, { prefix });
+export default createActions(actions, { prefix });

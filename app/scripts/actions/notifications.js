@@ -1,4 +1,4 @@
-import { createActions } from 'reduxsauce';
+import { createActions } from 'utils/';
 
 const prefix = 'NOTIFICATIONS_';
 
@@ -8,4 +8,4 @@ const actions = {
   clear: ['id'],
 };
 
-export const { Types, Creators } = createActions(actions, { prefix });
+export default createActions(actions, { prefix });

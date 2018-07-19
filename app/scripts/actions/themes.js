@@ -1,4 +1,4 @@
-import { createActions } from 'reduxsauce';
+import { createActions } from 'utils/';
 
 const prefix = 'THEMES_';
 
@@ -6,4 +6,4 @@ const actions = {
   change: ['swatch', 'slotNo'],
 };
 
-export const { Types, Creators } = createActions(actions, { prefix });
+export default createActions(actions, { prefix });

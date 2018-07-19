@@ -3,17 +3,23 @@
 exports[`[action/notifyActions] 1`] = `
 Array [
   Object {
-    "msg": "test",
-    "time": "test",
+    "payload": Object {
+      "msg": "test",
+      "time": "test",
+    },
     "type": "NOTIFICATIONS_SEND",
   },
   Object {
-    "id": "test",
-    "msg": "test",
+    "payload": Object {
+      "id": "test",
+      "msg": "test",
+    },
     "type": "NOTIFICATIONS_NOTIFY",
   },
   Object {
-    "id": "test",
+    "payload": Object {
+      "id": "test",
+    },
     "type": "NOTIFICATIONS_CLEAR",
   },
 ]
@@ -22,30 +28,40 @@ Array [
 exports[`[action/searchActions] 1`] = `
 Array [
   Object {
-    "input": "test",
+    "payload": Object {
+      "input": "test",
+    },
     "type": "SEARCH_INPUT",
   },
   Object {
     "type": "SEARCH_KAKAPO",
   },
   Object {
-    "term": "test",
+    "payload": Object {
+      "term": "test",
+    },
     "type": "SEARCH_YOUTUBE",
   },
   Object {
-    "term": "test",
+    "payload": Object {
+      "term": "test",
+    },
     "type": "SEARCH_SOUNDCLOUD",
   },
   Object {
     "type": "SEARCH_REQUEST",
   },
   Object {
-    "items": "test",
-    "service": "test",
+    "payload": Object {
+      "items": "test",
+      "service": "test",
+    },
     "type": "SEARCH_REQUEST_SUCCESS",
   },
   Object {
-    "err": "test",
+    "payload": Object {
+      "err": "test",
+    },
     "type": "SEARCH_REQUEST_ERROR",
   },
 ]
@@ -54,23 +70,33 @@ Array [
 exports[`[action/settingActions] 1`] = `
 Array [
   Object {
-    "bool": "test",
+    "payload": Object {
+      "bool": "test",
+    },
     "type": "SETTINGS_MUTE",
   },
   Object {
-    "bool": "test",
+    "payload": Object {
+      "bool": "test",
+    },
     "type": "SETTINGS_DOCK",
   },
   Object {
-    "bool": "test",
+    "payload": Object {
+      "bool": "test",
+    },
     "type": "SETTINGS_DEVTOOLS",
   },
   Object {
-    "locale": "test",
+    "payload": Object {
+      "locale": "test",
+    },
     "type": "SETTINGS_LANGUAGE",
   },
   Object {
-    "status": "test",
+    "payload": Object {
+      "status": "test",
+    },
     "type": "SETTINGS_UPDATE",
   },
 ]
@@ -82,58 +108,82 @@ Array [
     "type": "SOUNDS_REQUEST",
   },
   Object {
-    "resp": "test",
+    "payload": Object {
+      "resp": "test",
+    },
     "type": "SOUNDS_REQUEST_SUCCESS",
   },
   Object {
     "type": "SOUNDS_MUTE",
   },
   Object {
-    "sound": "test",
+    "payload": Object {
+      "sound": "test",
+    },
     "type": "SOUNDS_PLAY",
   },
   Object {
-    "sound": "test",
+    "payload": Object {
+      "sound": "test",
+      "volume": "test",
+    },
     "type": "SOUNDS_THROTTLE_VOLUME",
-    "volume": "test",
   },
   Object {
-    "sound": "test",
+    "payload": Object {
+      "sound": "test",
+      "volume": "test",
+    },
     "type": "SOUNDS_VOLUME",
-    "volume": "test",
   },
   Object {
-    "data": "test",
-    "sound": "test",
+    "payload": Object {
+      "data": "test",
+      "sound": "test",
+    },
     "type": "SOUNDS_EDIT",
   },
   Object {
-    "sound": "test",
+    "payload": Object {
+      "sound": "test",
+    },
     "type": "SOUNDS_REMOVE",
   },
   Object {
-    "file": "test",
+    "payload": Object {
+      "file": "test",
+    },
     "type": "SOUNDS_ADD_LOCAL",
   },
   Object {
-    "data": "test",
-    "service": "test",
+    "payload": Object {
+      "data": "test",
+      "service": "test",
+    },
     "type": "SOUNDS_ADD_SOUND",
   },
   Object {
-    "sound": "test",
+    "payload": Object {
+      "sound": "test",
+    },
     "type": "SOUNDS_ADD_SOUND_DOWNLOADING",
   },
   Object {
-    "sound": "test",
+    "payload": Object {
+      "sound": "test",
+    },
     "type": "SOUNDS_ADD_SOUND_COMPLETE",
   },
   Object {
-    "clear": "test",
+    "payload": Object {
+      "clear": "test",
+    },
     "type": "SOUNDS_RESET",
   },
   Object {
-    "id": "test",
+    "payload": Object {
+      "id": "test",
+    },
     "type": "SOUNDS_PLAYLIST",
   },
   Object {
@@ -145,8 +195,10 @@ Array [
 exports[`[action/themeActions] 1`] = `
 Array [
   Object {
-    "slotNo": "test",
-    "swatch": "test",
+    "payload": Object {
+      "slotNo": "test",
+      "swatch": "test",
+    },
     "type": "THEMES_CHANGE",
   },
 ]
