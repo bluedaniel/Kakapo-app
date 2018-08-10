@@ -1,5 +1,5 @@
 import React from 'react';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { prop } from 'ramda';
 import { soundActions, notifyActions } from 'actions/';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';

@@ -2,7 +2,7 @@ import React from 'react';
 import { compose, pathOr, prop, propOr } from 'ramda';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import queryString from 'query-string';
 import { settingActions, themeActions } from 'actions/';
 import { openLink } from 'utils/';
@@ -10,12 +10,12 @@ import Checkbox from '../ui/checkbox/checkbox';
 import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
-export default ({ settings, themes, intl, dispatch, routing }) => {
+export default ({ settings, themes, intl, dispatch, router }) => {
   const palette = compose(
     propOr(0, 'palette'),
     queryString.parse,
     pathOr('', ['location', 'search'])
-  )(routing);
+  )(router);
 
   /* istanbul ignore if */
   if (__DESKTOP__) {

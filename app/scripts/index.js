@@ -17,7 +17,7 @@ let render = () => {
 
   ReactDOM.render(
     <Provider store={store}>
-      <Root {...{ state: store.getState(), history }} />
+      <Root history={history} />
     </Provider>,
     target
   );

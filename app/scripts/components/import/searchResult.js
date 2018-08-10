@@ -1,5 +1,5 @@
 import React from 'react';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { soundActions } from 'actions/';
 
 export default ({ i, service, sound, intl, dispatch }) => {

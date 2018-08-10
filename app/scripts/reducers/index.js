@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
 import settings from './settings';
 import sounds from './sounds';
 import themes from './themes';
@@ -12,5 +11,4 @@ export default combineReducers({
   themes,
   search,
   notifications,
-  routing: routerReducer,
 });

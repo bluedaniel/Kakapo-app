@@ -1,7 +1,8 @@
+// import { createBrowserHistory } from 'history';
+import { applyMiddleware, compose, createStore } from 'redux';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHashHistory from 'history/createHashHistory';
-import { createStore, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { routerMiddleware } from 'react-router-redux';
 import rootReducer from 'reducers';
 
 export const history = createHashHistory();
@@ -23,7 +24,7 @@ export default () => {
       : compose;
 
   const store = createStore(
-    rootReducer,
+    connectRouter(history)(rootReducer),
     window.__INITIAL_STATE__,
     composeEnhancers(...enhancers)
   );

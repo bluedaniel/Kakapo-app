@@ -1,5 +1,5 @@
 import React from 'react';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { compose, mapObjIndexed, prop, values } from 'ramda';
 import Clipboard from 'clipboard/dist/clipboard';
 import shortid from 'shortid';

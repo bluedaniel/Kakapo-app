@@ -2,7 +2,6 @@ import React from 'react';
 import { compose, keys, length, map, pick, prop } from 'ramda';
 import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
-import { withRouter } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
 import { injectIntl } from 'react-intl';
@@ -79,13 +78,18 @@ const App = props => {
               className="update-now"
               onClick={() => ipcRenderer.send('application:quit-install')}
             >
-              Hi, there is a new version of Kakapo!<br />Click here to update
+              Hi, there is a new version of Kakapo!
+              <br />
+              Click here to update
             </a>
           ) : null}
 
           <Header {...{ settings, themes, onToggleMute }} />
 
-          {compose(length, keys)(sounds) ? (
+          {compose(
+            length,
+            keys
+          )(sounds) ? (
             <SoundList {...{ sounds, themes, intl, dispatch }} />
           ) : (
             renderLoading(themes)
@@ -105,11 +109,10 @@ const mapStateToProps = pick([
   'sounds',
   'search',
   'themes',
-  'routing',
+  'router',
 ]);
 
 export default compose(
-  withRouter, // Add routing props
   connect(mapStateToProps), // Connect to redux stores
   injectIntl, // Add i18n
   withHandlers({
