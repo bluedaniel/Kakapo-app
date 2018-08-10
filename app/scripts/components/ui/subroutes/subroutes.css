@@ -44,6 +44,7 @@
   .secondary-panel {
     width: 300px;
     top: 35px;
+
     &.with-close {
       height: auto;
     }

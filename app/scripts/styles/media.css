@@ -87,12 +87,15 @@
       height: 1px;
       margin: 1rem 0;
     }
+
     .option-ul {
       display: block;
     }
+
     .add-sounds-title {
       display: block;
     }
+
     .option {
       margin-right: 0;
       margin-bottom: 1em;
@@ -101,11 +104,13 @@
       span.text {
         display: inline-block;
       }
+
       i {
         margin-right: 14px;
       }
+
       &.icon-add {
-          top: 0;
+        top: 0;
       }
     }
   }

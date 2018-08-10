@@ -24,11 +24,6 @@ body {
   }
 }
 
-.section {
-  float: left;
-  width: 100%;
-}
-
 a,
 a:hover {
   color: #fff;
@@ -36,10 +31,6 @@ a:hover {
 
 h1 {
   font-weight: 700;
-}
-
-.button {
-  border-radius: 100px;
 }
 
 .share {
@@ -80,10 +71,26 @@ h1 {
   }
 }
 
+.intro {
+  .conatiner {
+    margin: 0 auto;
+    max-width: 400px;
+  }
+
+  img {
+    display: block;
+    margin: 0 auto 10px;
+    max-height: 48px;
+    max-width: 48px;
+  }
+}
+
 .section {
+  float: left;
   padding: 8rem 0 7rem;
   position: relative;
   text-align: center;
+  width: 100%;
 
   .feat-img {
     border-radius: 3px;
@@ -120,20 +127,6 @@ h1 {
   ul {
     margin-top: 20px;
     margin-bottom: 0;
-  }
-}
-
-.intro {
-  .conatiner {
-    margin: 0 auto;
-    max-width: 400px;
-  }
-
-  img {
-    display: block;
-    margin: 0 auto 10px;
-    max-height: 48px;
-    max-width: 48px;
   }
 }
 
@@ -183,12 +176,16 @@ h1 {
 }
 
 @media (max-width: 500px) {
-  .github-corner:hover .octo-arm {
-    animation: none;
-  }
+  .github-corner {
+    .octo-arm {
+      animation: octocat-wave 560ms ease-in-out;
+    }
 
-  .github-corner .octo-arm {
-    animation: octocat-wave 560ms ease-in-out;
+    &:hover {
+      .octo-arm {
+        animation: none;
+      }
+    }
   }
 }
 
