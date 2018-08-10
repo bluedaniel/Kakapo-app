@@ -14,7 +14,6 @@ import {
   is,
   isEmpty,
   isNil,
-  join,
   keys,
   map,
   mapObjIndexed,
@@ -163,7 +162,7 @@ const actionCreator = (name, val, opts) => {
   throw new Error('Value must be null|array|object|function');
 };
 
-export const createActions = (config: Object, opts: CreateActionsOpts = {}) => {
+export const createActions = (config, opts = {}) => {
   if (isNil(config) || isEmpty(config)) {
     throw new Error('Must provide valid object');
   }
