@@ -1,4 +1,4 @@
-import { createActions } from 'reduxsauce';
+import { createActions } from 'utils/';
 
 const prefix = 'SOUNDS_';
 
@@ -20,4 +20,4 @@ const actions = {
   createPlaylist: null,
 };
 
-export const { Types, Creators } = createActions(actions, { prefix });
+export default createActions(actions, { prefix });

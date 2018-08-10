@@ -1,7 +1,7 @@
 import { select, takeEvery } from 'redux-saga/effects';
 import { prop } from 'ramda';
 import { bridgedThemes } from 'kakapoBridge';
-import { themeTypes } from 'actions/';
+import { themeActions } from 'actions/';
 
 function* saveToStorage() {
   const sounds = yield select(prop('themes'));
@@ -9,5 +9,5 @@ function* saveToStorage() {
 }
 
 export default function* rootSaga() {
-  yield takeEvery(themeTypes.CHANGE, saveToStorage);
+  yield takeEvery(themeActions.THEMES_CHANGE, saveToStorage);
 }

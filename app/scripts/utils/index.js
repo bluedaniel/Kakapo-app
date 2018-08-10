@@ -4,17 +4,38 @@ import { remote, shell } from 'electron';
 import React from 'react';
 import { Route } from 'react-router-dom';
 import {
+  always,
+  anyPass,
   chain,
   compose,
   flatten,
   fromPairs,
   identity,
   is,
+  isEmpty,
+  isNil,
+  keys,
   map,
+  mapObjIndexed,
+  merge,
+  mergeAll,
+  not,
+  omit,
+  pick,
+  pipe,
   prop,
+  propOr,
+  reject,
+  replace,
+  split,
   toPairs,
+  toUpper,
+  trim,
+  zipObj,
 } from 'ramda';
 import { Howler } from 'howler/dist/howler.core.min';
+
+const defaultOptions = { prefix: '' };
 
 export const noop = () => {};
 
@@ -51,14 +72,109 @@ export const mapRoute = (props = {}) => route => (
   />
 );
 
+const isNilOrEmpty = anyPass([isNil, isEmpty]);
+
+// Creates constants from `string literals`
+export const createConstants = (types, opts = {}) => {
+  if (anyPass([isNilOrEmpty, compose(not, is(String))])(types)) {
+    throw new Error('valid types are required');
+  }
+
+  const { prefix } = merge(defaultOptions, opts);
+
+  return pipe(
+    trim,
+    split(/\s/),
+    map(trim),
+    reject(isNilOrEmpty),
+    map(x => [x, prefix ? `${toUpper(prefix)}_${x}` : x]),
+    fromPairs
+  )(types);
+};
+
+// Replaces switch statements with object types
 export const createReducer = (initialState, handlers) => (
   state = initialState,
   action
-) => {
-  if ({}.hasOwnProperty.call(handlers, action.type)) {
-    return handlers[action.type](state, action);
+) => propOr(identity, action.type, handlers)(state, action);
+
+const testArr = Array.from(Array(10), (_, x) => x);
+
+// Is function FSA compliant
+export const isFSA = actionFn => {
+  const action = actionFn(...testArr);
+  const isValidKey = key =>
+    ['type', 'payload', 'error', 'meta'].indexOf(key) > -1;
+
+  return (
+    is(Object, action) &&
+    is(String, action.type) &&
+    Object.keys(action).every(isValidKey)
+  );
+};
+
+const RX_CAPS = /(?!^)([A-Z])/g;
+
+// Converts a camelCaseWord into a SCREAMING_SNAKE_CASE word
+export const camelToScreamingSnake = compose(toUpper, replace(RX_CAPS, '_$1'));
+
+const formatMeta = obj =>
+  obj.payload.meta
+    ? { ...obj, payload: omit(['meta'], obj.payload), meta: obj.payload.meta }
+    : obj;
+
+const formatErr = obj =>
+  obj.payload.error ? { ...obj, payload: obj.payload.error, error: true } : obj;
+
+const formatOutput = compose(formatErr, formatMeta);
+
+const getPrefix = opts => name => {
+  const { prefix } = merge(defaultOptions, opts);
+  return `${prefix}${camelToScreamingSnake(name)}`;
+};
+
+const actionCreator = (name, val, opts) => {
+  const type = getPrefix(opts)(name);
+
+  // testAction: compose(toUpper, pickAll(['a', 'b']))
+  if (is(Function, val)) {
+    return (...props) => formatOutput({ type, payload: val(...props) });
   }
-  return state;
+
+  // testAction: null
+  if (isNil(val) || isEmpty(val)) {
+    return always({ type }); // Simple action type
+  }
+
+  // testAction: ['username', 'password']
+  if (is(Array, val)) {
+    return (...props) =>
+      formatOutput({ type, payload: { ...zipObj(val, props) } });
+  }
+
+  // testAction: { username: 'guest', password: null }
+  if (is(Object, val)) {
+    return props => {
+      const providedProps = pick(Object.keys(val), props);
+      return formatOutput({ type, payload: { ...val, ...providedProps } });
+    };
+  }
+  throw new Error('Value must be null|array|object|function');
+};
+
+export const createActions = (config, opts = {}) => {
+  if (isNil(config) || isEmpty(config)) {
+    throw new Error('Must provide valid object');
+  }
+  const types = compose(
+    map(key => ({ [key]: key })),
+    map(getPrefix(opts)),
+    keys
+  )(config);
+  const actions = mapObjIndexed((num, key, value) =>
+    actionCreator(key, value[key], opts)
+  )(config);
+  return mergeAll([actions, ...types]);
 };
 
 // hyphen-name-format -> hyphenNameFormat

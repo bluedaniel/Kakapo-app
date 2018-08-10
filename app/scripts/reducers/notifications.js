@@ -1,10 +1,12 @@
 import { lensProp, omit, set } from 'ramda';
-import { notifyTypes } from 'actions/';
+import { notifyActions } from 'actions/';
 import { createReducer } from 'utils/';
 
 export const initialState = {};
 
 export default createReducer(initialState, {
-  [notifyTypes.NOTIFY]: (state, { id, msg }) => set(lensProp(id), msg, state),
-  [notifyTypes.CLEAR]: (state, { id }) => omit([id], state),
+  [notifyActions.NOTIFICATIONS_NOTIFY]: (state, { payload: { id, msg } }) =>
+    set(lensProp(id), msg, state),
+  [notifyActions.NOTIFICATIONS_CLEAR]: (state, { payload: { id } }) =>
+    omit([id], state),
 });

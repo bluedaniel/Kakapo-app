@@ -1,7 +1,7 @@
 import shortid from 'shortid';
 import { delay } from 'redux-saga';
 import { put, takeEvery } from 'redux-saga/effects';
-import { notifyTypes, notifyActions } from 'actions/';
+import { notifyActions } from 'actions/';
 
 function* send({ msg, time = 3000 }) {
   const id = shortid.generate();
@@ -11,5 +11,5 @@ function* send({ msg, time = 3000 }) {
 }
 
 export default function* rootSaga() {
-  yield takeEvery(notifyTypes.SEND, send);
+  yield takeEvery(notifyActions.NOTIFICATIONS_SEND, send);
 }

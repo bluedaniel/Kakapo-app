@@ -1,7 +1,7 @@
 import { apply, compose, keys, length, lensProp, props, set } from 'ramda';
 import color from 'color';
 import { bridgedThemes } from 'kakapoBridge';
-import { themeTypes } from 'actions/';
+import { themeActions } from 'actions/';
 import { createReducer, swatches } from 'utils/';
 import appConfig from 'config/';
 
@@ -22,7 +22,7 @@ export const initialState = compose(length, keys)(themeFromStore)
   ? themeFromStore
   : createTheme();
 
-const generateStyles = (state, { swatch, slotNo }) =>
+const generateStyles = (state, { payload: { swatch, slotNo } }) =>
   compose(
     apply(createTheme),
     props(['primary', 'btn']),
@@ -30,5 +30,5 @@ const generateStyles = (state, { swatch, slotNo }) =>
   )(state);
 
 export default createReducer(initialState, {
-  [themeTypes.CHANGE]: generateStyles,
+  [themeActions.THEMES_CHANGE]: generateStyles,
 });
