@@ -18,9 +18,7 @@
     "__TEST__": true
   },
   "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "ecmaVersion": 9
   },
   "settings": {
     "import/resolver": {
@@ -29,6 +27,7 @@
     "import/core-modules": ["electron", "kakapoBridge"]
   },
   "rules": {
+    "import/no-cycle": 0,
     "import/no-extraneous-dependencies": [
       2,
       { "devDependencies": ["**/*.spec.js", "{jest,tools}/*.js", "app/browser.js"] }

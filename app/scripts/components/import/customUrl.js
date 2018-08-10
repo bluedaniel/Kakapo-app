@@ -48,6 +48,7 @@ export default ({ themes, intl, dispatch }) => {
           />
           <button
             className="button"
+            type="button"
             style={{
               backgroundColor: prop('btn', themes),
               borderColor: prop('btn', themes),

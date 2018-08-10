@@ -36,7 +36,9 @@ export default ({ match: { params }, intl, dispatch }) => {
 
   const renderShare = () => {
     if (params.shareId) {
-      const { location: { hostname, port } } = window;
+      const {
+        location: { hostname, port },
+      } = window;
       const baseUrl = `http://${hostname}${__DEV__ ? `:${port}` : 'kakapo.co'}`;
       return (
         <div>
@@ -53,6 +55,7 @@ export default ({ match: { params }, intl, dispatch }) => {
                 className={cx(clipBoardClass, 'InputAddOn-item')}
                 data-clipboard-target="#copyClipboard"
                 onClick={handleStopPropagation}
+                type="button"
               >
                 <span title="Copy to clipboard" />
               </button>
