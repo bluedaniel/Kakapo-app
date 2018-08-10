@@ -5,7 +5,6 @@ exports[`<SearchResult/> render soundcloud 1`] = `
   className="soundcloud-item"
   onClick={[Function]}
   role="button"
-  tabIndex={undefined}
 >
   <div
     className="thumbnail"
@@ -40,7 +39,6 @@ exports[`<SearchResult/> render youtube 1`] = `
   className="youtube-item"
   onClick={[Function]}
   role="button"
-  tabIndex={undefined}
 >
   <div
     className="thumbnail"

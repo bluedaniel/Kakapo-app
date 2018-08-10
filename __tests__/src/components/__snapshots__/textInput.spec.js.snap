@@ -6,7 +6,6 @@ exports[`<TextInput/> correct translation 1`] = `
 >
   <input
     autoComplete="off"
-    defaultValue={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
@@ -62,7 +61,6 @@ exports[`<TextInput/> loading spinner 1`] = `
 >
   <input
     autoComplete="off"
-    defaultValue={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
@@ -100,7 +98,6 @@ exports[`<TextInput/> render 1`] = `
 >
   <input
     autoComplete="off"
-    defaultValue={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}

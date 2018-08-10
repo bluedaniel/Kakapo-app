@@ -9,7 +9,6 @@ exports[`<Search/> render 1`] = `
   >
     <input
       autoComplete="off"
-      defaultValue={undefined}
       name="searchInput"
       onBlur={[Function]}
       onChange={[Function]}

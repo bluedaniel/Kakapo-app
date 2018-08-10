@@ -73,6 +73,7 @@ exports[`<SoundEdit/> render 1`] = `
           "borderColor": "#4CAF50",
         }
       }
+      type="button"
     >
       Save
     </button>
