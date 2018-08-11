@@ -1,5 +1,6 @@
 {
   "extends": "stylelint-config-standard",
+  "ignoreFiles": "**/*.js",
   "rules": {
     "property-no-unknown": [ true, "ignoreProperties": ["/lost-*/"] ]
   }
