@@ -11,11 +11,11 @@ import {
   allPass,
   always,
   apply,
-  compose,
   cond,
   equals,
   map,
   mapObjIndexed,
+  pipe,
   prop,
   propEq,
   propIs,
@@ -53,9 +53,9 @@ const getPlaylist = id =>
 const savePlaylist = sounds =>
   new Promise(resolve => {
     const table = connectDynamoDB();
-    const playlistID = compose(
-      btoa,
-      JSON.stringify
+    const playlistID = pipe(
+      JSON.stringify,
+      btoa
     )(sounds);
 
     const shareID = shortid.generate();
@@ -143,14 +143,9 @@ function* handlePlaylist({ payload: { id } }) {
     yield put(push('/'));
     yield put(soundActions.reset(true));
 
-    const mappedPlaylist = compose(
-      map(
-        compose(
-          put,
-          apply(soundActions.addSound)
-        )
-      ),
-      values,
+    const mappedPlaylist = pipe(
+      atob,
+      JSON.parse,
       mapObjIndexed(
         cond([
           [sourceEq('youtubeStream'), x => ['youtube', x]],
@@ -158,8 +153,13 @@ function* handlePlaylist({ payload: { id } }) {
           [T, x => ['kakapo', x]],
         ])
       ),
-      JSON.parse,
-      atob
+      values,
+      map(
+        pipe(
+          apply(soundActions.addSound),
+          put
+        )
+      )
     )(S);
 
     yield all(mappedPlaylist);

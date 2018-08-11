@@ -1,6 +1,6 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { compose, keys, length, map, pick, pipe, prop } from 'ramda';
+import { keys, length, map, pick, pipe, prop } from 'ramda';
 import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
 import { ipcRenderer } from 'electron';
@@ -84,9 +84,9 @@ const App = ({
 
         <Header {...{ settings, themes, onToggleMute }} />
 
-        {compose(
-          length,
-          keys
+        {pipe(
+          keys,
+          length
         )(sounds) ? (
           <SoundList {...{ sounds, themes, dispatch }} />
         ) : (
@@ -109,8 +109,8 @@ const mapStateToProps = pick([
   'router',
 ]);
 
-export default compose(
-  connect(mapStateToProps), // Connect to redux stores
+export default pipe(
+  hot(module),
   withHandlers({
     onDrop: ({ dispatch }) => files =>
       map(x => dispatch(soundActions.addLocal(x)), files),
@@ -119,5 +119,6 @@ export default compose(
       dispatch(soundActions.mute());
     },
   }),
-  hot(module)
+  // Connect to redux stores
+  connect(mapStateToProps)
 )(App);

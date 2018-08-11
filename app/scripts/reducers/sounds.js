@@ -1,6 +1,5 @@
 import {
   __,
-  compose,
   empty,
   filter,
   lensProp,
@@ -8,6 +7,7 @@ import {
   merge,
   omit,
   over,
+  pipe,
   prop,
   propEq,
   reduce,
@@ -117,10 +117,10 @@ const soundDownloading = (state, { payload: { sound } }) =>
 const init = (state, { payload: { resp } }) => {
   defaultSounds = resp.data || resp;
 
-  return compose(
-    setSounds,
+  return pipe(
+    bridgedSounds.initWithDefault,
     filter(propEq('progress', 1)),
-    bridgedSounds.initWithDefault
+    setSounds
   )(defaultSounds);
 };
 

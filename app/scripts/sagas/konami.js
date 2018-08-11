@@ -1,6 +1,6 @@
 import { eventChannel } from 'redux-saga';
 import { fork, call, take, put } from 'redux-saga/effects';
-import { append, compose, equals, join, takeLast } from 'ramda';
+import { append, equals, join, pipe, takeLast } from 'ramda';
 import { notifyActions } from 'actions/';
 import { noop } from 'utils/';
 
@@ -9,7 +9,10 @@ const konamiChan = () =>
     const code = join(' ', [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]);
     let entered = [];
     document.addEventListener('keydown', ({ keyCode }) => {
-      entered = compose(takeLast(10), append(keyCode))(entered);
+      entered = pipe(
+        append(keyCode),
+        takeLast(10)
+      )(entered);
       if (equals(code, join(' ', entered))) emit(true);
     });
     return noop;

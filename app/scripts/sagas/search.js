@@ -1,7 +1,6 @@
 import {
   always,
   applySpec,
-  compose,
   concat,
   cond,
   divide,
@@ -14,6 +13,7 @@ import {
   match,
   multiply,
   pathOr,
+  pipe,
   prop,
   propOr,
   subtract,
@@ -33,60 +33,105 @@ const [concatF, divideF, subtractF] = map(flip, [concat, divide, subtract]);
 // Convert timestamp to pretty date
 // '7209' //=> "2:00:09"
 const formatDuration = t => {
-  const hours = compose(Math.floor, divideF(3600))(t);
-  const minutes = compose(Math.floor, divideF(60), subtractF(hours * 3600))(t);
-  const concatSeconds = compose(
-    x => (x < 10 ? concatF(`0${x}`) : concatF(String(x))),
+  const hours = pipe(
+    divideF(3600),
+    Math.floor
+  )(t);
+  const minutes = pipe(
+    subtractF(hours * 3600),
+    divideF(60),
+    Math.floor
+  )(t);
+  const concatSeconds = pipe(
+    subtractF(hours * 3600),
     subtractF(minutes * 60),
-    subtractF(hours * 3600)
+    x => (x < 10 ? concatF(`0${x}`) : concatF(String(x)))
   )(t);
 
-  return compose(
-    x => (!x ? concatSeconds('') : concatSeconds(x)),
+  return pipe(
+    hours !== 0 ? concatF(`${hours}:`) : identity,
     minutes < 10 ? concatF(`0${minutes}:`) : concatF(`${minutes}:`),
-    hours !== 0 ? concatF(`${hours}:`) : identity
+    x => (!x ? concatSeconds('') : concatSeconds(x))
   )('');
 };
 
 // Convert YouTube ISO8061 duration string
 // 'PT120M9S' //=> 7209
-const parseDuration = compose(
-  sum,
+const parseDuration = pipe(
+  match(/[0-9]+[HMS]/g),
   map(
-    compose(
-      Number,
+    pipe(
       cond([
-        [compose(equals('H'), last), compose(multiply(60 * 60), dropLast(1))],
-        [compose(equals('M'), last), compose(multiply(60), dropLast(1))],
-        [compose(equals('S'), last), dropLast(1)],
+        [
+          pipe(
+            last,
+            equals('H')
+          ),
+          pipe(
+            dropLast(1),
+            multiply(60 * 60)
+          ),
+        ],
+        [
+          pipe(
+            last,
+            equals('M')
+          ),
+          pipe(
+            dropLast(1),
+            multiply(60)
+          ),
+        ],
+        [
+          pipe(
+            last,
+            equals('S')
+          ),
+          dropLast(1),
+        ],
         [T, always(0)],
-      ])
+      ]),
+      Number
     )
   ),
-  match(/[0-9]+[HMS]/g)
+  sum
 );
 
 // YouTube schema
 const specYoutube = applySpec({
   desc: pathOr('', ['snippet', 'description']),
-  duration: compose(formatDuration, parseDuration, propOr(0, 'duration')),
+  duration: pipe(
+    propOr(0, 'duration'),
+    parseDuration,
+    formatDuration
+  ),
   img: pathOr('', ['snippet', 'thumbnails', 'high', 'url']),
   name: pathOr('', ['snippet', 'title']),
   tags: always(''),
   videoId: pathOr('', ['id', 'videoId']),
-  viewCount: compose(parseInt, propOr(0, 'viewCount')),
+  viewCount: pipe(
+    propOr(0, 'viewCount'),
+    parseInt
+  ),
 });
 
 // SoundCloud schema
 const specSoundcloud = applySpec({
   desc: prop('description'),
-  duration: compose(formatDuration, divideF(1000), prop('duration')),
+  duration: pipe(
+    prop('duration'),
+    divideF(1000),
+    formatDuration
+  ),
   img: always(
     'https://w.soundcloud.com/icon/assets/images/orange_white_128-e278832.png'
   ),
   name: prop('title'),
   tags: prop('tag_list'),
-  scId: compose(parseInt, prop('id')),
+  scId: pipe(
+    prop('id'),
+    parseInt
+  ),
   userAvatar: pathOr('', ['user', 'avatar_url']),
   viewCount: prop('playback_count'),
 });

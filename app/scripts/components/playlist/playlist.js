@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { compose, mapObjIndexed, pipe, prop, values } from 'ramda';
+import { mapObjIndexed, pipe, prop, values } from 'ramda';
 import Clipboard from 'clipboard/dist/clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
@@ -113,8 +113,8 @@ const Playlist = ({ match: { params }, dispatch }) => {
         <a role="link" tabIndex={-1} className="button" onClick={resetSounds}>
           <FormattedMessage id="playlist.list_reset" />
         </a>
-        {compose(
-          values,
+        {pipe(
+          prop('playlists'),
           mapObjIndexed((x, k) => (
             <span
               role="link"
@@ -126,7 +126,7 @@ const Playlist = ({ match: { params }, dispatch }) => {
               <FormattedMessage id={`playlist.list_${k}`} />
             </span>
           )),
-          prop('playlists')
+          values
         )(kakapoAssets)}
         {__DESKTOP__ ? renderDesktopPlaylistInput() : null}
       </div>

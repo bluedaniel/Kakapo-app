@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import {
-  compose,
   concat,
   equals,
   filter,
   length,
+  pipe,
   prop,
   propEq,
   replace,
@@ -16,11 +16,11 @@ import { soundActions } from 'actions/';
 import { cx } from 'utils/';
 
 export default ({ sounds, sound, dispatch }) => {
-  const disabled = compose(
-    equals(1),
-    length,
+  const disabled = pipe(
+    values,
     filter(propEq('file', sound.file)),
-    values
+    length,
+    equals(1)
   )(sounds);
 
   const handleClick = () => {
@@ -39,11 +39,11 @@ export default ({ sounds, sound, dispatch }) => {
       </div>
       <span className="title">
         <FormattedMessage
-          id={compose(
-            concat('sounds.'),
-            toLower,
+          id={pipe(
+            prop('name'),
             replace(/\s+/g, '_'),
-            prop('name')
+            toLower,
+            concat('sounds.')
           )(sound)}
         />
       </span>

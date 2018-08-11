@@ -5,7 +5,6 @@ import {
   always,
   anyPass,
   chain,
-  compose,
   flatten,
   fromPairs,
   identity,
@@ -66,9 +65,9 @@ export const createConstants = (types, opts = {}) => {
   if (
     anyPass([
       isNilOrEmpty,
-      compose(
-        not,
-        is(String)
+      pipe(
+        is(String),
+        not
       ),
     ])(types)
   ) {
@@ -111,9 +110,9 @@ export const isFSA = actionFn => {
 const RX_CAPS = /(?!^)([A-Z])/g;
 
 // Converts a camelCaseWord into a SCREAMING_SNAKE_CASE word
-export const camelToScreamingSnake = compose(
-  toUpper,
-  replace(RX_CAPS, '_$1')
+export const camelToScreamingSnake = pipe(
+  replace(RX_CAPS, '_$1'),
+  toUpper
 );
 
 const formatMeta = obj =>
@@ -124,9 +123,9 @@ const formatMeta = obj =>
 const formatErr = obj =>
   obj.payload.error ? { ...obj, payload: obj.payload.error, error: true } : obj;
 
-const formatOutput = compose(
-  formatErr,
-  formatMeta
+const formatOutput = pipe(
+  formatMeta,
+  formatErr
 );
 
 const getPrefix = opts => name => {
@@ -137,7 +136,7 @@ const getPrefix = opts => name => {
 const actionCreator = (name, val, opts) => {
   const type = getPrefix(opts)(name);
 
-  // testAction: compose(toUpper, pickAll(['a', 'b']))
+  // testAction: pipe(pickAll(['a', 'b']), map(toUpper))
   if (is(Function, val)) {
     return (...props) => formatOutput({ type, payload: val(...props) });
   }
@@ -167,10 +166,10 @@ export const createActions = (config, opts = {}) => {
   if (isNil(config) || isEmpty(config)) {
     throw new Error('Must provide valid object');
   }
-  const types = compose(
-    map(key => ({ [key]: key })),
+  const types = pipe(
+    keys,
     map(getPrefix(opts)),
-    keys
+    map(key => ({ [key]: key }))
   )(config);
   const actions = mapObjIndexed((num, key, value) =>
     actionCreator(key, value[key], opts)
@@ -195,9 +194,9 @@ const go = obj =>
     return [[k, v]];
   }, toPairs(obj));
 
-export const flatteni18n = compose(
-  fromPairs,
-  go
+export const flatteni18n = pipe(
+  go,
+  fromPairs
 );
 
 const filterObj = obj =>

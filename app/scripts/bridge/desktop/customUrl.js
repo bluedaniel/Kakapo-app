@@ -3,7 +3,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { compose, equals, not } from 'ramda';
+import { equals, not, pipe } from 'ramda';
 import { pathConfig, validHowl, newSoundObj, noop, getProgress } from 'utils/';
 
 export default {
@@ -60,7 +60,12 @@ export default {
                       (dataRead += stream.length),
                       fileSize
                     );
-                    if (compose(not, equals(progress))(newProgress)) {
+                    if (
+                      pipe(
+                        equals(progress),
+                        not
+                      )(newProgress)
+                    ) {
                       progress = newProgress;
                       emit({ ...newSound, progress });
                     }

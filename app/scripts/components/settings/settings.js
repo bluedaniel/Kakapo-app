@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { compose, pathOr, pick, prop, propOr } from 'ramda';
+import { pathOr, pick, pipe, prop, propOr } from 'ramda';
 import { connect } from 'react-redux';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
@@ -13,10 +13,10 @@ import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
 const Settings = ({ settings, themes, dispatch, router }) => {
-  const palette = compose(
-    propOr(0, 'palette'),
+  const palette = pipe(
+    pathOr('', ['location', 'search']),
     queryString.parse,
-    pathOr('', ['location', 'search'])
+    propOr(0, 'palette')
   )(router);
 
   /* istanbul ignore if */

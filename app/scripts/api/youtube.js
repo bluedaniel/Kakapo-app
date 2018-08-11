@@ -1,4 +1,4 @@
-import { addIndex, compose, map, prop } from 'ramda';
+import { addIndex, map, pipe, prop } from 'ramda';
 import { serialize } from 'utils/';
 
 const mapIndexed = addIndex(map);
@@ -25,14 +25,14 @@ export const getStatistics = (resolve, reject, videos) => {
   fetch(`${GAPI_URL}/videos${serialize(params)}`)
     .then(resp => resp.json())
     .then(
-      compose(
-        resolve,
+      pipe(
+        prop('items'),
         mapIndexed((_v, i) => ({
           ...videos[i],
           duration: _v.contentDetails.duration,
           viewCount: _v.statistics.viewCount,
         })),
-        prop('items')
+        resolve
       )
     )
     .catch(reject);

@@ -1,4 +1,4 @@
-import { apply, compose, keys, length, lensProp, props, set } from 'ramda';
+import { apply, keys, length, lensProp, pipe, props, set } from 'ramda';
 import { darken } from 'polished';
 import { bridgedThemes } from 'kakapoBridge';
 import { themeActions } from 'actions/';
@@ -16,18 +16,18 @@ const createTheme = (palette1 = '#673AB7', palette2 = '#4CAF50') => ({
 
 const themeFromStore = bridgedThemes.fromStorage();
 
-export const initialState = compose(
-  length,
-  keys
+export const initialState = pipe(
+  keys,
+  length
 )(themeFromStore)
   ? themeFromStore
   : createTheme();
 
 const generateStyles = (state, { payload: { swatch, slotNo } }) =>
-  compose(
-    apply(createTheme),
+  pipe(
+    set(lensProp(slotNo ? 'btn' : 'primary'), swatch),
     props(['primary', 'btn']),
-    set(lensProp(slotNo ? 'btn' : 'primary'), swatch)
+    apply(createTheme)
   )(state);
 
 export default createReducer(initialState, {

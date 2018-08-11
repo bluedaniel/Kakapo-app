@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addIndex, compose, map, pick, prop } from 'ramda';
+import { addIndex, map, pick, pipe, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';
@@ -23,7 +23,8 @@ const Search = ({ search, router: { location }, dispatch }) => {
         onChange={onChange}
       />
       <div className={`${service}-items`}>
-        {compose(
+        {pipe(
+          prop(service),
           mapIndexed((_y, i) => (
             <SearchResult
               key={_y.videoId || _y.scId}
@@ -34,8 +35,7 @@ const Search = ({ search, router: { location }, dispatch }) => {
                 dispatch,
               }}
             />
-          )),
-          prop(service)
+          ))
         )(search)}
       </div>
     </div>

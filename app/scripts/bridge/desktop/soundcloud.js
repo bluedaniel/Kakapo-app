@@ -3,7 +3,7 @@ import request from 'request';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { compose, equals, not } from 'ramda';
+import { equals, not, pipe } from 'ramda';
 import { pathConfig, serialize, newSoundObj, noop } from 'utils/';
 
 const SCAPI = 'http://api.soundcloud.com';
@@ -66,7 +66,12 @@ export default {
                     const newProgress = (
                       (dataRead += data.length) / fileSize
                     ).toFixed(2);
-                    if (compose(not, equals(progress))(newProgress)) {
+                    if (
+                      pipe(
+                        equals(progress),
+                        not
+                      )(newProgress)
+                    ) {
                       progress = newProgress;
                       emit({ ...newSound, progress });
                     }
