@@ -2,13 +2,13 @@
 
 exports[`[reducer/notifications] 1`] = `
 Object {
-  "2H200pPtv": undefined,
+  "shortIDGeneratedStr": undefined,
   "testID": "test",
 }
 `;
 
 exports[`[reducer/notifications] 2`] = `
 Object {
-  "2H200pPtv": undefined,
+  "shortIDGeneratedStr": undefined,
 }
 `;
