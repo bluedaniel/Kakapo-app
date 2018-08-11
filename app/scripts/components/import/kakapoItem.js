@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import {
   compose,
   concat,
@@ -14,7 +15,7 @@ import {
 import { soundActions } from 'actions/';
 import { cx } from 'utils/';
 
-export default ({ sounds, sound, intl, dispatch }) => {
+export default ({ sounds, sound, dispatch }) => {
   const disabled = compose(
     equals(1),
     length,
@@ -37,14 +38,14 @@ export default ({ sounds, sound, intl, dispatch }) => {
         <i className={`icon-${sound.img}`} />
       </div>
       <span className="title">
-        {intl.formatMessage({
-          id: compose(
+        <FormattedMessage
+          id={compose(
             concat('sounds.'),
             toLower,
             replace(/\s+/g, '_'),
             prop('name')
-          )(sound),
-        })}
+          )(sound)}
+        />
       </span>
     </div>
   );

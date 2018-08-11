@@ -1,4 +1,4 @@
-import { applyMiddleware, compose, createStore } from 'redux';
+import { applyMiddleware, createStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { composeWithDevTools } from 'remote-redux-devtools';
 import createHashHistory from 'history/createHashHistory';
@@ -15,7 +15,7 @@ export default () => {
 
   const store = createStore(
     connectRouter(history)(rootReducer),
-    window.__INITIAL_STATE__,
+    window.__INITIAL_STATE__, // eslint-disable-line no-underscore-dangle
     composeWithDevTools(applyMiddleware(...middlewares))
   );
 

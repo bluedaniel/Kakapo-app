@@ -1,8 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { remote, shell } from 'electron';
-import React from 'react';
-import { Route } from 'react-router-dom';
 import {
   always,
   anyPass,
@@ -61,22 +59,19 @@ export const newSoundObj = {
   volume: 0.5,
 };
 
-export const mapRoute = (props = {}) => route => (
-  <Route
-    key={route.path}
-    exact={route.exact}
-    path={route.path}
-    render={x => (
-      <route.component {...{ ...props, ...x }} routes={route.routes} />
-    )}
-  />
-);
-
 const isNilOrEmpty = anyPass([isNil, isEmpty]);
 
 // Creates constants from `string literals`
 export const createConstants = (types, opts = {}) => {
-  if (anyPass([isNilOrEmpty, compose(not, is(String))])(types)) {
+  if (
+    anyPass([
+      isNilOrEmpty,
+      compose(
+        not,
+        is(String)
+      ),
+    ])(types)
+  ) {
     throw new Error('valid types are required');
   }
 
@@ -116,7 +111,10 @@ export const isFSA = actionFn => {
 const RX_CAPS = /(?!^)([A-Z])/g;
 
 // Converts a camelCaseWord into a SCREAMING_SNAKE_CASE word
-export const camelToScreamingSnake = compose(toUpper, replace(RX_CAPS, '_$1'));
+export const camelToScreamingSnake = compose(
+  toUpper,
+  replace(RX_CAPS, '_$1')
+);
 
 const formatMeta = obj =>
   obj.payload.meta
@@ -126,7 +124,10 @@ const formatMeta = obj =>
 const formatErr = obj =>
   obj.payload.error ? { ...obj, payload: obj.payload.error, error: true } : obj;
 
-const formatOutput = compose(formatErr, formatMeta);
+const formatOutput = compose(
+  formatErr,
+  formatMeta
+);
 
 const getPrefix = opts => name => {
   const { prefix } = merge(defaultOptions, opts);
@@ -194,7 +195,10 @@ const go = obj =>
     return [[k, v]];
   }, toPairs(obj));
 
-export const flatteni18n = compose(fromPairs, go);
+export const flatteni18n = compose(
+  fromPairs,
+  go
+);
 
 const filterObj = obj =>
   Object.keys(obj)

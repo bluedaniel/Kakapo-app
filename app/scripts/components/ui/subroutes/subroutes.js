@@ -1,34 +1,44 @@
 import React from 'react';
-import { compose, head, map, path, prop } from 'ramda';
-import { Link, Switch } from 'react-router-dom';
-import { camelCase, cx, mapRoute } from 'utils/';
-import routes from 'routes/';
+import { complement, equals } from 'ramda';
+import { Link, Switch, Route } from 'react-router-dom';
+import { cx } from 'utils/';
+import {
+  ImportOptions,
+  ImportKakapo,
+  ImportSearch,
+  ImportCustomUrl,
+  Playlist,
+  Settings,
+} from 'components/';
 import './subroutes.css';
 
-const getChildRoutes = compose(
-  prop('routes'),
-  head
-);
+const isHome = complement(equals)('/');
 
-const getKey = compose(
-  camelCase,
-  path(['router', 'location', 'pathname'])
-);
-
-export default props => (
+export default ({
+  router: {
+    location: { pathname },
+  },
+}) => (
   <div
     className={cx('secondary-panel', {
-      'with-close': getKey(props) !== '/',
+      'with-close': isHome(pathname),
     })}
   >
-    {getKey(props) !== '/' ? <Link className="icon-close" to="/" /> : null}
+    {isHome(pathname) ? <Link className="icon-close" to="/" /> : null}
 
     <div className="inner">
       <Switch>
-        {compose(
-          map(mapRoute(props)),
-          getChildRoutes
-        )(routes)}
+        <Route exact path="/" render={() => <ImportOptions />} />
+        <Route path="/settings" render={() => <Settings />}>
+          <Route path="/theme(/:slotNo)" render={() => <Settings />} />
+        </Route>
+        <Route path="/kakapo" render={() => <ImportKakapo />} />
+        <Route path="/youtube" render={() => <ImportSearch />} />
+        <Route path="/soundcloud" render={() => <ImportSearch />} />
+        <Route path="/custom" render={() => <ImportCustomUrl />} />
+        <Route path="/playlist(/:playlistId)" render={() => <Playlist />} />
+        <Route path="/playlist" render={() => <Playlist />} />
+        <Route path="/share-playlist(/:shareId)" render={() => <Playlist />} />
       </Switch>
     </div>
   </div>

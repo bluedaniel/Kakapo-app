@@ -16,9 +16,12 @@ import './soundList.css';
 
 const mapIndexed = addIndex(map);
 
-const getDownloadedSounds = compose(filter(propEq('progress', 1)), values);
+const getDownloadedSounds = compose(
+  filter(propEq('progress', 1)),
+  values
+);
 
-export default ({ sounds, themes, intl, dispatch }) => {
+export default ({ sounds, themes, dispatch }) => {
   const downloadedSounds = getDownloadedSounds(sounds);
   const soundCount = length(downloadedSounds);
   if (!soundCount) return <div />;
@@ -26,7 +29,7 @@ export default ({ sounds, themes, intl, dispatch }) => {
   const listSounds = compose(
     splitAt(Math.floor(divide(soundCount, 2))),
     map(_s => {
-      const soundProps = { themes, sound: { ..._s }, intl, dispatch };
+      const soundProps = { themes, sound: { ..._s }, dispatch };
 
       return (
         <div className="sound-item-wrap" key={_s.file}>

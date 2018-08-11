@@ -1,5 +1,7 @@
 import React from 'react';
-import { compose, pathOr, prop, propOr } from 'ramda';
+import { FormattedMessage } from 'react-intl';
+import { compose, pathOr, prop, propOr, pick } from 'ramda';
+import { connect } from 'react-redux';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';
 import { push } from 'connected-react-router';
@@ -10,7 +12,7 @@ import Checkbox from '../ui/checkbox/checkbox';
 import ColorPicker from '../ui/colorPicker/colorPicker';
 import './settings.css';
 
-export default ({ settings, themes, intl, dispatch, router }) => {
+const Settings = ({ settings, themes, dispatch, router }) => {
   const palette = compose(
     propOr(0, 'palette'),
     queryString.parse,
@@ -112,7 +114,7 @@ export default ({ settings, themes, intl, dispatch, router }) => {
   return (
     <div className="settings-pane">
       <div className="opt first">
-        {intl.formatMessage({ id: 'settings.theme' })}
+        <FormattedMessage id="settings.theme" />
         <span className="swatches">
           <Link
             to="/settings?palette=1"
@@ -130,3 +132,7 @@ export default ({ settings, themes, intl, dispatch, router }) => {
     </div>
   );
 };
+
+const mapStateToProps = pick(['settings', 'themes', 'router']);
+
+export default connect(mapStateToProps)(Settings);

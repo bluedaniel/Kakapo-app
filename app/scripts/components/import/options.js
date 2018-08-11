@@ -1,15 +1,16 @@
 import React from 'react';
 import { cx } from 'utils/';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
-export default ({ intl }) => (
+export default () => (
   <div className="downloads">
     <div className="media">
       <h4 className="add-sounds-title">
-        {intl.formatMessage({
-          id: 'import.downloads.header',
-          defaultMessage: 'Add a sound',
-        })}
+        <FormattedMessage
+          id="import.downloads.header"
+          defaultMessage="Add a sound"
+        />
       </h4>
       <ul className="option-ul">
         {['kakapo', 'youtube', 'soundcloud', 'custom'].map(item => (
@@ -21,7 +22,7 @@ export default ({ intl }) => (
                 })}
               />
               <span className="text">
-                {intl.formatMessage({ id: `import.options.${item}` })}
+                <FormattedMessage id={`import.options.${item}`} />
               </span>
             </Link>
           </li>
@@ -33,7 +34,7 @@ export default ({ intl }) => (
           <Link to="/playlist">
             <i className="icon-playlist" />
             <span className="text">
-              {intl.formatMessage({ id: 'nav.playlist' })}
+              <FormattedMessage id="nav.playlist" />
             </span>
           </Link>
         </li>
@@ -41,7 +42,7 @@ export default ({ intl }) => (
           <Link to="/settings">
             <i className="icon-settings" />
             <span className="text">
-              {intl.formatMessage({ id: 'nav.settings' })}
+              <FormattedMessage id="nav.settings" />
             </span>
           </Link>
         </li>

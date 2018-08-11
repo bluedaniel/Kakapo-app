@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
-import { injectIntl } from 'react-intl';
 import { opacify } from 'polished';
 import { soundActions, settingActions, notifyActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
@@ -43,67 +42,63 @@ const renderLoading = themes => (
   </div>
 );
 
-const App = props => {
-  const {
-    notifications,
-    settings,
-    sounds,
-    themes,
-    intl,
-    dispatch,
-    onDrop,
-    onToggleMute,
-  } = props;
-
-  return (
-    <div
-      className={cx('app-container', {
-        web: __WEB__,
-        desktop: __DESKTOP__,
-      })}
+const App = ({
+  notifications,
+  settings,
+  sounds,
+  themes,
+  dispatch,
+  onDrop,
+  onToggleMute,
+  router,
+}) => (
+  <div
+    className={cx('app-container', {
+      web: __WEB__,
+      desktop: __DESKTOP__,
+    })}
+  >
+    <Dropzone
+      activeClassName="activeDrop"
+      className="inactiveDrop"
+      onDrop={onDrop}
+      disableClick
     >
-      <Dropzone
-        activeClassName="activeDrop"
-        className="inactiveDrop"
-        onDrop={onDrop}
-        disableClick
-      >
-        <Nav {...{ themes, intl }} />
+      <Nav {...{ themes }} />
 
-        <Subroutes {...props} />
+      <Subroutes {...{ router }} />
 
-        <div className="main-panel">
-          {__DESKTOP__ ? renderUpload() : null}
+      <div className="main-panel">
+        {__DESKTOP__ ? renderUpload() : null}
 
-          {settings.updateStatus === 'downloaded' ? (
-            <a
-              className="update-now"
-              onClick={() => ipcRenderer.send('application:quit-install')}
-            >
-              Hi, there is a new version of Kakapo!
-              <br />
-              Click here to update
-            </a>
-          ) : null}
+        {settings.updateStatus === 'downloaded' ? (
+          <a
+            className="update-now"
+            onClick={() => ipcRenderer.send('application:quit-install')}
+          >
+            Hi, there is a new version of Kakapo!
+            <br />
+            Click here to update
+          </a>
+        ) : null}
 
-          <Header {...{ settings, themes, onToggleMute }} />
+        <Header {...{ settings, themes, onToggleMute }} />
 
-          {compose(
-            length,
-            keys
-          )(sounds) ? (
-            <SoundList {...{ sounds, themes, intl, dispatch }} />
-          ) : (
-            renderLoading(themes)
-          )}
+        {compose(
+          length,
+          keys
+        )(sounds) ? (
+          <SoundList {...{ sounds, themes, dispatch }} />
+        ) : (
+          renderLoading(themes)
+        )}
 
-          <Notifications {...{ notifications }} />
-          <DownloadList {...{ sounds }} />
-        </div>
-      </Dropzone>
-    </div>
-  );
-};
+        <Notifications {...{ notifications }} />
+        <DownloadList {...{ sounds }} />
+      </div>
+    </Dropzone>
+  </div>
+);
 
 const mapStateToProps = pick([
   'notifications',
@@ -116,7 +111,6 @@ const mapStateToProps = pick([
 
 export default compose(
   connect(mapStateToProps), // Connect to redux stores
-  injectIntl, // Add i18n
   withHandlers({
     onDrop: ({ dispatch }) => files =>
       map(x => dispatch(soundActions.addLocal(x)), files),

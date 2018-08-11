@@ -1,6 +1,9 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { compose, mapObjIndexed, prop, values } from 'ramda';
+import { compose, pipe, mapObjIndexed, prop, values } from 'ramda';
 import Clipboard from 'clipboard/dist/clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';
@@ -9,7 +12,7 @@ import { cx, handleStopPropagation } from 'utils/';
 import 'aws-custom-build';
 import './playlist.css';
 
-export default ({ match: { params }, intl, dispatch }) => {
+const Playlist = ({ match: { params }, dispatch }) => {
   if (params.playlistId) {
     dispatch(soundActions.playlist(params.playlistId)); // Load new playlist
   }
@@ -42,7 +45,9 @@ export default ({ match: { params }, intl, dispatch }) => {
       const baseUrl = `http://${hostname}${__DEV__ ? `:${port}` : 'kakapo.co'}`;
       return (
         <div>
-          <p>{intl.formatMessage({ id: 'playlist.share_created' })}</p>
+          <p>
+            <FormattedMessage id="playlist.share_created" />
+          </p>
           <form className="form">
             <div className="InputAddOn">
               <input
@@ -71,7 +76,7 @@ export default ({ match: { params }, intl, dispatch }) => {
         tabIndex={-1}
         onClick={() => dispatch(soundActions.createPlaylist())}
       >
-        {intl.formatMessage({ id: 'playlist.share' })}
+        <FormattedMessage id="playlist.share" />
       </a>
     );
   };
@@ -79,7 +84,9 @@ export default ({ match: { params }, intl, dispatch }) => {
   const renderDesktopPlaylistInput = () => (
     <div>
       <hr />
-      <p>{intl.formatMessage({ id: 'playlist.input_playlist' })}</p>
+      <p>
+        <FormattedMessage id="playlist.input_playlist" />
+      </p>
       <form className="form">
         <div className="InputAddOn">
           <span className="InputAddOn-item">kakapo.co/#/playlist/</span>
@@ -96,11 +103,15 @@ export default ({ match: { params }, intl, dispatch }) => {
   return (
     <div className="modal playlist-pane">
       <div className="modal-inner">
-        <h3>{intl.formatMessage({ id: 'playlist.header' })}</h3>
+        <h3>
+          <FormattedMessage id="playlist.header" />
+        </h3>
         {renderShare()}
-        <p>{intl.formatMessage({ id: 'playlist.subheading' })}</p>
+        <p>
+          <FormattedMessage id="playlist.subheading" />
+        </p>
         <a role="link" tabIndex={-1} className="button" onClick={resetSounds}>
-          {intl.formatMessage({ id: 'playlist.list_reset' })}
+          <FormattedMessage id="playlist.list_reset" />
         </a>
         {compose(
           values,
@@ -112,7 +123,7 @@ export default ({ match: { params }, intl, dispatch }) => {
               key={k}
               onClick={() => dispatch(soundActions.playlist(x))}
             >
-              {intl.formatMessage({ id: `playlist.list_${k}` })}
+              <FormattedMessage id={`playlist.list_${k}`} />
             </span>
           )),
           prop('playlists')
@@ -122,3 +133,10 @@ export default ({ match: { params }, intl, dispatch }) => {
     </div>
   );
 };
+
+const mapStateToProps = (_, { match }) => ({ match });
+
+export default pipe(
+  withRouter,
+  connect(mapStateToProps)
+)(Playlist);

@@ -1,8 +1,9 @@
 import React from 'react';
+import { FormattedMessage, FormattedNumber } from 'react-intl';
 import { push } from 'connected-react-router';
 import { soundActions } from 'actions/';
 
-export default ({ i, service, sound, intl, dispatch }) => {
+export default ({ i, service, sound, dispatch }) => {
   const handleClick = () => {
     let actionParams;
     if (service === 'youtube') {
@@ -40,8 +41,8 @@ export default ({ i, service, sound, intl, dispatch }) => {
       <span className="title">
         {sound.name}
         <span className="view-count">
-          {intl.formatNumber(sound.viewCount)}{' '}
-          {intl.formatMessage({ id: viewCountId })}
+          <FormattedNumber value={sound.viewCount} />{' '}
+          <FormattedMessage id={viewCountId} />
         </span>
       </span>
     </div>
