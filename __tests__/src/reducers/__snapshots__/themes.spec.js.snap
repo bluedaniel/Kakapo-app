@@ -4,7 +4,7 @@ exports[`[reducer/themes] 1`] = `
 Object {
   "btn": "#4CAF50",
   "colorPickerActive": false,
-  "darkPrimary": "hsl(339.6, 82.2%, 41.3%)",
+  "darkPrimary": "#930e3b",
   "darkUI": false,
   "primary": "#E91E63",
   "version": "1.0.0",
@@ -15,7 +15,7 @@ exports[`[reducer/themes] 2`] = `
 Object {
   "btn": "#4CAF50",
   "colorPickerActive": false,
-  "darkPrimary": "hsl(198.70000000000005, 97.6%, 38.7%)",
+  "darkPrimary": "#02638f",
   "darkUI": false,
   "primary": "#03A9F4",
   "version": "1.0.0",
@@ -26,7 +26,7 @@ exports[`[reducer/themes] 3`] = `
 Object {
   "btn": "#9C27B0",
   "colorPickerActive": false,
-  "darkPrimary": "hsl(198.70000000000005, 97.6%, 38.7%)",
+  "darkPrimary": "#02638f",
   "darkUI": false,
   "primary": "#03A9F4",
   "version": "1.0.0",
@@ -37,7 +37,7 @@ exports[`[reducer/themes] 4`] = `
 Object {
   "btn": "#8BC34A",
   "colorPickerActive": false,
-  "darkPrimary": "hsl(198.70000000000005, 97.6%, 38.7%)",
+  "darkPrimary": "#02638f",
   "darkUI": false,
   "primary": "#03A9F4",
   "version": "1.0.0",
@@ -48,7 +48,7 @@ exports[`[reducer/themes] 5`] = `
 Object {
   "btn": "#8BC34A",
   "colorPickerActive": false,
-  "darkPrimary": "hsl(53.89999999999998, 100%, 49.3%)",
+  "darkPrimary": "#d4be00",
   "darkUI": true,
   "primary": "#FFEB3B",
   "version": "1.0.0",

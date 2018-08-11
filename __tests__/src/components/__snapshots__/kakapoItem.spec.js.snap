@@ -17,7 +17,9 @@ exports[`<KakapoItem/> render 1`] = `
   <span
     className="title"
   >
-    Wind
+    <span>
+      Wind
+    </span>
   </span>
 </div>
 `;
@@ -39,7 +41,9 @@ exports[`<KakapoItem/> render file 1`] = `
   <span
     className="title"
   >
-    Wind
+    <span>
+      Wind
+    </span>
   </span>
 </div>
 `;

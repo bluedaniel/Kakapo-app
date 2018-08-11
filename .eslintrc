@@ -30,7 +30,7 @@
     "import/no-cycle": 0,
     "import/no-extraneous-dependencies": [
       2,
-      { "devDependencies": ["**/*.spec.js", "{jest,tools}/*.js", "app/browser.js"] }
+      { "devDependencies": ["**/*.spec.js", "{__tests__,jest,tools}/**/*.js", "app/browser.js"] }
     ],
     "jsx-a11y/anchor-is-valid": [1, { "aspects": ["invalidHref"] }],
     "jsx-a11y/click-events-have-key-events": 0,

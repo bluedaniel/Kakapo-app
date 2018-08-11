@@ -1,18 +1,19 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { map } from 'ramda';
 import { newSoundObj } from 'utils/';
 import { SoundItem } from 'components/';
-import { getData } from '../helper';
+import { getData, createComponentWithIntl } from '../helper';
 
 function setup(props = {}) {
   const propData = {
     ...getData('themes'),
-    ...getData('intl'),
     soundActions: {},
     ...props,
   };
-  return { props, tree: renderer.create(<SoundItem {...propData} />).toJSON() };
+  return {
+    props,
+    tree: createComponentWithIntl(<SoundItem {...propData} />).toJSON(),
+  };
 }
 
 const soundProp = (props = {}) => {

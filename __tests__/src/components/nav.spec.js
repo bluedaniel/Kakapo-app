@@ -1,13 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { Nav } from 'components/';
-import { getData } from '../helper';
+import { getData, createComponentWithIntl } from '../helper';
 
 test('<Nav/> render', () => {
   const props = {
     ...getData('themes'),
-    ...getData('intl'),
   };
-  const tree = renderer.create(<Nav {...props} />).toJSON();
+  const tree = createComponentWithIntl(<Nav {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
