@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addIndex, pick, compose, map, prop } from 'ramda';
+import { addIndex, compose, map, pick, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import TextInput from '../ui/textInput/textInput';
 import SearchResult from './searchResult';

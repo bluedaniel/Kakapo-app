@@ -3,7 +3,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { compose, pipe, mapObjIndexed, prop, values } from 'ramda';
+import { compose, mapObjIndexed, pipe, prop, values } from 'ramda';
 import Clipboard from 'clipboard/dist/clipboard';
 import shortid from 'shortid';
 import kakapoAssets from 'kakapo-assets';

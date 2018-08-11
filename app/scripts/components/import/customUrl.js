@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
-import { prop, pick } from 'ramda';
+import { pick, prop } from 'ramda';
 import { FormattedMessage } from 'react-intl';
 import { soundActions, notifyActions } from 'actions/';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';

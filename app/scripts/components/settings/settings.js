@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { compose, pathOr, prop, propOr, pick } from 'ramda';
+import { compose, pathOr, pick, prop, propOr } from 'ramda';
 import { connect } from 'react-redux';
 import { ipcRenderer, remote } from 'electron';
 import { Link } from 'react-router-dom';

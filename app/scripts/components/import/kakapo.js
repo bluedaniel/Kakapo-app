@@ -2,7 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { lifecycle } from 'recompose';
-import { compose, length, map, prop, pick } from 'ramda';
+import { compose, length, map, pick, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import { cx } from 'utils/';
 import KakapoItem from './kakapoItem';
