@@ -1,9 +1,9 @@
-// import { createBrowserHistory } from 'history';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import createHashHistory from 'history/createHashHistory';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer from 'reducers';
+import rootReducer from 'reducers/';
+import sagas from 'sagas/';
 
 export const history = createHashHistory();
 
@@ -30,7 +30,7 @@ export default () => {
   );
   /* eslint-enable */
 
-  store.runSaga = sagaMiddleware.run;
+  sagaMiddleware.run(sagas);
 
   return store;
 };
