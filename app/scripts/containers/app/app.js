@@ -1,12 +1,12 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { compose, keys, length, map, pick, prop } from 'ramda';
+import { compose, keys, length, map, pick, pipe, prop } from 'ramda';
 import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
 import { injectIntl } from 'react-intl';
-import color from 'color';
+import { opacify } from 'polished';
 import { soundActions, settingActions, notifyActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import Notifications from 'components/ui/notifications/notifications';
@@ -29,9 +29,10 @@ const renderLoading = themes => (
   <div
     className="loading"
     style={{
-      background: color(prop('primary', themes))
-        .alpha(0.5)
-        .toString(),
+      background: pipe(
+        prop('primary'),
+        x => opacify(0.5, x)
+      )(themes),
     }}
   >
     <div className="sk-fading-circle">
