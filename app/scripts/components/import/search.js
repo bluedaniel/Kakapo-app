@@ -7,7 +7,7 @@ import SearchResult from './searchResult';
 
 const mapIndexed = addIndex(map);
 
-const Search = ({ search, router: { location }, dispatch }) => {
+export const Search = ({ search, router: { location }, dispatch }) => {
   const service = location.pathname.split('/')[1] || 'youtube';
   const onChange = ({ target: { value } }) =>
     service === 'youtube'

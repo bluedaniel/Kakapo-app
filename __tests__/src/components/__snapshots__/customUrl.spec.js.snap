@@ -5,7 +5,9 @@ exports[`<CustomUrl/> 1`] = `
   className="customurl"
 >
   <h5>
-    Add a custom stream
+    <span>
+      Add a custom stream
+    </span>
   </h5>
   <form
     onSubmit={[Function]}
@@ -28,7 +30,9 @@ exports[`<CustomUrl/> 1`] = `
         <label
           htmlFor="name"
         >
-          Choose a name for this sound
+          <span>
+            Choose a name for this sound
+          </span>
         </label>
         <span
           className="highlight"
@@ -52,7 +56,9 @@ exports[`<CustomUrl/> 1`] = `
         <label
           htmlFor="url"
         >
-          Enter a link to an audio file
+          <span>
+            Enter a link to an audio file
+          </span>
         </label>
         <span
           className="highlight"
@@ -71,7 +77,9 @@ exports[`<CustomUrl/> 1`] = `
         }
         type="button"
       >
-        Save
+        <span>
+          Save
+        </span>
       </button>
     </div>
   </form>

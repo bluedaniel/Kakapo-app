@@ -5,7 +5,9 @@ exports[`<Kakapo/> render 1`] = `
   className="kakapo"
 >
   <h5>
-    Add a sound from Kakapo.com
+    <span>
+      Add a sound from Kakapo.com
+    </span>
   </h5>
   <div
     className=""
@@ -18,7 +20,9 @@ exports[`<Kakapo/> render items 1`] = `
   className="kakapo"
 >
   <h5>
-    Add a sound from Kakapo.com
+    <span>
+      Add a sound from Kakapo.com
+    </span>
   </h5>
   <div
     className="kakapofavs-items"
@@ -39,7 +43,9 @@ exports[`<Kakapo/> render items 1`] = `
       <span
         className="title"
       >
-        Thunder
+        <span>
+          Thunder
+        </span>
       </span>
     </div>
     <div
@@ -58,7 +64,9 @@ exports[`<Kakapo/> render items 1`] = `
       <span
         className="title"
       >
-        Thunder
+        <span>
+          Thunder
+        </span>
       </span>
     </div>
     <div
@@ -77,7 +85,9 @@ exports[`<Kakapo/> render items 1`] = `
       <span
         className="title"
       >
-        Thunder
+        <span>
+          Thunder
+        </span>
       </span>
     </div>
     <div
@@ -96,7 +106,9 @@ exports[`<Kakapo/> render items 1`] = `
       <span
         className="title"
       >
-        Thunder
+        <span>
+          Thunder
+        </span>
       </span>
     </div>
     <div
@@ -115,7 +127,9 @@ exports[`<Kakapo/> render items 1`] = `
       <span
         className="title"
       >
-        Thunder
+        <span>
+          Thunder
+        </span>
       </span>
     </div>
   </div>

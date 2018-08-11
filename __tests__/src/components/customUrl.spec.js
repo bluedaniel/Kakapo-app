@@ -1,13 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-import { ImportCustomUrl as CustomUrl } from 'components/';
-import { getData } from '../helper';
+import { CustomUrl } from 'components/import/customUrl';
+import { getData, createComponentWithIntl } from '../helper';
 
 test('<CustomUrl/>', () => {
   const props = {
-    ...getData('intl'),
     ...getData('themes'),
   };
-  const tree = renderer.create(<CustomUrl {...props} />).toJSON();
+  const tree = createComponentWithIntl(<CustomUrl {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

@@ -7,7 +7,7 @@ import { searchActions } from 'actions/';
 import { cx } from 'utils/';
 import KakapoItem from './kakapoItem';
 
-const KakapoImport = ({ sounds, search, dispatch }) => (
+export const ImportKakapo = ({ sounds, search, dispatch }) => (
   <div className="kakapo">
     <h5>
       <FormattedMessage id="import.kakapo.header" />
@@ -43,4 +43,4 @@ export default pipe(
     },
   }),
   connect(mapStateToProps)
-)(KakapoImport);
+)(ImportKakapo);

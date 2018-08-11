@@ -7,7 +7,7 @@ import { soundActions, notifyActions } from 'actions/';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';
 import TextInput from '../ui/textInput/textInput';
 
-const CustomUrl = ({ themes, dispatch }) => {
+export const CustomUrl = ({ themes, dispatch }) => {
   const handleError = (msg, translateMsg = true) => {
     const err = translateMsg ? <FormattedMessage id={msg} /> : msg;
     dispatch(notifyActions.send(err));

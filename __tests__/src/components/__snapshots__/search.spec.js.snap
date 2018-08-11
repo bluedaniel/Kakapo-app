@@ -19,7 +19,9 @@ exports[`<Search/> render 1`] = `
     <label
       htmlFor="searchInput"
     >
-      Search YouTube (or enter a YouTube Link)
+      <span>
+        Search YouTube (or enter a YouTube Link)
+      </span>
     </label>
     <span
       className="highlight"
