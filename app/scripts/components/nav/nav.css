@@ -15,10 +15,6 @@
     position: absolute;
     width: calc(100% - 35px);
     display: none;
-
-    @media (min-width: 40rem) {
-      display: block;
-    }
   }
 
   .drag {
@@ -87,6 +83,14 @@
 
     .github {
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACDElEQVRYR+2X4TEEQRCF30WACBABIuAiQASIgAy4CLgIEAEi4CJABi4DIqC+qemtvqmZ3b21deuH/uPKTXe/7nn9pm+kgW00cH79KQBHkh4kfUh6kTSV9NZTh3YlnUs6kLQl6VjSI7F9B+4knSQJAXIWQXXBQrLbmNj730s6TQGQbL+Q5UbSpwtEJTkjBsbfdUkXhXMzi+U78N2lxI4+FLORdoC73+wYcFm3eeTCAgfqrmDZBE3ns1dwJemyybOn7yeSyFd1ALa+RuL0lKM2DBzYhthGwlW235CRcwwARup5FWVncgQAzDgqNYRNATBE+63YGQBKAvQemQpASGOGwqHtOTMltO8gN1cM47MaUwJQaXVP9wJowO2k8XIAqNxXyGdeSYxXrOmFLJ2nG/iueRAAoL3+n9VTGQ/ybB7Gz0+SeLbrrO58Svh5joTpkpJypGmJqTufjnwgYYpqlQAmOSFKAfR5BWkHghBh/ikeR8baPUOqsD7F+29DwtJ5FpTrGCs8yQaA9YjVCet7BD1hAW+jGMju2+0Vca/FuC0rEb767E6IWNA69kJGE/ViM/6tEZc9w/ZDlhFGOahrbqT8YgI3AGVyjEh5Wc6BQ3CQXZNhkgECqxYRcyzNNM4AwXlBuTq040sSKz/jTkEL1iQqHGZ07AcFwKzCHBbrEIkgHJ2rnZo2ADoU3d7lH8AP6D1yDv4G6KIAAAAASUVORK5CYII=");
+    }
+  }
+}
+
+@media (min-width: 40rem) {
+  .topbar {
+    .download-app {
+      display: block;
     }
   }
 }

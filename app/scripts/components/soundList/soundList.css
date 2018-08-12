@@ -2,10 +2,6 @@
   lost-column: 1/2;
   overflow: hidden;
 
-  @media (max-width: 40rem) {
-    width: 100%;
-  }
-
   &:first-child {
     border-top: none;
   }
@@ -18,5 +14,11 @@
 .app-container.desktop {
   .sound-list {
     lost-column: 1 0 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .sound-list {
+    width: 100%;
   }
 }

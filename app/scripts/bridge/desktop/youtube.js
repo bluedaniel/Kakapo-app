@@ -3,7 +3,7 @@ import ytdl from 'ytdl-core';
 import fs from 'fs-extra';
 import path from 'path';
 import shortid from 'shortid';
-import { compose, equals, not } from 'ramda';
+import { equals, not, pipe } from 'ramda';
 import { pathConfig, newSoundObj, noop, getProgress } from 'utils/';
 
 const getYoutubeURL = data =>
@@ -47,7 +47,12 @@ const getYoutubeURL = data =>
       })
       .on('data', stream => {
         const newProgress = getProgress((dataRead += stream.length), fileSize);
-        if (compose(not, equals(progress))(newProgress)) {
+        if (
+          pipe(
+            equals(progress),
+            not
+          )(newProgress)
+        ) {
           progress = newProgress;
           emit({ ...newSound, progress });
         }

@@ -1,15 +1,20 @@
+import React from 'react';
+import renderer from 'react-test-renderer';
 import { IntlProvider } from 'react-intl';
 import kakapoAssets from 'kakapo-assets';
-import color from 'color';
+import { darken } from 'polished';
 import { lensProp, set, reduce, compose, addIndex, map } from 'ramda';
 import { flatteni18n, swatches, newSoundObj } from 'utils/';
 import youtubeMock from '../../__mocks__/youtube.json';
 import soundcloudMock from '../../__mocks__/soundcloud.json';
 
-export const getIntlProps = () => ({
+const intlProps = {
   locale: 'en',
   messages: flatteni18n(kakapoAssets.i18n.en.messages),
-});
+};
+
+export const createComponentWithIntl = children =>
+  renderer.create(<IntlProvider {...intlProps}>{children}</IntlProvider>);
 
 export const mockEvent = {
   preventDefault: () => ({}),
@@ -45,9 +50,7 @@ export const getData = (slice, opts = {}) => {
           darkUI: swatches('light').indexOf('#673AB7') !== -1,
           colorPickerActive: false, // Close the color picker
           btn: '#4CAF50',
-          darkPrimary: color('#673AB7')
-            .darken(0.2)
-            .toString(),
+          darkPrimary: darken(0.2, '#673AB7'),
           primary: '#673AB7',
         },
       };
@@ -76,10 +79,6 @@ export const getData = (slice, opts = {}) => {
     }
     case 'location': {
       return { location: { pathname: '' } };
-    }
-    case 'intl': {
-      const intlData = new IntlProvider(getIntlProps(), {});
-      return intlData.getChildContext();
     }
     default: {
       return {};

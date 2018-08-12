@@ -1,10 +1,11 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { prop } from 'ramda';
 import { soundActions, notifyActions } from 'actions/';
 import { handleStopPropagation } from 'utils/';
 import TextInput from '../ui/textInput/textInput';
 
-export default ({ sound, themes, intl, dispatch }) => {
+export default ({ sound, themes, dispatch }) => {
   const handleCancel = el => {
     handleStopPropagation(el);
     dispatch(soundActions.edit(sound, null));
@@ -23,7 +24,7 @@ export default ({ sound, themes, intl, dispatch }) => {
 
     if (!data.name) {
       return dispatch(
-        notifyActions.send(intl.formatMessage({ id: 'import.error.empty' }))
+        notifyActions.send(<FormattedMessage id="import.error.empty" />)
       );
     }
     return dispatch(soundActions.edit(sound, data));
@@ -36,25 +37,24 @@ export default ({ sound, themes, intl, dispatch }) => {
           placeholder="list.editing_name"
           name="name"
           value={sound.name}
-          intl={intl}
         />
         <TextInput
           placeholder="list.editing_tag"
           name="tags"
           value={sound.tags}
-          intl={intl}
         />
         <a className="button" role="link" tabIndex={-1} onClick={handleCancel}>
-          {intl.formatMessage({ id: 'list.cancel' })}
+          <FormattedMessage id="list.cancel" />
         </a>
         <button
           className="button"
+          type="button"
           style={{
             backgroundColor: prop('btn', themes),
             borderColor: prop('btn', themes),
           }}
         >
-          {intl.formatMessage({ id: 'list.save' })}
+          <FormattedMessage id="list.save" />
         </button>
       </form>
     </div>

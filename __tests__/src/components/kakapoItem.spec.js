@@ -1,9 +1,8 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { map } from 'ramda';
 import { newSoundObj } from 'utils/';
 import { ImportKakapoItem as KakapoItem } from 'components/';
-import { getData } from '../helper';
+import { getData, createComponentWithIntl } from '../helper';
 
 const soundProp = (props = {}) => {
   const obj = { ...newSoundObj, source: 'file', progress: 1, ...props };
@@ -13,12 +12,11 @@ const soundProp = (props = {}) => {
 function setup(props = {}) {
   const propData = {
     ...getData('sounds', { full: true }),
-    ...getData('intl'),
     ...props,
   };
   return {
     props,
-    tree: renderer.create(<KakapoItem {...propData} />).toJSON(),
+    tree: createComponentWithIntl(<KakapoItem {...propData} />).toJSON(),
   };
 }
 

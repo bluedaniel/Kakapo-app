@@ -5,7 +5,7 @@ exports[`<Nav/> render 1`] = `
   className="topbar"
   style={
     Object {
-      "backgroundColor": "hsl(261.6, 51.9%, 37.8%)",
+      "backgroundColor": "#3b216a",
     }
   }
 >
@@ -15,7 +15,9 @@ exports[`<Nav/> render 1`] = `
     rel="noopener noreferrer"
     target="_blank"
   >
-    Download Kakapo for iOS / Android, Desktop & Chrome!
+    <span>
+      Download Kakapo for iOS / Android, Desktop & Chrome!
+    </span>
   </a>
   <div
     className="share"

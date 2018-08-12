@@ -1,11 +1,14 @@
 import semver from 'semver';
 import fs from 'fs-extra';
 import { ipcRenderer } from 'electron';
-import { compose, concat, filter, length, prop, propEq, reject } from 'ramda';
+import { concat, filter, length, pipe, prop, propEq, reject } from 'ramda';
 import appConfig from 'config/';
 import { pathConfig } from 'utils/';
 
-const isPlaying = compose(length, filter(prop('playing')));
+const isPlaying = pipe(
+  filter(prop('playing')),
+  length
+);
 
 const setVersion = () =>
   fs.outputJsonSync(pathConfig.userInstallFile, {
@@ -39,9 +42,10 @@ const initWithDefault = defaultSounds => {
 
   if (semver.lt(appDetails.version || '0.0.1', appConfig.appVersion)) {
     setVersion();
-    return compose(concat(defaultSounds), reject(propEq('source', 'file')))(
-      initialState
-    );
+    return pipe(
+      reject(propEq('source', 'file')),
+      concat(defaultSounds)
+    )(initialState);
   }
 
   return initialState;

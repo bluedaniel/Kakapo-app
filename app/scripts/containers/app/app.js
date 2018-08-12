@@ -1,12 +1,11 @@
 import React from 'react';
-import { compose, keys, length, map, pick, prop } from 'ramda';
+import { hot } from 'react-hot-loader';
+import { keys, length, map, pick, pipe, prop } from 'ramda';
 import { connect } from 'react-redux';
 import { withHandlers } from 'recompose';
-import { withRouter } from 'react-router-dom';
 import { ipcRenderer } from 'electron';
 import Dropzone from 'react-dropzone';
-import { injectIntl } from 'react-intl';
-import color from 'color';
+import { opacify } from 'polished';
 import { soundActions, settingActions, notifyActions } from 'actions/';
 import { Header, Nav, SoundList, DownloadList } from 'components/';
 import Notifications from 'components/ui/notifications/notifications';
@@ -29,9 +28,10 @@ const renderLoading = themes => (
   <div
     className="loading"
     style={{
-      background: color(prop('primary', themes))
-        .alpha(0.5)
-        .toString(),
+      background: pipe(
+        prop('primary'),
+        x => opacify(0.5, x)
+      )(themes),
     }}
   >
     <div className="sk-fading-circle">
@@ -42,62 +42,63 @@ const renderLoading = themes => (
   </div>
 );
 
-const App = props => {
-  const {
-    notifications,
-    settings,
-    sounds,
-    themes,
-    intl,
-    dispatch,
-    onDrop,
-    onToggleMute,
-  } = props;
-
-  return (
-    <div
-      className={cx('app-container', {
-        web: __WEB__,
-        desktop: __DESKTOP__,
-      })}
+const App = ({
+  notifications,
+  settings,
+  sounds,
+  themes,
+  dispatch,
+  onDrop,
+  onToggleMute,
+  router,
+}) => (
+  <div
+    className={cx('app-container', {
+      web: __WEB__,
+      desktop: __DESKTOP__,
+    })}
+  >
+    <Dropzone
+      activeClassName="activeDrop"
+      className="inactiveDrop"
+      onDrop={onDrop}
+      disableClick
     >
-      <Dropzone
-        activeClassName="activeDrop"
-        className="inactiveDrop"
-        onDrop={onDrop}
-        disableClick
-      >
-        <Nav {...{ themes, intl }} />
+      <Nav {...{ themes }} />
 
-        <Subroutes {...props} />
+      <Subroutes {...{ router }} />
 
-        <div className="main-panel">
-          {__DESKTOP__ ? renderUpload() : null}
+      <div className="main-panel">
+        {__DESKTOP__ ? renderUpload() : null}
 
-          {settings.updateStatus === 'downloaded' ? (
-            <a
-              className="update-now"
-              onClick={() => ipcRenderer.send('application:quit-install')}
-            >
-              Hi, there is a new version of Kakapo!<br />Click here to update
-            </a>
-          ) : null}
+        {settings.updateStatus === 'downloaded' ? (
+          <a
+            className="update-now"
+            onClick={() => ipcRenderer.send('application:quit-install')}
+          >
+            Hi, there is a new version of Kakapo!
+            <br />
+            Click here to update
+          </a>
+        ) : null}
 
-          <Header {...{ settings, themes, onToggleMute }} />
+        <Header {...{ settings, themes, onToggleMute }} />
 
-          {compose(length, keys)(sounds) ? (
-            <SoundList {...{ sounds, themes, intl, dispatch }} />
-          ) : (
-            renderLoading(themes)
-          )}
+        {pipe(
+          keys,
+          length
+        )(sounds) ? (
+          <SoundList {...{ sounds, themes, dispatch }} />
+        ) : (
+          renderLoading(themes)
+        )}
 
-          <Notifications {...{ notifications }} />
-          <DownloadList {...{ sounds }} />
-        </div>
-      </Dropzone>
-    </div>
-  );
-};
+        <Notifications {...{ notifications }} />
+        <DownloadList {...{ sounds }} />
+      </div>
+    </Dropzone>
+  </div>
+);
 
 const mapStateToProps = pick([
   'notifications',
@@ -105,13 +106,11 @@ const mapStateToProps = pick([
   'sounds',
   'search',
   'themes',
-  'routing',
+  'router',
 ]);
 
-export default compose(
-  withRouter, // Add routing props
-  connect(mapStateToProps), // Connect to redux stores
-  injectIntl, // Add i18n
+export default pipe(
+  hot(module),
   withHandlers({
     onDrop: ({ dispatch }) => files =>
       map(x => dispatch(soundActions.addLocal(x)), files),
@@ -119,5 +118,7 @@ export default compose(
       dispatch(settingActions.mute());
       dispatch(soundActions.mute());
     },
-  })
+  }),
+  // Connect to redux stores
+  connect(mapStateToProps)
 )(App);

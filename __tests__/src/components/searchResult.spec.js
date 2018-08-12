@@ -1,7 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { ImportSearchResult as SearchResult } from 'components/';
-import { getData } from '../helper';
+import { createComponentWithIntl } from '../helper';
 
 const sound = {
   desc: 'Testing description',
@@ -16,19 +15,17 @@ const sound = {
 test('<SearchResult/> render youtube', () => {
   const props = {
     service: 'youtube',
-    ...getData('intl'),
     sound,
   };
-  const tree = renderer.create(<SearchResult {...props} />).toJSON();
+  const tree = createComponentWithIntl(<SearchResult {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('<SearchResult/> render soundcloud', () => {
   const props = {
     service: 'soundcloud',
-    ...getData('intl'),
     sound,
   };
-  const tree = renderer.create(<SearchResult {...props} />).toJSON();
+  const tree = createComponentWithIntl(<SearchResult {...props} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

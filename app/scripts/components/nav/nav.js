@@ -1,9 +1,10 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { prop } from 'ramda';
 import { cx } from 'utils/';
 import './nav.css';
 
-export default ({ themes, intl }) => {
+export default ({ themes }) => {
   const renderDragOrDownload = () => {
     /* istanbul ignore if */
     if (__DESKTOP__) {
@@ -16,7 +17,7 @@ export default ({ themes, intl }) => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        {intl.formatMessage({ id: 'nav.app' })}
+        <FormattedMessage id="nav.app" />
       </a>
     );
   };

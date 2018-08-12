@@ -1,4 +1,5 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { noop } from 'utils/';
 
 export default ({
@@ -9,7 +10,6 @@ export default ({
   placeholder,
   value,
   spinner,
-  intl,
 }) => (
   <div className="group">
     <input
@@ -23,7 +23,7 @@ export default ({
       required
     />
     <label htmlFor={name}>
-      {intl.formatMessage({ id: placeholder, defaultMessage: placeholder })}
+      <FormattedMessage id={placeholder} defaultMessage={placeholder} />
     </label>
     <span className="highlight" />
     <span className="bar" />

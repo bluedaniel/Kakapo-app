@@ -6,7 +6,6 @@ exports[`<TextInput/> correct translation 1`] = `
 >
   <input
     autoComplete="off"
-    defaultValue={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
@@ -17,7 +16,9 @@ exports[`<TextInput/> correct translation 1`] = `
   <label
     htmlFor="test"
   >
-    Settings
+    <span>
+      Settings
+    </span>
   </label>
   <span
     className="highlight"
@@ -45,7 +46,9 @@ exports[`<TextInput/> correct value 1`] = `
   <label
     htmlFor="test"
   >
-    without.translation
+    <span>
+      without.translation
+    </span>
   </label>
   <span
     className="highlight"
@@ -62,7 +65,6 @@ exports[`<TextInput/> loading spinner 1`] = `
 >
   <input
     autoComplete="off"
-    defaultValue={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
@@ -73,7 +75,9 @@ exports[`<TextInput/> loading spinner 1`] = `
   <label
     htmlFor="test"
   >
-    without.translation
+    <span>
+      without.translation
+    </span>
   </label>
   <span
     className="highlight"
@@ -100,7 +104,6 @@ exports[`<TextInput/> render 1`] = `
 >
   <input
     autoComplete="off"
-    defaultValue={undefined}
     name="test"
     onBlur={[Function]}
     onChange={[Function]}
@@ -111,7 +114,9 @@ exports[`<TextInput/> render 1`] = `
   <label
     htmlFor="test"
   >
-    without.translation
+    <span>
+      without.translation
+    </span>
   </label>
   <span
     className="highlight"

@@ -8,7 +8,8 @@
         "alias": {
           "aws-custom-build": "./app/vendor/aws-sdk-2.100.0.min"
         }
-      }
+      },
+      "react-hot-loader/babel"
     ]
   ],
   "env": {

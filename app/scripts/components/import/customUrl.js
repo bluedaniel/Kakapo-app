@@ -1,13 +1,15 @@
 import React from 'react';
-import { push } from 'react-router-redux';
-import { prop } from 'ramda';
+import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
+import { pick, prop } from 'ramda';
+import { FormattedMessage } from 'react-intl';
 import { soundActions, notifyActions } from 'actions/';
 import { validHowl, validUrl, handleStopPropagation } from 'utils/';
 import TextInput from '../ui/textInput/textInput';
 
-export default ({ themes, intl, dispatch }) => {
+export const CustomUrl = ({ themes, dispatch }) => {
   const handleError = (msg, translateMsg = true) => {
-    const err = translateMsg ? intl.formatMessage({ id: msg }) : msg;
+    const err = translateMsg ? <FormattedMessage id={msg} /> : msg;
     dispatch(notifyActions.send(err));
   };
 
@@ -33,30 +35,29 @@ export default ({ themes, intl, dispatch }) => {
 
   return (
     <div className="customurl">
-      <h5>{intl.formatMessage({ id: 'import.custom.header' })}</h5>
+      <h5>
+        <FormattedMessage id="import.custom.header" />
+      </h5>
       <form onSubmit={handleSubmit}>
         <div className="media-import">
-          <TextInput
-            placeholder="import.custom.name_placeholder"
-            name="name"
-            intl={intl}
-          />
-          <TextInput
-            placeholder="import.custom.url_placeholder"
-            name="url"
-            intl={intl}
-          />
+          <TextInput placeholder="import.custom.name_placeholder" name="name" />
+          <TextInput placeholder="import.custom.url_placeholder" name="url" />
           <button
             className="button"
+            type="button"
             style={{
               backgroundColor: prop('btn', themes),
               borderColor: prop('btn', themes),
             }}
           >
-            {intl.formatMessage({ id: 'import.save' })}
+            <FormattedMessage id="import.save" />
           </button>
         </div>
       </form>
     </div>
   );
 };
+
+const mapStateToProps = pick(['themes']);
+
+export default connect(mapStateToProps)(CustomUrl);

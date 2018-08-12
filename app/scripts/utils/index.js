@@ -1,13 +1,10 @@
 import path from 'path';
 import fs from 'fs-extra';
 import { remote, shell } from 'electron';
-import React from 'react';
-import { Route } from 'react-router-dom';
 import {
   always,
   anyPass,
   chain,
-  compose,
   flatten,
   fromPairs,
   identity,
@@ -61,22 +58,19 @@ export const newSoundObj = {
   volume: 0.5,
 };
 
-export const mapRoute = (props = {}) => route => (
-  <Route
-    key={route.path}
-    exact={route.exact}
-    path={route.path}
-    render={x => (
-      <route.component {...{ ...props, ...x }} routes={route.routes} />
-    )}
-  />
-);
-
 const isNilOrEmpty = anyPass([isNil, isEmpty]);
 
 // Creates constants from `string literals`
 export const createConstants = (types, opts = {}) => {
-  if (anyPass([isNilOrEmpty, compose(not, is(String))])(types)) {
+  if (
+    anyPass([
+      isNilOrEmpty,
+      pipe(
+        is(String),
+        not
+      ),
+    ])(types)
+  ) {
     throw new Error('valid types are required');
   }
 
@@ -116,7 +110,10 @@ export const isFSA = actionFn => {
 const RX_CAPS = /(?!^)([A-Z])/g;
 
 // Converts a camelCaseWord into a SCREAMING_SNAKE_CASE word
-export const camelToScreamingSnake = compose(toUpper, replace(RX_CAPS, '_$1'));
+export const camelToScreamingSnake = pipe(
+  replace(RX_CAPS, '_$1'),
+  toUpper
+);
 
 const formatMeta = obj =>
   obj.payload.meta
@@ -126,7 +123,10 @@ const formatMeta = obj =>
 const formatErr = obj =>
   obj.payload.error ? { ...obj, payload: obj.payload.error, error: true } : obj;
 
-const formatOutput = compose(formatErr, formatMeta);
+const formatOutput = pipe(
+  formatMeta,
+  formatErr
+);
 
 const getPrefix = opts => name => {
   const { prefix } = merge(defaultOptions, opts);
@@ -136,7 +136,7 @@ const getPrefix = opts => name => {
 const actionCreator = (name, val, opts) => {
   const type = getPrefix(opts)(name);
 
-  // testAction: compose(toUpper, pickAll(['a', 'b']))
+  // testAction: pipe(pickAll(['a', 'b']), map(toUpper))
   if (is(Function, val)) {
     return (...props) => formatOutput({ type, payload: val(...props) });
   }
@@ -166,10 +166,10 @@ export const createActions = (config, opts = {}) => {
   if (isNil(config) || isEmpty(config)) {
     throw new Error('Must provide valid object');
   }
-  const types = compose(
-    map(key => ({ [key]: key })),
+  const types = pipe(
+    keys,
     map(getPrefix(opts)),
-    keys
+    map(key => ({ [key]: key }))
   )(config);
   const actions = mapObjIndexed((num, key, value) =>
     actionCreator(key, value[key], opts)
@@ -194,7 +194,10 @@ const go = obj =>
     return [[k, v]];
   }, toPairs(obj));
 
-export const flatteni18n = compose(fromPairs, go);
+export const flatteni18n = pipe(
+  go,
+  fromPairs
+);
 
 const filterObj = obj =>
   Object.keys(obj)

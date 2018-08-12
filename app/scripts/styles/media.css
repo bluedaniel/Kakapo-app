@@ -7,27 +7,10 @@
 
   .divider {
     background: color(#f5f5f5 blackness(30%));
-
-    @media (max-width: 40rem) {
-      display: inline-block;
-      width: 1px;
-      margin: 0 1rem;
-      height: 40px;
-      vertical-align: middle;
-    }
-
-    @media (min-width: 40rem) {
-      height: 1px;
-      margin: 1rem 0;
-    }
   }
 
   .add-sounds-title {
     display: none;
-
-    @media (min-width: 40rem) {
-      display: block;
-    }
   }
 
   .option-ul {
@@ -35,22 +18,12 @@
     padding: 0;
     list-style: none;
     display: inline-block;
-
-    @media (min-width: 40rem) {
-      display: block;
-    }
   }
 
   .option {
     display: inline-block;
     vertical-align: middle;
     margin-right: 1em;
-
-    @media (min-width: 40rem) {
-      margin-right: 0;
-      margin-bottom: 1em;
-      display: block;
-    }
 
     &:last-child {
       margin-bottom: 0;
@@ -61,10 +34,6 @@
       font-size: 14px;
       line-height: 20px;
       display: none;
-
-      @media (min-width: 40rem) {
-        display: inline-block;
-      }
     }
 
     i {
@@ -72,17 +41,9 @@
       height: 42px;
       text-align: center;
 
-      @media (min-width: 40rem) {
-        margin-right: 14px;
-      }
-
       &.icon-add {
         top: 4px;
         position: relative;
-
-        @media (min-width: 40rem) {
-          top: 0;
-        }
       }
 
       &.icon-add,
@@ -105,5 +66,52 @@
 
   &.active {
     border: 2px solid #333;
+  }
+}
+
+@media (max-width: 40rem) {
+  .media {
+    .divider {
+      display: inline-block;
+      width: 1px;
+      margin: 0 1rem;
+      height: 40px;
+      vertical-align: middle;
+    }
+  }
+}
+
+@media (min-width: 40rem) {
+  .media {
+    .divider {
+      height: 1px;
+      margin: 1rem 0;
+    }
+
+    .option-ul {
+      display: block;
+    }
+
+    .add-sounds-title {
+      display: block;
+    }
+
+    .option {
+      margin-right: 0;
+      margin-bottom: 1em;
+      display: block;
+
+      span.text {
+        display: inline-block;
+      }
+
+      i {
+        margin-right: 14px;
+      }
+
+      &.icon-add {
+        top: 0;
+      }
+    }
   }
 }

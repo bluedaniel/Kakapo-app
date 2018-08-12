@@ -1,36 +1,46 @@
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
 import { lifecycle } from 'recompose';
-import { compose, length, map, prop } from 'ramda';
+import { length, map, pick, pipe, prop } from 'ramda';
 import { searchActions } from 'actions/';
 import { cx } from 'utils/';
 import KakapoItem from './kakapoItem';
 
-const KakapoImport = ({ sounds, search, intl, dispatch }) => (
+export const ImportKakapo = ({ sounds, search, dispatch }) => (
   <div className="kakapo">
-    <h5>{intl.formatMessage({ id: 'import.kakapo.header' })}</h5>
+    <h5>
+      <FormattedMessage id="import.kakapo.header" />
+    </h5>
     <div
       className={cx({
-        'kakapofavs-items': compose(length, prop('kakapofavs'))(search),
+        'kakapofavs-items': pipe(
+          prop('kakapofavs'),
+          length
+        )(search),
       })}
     >
-      {compose(
+      {pipe(
+        prop('kakapofavs'),
         map(_y => (
           <KakapoItem
             key={_y.file}
             sound={_y}
-            {...{ ...{ sounds, intl, dispatch } }}
+            {...{ ...{ sounds, dispatch } }}
           />
-        )),
-        prop('kakapofavs')
+        ))
       )(search)}
     </div>
   </div>
 );
 
-export default compose(
+const mapStateToProps = pick(['sounds', 'search']);
+
+export default pipe(
   lifecycle({
     componentDidMount() {
       this.props.dispatch(searchActions.kakapo());
     },
-  })
-)(KakapoImport);
+  }),
+  connect(mapStateToProps)
+)(ImportKakapo);

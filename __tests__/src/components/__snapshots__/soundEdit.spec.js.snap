@@ -23,7 +23,9 @@ exports[`<SoundEdit/> render 1`] = `
       <label
         htmlFor="name"
       >
-        Name
+        <span>
+          Name
+        </span>
       </label>
       <span
         className="highlight"
@@ -48,7 +50,9 @@ exports[`<SoundEdit/> render 1`] = `
       <label
         htmlFor="tags"
       >
-        Tag
+        <span>
+          Tag
+        </span>
       </label>
       <span
         className="highlight"
@@ -63,7 +67,9 @@ exports[`<SoundEdit/> render 1`] = `
       role="link"
       tabIndex={-1}
     >
-      Cancel
+      <span>
+        Cancel
+      </span>
     </a>
     <button
       className="button"
@@ -73,8 +79,11 @@ exports[`<SoundEdit/> render 1`] = `
           "borderColor": "#4CAF50",
         }
       }
+      type="button"
     >
-      Save
+      <span>
+        Save
+      </span>
     </button>
   </form>
 </div>

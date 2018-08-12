@@ -1,19 +1,17 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import renderer from 'react-test-renderer';
 import { map } from 'ramda';
 import { notifyActions, soundActions } from 'actions/';
 import { SoundEdit } from 'components/';
 import { newSoundObj } from 'utils/';
-import { getData, mockEvent } from '../helper';
+import { getData, createComponentWithIntl, mockEvent } from '../helper';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup(props = {}) {
   const propData = {
     ...getData('themes'),
-    ...getData('intl'),
     soundActions: {},
     ...props,
   };
@@ -21,7 +19,7 @@ function setup(props = {}) {
   return {
     props,
     wrapper: shallow(comp),
-    tree: renderer.create(comp).toJSON(),
+    tree: createComponentWithIntl(comp).toJSON(),
   };
 }
 

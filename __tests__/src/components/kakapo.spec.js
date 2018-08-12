@@ -1,20 +1,18 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { identity, values } from 'ramda';
-import { ImportKakapo } from 'components/';
-import { getData, randomSounds } from '../helper';
+import { ImportKakapo } from 'components/import/kakapo';
+import { getData, createComponentWithIntl, randomSounds } from '../helper';
 
 function setup(props = {}) {
   const propData = {
     ...getData('search'),
     soundActions: {},
-    ...getData('intl'),
     dispatch: identity,
     ...props,
   };
   return {
     props,
-    tree: renderer.create(<ImportKakapo {...propData} />).toJSON(),
+    tree: createComponentWithIntl(<ImportKakapo {...propData} />).toJSON(),
   };
 }
 

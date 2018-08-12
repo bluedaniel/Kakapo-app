@@ -5,10 +5,10 @@ import path from 'path';
 import {
   always,
   applySpec,
-  compose,
   lensProp,
   merge,
   omit,
+  pipe,
   prop,
   propOr,
   set,
@@ -41,7 +41,7 @@ const fromSettings = () => {
 const getItem = x => prop(x, fromSettings());
 
 const setItem = (option, value) => {
-  const data = compose(set(lensProp(option), value))(fromSettings());
+  const data = pipe(set(lensProp(option), value))(fromSettings());
   fs.outputJsonSync(pathConfig.userSettingsFile, omit(['updateStatus'], data));
 
   if (option === 'dockIcon') ipcRenderer.send('toggle-dock', value);

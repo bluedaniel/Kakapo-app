@@ -1,16 +1,17 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import TextInput from 'components/ui/textInput/textInput';
-import { getData } from '../helper';
+import { createComponentWithIntl } from '../helper';
 
 function setup(props = {}) {
   const propData = {
     name: 'test',
     placeholder: 'without.translation',
-    ...getData('intl'),
     ...props,
   };
-  return { props, tree: renderer.create(<TextInput {...propData} />).toJSON() };
+  return {
+    props,
+    tree: createComponentWithIntl(<TextInput {...propData} />).toJSON(),
+  };
 }
 
 test('<TextInput/> render', () => {

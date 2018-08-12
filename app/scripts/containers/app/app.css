@@ -2,11 +2,6 @@
   .main-panel {
     padding-bottom: 80px;
     transition: width, padding, margin-left 0.25s ease;
-
-    @media (min-width: 40rem) {
-      padding-bottom: 0;
-      margin-left: 300px;
-    }
   }
 
   &.desktop {
@@ -55,5 +50,14 @@
     right: 0;
     bottom: 0;
     z-index: 1;
+  }
+}
+
+@media (min-width: 40rem) {
+  .app-container {
+    .main-panel {
+      padding-bottom: 0;
+      margin-left: 300px;
+    }
   }
 }

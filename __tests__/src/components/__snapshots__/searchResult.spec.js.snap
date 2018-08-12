@@ -5,7 +5,6 @@ exports[`<SearchResult/> render soundcloud 1`] = `
   className="soundcloud-item"
   onClick={[Function]}
   role="button"
-  tabIndex={undefined}
 >
   <div
     className="thumbnail"
@@ -27,9 +26,13 @@ exports[`<SearchResult/> render soundcloud 1`] = `
     <span
       className="view-count"
     >
-      319,609
+      <span>
+        319,609
+      </span>
        
-      plays
+      <span>
+        plays
+      </span>
     </span>
   </span>
 </div>
@@ -40,7 +43,6 @@ exports[`<SearchResult/> render youtube 1`] = `
   className="youtube-item"
   onClick={[Function]}
   role="button"
-  tabIndex={undefined}
 >
   <div
     className="thumbnail"
@@ -62,9 +64,13 @@ exports[`<SearchResult/> render youtube 1`] = `
     <span
       className="view-count"
     >
-      319,609
+      <span>
+        319,609
+      </span>
        
-      views
+      <span>
+        views
+      </span>
     </span>
   </span>
 </div>
