@@ -35,6 +35,7 @@
     "jsx-a11y/anchor-is-valid": [1, { "aspects": ["invalidHref"] }],
     "jsx-a11y/click-events-have-key-events": 0,
     "jsx-a11y/label-has-for": [2, { "required": { "every": ["id"] } }],
+    "jsx-a11y/label-has-associated-control": 0,
     "prettier/prettier": [0, { "singleQuote": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "react/prop-types": 0
