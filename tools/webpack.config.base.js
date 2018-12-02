@@ -34,10 +34,6 @@ export default {
       __DEV__: DEBUG,
       __TEST__: process.env.NODE_ENV === 'test',
     }),
-    new webpack.ProvidePlugin({
-      fetch:
-        'imports-loader?this=>global!exports-loader?global.fetch!whatwg-fetch',
-    }),
   ],
   module: {
     rules: [

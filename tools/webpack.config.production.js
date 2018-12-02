@@ -6,7 +6,7 @@ import baseConfig from './webpack.config.base';
 const config = {
   ...baseConfig,
   entry: {
-    index: ['babel-polyfill', './app/scripts/index'],
+    index: ['whatwg-fetch', '@babel/polyfill', './app/scripts/index'],
   },
   plugins: [
     ...baseConfig.plugins,

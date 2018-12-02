@@ -1,5 +1,13 @@
 {
-  "presets": ["env", "react", "stage-0"],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "entry"
+      }
+    ],
+    "@babel/preset-react"
+  ],
   "plugins": [
     [
       "module-resolver",
