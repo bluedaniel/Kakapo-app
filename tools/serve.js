@@ -6,7 +6,7 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import proc from 'child_process';
 import electron from 'electron';
-import open from 'open';
+import opn from 'opn';
 import config from './webpack.config.development';
 
 export default async function serve() {
@@ -17,7 +17,7 @@ export default async function serve() {
 
     const devMiddleware = webpackDevMiddleware(bundler, {
       publicPath: config.output.publicPath,
-      stats: config.stats
+      stats: config.stats,
     });
 
     server.set('port', process.env.PORT || 3000);
@@ -38,7 +38,7 @@ export default async function serve() {
     server.once('error', err => reject(err));
 
     // Next step of the build process
-    let webpackBuild = () => open(`http://localhost:${server.get('port')}`);
+    let webpackBuild = () => opn(`http://localhost:${server.get('port')}`);
 
     if (argv.platform === 'desktop') {
       // Start electron app
