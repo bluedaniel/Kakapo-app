@@ -1,3 +1,6 @@
 # app.js is processed by Electron
 app.js
 test/polyfills
+app/vendor
+build
+coverage

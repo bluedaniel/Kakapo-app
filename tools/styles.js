@@ -18,12 +18,12 @@ export default async function styles() {
 
           postcss(postcssPlugins().concat(postcssImport()))
             .process(source, {
-              from: './app/scripts/styles'
+              from: './app/scripts/styles',
             })
             .catch(err => reject(console.error(err.stack)))
             .then(data => {
               const minifyOpts = {
-                discardComments: { removeAll: true }
+                discardComments: { removeAll: true },
               };
               cssnano.process(data.css, minifyOpts).then(minified =>
                 fs.outputFile(`./build/css/${file}`, minified.css, err => {
@@ -43,12 +43,12 @@ export default async function styles() {
       .readdirSync(`${cssDir}/inline`)
       .filter(file => path.extname(file) === '.css')
       .map(cssFile =>
-        fs.readFile(`${cssDir}/inline/${cssFile}`, 'utf8', (err, cssData) => {
-          htmlData = htmlData.replace(
+        fs.readFile(`${cssDir}/inline/${cssFile}`, 'utf8', (_, cssData) => {
+          const newHtmlData = htmlData.replace(
             '<body>',
             `<style type="text/css">${cssData}</style>\n<body>`
           );
-          fs.outputFile(targetHtml, htmlData);
+          fs.outputFile(targetHtml, newHtmlData);
         })
       )
   );
