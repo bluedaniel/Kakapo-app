@@ -1,0 +1,7 @@
+module.exports = {
+  extends: 'stylelint-config-standard',
+  ignoreFiles: ['**/*.js', '{build,coverage}/**/*.css'],
+  rules: {
+    'property-no-unknown': [true, { ignoreProperties: ['/lost-*/'] }],
+  },
+};
