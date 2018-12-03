@@ -12,9 +12,7 @@ export default async function copy() {
     proc.execSync('babel app/browser.js --out-file build/browser.js');
     await fs.copy('package.json', 'build/package.json');
     await fs.copy(`app/html/desktop/${indexFile}.html`, 'build/index.html');
-    await fs.copy('./node_modules/kakapo-assets/sounds', 'build/sounds', {
-      filter: str => !!str.match(/.ogg$/i)
-    });
+    await fs.copy('./node_modules/kakapo-assets/sounds', 'build/sounds');
     await fs.copy('./node_modules/kakapo-assets/data', 'build/data');
   }
 
